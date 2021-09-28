@@ -1,0 +1,139 @@
+BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE
+Ascidians			*	*	35000000
+Bryozoa			*	*	20000000
+Consolidated			*	*	82001000
+Consolidated	Rock	Turf mat	*	*	82001002
+Consolidated	Rock	Veneer	*	*	82001002
+Consolidated	Rock	No biota	*	*	82001002
+Consolidated	Boulder	Turf mat	*	*	82001003
+Consolidated	Boulder	Veneer	*	*	82001003
+Consolidated	Boulder	No biota	*	*	82001003
+Consolidated	Cobbles	Turf mat	*	*	82001004
+Consolidated	Cobbles	Veneer	*	*	82001004
+Consolidated	Cobbles	No biota	*	*	82001004
+Unconsolidated			*	*	82001005
+Unconsolidated	Pebble	gravel (gravel 2-10mm)	*	*	82001011
+Unconsolidated	Pebble	gravel (pebble 10-64mm)	*	*	82001012
+Unconsolidated	Pebble	gravel (biogenic)	*	*	82001007
+Unconsolidated	Sand	mud (coarse sand)	*	*	82001014
+Unconsolidated	Sand	mud (fine sand)	*	*	82001015
+Unconsolidated	Sand	mud (mud/silt)	*	*	82001016
+Crinoids			*	*	25001000
+Hydrocoral			*	*	11077000
+Hydrocoral	Branching		*	*	11077906
+Hydrocoral	Sub-massive/encrusting		*	*	11077907
+Hydroids 			*	*	11001000
+Invertebrate Complex			*	*	
+Invertebrate Complex	Complex 1		*	*	
+Invertebrate Complex	Complex 2 		*	*	
+Invertebrate Complex	Complex 3		*	*	
+Invertebrate Complex	Complex 4		*	*	
+Invertebrate Complex	Complex 5		*	*	
+Macroalgae			*	*	80300000
+Macroalgae	Small mixed		*	*	80300000
+Macroalgae	Articulated calcareous		*	*	80300911
+Macroalgae	Encrusting	Unknown	*	*	80300926
+Macroalgae	Encrusting	Brown	*	*	80300927
+Macroalgae	Encrusting	Green	*	*	80300928
+Macroalgae	Encrusting	Red	*	*	80300929
+Macroalgae	Erect course branching	Unknown	*	*	80300903
+Macroalgae	Erect course branching	Brown	*	*	80300904
+Macroalgae	Erect course branching	Green	*	*	80300905
+Macroalgae	Erect course branching	Red	*	*	80300906
+Macroalgae	Erect fine branching	Unknown	*	*	80300907
+Macroalgae	Erect fine branching	Brown	*	*	80300908
+Macroalgae	Erect fine branching	Green	*	*	80300909
+Macroalgae	Erect fine branching	Red	*	*	90300910
+Macroalgae	Large canopy-forming	Brown	*	*	80300902
+Macroalgae	Large canopy-forming	Ecklonia radiata	*	*	54080001
+Macroalgae	Large canopy-forming	Scytothalia dorycarpa	*	*	54102005
+Macroalgae	Filamentous and filiform		*	*	80300930
+Macroalgae	Sheet-like membranous		*	*	80300922
+Macroalgae	Laminate		*	*	80300918
+Macroalgae	Encrusting		*	*	80300926
+Macroalgae	Globose/saccate		*	*	80300914
+Mangrove			*	*	63345000
+Octocoral/Black			*	*	11168901
+Octocoral/Black	Small mixed		*	*	11168901
+Octocoral/Black	Branching (3D)		*	*	11168902
+Octocoral/Black	Fan (2D)		*	*	11168912
+Octocoral/Black	Massive soft corals		*	*	11168920
+Octocoral/Black	Whip		*	*	11168917
+Octocoral/Black	Quill (sea pen)		*	*	11168918
+Octocoral/Black	Organ pipe coral		*	*	11201901
+Octocoral/Black	Blue coral		*	*	11171000
+Open Water			*		
+Seagrasses			*	*	63600901
+Seagrasses	Elliptical leaves		*	*	63600902
+Seagrasses	Elliptical leaves	Halophila sp.	*	*	63600902
+Seagrasses	Elliptical leaves	Halophila sp. with epiphytes algae	*	*	63600902
+Seagrasses	Elliptical leaves	Halophila sp. with epiphytes other	*	*	63600902
+Seagrasses	Strap-like leaves		*	*	63600903
+Seagrasses	Strap-like leaves	with epiphytes algae	*	*	63600903
+Seagrasses	Strap-like leaves	with epiphytes other	*	*	63600903
+Seagrasses	Strap-like leaves	Other sp.	*	*	63600903
+Seagrasses	Strap-like leaves	Amphibolis sp.	*	*	63600903
+Seagrasses	Strap-like leaves	Amphibolis sp. with epiphytes algae	*	*	63600903
+Seagrasses	Strap-like leaves	Amphibolis sp. with epiphytes other	*	*	63600903
+Seagrasses	Strap-like leaves	Posidonia sp.	*	*	63600903
+Seagrasses	Strap-like leaves	Posidonia sp. with epiphytes algae	*	*	63600903
+Seagrasses	Strap-like leaves	Posidonia sp. with epiphytes other	*	*	63600903
+Seagrasses	Strap-like leaves	Zostera sp.	*	*	63600903
+Seagrasses	Strap-like leaves	Zostera sp. with epiphytes algae	*	*	63600903
+Seagrasses	Strap-like leaves	Zostera sp. with epiphytes other	*	*	63600903
+Seagrasses	Strap-like leaves	Rupia sp.	*	*	63600903
+Seagrasses	Strap-like leaves	Rupia sp. with epiphytes algae	*	*	63600903
+Seagrasses	Strap-like leaves	Rupia sp. with epiphytes other	*	*	63600903
+Seagrasses	Strap-like leaves	Thalassodendrum sp.	*	*	63600903
+Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	*	*	63600903
+Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes other	*	*	63600903
+Sponges			*	*	10000000
+Sponges	Small mixed		*	*	10000000
+Sponges	Crusts		*	*	10000901
+Sponges	Erect forms		*	*	10000912
+Sponges	Hollow forms		*	*	10000909
+Sponges	Massive forms		*	*	10000903
+Stony corals			*	*	11290000
+Stony corals	Small mixed	Bleached	*	*	11290000
+Stony corals	Small mixed	Live	*	*	11290000
+Stony corals	Branching	Bleached	*	*	11290912
+Stony corals	Branching	Live	*	*	11290912
+Stony corals	Digitate	Bleached	*	*	11290909
+Stony corals	Digitate	Live	*	*	11290909
+Stony corals	Encrusting	Bleached	*	*	11290908
+Stony corals	Encrusting	Live	*	*	11290908
+Stony corals	Foliose / plate	Bleached	*	*	11290907
+Stony corals	Foliose / plate	Live	*	*	11290907
+Stony corals	Massive	Bleached	*	*	11290906
+Stony corals	Massive	Live	*	*	11290906
+Stony corals	Solitary	Bleached	*	*	11290901
+Stony corals	Solitary	Live	*	*	11290901
+Stony corals	Sub-massive	Bleached	*	*	11290905
+Stony corals	Sub-massive	Live	*	*	11290905
+Stony corals	Tabulate	Bleached	*	*	11290911
+Stony corals	Tabulate	Live	*	*	11290911
+Stony corals	Bottlebrush	Bleached	*	*	11290904
+Stony corals	Bottlebrush	Live	*	*	11290904
+Stony corals	Columnar	Bleached	*	*	11290915
+Stony corals	Columnar	Live	*	*	11290915
+Stony corals	Corymbose	Bleached	*	*	11290910
+Stony corals	Corymbose	Live	*	*	11290910
+Stony corals	Staghorn	Bleached	*	*	11290913
+Stony corals	Staghorn	Live	*	*	11290913
+True anemones			*	*	11229000
+Unconsolidated			*	*	82001005
+Unconsolidated	Pebble / gravel (gravel 2-10mm)		*	*	82001011
+Unconsolidated	Pebble / gravel (pebble 10-64mm)		*	*	82001012
+Unconsolidated	Pebble / gravel (biogenic)		*	*	82001007
+Unconsolidated	Sand / mud (coarse sand)		*	*	82001014
+Unconsolidated	Sand / mud (fine sand)		*	*	82001015
+Unconsolidated	Sand / mud (mud/silt)		*	*	82001016
+Unknown			*	*	
+Zoanthids			*	*	11284000
+			Facing Up	".0. Flat substrate, sandy, rubble with few features. ~0 substrate slope."	
+			Facing Down	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.	
+			Limited	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	
+			Open	.3. Good relief structure with some overhangs. >45 substrate slope.	
+				".4. High structural complexity, fissures and caves. Vertical wall. ~90 substrate slope."	
+				".5. Exceptional structural complexity, numerous large holes and caves. Vertical wall. ~90 substrate slope."	
+				Unknown	

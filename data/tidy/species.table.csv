@@ -1,0 +1,141 @@
+"","family","genus.species","australian.common.name","fishing.type","iucn.ranking","mean.relative.abundance.per.deployment.plus.minus.SE","total.relative.abundance","archetype"
+"1","Aplodactylidae","Aplodactylus westralis","Western seacarp","","","0.02 +/- 0.01",7,NA
+"2","Aracanidae","Anoplocapros amygdaloides","Western smooth boxfish","","","0.02 +/- 0.01",5,NA
+"3","Aracanidae","Anoplocapros lenticularis","Whitebarred boxfish","","","0.08 +/- 0.02",23,"Ubiquitous"
+"4","Aracanidae","Caprichthys gymnura","Rigid boxfish","","","0.02 +/- 0.01",5,NA
+"5","Aulopidae","Latropiscis purpurissatus","Sergeant baker","Commercial","","0.05 +/- 0.01",15,"Ubiquitous"
+"6","Batrachoididae","Batrachomoeus rubricephalus",NA,"",NA,"0 +/- 0",1,NA
+"7","Berycidae","Centroberyx australis","Yelloweye redfish","Commercial","","0.15 +/- 0.12",44,"Deep"
+"8","Berycidae","Centroberyx gerrardi","Bight redfish","Commercial","","0.3 +/- 0.23",87,"Ubiquitous"
+"9","Berycidae","Centroberyx lineatus","Swallowtail","Commercial","","0.39 +/- 0.24",115,"Ubiquitous"
+"10","Berycidae","Unknown sp1",NA,"",NA,"0 +/- 0",1,NA
+"11","Callanthiidae","Callanthias allporti","Rosy perch","","","0.01 +/- 0.01",3,NA
+"12","Callanthiidae","Callanthias australis","Splendid perch","","","0.78 +/- 0.33",230,"Deep"
+"13","Carangidae","Pseudocaranx spp",NA,"",NA,"1.31 +/- 0.17",384,"Ubiquitous"
+"14","Carangidae","Seriola hippos","Samsonfish","Commercial","Least Concern","0.12 +/- 0.06",36,"Ubiquitous"
+"15","Carangidae","Seriola lalandi","Yellowtail kingfish","Commercial","Least Concern","0.02 +/- 0.01",6,NA
+"16","Carangidae","Trachurus novaezelandiae","Yellowtail scad","","","0.01 +/- 0.01",3,NA
+"17","Carcharhinidae","Carcharhinus brevipinna","Spinner shark","","Near Threatened","0.01 +/- 0.01",4,"Shallow"
+"18","Carcharhinidae","Carcharhinus limbatus","Common blacktip shark","Commercial","Near Threatened","0.02 +/- 0.01",5,NA
+"19","Carcharhinidae","Carcharhinus plumbeus","Sandbar shark","Commercial","Vulnerable","0.01 +/- 0.01",4,NA
+"20","Carcharhinidae","Carcharhinus spp",NA,"",NA,"0.01 +/- 0.01",3,NA
+"21","Carcharhinidae","Unknown spp",NA,"",NA,"0 +/- 0",1,NA
+"22","Chaetodontidae","Chelmonops curiosus","Western talma","","Least Concern","0.07 +/- 0.02",20,"Shallow"
+"23","Cheilodactylidae","Dactylophora nigricans","Dusky morwong","","","0.02 +/- 0.01",6,NA
+"24","Cheilodactylidae","Nemadactylus valenciennesi","Blue morwong","Commercial","","0.31 +/- 0.04",92,"Ubiquitous"
+"25","Clupeidae","Hyperlophus vittatus","Sandy sprat","","Least Concern","0 +/- 0",1,NA
+"26","Dasyatidae","Bathytoshia brevicaudata","Smooth stingray","","","0.14 +/- 0.02",42,"Ubiquitous"
+"27","Dinolestidae","Dinolestes lewini","Longfin Pike","Commercial","","0.08 +/- 0.06",23,"Shallow"
+"28","Diodontidae","Diodon nicthemerus","Globefish","","","0.02 +/- 0.01",6,NA
+"29","Enoplosidae","Enoplosus armatus","Old wife","","","0.05 +/- 0.02",15,"Ubiquitous"
+"30","Gerreidae","Gerres subfasciatus","Common silverbiddy","","Least Concern","0.31 +/- 0.09",92,"Deep"
+"31","Gerreidae","Parequula melbournensis","Silverbelly","","","0.42 +/- 0.08",124,"Shallow"
+"32","Glaucosomatidae","Glaucosoma hebraicum","West Australian dhufish","Commercial","","0.14 +/- 0.03",41,"Shallow"
+"33","Gobiesocidae","Aspasmogaster occidentalis",NA,"",NA,"0 +/- 0",1,NA
+"34","Gobiesocidae","Unknown spp",NA,"",NA,"0.01 +/- 0",2,NA
+"35","Haemulidae","Plectorhinchus flavomaculatus","Goldspotted sweetlips","","","0 +/- 0",1,NA
+"36","Heterodontidae","Heterodontus portusjacksoni","Port Jackson shark","","Least Concern","0.53 +/- 0.05",157,"Shallow"
+"37","Holocentridae","Unknown spp",NA,"",NA,"0.05 +/- 0.05",15,NA
+"38","Kyphosidae","Kyphosus sydneyanus","Silver drummer","","","0.09 +/- 0.09",27,"Deep"
+"39","Labridae","Achoerodus gouldii","Western blue groper","","Vulnerable","0.02 +/- 0.01",7,"Shallow"
+"40","Labridae","Austrolabrus maculatus","Blackspotted wrasse","","Least Concern","0.8 +/- 0.06",235,"Shallow"
+"41","Labridae","Bodianus frenchii","Foxfish","Commercial","Near Threatened","0.12 +/- 0.02",35,"Shallow"
+"42","Labridae","Bodianus vulpinus","Western pigfish","","Least Concern","0.01 +/- 0.01",4,NA
+"43","Labridae","Choerodon rubescens","Baldchin groper","Commercial","Least Concern","0.14 +/- 0.02",42,"Shallow"
+"44","Labridae","Coris auricularis","Western King wrasse","","Least Concern","7.97 +/- 0.75",2342,"Ubiquitous"
+"45","Labridae","Eupetrichthys angustipes","Snakeskin wrasse","","Least Concern","0.36 +/- 0.03",106,"Shallow"
+"46","Labridae","Halichoeres brownfieldi","Brownfield's wrasse","","Least Concern","0 +/- 0",1,NA
+"47","Labridae","Heteroscarus acroptilus","Rainbow cale","","Least Concern","0 +/- 0",1,NA
+"48","Labridae","Labroides dimidiatus","Common cleanerfish","","Least Concern","0 +/- 0",1,NA
+"49","Labridae","Notolabrus parilus","Brownspotted wrasse","","Least Concern","0.11 +/- 0.02",32,"Shallow"
+"50","Labridae","Ophthalmolepis lineolatus","Southern Maori wrasse","","Least Concern","3.23 +/- 0.2",950,"Shallow"
+"51","Labridae","Pictilabrus laticlavius","Senator wrasse","","Least Concern","0 +/- 0",1,NA
+"52","Labridae","Pseudolabrus biserialis","Redband wrasse","","Least Concern","3.25 +/- 0.27",956,"Shallow"
+"53","Labridae","Suezichthys bifurcatus","Striped Rrainbow wrasse","","Data Deficient","0.29 +/- 0.06",86,"Ubiquitous"
+"54","Labridae","Suezichthys cyanolaemus","Bluethroat rainbow wrasse","","Least Concern","0 +/- 0",1,NA
+"55","Labridae","Unknown spp",NA,"",NA,"0 +/- 0",1,NA
+"56","Lethrinidae","Gymnocranius spp",NA,"",NA,"0 +/- 0",1,NA
+"57","Monacanthidae","Acanthaluteres brownii","Spinytail leatherjacket","","","0.04 +/- 0.01",11,"Ubiquitous"
+"58","Monacanthidae","Acanthaluteres vittiger","Toothbrush leatherjacket","","","0.24 +/- 0.11",70,"Shallow"
+"59","Monacanthidae","Brachaluteres jacksonianus","Southern pygmy leatherjacket","","Least Concern","0.01 +/- 0",2,NA
+"60","Monacanthidae","Eubalichthys bucephalus","Black Reef leatherjacket","","","0.01 +/- 0",2,NA
+"61","Monacanthidae","Eubalichthys mosaicus","Mosaic leatherjacket","","","0 +/- 0",1,NA
+"62","Monacanthidae","Meuschenia australis","Brownstriped leatherjacket","","","0.01 +/- 0",2,NA
+"63","Monacanthidae","Meuschenia flavolineata","Yellowstriped leatherjacket","","","0.12 +/- 0.03",34,"Shallow"
+"64","Monacanthidae","Meuschenia freycineti","Sixspine leatherjacket","","","0.06 +/- 0.01",19,"Ubiquitous"
+"65","Monacanthidae","Meuschenia galii","Bluelined leatherjacket","","","0.4 +/- 0.04",119,"Shallow"
+"66","Monacanthidae","Meuschenia hippocrepis","Horseshoe leatherjacket","","Least Concern","0.02 +/- 0.01",6,"Shallow"
+"67","Monacanthidae","Meuschenia scaber","Velvet leatherjacket","","","0.1 +/- 0.03",30,"Ubiquitous"
+"68","Monacanthidae","Meuschenia venusta","Stars-and-stripes leatherjacket","","","0.04 +/- 0.01",11,"Shallow"
+"69","Monacanthidae","Nelusetta ayraud","Ocean jacket","","","2.19 +/- 0.23",644,"Ubiquitous"
+"70","Monacanthidae","Scobinichthys granulatus","Rough leatherjacket","","","0.21 +/- 0.03",63,"Shallow"
+"71","Monacanthidae","Unknown spp",NA,"",NA,"0 +/- 0",1,NA
+"72","Monocentridae","Cleidopus gloriamaris","Australian pineapplefish","","","0.01 +/- 0.01",3,NA
+"73","Moridae","Pseudophycis barbata","Bearded rock cod","Commercial","","0.02 +/- 0.02",5,NA
+"74","Mullidae","Parupeneus chrysopleuron","Rosy goatfish","","","0.11 +/- 0.02",33,"Ubiquitous"
+"75","Mullidae","Upeneichthys vlamingii","Bluespotted goatfish","Commercial","","0.45 +/- 0.03",132,"Shallow"
+"76","Muraenidae","Gymnothorax prasinus","Green moray","","","0.02 +/- 0.01",5,NA
+"77","Muraenidae","Gymnothorax woodwardi","Woodward's moray","","","0.01 +/- 0.01",4,NA
+"78","Myliobatidae","Myliobatis tenuicaudatus","Southern eagle ray","","Least Concern","0.27 +/- 0.03",80,"Shallow"
+"79","Nemipteridae","Pentapodus vitta","Western butterfish","","","0 +/- 0",1,NA
+"80","Neosebastidae","Neosebastes bougainvillii","Gulf gurnard perch","","","0.05 +/- 0.01",16,"Ubiquitous"
+"81","Neosebastidae","Neosebastes nigropunctatus","Blackspotted gurnard perch","","","0.05 +/- 0.02",16,"Deep"
+"82","Neosebastidae","Neosebastes pandus","Bighead gurnard perch","","","0.08 +/- 0.02",23,"Ubiquitous"
+"83","Odacidae","Olisthops cyanomelas","Herring cale","","Least Concern","0.01 +/- 0",2,NA
+"84","Odacidae","Siphonognathus caninis","Sharpnose weed whiting","","Least Concern","0.12 +/- 0.02",36,"Shallow"
+"85","Odacidae","Siphonognathus sp1",NA,"",NA,"0.03 +/- 0.02",10,NA
+"86","Oplegnathidae","Oplegnathus woodwardi","Knifejaw","","Data Deficient","0.67 +/- 0.07",196,"Ubiquitous"
+"87","Orectolobidae","Orectolobus spp",NA,"",NA,"0.05 +/- 0.01",14,NA
+"88","Ostraciidae","Aracana aurita","Shaw's cowfish","","","0.02 +/- 0.01",5,NA
+"89","Paralichthyidae","Pseudorhombus spp",NA,"",NA,"0 +/- 0",1,NA
+"90","Parascylliidae","Parascyllium ferrugineum","Rusty carpetshark","","Least Concern","0 +/- 0",1,NA
+"91","Parascylliidae","Parascyllium variolatum","Varied carpetshark","","Least Concern","0.02 +/- 0.01",5,"Shallow"
+"92","Pempheridae","Parapriacanthus elongatus","Elongate bullseye","","","3.89 +/- 2.49",1143,NA
+"93","Pempherididae","Pempheris klunzingeri","Rough bullseye","","","0.26 +/- 0.14",77,"Shallow"
+"94","Pentacerotidae","Parazanclistius hutchinsi","Short boarfish","Commercial","","0 +/- 0",1,NA
+"95","Pinguipedidae","Parapercis haackei","Wavy grubfish","","","0.03 +/- 0.01",10,"Ubiquitous"
+"96","Pinguipedidae","Parapercis ramsayi","Spotted grubfish","","","0.1 +/- 0.02",28,"Ubiquitous"
+"97","Pinguipedidae","Parapercis spp",NA,"",NA,"0.01 +/- 0",2,NA
+"98","Pinguipedidae","Unknown spp",NA,"",NA,"0 +/- 0",1,NA
+"99","Platycephalidae","Leviprora spp",NA,"",NA,"0 +/- 0",1,NA
+"100","Platycephalidae","Platycephalus spp",NA,"",NA,"0.2 +/- 0.05",58,NA
+"101","Plesiopidae","Paraplesiops meleagris","Southern blue devil","","","0.01 +/- 0",2,NA
+"102","Plesiopidae","Trachinops noarlungae","Yellowhead hulafish","","","0.1 +/- 0.05",30,"Shallow"
+"103","Pomacentridae","Chromis klunzingeri","Blackhead puller","","","4.11 +/- 0.55",1207,"Shallow"
+"104","Pomacentridae","Chromis westaustralis","West Australian puller","","","0.08 +/- 0.02",23,"Shallow"
+"105","Pomacentridae","Parma bicolor","Bicolor scalyfin","","","0.03 +/- 0.01",10,"Shallow"
+"106","Pomacentridae","Parma occidentalis","Western scalyfin","","","0.02 +/- 0.01",5,NA
+"107","Pristiophoridae","Pristiophorus cirratus","Common sawshark","Commercial","Least Concern","0.02 +/- 0.01",7,"Deep"
+"108","Rhinobatidae","Aptychotrema vincentiana","Western shovelnose ray","","Least Concern","0.02 +/- 0.01",6,NA
+"109","Rhinobatidae","Trygonorrhina dumerilii","Southern fiddler ray","","","0.32 +/- 0.03",95,"Ubiquitous"
+"110","Scombridae","Sarda orientalis","Oriental bonito","","Least Concern","0.01 +/- 0.01",2,NA
+"111","Scombridae","Thunnus obesus","Bigeye tuna","Commercial","Vulnerable","0 +/- 0",1,NA
+"112","Scombridae","Unknown spp",NA,"",NA,"0.07 +/- 0.02",20,NA
+"113","Scorpaenidae","Scorpaena sumptuosa","Western red scorpionfish","","","0.02 +/- 0.01",7,NA
+"114","Scorpididae","Neatypus obliquus","Footballer sweep","","","5.17 +/- 0.54",1521,"Ubiquitous"
+"115","Scorpididae","Scorpis aequipinnis","Sea sweep","Commercial","","0.04 +/- 0.02",13,"Shallow"
+"116","Scorpididae","Scorpis georgiana","Banded sweep","Commercial","","0.04 +/- 0.01",12,"Shallow"
+"117","Scorpididae","Tilodon sexfasciatus","Moonlighter","","","0.18 +/- 0.03",52,"Ubiquitous"
+"118","Scyliorhinidae","Asymbolus occiduus","Western spotted catshark","","Least Concern","0.07 +/- 0.02",20,"Deep"
+"119","Scyliorhinidae","Aulohalaelurus labiosus","Blackspotted catshark","","Least Concern","0.03 +/- 0.01",9,NA
+"120","Serranidae","Caesioperca spp",NA,"",NA,"3.16 +/- 0.51",929,NA
+"121","Serranidae","Epinephelides armatus","Breaksea cod","Commercial","Near Threatened","0.19 +/- 0.03",56,"Ubiquitous"
+"122","Serranidae","Hypoplectrodes nigroruber","Banded seaperch","","","0.06 +/- 0.01",17,"Shallow"
+"123","Serranidae","Hyporthodus octofasciatus","Eightbar grouper","Commercial","Data Deficient","0 +/- 0",1,NA
+"124","Serranidae","Othos dentex","Harlequin fish","Commercial","","0.02 +/- 0.01",6,NA
+"125","Sillaginidae","Sillago spp",NA,"",NA,"0.02 +/- 0.02",6,"Ubiquitous"
+"126","Sparidae","Chrysophrys auratus","Pink snapper","Commercial","Least Concern","0.85 +/- 0.13",249,"Ubiquitous"
+"127","Sphyraenidae","Sphyraena novaehollandiae","Snook","","","0.03 +/- 0.01",8,"Shallow"
+"128","Sphyraenidae","Sphyraena spp",NA,"",NA,"0 +/- 0",1,NA
+"129","Sphyrnidae","Sphyrna spp",NA,"",NA,"0 +/- 0",1,NA
+"130","Sphyrnidae","Sphyrna zygaena","Smooth hammerhead","Commercial","Vulnerable","0.01 +/- 0",2,NA
+"131","Squalidae","Squalus spp",NA,"",NA,"0.13 +/- 0.03",37,"Deep"
+"132","Tetraodontidae","Omegophora armilla","Ringed toadfish","","Least Concern","0.02 +/- 0.01",6,NA
+"133","Triakidae","Furgaleus macki","Whiskery shark","Commercial","Least Concern","0.11 +/- 0.02",33,"Ubiquitous"
+"134","Triakidae","Galeorhinus galeus","School shark","Commercial","Vulnerable","0.01 +/- 0.01",3,NA
+"135","Triakidae","Mustelus antarcticus","Gummy shark","Commercial","Least Concern","0.04 +/- 0.01",12,"Ubiquitous"
+"136","Triglidae","Chelidonichthys kumu","Red gurnard","Commercial","Least Concern","0.02 +/- 0.01",7,NA
+"137","Triglidae","Pterygotrigla polyommata","Latchet","Commercial","","0.03 +/- 0.01",10,"Deep"
+"138","Urolophidae","Trygonoptera mucosa","Western shovelnose stingaree","","Least Concern","0.01 +/- 0.01",3,NA
+"139","Urolophidae","Trygonoptera ovalis","Striped stingaree","","Least Concern","0.32 +/- 0.03",93,"Shallow"
+"140","Urolophidae","Urolophus circularis","Circular stingaree","","Least Concern","0.02 +/- 0.01",6,"Ubiquitous"
