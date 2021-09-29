@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Wednesday 29 September 2021 11:30:50
+Generated: Wednesday 29 September 2021 13:26:36
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100S.jpg	      0		738	594													Macroalgae	Erect fine branching	Red	Open		90300910			42.2
 100S.jpg	      0		811	771													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			22.8
 100S.jpg	      0		736	1189													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			23.8

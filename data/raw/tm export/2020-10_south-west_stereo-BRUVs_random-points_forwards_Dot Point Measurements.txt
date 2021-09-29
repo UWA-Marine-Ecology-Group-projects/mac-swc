@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Wednesday 29 September 2021 11:30:52
+Generated: Wednesday 29 September 2021 13:26:37
 
-Filename	Frame	Time (HMS)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (HMS)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.jpg	      0		740	1858													Open Water			Open					93.4
 FH10.jpg	      0		925	1059													Unknown			Limited					11.6
 FH10.jpg	      0		711	62													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			100.0
