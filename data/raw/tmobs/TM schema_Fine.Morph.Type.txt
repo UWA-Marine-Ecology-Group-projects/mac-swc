@@ -1,0 +1,324 @@
+Broad	Morphology	Type	Fine	FieldOfView	CAAB_CODE
+Unscorable				*	1
+Sponges	Unknown			*	10000000
+Sponges	 Crusts	Unknown		*	10000901
+Sponges	 Crusts	 Encrusting		*	10000902
+Sponges	 Massive Forms	Unknown		*	10000903
+Sponges	 Massive Forms	 Simple		*	10000904
+Sponges	 Massive Forms	 Balls		*	10000905
+Sponges	 Erect Forms	 Stalked		*	10000906
+Sponges	 Cup-Likes	 Barrels		*	10000907
+Sponges	 Massive Forms	 Cryptic		*	10000908
+Sponges	 Cup-Likes	Unknown		*	10000909
+Sponges	 Cup-Likes	 Cups		*	10000910
+Sponges	 Cup-Likes	 Tubes And Chimneys		*	10000911
+Sponges	 Erect Forms	Unknown		*	10000912
+Sponges	 Erect Forms	 Laminar		*	10000913
+Sponges	 Erect Forms	 Palmate		*	10000914
+Sponges	 Erect Forms	 Branching		*	10000915
+Sponges	 Erect Forms	 Simple		*	10000916
+Sponges	 Crusts	 Creeping / Ramose		*	10000917
+Sponges	 Crusts	 Endolithic / Bioeroding		*	10000921
+Jellies	 Hydromedusae			*	11000901
+Cnidaria	 Hydroids	Unknown		*	11001000
+Cnidaria	 Hydroids	 Bryozoa / Cnidaria Matrix		*	11001000
+Cnidaria	 Hydroids	 Bryozoa / Cnidaria Matrix		*	11001000
+Cnidaria	 Hydrocorals	Unknown		*	11077000
+Cnidaria	 Hydrocorals	 Branching		*	11077906
+Cnidaria	 Hydrocorals	 Submassive / Encrusting		*	11077907
+Jellies	 Siphonophores			*	11090000
+Jellies	 Scyphozoa			*	11120000
+Jellies	 Cubozoa			*	11150000
+Cnidaria	 Tube Anemones			*	11164000
+Cnidaria	 Corals	Unknown		*	11168000
+Cnidaria	 Corals	 Black & Octocorals		*	11168901
+Cnidaria	 Corals	 Black & Octocorals	Soft Coral	*	11168901
+Cnidaria	 Corals	 Black & Octocorals	 Branching (3D)	*	11168902
+Cnidaria	 Corals	 Black & Octocorals	 Fan (2D)	*	11168912
+Cnidaria	 Corals	 Black & Octocorals	 Whip	*	11168917
+Cnidaria	 Corals	 Black & Octocorals	 Whip	*	11168917
+Cnidaria	 Corals	 Black & Octocorals	 Quill (Seapen)	*	11168918
+Cnidaria	 Corals	 Black & Octocorals	 Encrusting	*	11168919
+Cnidaria	 Corals	 Black & Octocorals	 Massive Soft Corals	*	11168920
+Cnidaria	 Corals	 Black & Octocorals	 Blue Coral (Heliopora)	*	11171000
+Cnidaria	 Corals	 Black & Octocorals	 Organ Pipe Coral (Tubipora)	*	11201901
+Cnidaria	 True Anemones	Unknown		*	11229000
+Cnidaria	 True Anemones	 Grey Striated Edwardsia Like		*	11229000
+Cnidaria	 True Anemones	 Flytrap		*	11229901
+Cnidaria	 True Anemones	 Fourlobed		*	11229902
+Cnidaria	 True Anemones	 Other Anemones		*	11229903
+Cnidaria	 Colonial Anemones	 Corallimorphs		*	11280000
+Cnidaria	 Colonial Anemones	 Zoanthids		*	11284000
+Cnidaria	 Corals	 Stony Corals	Unknown	*	11290000
+Cnidaria	 Corals	 Stony Corals	 Bleached	*	11290000
+Cnidaria	 Corals	 Stony Corals	 Solitary	*	11290901
+Cnidaria	 Corals	 Stony Corals	 Bottlebrush	*	11290904
+Cnidaria	 Corals	 Stony Corals	 Sub-Massive	*	11290905
+Cnidaria	 Corals	 Stony Corals	 Massive	*	11290906
+Cnidaria	 Corals	 Stony Corals	 Foliose / Plate	*	11290907
+Cnidaria	 Corals	 Stony Corals	 Encrusting	*	11290908
+Cnidaria	 Corals	 Stony Corals	 Digitate	*	11290909
+Cnidaria	 Corals	 Stony Corals	 Corymbose	*	11290910
+Cnidaria	 Corals	 Stony Corals	 Tabulate	*	11290911
+Cnidaria	 Corals	 Stony Corals	 Branching	*	11290912
+Cnidaria	 Corals	 Stony Corals	 Staghorn	*	11290913
+Cnidaria	 Corals	 Stony Corals	 Columnar	*	11290915
+Cnidaria	 Corals	 Stony Corals	 Solitary	*	11298000
+Cnidaria	Unknown			*	11500000
+Cnidaria	 Colonial Anemones	Unknown		*	11500901
+Jellies	 Ctenophores			*	12000000
+Worms	 Flatworms			*	13000000
+Worms	 Penisworms			*	15400000
+Worms	 Sipuncula			*	17000000
+Worms	 Echiura			*	17020000
+Brachiopods				*	19100000
+Bryozoa	Unknown			*	20000000
+Bryozoa	 Bryozoa / Cnidaria Matrix			*	20000000
+Bryozoa	 Bryozoa / Sponge Matrix			*	20000000
+Bryozoa	 Hard	Unknown		*	20000901
+Bryozoa	 Hard	 Encrusting		*	20000902
+Bryozoa	 Hard	 Fenestrate		*	20000903
+Bryozoa	 Hard	 Massive		*	20000904
+Bryozoa	 Soft	Unknown		*	20000905
+Bryozoa	 Soft	 Dendroid		*	20000906
+Bryozoa	 Soft	 Foliaceous		*	20000907
+Bryozoa	 Hard	 Branching		*	20000908
+Worms	 Polychaetes	Unknown		*	22000000
+Worms	 Polychaetes	 Tube Worms		*	22000901
+Worms	 Polychaetes	 Other Polychaetes		*	22000902
+Molluscs	Unknown			*	23000000
+Molluscs	 Chitons			*	23100000
+Molluscs	 Bivalves	Unknown		*	23199000
+Molluscs	 Bivalves	 Scallop		*	23199000
+Molluscs	 Cephalopods	Unknown		*	23590000
+Molluscs	 Cephalopods	 Cuttlefish		*	23607000
+Molluscs	 Cephalopods	 Squid		*	23615000
+Molluscs	 Cephalopods	 Octopods		*	23650000
+Molluscs	 Gastropods	Unknown		*	24000000
+Molluscs	 Gastropods	 Abalone		*	24000000
+Molluscs	 Gastropods	 Nz Screw Shell		*	24000000
+Molluscs	 Gastropods	 Spindle Shell		*	24000000
+Molluscs	 Gastropods	 Volute		*	24000000
+Molluscs	 Gastropods	 Cowries Zoila like		*	24000000
+Echinoderms	Unknown			*	25000000
+Echinoderms	 Feather Stars	Unknown		*	25001000
+Echinoderms	 Feather Stars	 Stalked Crinoids		*	25001901
+Echinoderms	 Feather Stars	 Unstalked Crinoids		*	25001902
+Echinoderms	 Feather Stars	 Unstalked Crinoids		*	25001902
+Echinoderms	 Sea Stars			*	25102000
+Echinoderms	 Ophiuroids	Unknown		*	25160000
+Echinoderms	 Ophiuroids	 Brittle / Snake Stars		*	25160901
+Echinoderms	 Ophiuroids	 Basket Stars		*	25160902
+Echinoderms	 Sea Urchins	Unknown		*	25200000
+Echinoderms	 Sea Urchins	 Regular Urchins		*	25200901
+Echinoderms	 Sea Urchins	 Irregular Urchins		*	25200902
+Echinoderms	 Sea Cucumbers	Unknown		*	25400000
+Echinoderms	 Sea Cucumbers	 Benthic		*	25400901
+Echinoderms	 Sea Cucumbers	 Pelagic / Swimming		*	25400902
+Crustacea	Unknown			*	27000000
+Crustacea	 Barnacles	Unknown		*	27500000
+Crustacea	 Barnacles	 Stalked		*	27500901
+Crustacea	 Barnacles	 Acorn		*	27500902
+Crustacea	 Prawns / Shrimps / Mysids			*	28000901
+Crustacea	 Lobsters	Unknown		*	28000902
+Crustacea	 Crabs			*	28000903
+Crustacea	 Lobsters	 True Lobsters		*	28786000
+Crustacea	 Lobsters	 Rock Lobsters		*	28820000
+Crustacea	 Lobsters	 Slipper Lobsters / Bugs		*	28821000
+Crustacea	 Hermit Crabs	Unknown		*	28825901
+Crustacea	 Hermit Crabs	 With Shell Or Stone Home		*	28825902
+Crustacea	 Hermit Crabs	 With Anemones		*	28825903
+Crustacea	 Lobsters	 Squat Lobsters		*	28825904
+Crustacea	 Crabs	 King Crabs		*	28836000
+Crustacea	 Crabs	 Porcelain Crabs		*	28843000
+Crustacea	 Crabs	 True Crabs		*	28850000
+Sea Spiders				*	33000000
+Ascidians	Unknown			*	35000000
+Ascidians	 Unstalked	Unknown		*	35000901
+Ascidians	 Unstalked	 Solitary		*	35000902
+Ascidians	 Unstalked	 Colonial		*	35000903
+Ascidians	 Stalked	Unknown		*	35000904
+Ascidians	 Stalked	 Solitary		*	35000905
+Ascidians	 Stalked	 Colonial		*	35000906
+Jellies	 Salps			*	35100000
+Jellies	 Pyrosomes			*	35101000
+Worms	 Acorn Worms			*	36110000
+Fishes	Unknown			*	37000000
+Fishes	 Elasmobranchs	 Sharks		*	37990016
+Fishes	 Eels			*	37990025
+Fishes	 Elasmobranchs	 Chimaeras		*	37990028
+Fishes	 Elasmobranchs	 Rays & Skates		*	37990030
+Fishes	 Elasmobranchs	Unknown		*	37990082
+Fishes	 Bony Fishes			*	37990083
+Seagrasses	Unknown			*	63600901
+Seagrasses	 Elliptical Leaves	Unknown		*	63600902
+Seagrasses	 Elliptical Leaves	 Halophila sp. 	No epiphytes	*	63600902
+Seagrasses	 Elliptical Leaves	 Halophila sp. 	Epiphytes algae	*	63600902
+Seagrasses	 Elliptical Leaves	 Halophila sp. 	Epiphytes other	*	63600902
+Seagrasses	 Strap-Like Leaves	Unknown		*	63600903
+Seagrasses	 Strap-Like Leaves	 Amphibolis sp. 	No epiphytes	*	63600903
+Seagrasses	 Strap-Like Leaves	 Amphibolis sp. 	Epiphytes algae	*	63600903
+Seagrasses	 Strap-Like Leaves	 Amphibolis sp. 	Epiphytes other	*	63600903
+Seagrasses	 Strap-Like Leaves	 Posidonia sp. 	No epiphytes	*	63600903
+Seagrasses	 Strap-Like Leaves	 Posidonia sp. 	Epiphytes algae	*	63600903
+Seagrasses	 Strap-Like Leaves	 Posidonia sp. 	Epiphytes other	*	63600903
+Seagrasses	 Strap-Like Leaves	 Zostera sp.	No epiphytes	*	63600903
+Seagrasses	 Strap-Like Leaves	 Zostera sp.	Epiphytes algae	*	63600903
+Seagrasses	 Strap-Like Leaves	 Zostera sp.	Epiphytes other	*	63600903
+Seagrasses	 Strap-Like Leaves	 Rupia sp. 	No epiphytes	*	63600903
+Seagrasses	 Strap-Like Leaves	 Rupia sp. 	Epiphytes algae	*	63600903
+Seagrasses	 Strap-Like Leaves	 Rupia sp. 	Epiphytes other	*	63600903
+Seagrasses	 Strap-Like Leaves	Thalassodendron sp. 	No epiphytes	*	63600903
+Seagrasses	 Strap-Like Leaves	Thalassodendron sp. 	Epiphytes algae	*	63600903
+Seagrasses	 Strap-Like Leaves	Thalassodendron sp. 	Epiphytes other	*	63600903
+Bacterial Mats	 Cyanobacteria			*	70000901
+Bacterial Mats	Unknown			*	72000901
+Bacterial Mats	 Other			*	72000902
+Biota	 General Unknown Biology			*	80000000
+Macroalgae	Unknown			*	80300000
+Macroalgae	 Drift Algae			*	80300000
+Macroalgae	 Large Canopy-Forming	Unknown		*	80300901
+Macroalgae	 Large Canopy-Forming	 Brown		*	80300902
+Macroalgae	 Large Canopy-Forming	 Brown	 Brown Other Canopy Forming Sp	*	80300902
+Macroalgae	 Large Canopy-Forming	 Brown	 Ecklonia Radiata	*	80300902
+Macroalgae	 Large Canopy-Forming	 Brown	Scytothalia dorycarpa	*	80300902
+Macroalgae	 Large Canopy-Forming	 Brown	 Phyllospora Spp	*	80300902
+Macroalgae	 Erect Coarse Branching	Unknown		*	80300903
+Macroalgae	 Erect Coarse Branching	 Brown	Unknown	*	80300904
+Macroalgae	 Erect Coarse Branching	 Brown	 Drift	*	80300904
+Macroalgae	 Erect Coarse Branching	 Brown	 Sargassum Spp	*	80300904
+Macroalgae	 Erect Coarse Branching	 Green	Unknown	*	80300905
+Macroalgae	 Erect Coarse Branching	 Green	 Codium Spp	*	80300905
+Macroalgae	 Erect Coarse Branching	 Green	 Caulerpa Spp	*	80300905
+Macroalgae	 Erect Coarse Branching	 Red	Unknown	*	80300906
+Macroalgae	 Erect Coarse Branching	 Red	 Foliose	*	80300906
+Macroalgae	 Erect Fine Branching	Unknown		*	80300907
+Macroalgae	 Erect Fine Branching	 Brown	Unknown	*	80300908
+Macroalgae	 Erect Fine Branching	 Brown	 Brown Understory Algae	*	80300908
+Macroalgae	 Erect Fine Branching	 Green	Unknown	*	80300909
+Macroalgae	 Erect Fine Branching	 Green	 Caulerpa Spp	*	80300909
+Macroalgae	 Erect Fine Branching	 Red	Unknown	*	80300910
+Macroalgae	 Erect Fine Branching	 Red	 Foliose	*	80300910
+Macroalgae	 Articulated Calcareous	Unknown		*	80300911
+Macroalgae	 Articulated Calcareous	 Green		*	80300912
+Macroalgae	 Articulated Calcareous	 Red		*	80300913
+Macroalgae	 Globose / Saccate	Unknown		*	80300914
+Macroalgae	 Globose / Saccate	 Brown		*	80300915
+Macroalgae	 Globose / Saccate	 Green	Unknown	*	80300916
+Macroalgae	 Globose / Saccate	 Green	 Codium Spp	*	80300916
+Macroalgae	 Globose / Saccate	 Red		*	80300917
+Macroalgae	 Laminate	Unknown		*	80300918
+Macroalgae	 Laminate	 Brown		*	80300919
+Macroalgae	 Laminate	 Green		*	80300920
+Macroalgae	 Laminate	 Red	Unknown	*	80300921
+Macroalgae	 Laminate	 Red	 Sonderopelta Spp. And Peyssionnelia Spp.	*	80300921
+Macroalgae	 Sheet-Like / Membraneous	Unknown		*	80300922
+Macroalgae	 Sheet-Like / Membraneous	 Brown		*	80300923
+Macroalgae	 Sheet-Like / Membraneous	 Green		*	80300924
+Macroalgae	 Sheet-Like / Membraneous	 Red	Unknown	*	80300925
+Macroalgae	 Sheet-Like / Membraneous	 Red	 Foliose	*	80300925
+Macroalgae	 Encrusting	Unknown		*	80300926
+Macroalgae	 Encrusting	 Brown		*	80300927
+Macroalgae	 Encrusting	 Green	Unknown	*	80300928
+Macroalgae	 Encrusting	 Green	 Codium Spp	*	80300928
+Macroalgae	 Encrusting	 Red		*	80300929
+Macroalgae	 Filamentous / Filiform	Unknown		*	80300930
+Macroalgae	 Filamentous / Filiform	 Turfing Algae		*	80300930
+Macroalgae	 Filamentous / Filiform	 Brown		*	80300931
+Macroalgae	 Filamentous / Filiform	 Green		*	80300932
+Macroalgae	 Filamentous / Filiform	 Red	Unknown	*	80300933
+Macroalgae	 Filamentous / Filiform	 Red	 Dark Red	*	80300933
+Macroalgae	 Encrusting	 Red	 Calcareous	*	80300934
+Macroalgae	 Encrusting	 Red	 Non-Calcareous	*	80300935
+Worms	Unknown			*	80600901
+Jellies	Unknown			*	80600903
+Bioturbation	Unknown			*	81000000
+Bioturbation	 Dwelling Traces	Unknown		*	81001000
+Bioturbation	 Dwelling Traces	 Elongate Depression		*	81001001
+Bioturbation	 Dwelling Traces	 Large Mound		*	81001002
+Bioturbation	 Dwelling Traces	 Small Mound		*	81001003
+Bioturbation	 Dwelling Traces	 Burrow Cluster		*	81001004
+Bioturbation	 Dwelling Traces	 Oblique Burrow		*	81001005
+Bioturbation	 Dwelling Traces	 Single Burrow		*	81001006
+Bioturbation	 Dwelling Traces	 Paired Burrow		*	81001007
+Bioturbation	 Dwelling Traces	 Vertical Burrow		*	81001008
+Bioturbation	 Dwelling Traces	 Trapdoor Burrow		*	81001009
+Bioturbation	 Dwelling Traces	 Rounded Crater Ring		*	81001010
+Bioturbation	 Dwelling Traces	 Spiked Crater Ring		*	81001011
+Bioturbation	 Dwelling Traces	 Crater Cone		*	81001012
+Bioturbation	 Dwelling Traces	 Fractured Mound		*	81001013
+Bioturbation	 Dwelling Traces	 Spotted Mound		*	81001014
+Bioturbation	 Waste Casts	Unknown		*	81002000
+Bioturbation	 Waste Casts	 Coiled Casts		*	81002001
+Bioturbation	 Waste Casts	 Wavy Casts		*	81002002
+Bioturbation	 Waste Casts	 Round Casts		*	81002003
+Bioturbation	 Waste Casts	 Mounded Casts		*	81002004
+Bioturbation	 Waste Casts	 Curly Casts		*	81002005
+Bioturbation	 Waste Casts	 Nest Casts		*	81002006
+Bioturbation	 Waste Casts	 Spirals		*	81002007
+Bioturbation	 Waste Casts	 Switchbacks		*	81002008
+Bioturbation	 Resting Traces	Unknown		*	81003000
+Bioturbation	 Resting Traces	 Urchin Trace		*	81003001
+Bioturbation	 Resting Traces	 Star Impression		*	81003002
+Bioturbation	 Resting Traces	 Large Depression		*	81003003
+Bioturbation	 Feeding Traces	Unknown		*	81004000
+Bioturbation	 Feeding Traces	 Large Rosette		*	81004001
+Bioturbation	 Feeding Traces	 Small Rosette		*	81004002
+Bioturbation	 Feeding Traces	 Petal Rosette		*	81004003
+Bioturbation	 Feeding Traces	 Rayed Mound		*	81004004
+Bioturbation	 Feeding Traces	 Pincushion Rosette		*	81004005
+Bioturbation	 Crawling Traces	Unknown		*	81005000
+Bioturbation	 Crawling Traces	 Thin Trail		*	81005001
+Bioturbation	 Crawling Traces	 Thick Trail		*	81005002
+Bioturbation	 Crawling Traces	 Complex Trail		*	81005003
+Bioturbation	 Crawling Traces	 Mounded Trail		*	81005004
+Bioturbation	 Crawling Traces	 Perforated Trail		*	81005005
+Bioturbation	 Crawling Traces	 Crater Row		*	81005006
+Bioturbation	 Crawling Traces	 Disturbed Trace		*	81005007
+Bioturbation	 Organism Tests	Unknown		*	81006000
+Bioturbation	 Organism Tests	 Lumpy Xenophyophore		*	81006001
+Bioturbation	 Organism Tests	 Globule Xenophyophore		*	81006002
+Bioturbation	 Unknown Origin	Unknown		*	81007000
+Bioturbation	 Unknown Origin	 Ovoid Pinnate		*	81007001
+Bioturbation	 Unknown Origin	 Round Pinnate		*	81007002
+Bioturbation	 Unknown Origin	 Mesh		*	81007003
+Bioturbation	 Unknown Origin	 Spider		*	81007004
+Bioturbation	 Unknown Origin	 Matchstick		*	81007005
+Bioturbation	 Unknown Origin	 Fern		*	81007006
+Bioturbation	 Unknown Origin	 Pogostick		*	81007007
+Physical				*	82000000
+Substrate	Unknown			*	82001000
+Substrate	 Consolidated (Hard)	Unknown		*	82001001
+Substrate	 Consolidated (Hard)	 Rock		*	82001002
+Substrate	 Consolidated (Hard)	 Boulders		*	82001003
+Substrate	 Consolidated (Hard)	 Cobbles		*	82001004
+Substrate	 Unconsolidated (Soft)	Unknown		*	82001005
+Substrate	 Unconsolidated (Soft)	 Pebble / Gravel		*	82001006
+Substrate	 Unconsolidated (Soft)	 Pebble / Gravel	 Biologenic	*	82001007
+Substrate	 Unconsolidated (Soft)	 Pebble / Gravel	 Gravel (2-10Mm)	*	82001011
+Substrate	 Unconsolidated (Soft)	 Pebble / Gravel	 Pebble (10-64Mm)	*	82001012
+Substrate	 Unconsolidated (Soft)	 Sand / Mud (<2Mm)	Unknown	*	82001013
+Substrate	 Unconsolidated (Soft)	 Sand / Mud (<2Mm)	 Coarse Sand (With Shell Fragments)	*	82001014
+Substrate	 Unconsolidated (Soft)	 Sand / Mud (<2Mm)	 Fine Sand (No Shell Fragments)	*	82001015
+Substrate	 Unconsolidated (Soft)	 Sand / Mud (<2Mm)	 Mud / Silt (<64Um)	*	82001016
+Bedforms	Unknown			*	82002000
+Bedforms	 None			*	82002001
+Bedforms	 2D	Unknown		*	82002002
+Bedforms	 2D	 Ripples (<10Cm Height)		*	82002003
+Bedforms	 2D	 Waves (>10Cm Height)		*	82002004
+Bedforms	 Bioturbated	Unknown		*	82002005
+Bedforms	 3D	Unknown		*	82002006
+Bedforms	 3D	 Ripples (<10Cm Height)		*	82002007
+Bedforms	 3D	 Waves (>10Cm Height)		*	82002008
+Relief	Unknown			*	82003000
+Relief	 Flat			*	82003001
+Relief	 Low / Moderate	Unknown		*	82003002
+Relief	 Low / Moderate	 Low (<1M)		*	82003003
+Relief	 Low / Moderate	 Moderate (1-3M)		*	82003004
+Relief	 High	Unknown		*	82003005
+Relief	 High	 High (>3M)		*	82003006
+Relief	 High	 Wall		*	82003007
+				Facing Up	
+				Facing Down	
+				Limited	
+				Open	
