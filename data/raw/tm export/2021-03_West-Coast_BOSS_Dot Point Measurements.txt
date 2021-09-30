@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 24 June 2021 13:31:40
+Generated: Thursday 30 September 2021 10:08:10
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
 1.jpg	      0		945	408													Macroalgae	Erect course branching	Brown	Open		80300904			73.7
 1.jpg	      0		644	1716													Unknown			Open					35.3
 1.jpg	      0		954	1105													Macroalgae	Erect course branching	Brown	Open		80300904			42.0

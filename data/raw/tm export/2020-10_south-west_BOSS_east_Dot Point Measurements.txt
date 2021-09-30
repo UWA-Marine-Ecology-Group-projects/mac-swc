@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Wednesday 29 September 2021 13:26:35
+Generated: Thursday 30 September 2021 10:08:03
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
 100E.jpg	      0		970	1440													Macroalgae	Erect fine branching	Red	Open		90300910			54.4
 100E.jpg	      0		759	219													Sponges	Massive forms		Open		10000903			78.7
 100E.jpg	      0		881	1009													Macroalgae	Erect fine branching	Red	Open		90300910			9.9

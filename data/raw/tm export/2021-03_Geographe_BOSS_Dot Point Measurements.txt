@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Tuesday 27 July 2021 08:30:14
+Generated: Thursday 30 September 2021 10:08:08
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
 1.jpg	      0		729	1671													Seagrasses	Strap-like leaves	Amphibolis sp. with epiphytes algae	Open		63600903			33.2
 1.jpg	      0		750	1185													Seagrasses	Strap-like leaves	Amphibolis sp. with epiphytes algae	Open		63600903			47.6
 1.jpg	      0		776	1345													Seagrasses	Strap-like leaves	Amphibolis sp. with epiphytes algae	Open		63600903			40.6
