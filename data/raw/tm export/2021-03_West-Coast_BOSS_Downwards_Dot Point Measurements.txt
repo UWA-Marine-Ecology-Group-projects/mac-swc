@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 10:08:11
+Generated: Thursday 30 September 2021 15:13:54
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 1.jpg	      0		84	1424													Unscorable				Limited	1			44.9
 1.jpg	      0		409	82													Unscorable				Limited	1			89.8
 1.jpg	      0		105	1584													Unscorable				Limited	1			50.7

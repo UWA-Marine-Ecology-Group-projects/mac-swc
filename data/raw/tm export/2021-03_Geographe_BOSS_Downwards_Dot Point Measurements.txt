@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 10:08:08
+Generated: Thursday 30 September 2021 15:13:51
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 1.jpg	      0		45	1570													Unscorable				Limited	1			62.3
 1.jpg	      0		326	718													Macroalgae	Drift Algae			Open	80300000			36.4
 1.jpg	      0		92	965													Macroalgae	Drift Algae			Open	80300000			37.3

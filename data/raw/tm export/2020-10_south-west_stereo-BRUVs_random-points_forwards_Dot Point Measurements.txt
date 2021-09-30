@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 10:08:06
+Generated: Thursday 30 September 2021 15:13:49
 
-Filename	Frame	Time (HMS)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (HMS)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.jpg	      0		740	1858													Open Water			Open					93.4
 FH10.jpg	      0		925	1059													Unknown			Limited					11.6
 FH10.jpg	      0		711	62													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			100.0
@@ -3723,26 +3723,6 @@ IO332.jpg	      0		651	1177													Unconsolidated	Sand	mud (coarse sand)	Op
 IO332.jpg	      0		817	1134													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			21.1
 IO332.jpg	      0		1050	655													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			40.4
 IO332.jpg	      0		732	1401													Unknown			Limited					53.1
-IO333 take 2.jpg	      0		992	1429													Unknown			Limited					18.2
-IO333 take 2.jpg	      0		611	179													Open Water			Open					100.0
-IO333 take 2.jpg	      0		661	1853													Unknown			Open					54.7
-IO333 take 2.jpg	      0		706	1586													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			31.1
-IO333 take 2.jpg	      0		862	564													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			63.2
-IO333 take 2.jpg	      0		913	1502													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			21.0
-IO333 take 2.jpg	      0		1016	1507													Unknown			Limited					25.0
-IO333 take 2.jpg	      0		946	832													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			40.0
-IO333 take 2.jpg	      0		912	1712													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.4
-IO333 take 2.jpg	      0		834	1167													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			9.7
-IO333 take 2.jpg	      0		987	609													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			60.2
-IO333 take 2.jpg	      0		865	1101													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			15.4
-IO333 take 2.jpg	      0		935	1773													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			45.1
-IO333 take 2.jpg	      0		946	902													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			33.9
-IO333 take 2.jpg	      0		1000	1884													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			55.9
-IO333 take 2.jpg	      0		659	1261													Unknown			Open					18.0
-IO333 take 2.jpg	      0		975	939													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			31.5
-IO333 take 2.jpg	      0		1012	1894													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			56.9
-IO333 take 2.jpg	      0		711	1718													Hydroids			Open		11001000			41.9
-IO333 take 2.jpg	      0		670	1047													Unknown			Open					26.3
 IO333.jpg	      0		975	1678													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			78.7
 IO333.jpg	      0		1015	517													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			58.0
 IO333.jpg	      0		809	467													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			59.3

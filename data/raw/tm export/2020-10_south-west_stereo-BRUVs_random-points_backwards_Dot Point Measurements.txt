@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 10:08:06
+Generated: Thursday 30 September 2021 15:13:48
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.JPG	      0		1012	1495													Consolidated	Rock	Turf mat	Open		82001002			86.0
 FH10.JPG	      0		857	75													Consolidated	Rock	Turf mat	Open		82001002			93.7
 FH10.JPG	      0		671	337													Consolidated	Rock	Turf mat	Open		82001002			62.0

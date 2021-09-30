@@ -7,6 +7,12 @@ south-west corner benthos and fish survey design and analysis
 
 Campgain IDs
 
-2020_south-west_stereo-BRUVs
+2020-06_south-west_stereo-BRUVs
+2020-10_south-west_stereo-BRUVs
 2020-10_south-west_BOSS
 2021-03_West-Coast_BOSS
+
+# Habitat data
+Both random points and grid annotation methods have been used for the stereo-BRUV campaigns.
+Waiting on Kye to confirm if they are complete annotations 30/09/2021
+

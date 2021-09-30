@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 10:08:05
+Generated: Thursday 30 September 2021 15:13:47
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare									Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.jpg	      0		139	196													Open Water			Open					100.0
 FH10.jpg	      0		406	196													Open Water			Open					89.9
 FH10.jpg	      0		674	196													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open	.3. Good relief structure with some overhangs. >45 substrate slope.	63600903			89.9
