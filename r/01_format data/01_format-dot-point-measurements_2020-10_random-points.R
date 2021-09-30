@@ -27,6 +27,7 @@ raw.dir <- paste(data.dir,"raw",sep="/")
 tidy.dir <- paste(data.dir,"tidy",sep="/")
 tm.export.dir <- paste(raw.dir,"tm export",sep="/") 
 em.export.dir <- paste(raw.dir, "em export", sep = "/")
+error.dir <- paste(data.dir,"errors to check",sep="/") 
 
 # Read in the metadata----
 setwd(em.export.dir)
@@ -74,8 +75,14 @@ wrong.number<-number.of.annotations%>%
 missing.metadata <- anti_join(habitat,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
 missing.habitat <- anti_join(metadata,habitat, by = c("sample")) # samples in the metadata that don't have a match in habitat
 
-forwards.missing <- anti_join(metadata, habitat.forwards, by = c("sample")) # samples in habitat that don't have a match in the metadata
-backwards.missing <- anti_join(metadata, habitat.backwards, by = c("sample"))
+forwards.missing <- anti_join(metadata, habitat.forwards, by = c("sample"))%>% 
+  filter(successful.count%in%c("Yes"))
+
+setwd(error.dir)
+
+write.csv(forwards.missing, "2020-10_south-west_stereo-BRUV_random-points_forwards_missing.csv",row.names = FALSE)
+backwards.missing <- anti_join(metadata, habitat.backwards, by = c("sample"))%>% 
+  filter(successful.count%in%c("Yes"))
 
 # Create %fov----
 fov<-habitat%>%
