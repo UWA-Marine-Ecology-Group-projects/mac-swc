@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 15:13:46
+Generated: Friday 01 October 2021 13:03:54
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100N.jpg	      0		728	813													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			29.5

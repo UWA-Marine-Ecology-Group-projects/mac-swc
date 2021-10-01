@@ -111,7 +111,26 @@ west.no.annotations <- west.points%>%
 test <- west.points %>%
   filter(broad%in%c("",NA))
 
-habitat.points <- bind_rows(north.points,east.points,west.points,south.points)
+
+june.points <- read.delim("20201119_Multibeamed_BOSSstyle_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+  ga.clean.names() %>% # tidy the column names using GlobalArchive function
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""
+                                             ,"N"="","E"="","S"="","W"=""
+                                             ))) %>%
+  mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
+  select(sample,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
+  glimpse() # preview
+
+length(unique(june.points$sample)) # 37
+
+west.no.annotations <- west.points%>%
+  group_by(sample)%>%
+  summarise(west.points.annotated=n())
+
+test <- west.points %>%
+  filter(broad%in%c("",NA))
+
+habitat.points <- bind_rows(north.points,east.points,west.points,south.points,june.points)
 
 # Check number of points per image ----
 number.of.annotations <- habitat.points%>%

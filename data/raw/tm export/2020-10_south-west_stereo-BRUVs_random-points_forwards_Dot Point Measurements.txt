@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 15:13:49
+Generated: Friday 01 October 2021 13:03:57
 
 Filename	Frame	Time (HMS)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.jpg	      0		740	1858													Open Water			Open					93.4

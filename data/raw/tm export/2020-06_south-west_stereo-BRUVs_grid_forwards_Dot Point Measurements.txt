@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Thursday 30 September 2021 15:13:45
+Generated: Friday 01 October 2021 13:03:53
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 01.jpg	      0		139	196	20200602	SouthWest							Kye Adams		ForwardFacingBRUV		Open Water			Open					100.0
