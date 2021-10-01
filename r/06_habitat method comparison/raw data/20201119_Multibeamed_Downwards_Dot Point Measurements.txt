@@ -1,0 +1,930 @@
+Dot Point Measurements
+
+Generated: Thursday 10 December 2020 08:29:45
+
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
+J10B.jpg	      0		793	371													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			60.1
+J10B.jpg	      0		788	1811													Macroalgae	Erect fine branching	Red	Open		90300910			94.8
+J10B.jpg	      0		876	1535													Consolidated	Rock	Turf mat	Open		82001002			68.6
+J10B.jpg	      0		853	198													Unknown			Open					79.4
+J10B.jpg	      0		500	1856													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			100.0
+J10B.jpg	      0		992	159													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			88.1
+J10B.jpg	      0		785	1593													Consolidated	Rock	Turf mat	Open		82001002			72.0
+J10B.jpg	      0		192	1704													Macroalgae	Erect fine branching	Red	Open		90300910			96.0
+J10B.jpg	      0		815	1025													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			19.8
+J10B.jpg	      0		924	1616													Consolidated	Rock	Turf mat	Open		82001002			78.4
+J10B.jpg	      0		550	1668													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			79.6
+J10B.jpg	      0		337	1007													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			35.0
+J10B.jpg	      0		1049	171													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			89.6
+J10B.jpg	      0		1050	563													Unknown			Open					56.2
+J10B.jpg	      0		145	1472													Macroalgae	Erect fine branching	Red	Open		90300910			79.3
+J10B.jpg	      0		355	1002													Consolidated	Rock	Turf mat	Open		82001002			33.1
+J10B.jpg	      0		478	413													Macroalgae	Erect fine branching	Red	Open		90300910			57.1
+J10B.jpg	      0		695	420													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			53.3
+J10B.jpg	      0		210	396													Macroalgae	Erect fine branching	Red	Open		90300910			73.1
+J10B.jpg	      0		228	301													Macroalgae	Erect fine branching	Red	Open		90300910			79.9
+J10B.jpg	      0		446	1084													Consolidated	Rock	Turf mat	Open		82001002			28.1
+J10B.jpg	      0		983	430													Unknown			Open					62.4
+J10B.jpg	      0		751	837													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			13.4
+J10B.jpg	      0		921	191													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			82.2
+J10B.jpg	      0		733	1252													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			35.7
+J11B.jpg	      0		621	1262													Sponges	Crusts		Open		10000901			24.6
+J11B.jpg	      0		545	106													Sponges	Crusts		Open		10000901			83.7
+J11B.jpg	      0		773	542													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			47.2
+J11B.jpg	      0		262	237													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			76.8
+J11B.jpg	      0		795	1870													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			83.5
+J11B.jpg	      0		386	564													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			44.3
+J11B.jpg	      0		26	1440													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			64.6
+J11B.jpg	      0		5	1379													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			62.8
+J11B.jpg	      0		370	1602													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			58.6
+J11B.jpg	      0		187	291													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			75.2
+J11B.jpg	      0		551	37													Sponges	Crusts		Open		10000901			90.1
+J11B.jpg	      0		681	312													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			65.3
+J11B.jpg	      0		960	5													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			100.0
+J11B.jpg	      0		1015	1330													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			51.7
+J11B.jpg	      0		942	900													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			36.4
+J11B.jpg	      0		929	1519													Sponges	Crusts		Open		10000901			58.6
+J11B.jpg	      0		853	1873													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			85.3
+J11B.jpg	      0		994	1825													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			86.3
+J11B.jpg	      0		366	699													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			34.0
+J11B.jpg	      0		495	1899													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			83.6
+J11B.jpg	      0		24	1522													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			69.8
+J11B.jpg	      0		903	1604													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			64.1
+J11B.jpg	      0		700	298													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			66.9
+J11B.jpg	      0		275	296													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			71.2
+J11B.jpg	      0		483	1688													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			64.1
+J12B.jpg	      0		225	879													Consolidated	Rock	Turf mat	Open		82001002			29.7
+J12B.jpg	      0		969	108													Macroalgae	Erect fine branching	Red	Open		90300910			67.8
+J12B.jpg	      0		490	1293													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			51.9
+J12B.jpg	      0		147	370													Macroalgae	Erect fine branching	Red	Open		90300910			44.8
+J12B.jpg	      0		836	382													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			41.4
+J12B.jpg	      0		1001	1718													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J12B.jpg	      0		852	465													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			37.6
+J12B.jpg	      0		1025	108													Macroalgae	Erect fine branching	Red	Open		90300910			70.9
+J12B.jpg	      0		489	782													Macroalgae	Erect fine branching	Red	Open		90300910			6.6
+J12B.jpg	      0		61	12													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			74.6
+J12B.jpg	      0		779	20													Macroalgae	Erect fine branching	Red	Open		90300910			66.4
+J12B.jpg	      0		579	1281													Consolidated	Rock	Veneer	Open		82001002			51.2
+J12B.jpg	      0		207	768													Macroalgae	Erect fine branching	Red	Open		90300910			27.7
+J12B.jpg	      0		1030	1584													Macroalgae	Erect fine branching	Red	Open		90300910			90.7
+J12B.jpg	      0		434	1427													Sponges	Small mixed		Open		10000000			64.3
+J12B.jpg	      0		498	410													Sponges	Hollow forms		Open		10000909			27.1
+J12B.jpg	      0		252	196													Sponges	Small mixed		Open		10000000			51.7
+J12B.jpg	      0		228	1097													Macroalgae	Erect fine branching	Red	Open		90300910			42.8
+J12B.jpg	      0		22	477													Consolidated	Rock	Turf mat	Open		82001002			48.6
+J12B.jpg	      0		1010	695													Consolidated	Rock	Turf mat	Open		82001002			44.5
+J12B.jpg	      0		834	307													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			46.3
+J12B.jpg	      0		184	420													Macroalgae	Erect fine branching	Red	Open		90300910			39.3
+J12B.jpg	      0		302	989													Macroalgae	Erect fine branching	Red	Open		90300910			31.1
+J12B.jpg	      0		79	1668													Macroalgae	Erect course branching	Green	Open		80300905			93.8
+J12B.jpg	      0		274	359													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			38.1
+J13B.jpg	      0		408	453													Macroalgae	Erect fine branching	Red	Open		90300910			58.3
+J13B.jpg	      0		601	1116													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			5.5
+J13B.jpg	      0		499	1721													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			54.4
+J13B.jpg	      0		554	653													Macroalgae	Erect fine branching	Red	Open		90300910			39.5
+J13B.jpg	      0		450	1036													Macroalgae	Erect fine branching	Red	Open		90300910			9.8
+J13B.jpg	      0		1015	1180													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			42.2
+J13B.jpg	      0		135	873													Macroalgae	Erect fine branching	Red	Open		90300910			40.9
+J13B.jpg	      0		118	1840													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			74.6
+J13B.jpg	      0		890	1208													Macroalgae	Erect fine branching	Red	Open		90300910			32.0
+J13B.jpg	      0		639	932													Macroalgae	Erect fine branching	Red	Open		90300910			17.3
+J13B.jpg	      0		999	60													Unknown			Limited					100.0
+J13B.jpg	      0		613	1250													Macroalgae	Erect fine branching	Red	Open		90300910			14.4
+J13B.jpg	      0		394	1913													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			72.3
+J13B.jpg	      0		625	417													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			60.7
+J13B.jpg	      0		168	1850													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			73.3
+J13B.jpg	      0		775	1359													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			30.5
+J13B.jpg	      0		149	130													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			92.1
+J13B.jpg	      0		466	742													Macroalgae	Erect fine branching	Red	Open		90300910			32.3
+J13B.jpg	      0		435	1669													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			50.6
+J13B.jpg	      0		769	52													Macroalgae	Erect fine branching	Red	Open		90300910			94.4
+J13B.jpg	      0		525	1679													Macroalgae	Erect fine branching	Red	Open		90300910			50.6
+J13B.jpg	      0		50	954													Macroalgae	Erect fine branching	Red	Open		90300910			45.0
+J13B.jpg	      0		882	1686													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			59.4
+J13B.jpg	      0		813	990													Macroalgae	Sheet-like membranous		Open		80300922			25.9
+J13B.jpg	      0		542	1804													Macroalgae	Erect fine branching	Red	Open		90300910			61.6
+J14B.jpg	      0		88	855													Macroalgae	Erect fine branching	Red	Open		90300910			34.9
+J14B.jpg	      0		920	78													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J14B.jpg	      0		330	1888													Macroalgae	Erect fine branching	Red	Open		90300910			95.8
+J14B.jpg	      0		337	677													Macroalgae	Erect fine branching	Red	Open		90300910			27.9
+J14B.jpg	      0		757	583													Macroalgae	Sheet-like membranous		Open		80300922			49.0
+J14B.jpg	      0		860	1776													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			94.8
+J14B.jpg	      0		413	1130													Macroalgae	Erect fine branching	Red	Open		90300910			19.1
+J14B.jpg	      0		150	1695													Macroalgae	Erect fine branching	Red	Open		90300910			80.8
+J14B.jpg	      0		314	738													Consolidated	Rock	No biota	Open		82001002			23.1
+J14B.jpg	      0		647	331													Macroalgae	Erect fine branching	Red	Open		90300910			65.2
+J14B.jpg	      0		656	1887													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			98.1
+J14B.jpg	      0		784	967													Macroalgae	Erect fine branching	Red	Open		90300910			36.2
+J14B.jpg	      0		78	427													Macroalgae	Erect fine branching	Red	Open		90300910			62.2
+J14B.jpg	      0		361	1100													Macroalgae	Erect fine branching	Red	Open		90300910			17.3
+J14B.jpg	      0		480	936													Macroalgae	Erect fine branching	Red	Open		90300910			5.6
+J14B.jpg	      0		345	1242													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			31.4
+J14B.jpg	      0		55	893													Macroalgae	Erect fine branching	Red	Open		90300910			37.5
+J14B.jpg	      0		304	473													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			48.5
+J14B.jpg	      0		503	787													Macroalgae	Erect fine branching	Red	Open		90300910			17.3
+J14B.jpg	      0		495	53													Macroalgae	Erect fine branching	Red	Open		90300910			89.5
+J14B.jpg	      0		382	833													Consolidated	Rock	No biota	Open		82001002			11.6
+J14B.jpg	      0		66	1073													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			38.4
+J14B.jpg	      0		572	1303													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.4
+J14B.jpg	      0		497	258													Macroalgae	Erect fine branching	Red	Open		90300910			69.0
+J14B.jpg	      0		223	1513													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			61.1
+J15B.jpg	      0		12	25													Macroalgae	Erect fine branching	Red	Open		90300910			90.5
+J15B.jpg	      0		1056	1675													Macroalgae	Erect fine branching	Red	Open		90300910			88.7
+J15B.jpg	      0		486	373													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			42.3
+J15B.jpg	      0		675	75													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			68.6
+J15B.jpg	      0		145	62													Macroalgae	Erect fine branching	Red	Open		90300910			81.0
+J15B.jpg	      0		812	1751													Macroalgae	Erect fine branching	Red	Open		90300910			87.4
+J15B.jpg	      0		999	1561													Macroalgae	Erect fine branching	Red	Open		90300910			77.1
+J15B.jpg	      0		514	164													Consolidated	Rock	No biota	Open		82001002			60.6
+J15B.jpg	      0		536	369													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			41.7
+J15B.jpg	      0		651	672													Consolidated	Rock	Veneer	Open		82001002			14.5
+J15B.jpg	      0		765	1038													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			25.1
+J15B.jpg	      0		1070	965													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			45.1
+J15B.jpg	      0		1036	195													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			69.9
+J15B.jpg	      0		461	1103													Macroalgae	Erect fine branching	Red	Open		90300910			28.7
+J15B.jpg	      0		357	844													Macroalgae	Erect fine branching	Red	Open		90300910			22.2
+J15B.jpg	      0		321	908													Macroalgae	Erect fine branching	Red	Open		90300910			26.6
+J15B.jpg	      0		133	948													Consolidated	Rock	Turf mat	Open		82001002			44.2
+J15B.jpg	      0		999	815													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			36.7
+J15B.jpg	      0		947	1468													Macroalgae	Erect fine branching	Red	Open		90300910			67.3
+J15B.jpg	      0		827	233													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			57.8
+J15B.jpg	      0		378	1699													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			82.9
+J15B.jpg	      0		250	1856													Consolidated	Rock	Turf mat	Open		82001002			100.0
+J15B.jpg	      0		431	334													Macroalgae	Encrusting	Red	Open		80300929			47.1
+J15B.jpg	      0		540	728													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			10.0
+J15B.jpg	      0		562	653													Consolidated	Rock	No biota	Open		82001002			15.7
+J16B.jpg	      0		717	1485													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			44.0
+J16B.jpg	      0		133	1766													Sponges	Erect forms		Open		10000912			82.2
+J16B.jpg	      0		325	1680													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			65.0
+J16B.jpg	      0		702	408													Consolidated	Rock	Veneer	Open		82001002			75.9
+J16B.jpg	      0		552	322													Macroalgae	Erect fine branching	Red	Open		90300910			83.2
+J16B.jpg	      0		934	247													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J16B.jpg	      0		793	1426													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			42.8
+J16B.jpg	      0		532	1246													Macroalgae	Sheet-like membranous		Open		80300922			14.8
+J16B.jpg	      0		1051	1804													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			91.3
+J16B.jpg	      0		56	517													Macroalgae	Erect fine branching	Red	Open		90300910			81.1
+J16B.jpg	      0		234	1397													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			44.9
+J16B.jpg	      0		750	1733													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			69.7
+J16B.jpg	      0		196	621													Macroalgae	Erect fine branching	Red	Open		90300910			63.4
+J16B.jpg	      0		579	1331													Macroalgae	Sheet-like membranous		Open		80300922			23.9
+J16B.jpg	      0		333	804													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.2
+J16B.jpg	      0		433	499													Consolidated	Rock	Veneer	Open		82001002			65.5
+J16B.jpg	      0		153	1781													Sponges	Erect forms		Open		10000912			82.5
+J16B.jpg	      0		721	1235													Macroalgae	Filamentous and filiform		Open		80300930			23.1
+J16B.jpg	      0		1009	1258													Consolidated	Rock	Veneer	Open		82001002			51.7
+J16B.jpg	      0		169	1089													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.8
+J16B.jpg	      0		894	1494													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			55.2
+J16B.jpg	      0		596	273													Macroalgae	Erect fine branching	Red	Open		90300910			88.5
+J16B.jpg	      0		253	1143													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			31.1
+J16B.jpg	      0		586	1369													Consolidated	Rock	No biota	Open		82001002			28.0
+J16B.jpg	      0		900	756													Macroalgae	Erect fine branching	Red	Open		90300910			53.0
+J17B.jpg	      0		639	977													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			6.8
+J17B.jpg	      0		1056	1825													Consolidated	Rock	No biota	Open		82001002			93.0
+J17B.jpg	      0		951	468													Macroalgae	Erect fine branching	Red	Open		90300910			65.0
+J17B.jpg	      0		871	1508													Consolidated	Rock	Veneer	Limited		82001002			56.8
+J17B.jpg	      0		600	780													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			22.9
+J17B.jpg	      0		410	1903													Macroalgae	Erect fine branching	Red	Open		90300910			89.6
+J17B.jpg	      0		384	1044													Macroalgae	Erect fine branching	Red	Open		90300910			19.6
+J17B.jpg	      0		734	1358													Macroalgae	Filamentous and filiform		Open		80300930			37.4
+J17B.jpg	      0		908	1900													Consolidated	Rock	No biota	Open		82001002			93.5
+J17B.jpg	      0		687	22													Macroalgae	Erect fine branching	Red	Open		90300910			98.3
+J17B.jpg	      0		628	61													Macroalgae	Erect fine branching	Red	Open		90300910			93.9
+J17B.jpg	      0		873	1062													Sponges	Crusts		Open		10000901			29.4
+J17B.jpg	      0		891	1626													Consolidated	Rock	No biota	Open		82001002			68.0
+J17B.jpg	      0		156	1043													Macroalgae	Erect fine branching	Red	Open		90300910			41.8
+J17B.jpg	      0		388	948													Sponges	Crusts		Open		10000901			19.9
+J17B.jpg	      0		501	822													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			20.3
+J17B.jpg	      0		420	822													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			24.5
+J17B.jpg	      0		110	470													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			70.7
+J17B.jpg	      0		168	1686													Macroalgae	Erect fine branching	Red	Open		90300910			78.0
+J17B.jpg	      0		323	31													Consolidated	Rock	Veneer	Limited		82001002			100.0
+J17B.jpg	      0		181	1221													Macroalgae	Erect fine branching	Red	Open		90300910			44.4
+J17B.jpg	      0		889	181													Macroalgae	Erect fine branching	Red	Open		90300910			87.5
+J17B.jpg	      0		739	815													Macroalgae	Erect fine branching	Red	Open		90300910			25.1
+J17B.jpg	      0		494	1676													Macroalgae	Erect fine branching	Brown	Open		80300908			66.1
+J17B.jpg	      0		479	1044													Macroalgae	Erect fine branching	Red	Open		90300910			10.4
+J18B.jpg	      0		850	694													Macroalgae	Erect fine branching	Red	Open		90300910			30.8
+J18B.jpg	      0		699	132													Macroalgae	Erect fine branching	Red	Open		90300910			57.1
+J18B.jpg	      0		301	1641													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J18B.jpg	      0		831	1263													Macroalgae	Sheet-like membranous		Open		80300922			65.6
+J18B.jpg	      0		347	1142													Macroalgae	Sheet-like membranous		Open		80300922			50.9
+J18B.jpg	      0		526	29													Macroalgae	Erect fine branching	Red	Open		90300910			65.2
+J18B.jpg	      0		756	877													Macroalgae	Sheet-like membranous		Open		80300922			29.3
+J18B.jpg	      0		996	28													Macroalgae	Erect fine branching	Red	Open		90300910			79.6
+J18B.jpg	      0		230	376													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			43.7
+J18B.jpg	      0		678	1221													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			56.4
+J18B.jpg	      0		883	493													Sponges	Crusts		Open		10000901			38.8
+J18B.jpg	      0		500	1019													Macroalgae	Erect fine branching	Red	Open		90300910			34.7
+J18B.jpg	      0		254	266													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			50.6
+J18B.jpg	      0		784	978													Macroalgae	Erect fine branching	Red	Open		90300910			38.7
+J18B.jpg	      0		58	397													Consolidated	Rock	Veneer	Open		82001002			56.4
+J18B.jpg	      0		1044	313													Macroalgae	Erect fine branching	Red	Open		90300910			62.2
+J18B.jpg	      0		393	720													Macroalgae	Erect fine branching	Red	Open		90300910			15.8
+J18B.jpg	      0		590	397													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			28.6
+J18B.jpg	      0		51	1060													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			62.8
+J18B.jpg	      0		486	1443													Macroalgae	Erect fine branching	Red	Open		90300910			77.2
+J18B.jpg	      0		546	498													Macroalgae	Erect fine branching	Red	Open		90300910			18.0
+J18B.jpg	      0		499	265													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			41.7
+J18B.jpg	      0		254	627													Macroalgae	Erect fine branching	Red	Open		90300910			29.7
+J18B.jpg	      0		138	877													Macroalgae	Erect fine branching	Red	Open		90300910			45.6
+J18B.jpg	      0		907	172													Macroalgae	Erect fine branching	Red	Open		90300910			62.6
+J19B.jpg	      0		1033	1522													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			86.2
+J19B.jpg	      0		842	1520													Macroalgae	Erect fine branching	Red	Open		90300910			73.7
+J19B.jpg	      0		72	788													Consolidated	Rock	Turf mat	Open		82001002			50.4
+J19B.jpg	      0		175	89													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J19B.jpg	      0		354	960													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			16.8
+J19B.jpg	      0		312	153													Macroalgae	Erect fine branching	Red	Open		90300910			88.8
+J19B.jpg	      0		670	608													Consolidated	Rock	Turf mat	Open		82001002			40.5
+J19B.jpg	      0		688	1778													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			94.2
+J19B.jpg	      0		70	417													Macroalgae	Erect fine branching	Red	Open		90300910			74.5
+J19B.jpg	      0		172	359													Consolidated	Rock	Turf mat	Open		82001002			73.4
+J19B.jpg	      0		441	1420													Macroalgae	Erect fine branching	Red	Open		90300910			53.2
+J19B.jpg	      0		153	1734													Consolidated	Rock	No biota	Open		82001002			95.4
+J19B.jpg	      0		275	188													Macroalgae	Erect fine branching	Red	Open		90300910			86.1
+J19B.jpg	      0		108	389													Macroalgae	Erect fine branching	Red	Open		90300910			74.4
+J19B.jpg	      0		1071	1336													Macroalgae	Erect fine branching	Red	Open		90300910			75.8
+J19B.jpg	      0		940	789													Consolidated	Rock	No biota	Open		82001002			50.3
+J19B.jpg	      0		199	1797													Macroalgae	Erect fine branching	Brown	Open		80300908			100.0
+J19B.jpg	      0		869	486													Macroalgae	Erect fine branching	Red	Open		90300910			63.7
+J19B.jpg	      0		192	1600													Macroalgae	Erect fine branching	Red	Open		90300910			80.3
+J19B.jpg	      0		232	1666													Macroalgae	Erect fine branching	Red	Open		90300910			85.3
+J19B.jpg	      0		825	1350													Macroalgae	Erect fine branching	Red	Open		90300910			57.0
+J19B.jpg	      0		1032	355													Consolidated	Rock	Turf mat	Open		82001002			86.2
+J19B.jpg	      0		747	1010													Consolidated	Rock	No biota	Open		82001002			27.5
+J19B.jpg	      0		498	838													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			11.0
+J19B.jpg	      0		674	315													Macroalgae	Erect fine branching	Red	Open		90300910			70.9
+J1B.jpg	      0		337	356													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			98.4
+J1B.jpg	      0		487	1598													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			51.2
+J1B.jpg	      0		25	1617													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			78.1
+J1B.jpg	      0		912	1314													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			51.4
+J1B.jpg	      0		406	332													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			100.0
+J1B.jpg	      0		254	1772													Macroalgae	Erect fine branching	Red	Open		90300910			77.8
+J1B.jpg	      0		691	1148													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			22.3
+J1B.jpg	      0		606	1124													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			13.1
+J1B.jpg	      0		855	1179													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			41.7
+J1B.jpg	      0		126	1734													Macroalgae	Erect fine branching	Red	Open		90300910			81.0
+J1B.jpg	      0		821	1713													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			75.0
+J1B.jpg	      0		939	1425													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			59.9
+J1B.jpg	      0		89	556													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			87.9
+J1B.jpg	      0		702	1437													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.7
+J1B.jpg	      0		248	1117													Macroalgae	Erect fine branching	Red	Open		90300910			31.0
+J1B.jpg	      0		524	844													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			38.5
+J1B.jpg	      0		516	823													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			41.0
+J1B.jpg	      0		366	1597													Macroalgae	Erect fine branching	Red	Open		90300910			53.6
+J1B.jpg	      0		506	688													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			57.0
+J1B.jpg	      0		692	1569													Macroalgae	Erect fine branching	Red	Open		90300910			52.7
+J1B.jpg	      0		363	541													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			76.4
+J1B.jpg	      0		769	1701													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			70.8
+J1B.jpg	      0		715	722													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			58.6
+J1B.jpg	      0		607	785													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			47.0
+J1B.jpg	      0		58	1496													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			65.8
+J20B.jpg	      0		148	165													Macroalgae	Erect fine branching	Red	Open		90300910			75.4
+J20B.jpg	      0		570	1892													Consolidated	Rock	Turf mat	Open		82001002			100.0
+J20B.jpg	      0		556	1459													Consolidated	Rock	Turf mat	Open		82001002			58.2
+J20B.jpg	      0		740	675													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			28.3
+J20B.jpg	      0		152	458													Consolidated	Rock	Turf mat	Open		82001002			51.8
+J20B.jpg	      0		772	1166													Consolidated	Rock	Turf mat	Open		82001002			39.1
+J20B.jpg	      0		542	437													Consolidated	Rock	Turf mat	Open		82001002			40.7
+J20B.jpg	      0		210	1589													Macroalgae	Erect fine branching	Red	Open		90300910			76.3
+J20B.jpg	      0		495	274													Consolidated	Rock	No biota	Open		82001002			56.4
+J20B.jpg	      0		929	1337													Consolidated	Rock	Veneer	Open		82001002			61.4
+J20B.jpg	      0		625	1615													Macroalgae	Erect fine branching	Red	Open		90300910			74.0
+J20B.jpg	      0		261	994													Macroalgae	Erect fine branching	Red	Open		90300910			27.4
+J20B.jpg	      0		699	49													Unknown			Open					80.1
+J20B.jpg	      0		262	1686													Consolidated	Rock	Turf mat	Open		82001002			83.5
+J20B.jpg	      0		861	695													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			37.3
+J20B.jpg	      0		761	692													Consolidated	Rock	No biota	Open		82001002			29.0
+J20B.jpg	      0		367	252													Consolidated	Rock	No biota	Open		82001002			60.0
+J20B.jpg	      0		51	351													Consolidated	Rock	No biota	Open		82001002			66.0
+J20B.jpg	      0		835	742													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			33.3
+J20B.jpg	      0		832	462													Macroalgae	Erect fine branching	Red	Open		90300910			49.2
+J20B.jpg	      0		122	822													Consolidated	Rock	Turf mat	Open		82001002			37.6
+J20B.jpg	      0		327	748													Consolidated	Rock	Turf mat	Open		82001002			20.6
+J20B.jpg	      0		939	1237													Macroalgae	Encrusting	Brown	Open		80300927			55.3
+J20B.jpg	      0		690	785													Consolidated	Rock	Turf mat	Open		82001002			18.7
+J20B.jpg	      0		6	852													Consolidated	Rock	Turf mat	Open		82001002			48.6
+J21B.jpg	      0		446	1044													Consolidated	Rock	Turf mat	Open		82001002			18.7
+J21B.jpg	      0		32	742													Macroalgae	Erect fine branching	Green	Open		80300909			47.3
+J21B.jpg	      0		946	76													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			93.5
+J21B.jpg	      0		690	411																					51.0
+J21B.jpg	      0		330	1058													Consolidated	Rock	No biota	Open		82001002			25.0
+J21B.jpg	      0		194	1712													Macroalgae	Erect fine branching	Red	Open		90300910			91.4
+J21B.jpg	      0		440	1703													Macroalgae	Erect fine branching	Brown	Open		80300908			85.9
+J21B.jpg	      0		1069	709													Consolidated	Rock	Turf mat	Open		82001002			62.3
+J21B.jpg	      0		237	1765													Macroalgae	Erect fine branching	Red	Open		90300910			95.4
+J21B.jpg	      0		378	266													Macroalgae	Erect fine branching	Red	Open		90300910			61.9
+J21B.jpg	      0		89	240																					75.1
+J21B.jpg	      0		806	663													Consolidated	Rock	Turf mat	Open		82001002			39.2
+J21B.jpg	      0		129	1208													Macroalgae	Erect fine branching	Red	Open		90300910			50.2
+J21B.jpg	      0		361	1027													Macroalgae	Erect fine branching	Red	Open		90300910			20.7
+J21B.jpg	      0		985	420													Consolidated	Rock	Veneer	Open		82001002			68.7
+J21B.jpg	      0		340	1359													Consolidated	Rock	No biota	Open		82001002			52.6
+J21B.jpg	      0		783	214													Macroalgae	Erect fine branching	Red	Open		90300910			73.3
+J21B.jpg	      0		5	1641																					93.0
+J21B.jpg	      0		1022	49													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J21B.jpg	      0		486	1190													Consolidated	Rock	No biota	Open		82001002			33.4
+J21B.jpg	      0		213	690													Consolidated	Rock	No biota	Open		82001002			32.4
+J21B.jpg	      0		276	453													Consolidated	Rock	Turf mat	Open		82001002			46.7
+J21B.jpg	      0		750	1793																					98.9
+J21B.jpg	      0		567	789																					11.8
+J21B.jpg	      0		397	360													Macroalgae	Erect fine branching	Red	Open		90300910			52.1
+J22B.jpg	      0		630	603													Consolidated	Rock	Veneer	Open		82001002			43.8
+J22B.jpg	      0		275	391													Consolidated	Rock	Turf mat	Open		82001002			68.3
+J22B.jpg	      0		426	562													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			47.1
+J22B.jpg	      0		761	1087													Consolidated	Rock	Veneer	Open		82001002			27.2
+J22B.jpg	      0		293	993													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			22.5
+J22B.jpg	      0		27	654													Macroalgae	Erect fine branching	Brown	Open		80300908			62.0
+J22B.jpg	      0		964	362													Consolidated	Rock	Veneer	Open		82001002			81.7
+J22B.jpg	      0		893	267													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			86.3
+J22B.jpg	      0		202	858													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			35.4
+J22B.jpg	      0		62	1325													Macroalgae	Erect fine branching	Brown	Open		80300908			56.6
+J22B.jpg	      0		1066	1323													Macroalgae	Filamentous and filiform		Open		80300930			66.0
+J22B.jpg	      0		710	1540													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			58.6
+J22B.jpg	      0		271	760													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			35.7
+J22B.jpg	      0		37	195													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			97.3
+J22B.jpg	      0		553	282													Macroalgae	Erect fine branching	Red	Open		90300910			75.3
+J22B.jpg	      0		235	928													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			29.6
+J22B.jpg	      0		527	1909													Consolidated	Rock	Veneer	Open		82001002			92.9
+J22B.jpg	      0		914	1359													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			55.2
+J22B.jpg	      0		581	1635													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			65.0
+J22B.jpg	      0		28	1849																					100.0
+J22B.jpg	      0		783	1900													Consolidated	Rock	Veneer	Open		82001002			96.2
+J22B.jpg	      0		925	1704													Consolidated	Rock	Turf mat	Open		82001002			83.5
+J22B.jpg	      0		442	784													Macroalgae	Erect fine branching	Brown	Open		80300908			24.3
+J22B.jpg	      0		159	1728													Macroalgae	Laminate		Open		80300918			82.5
+J22B.jpg	      0		979	248													Consolidated	Rock	Turf mat	Open		82001002			92.5
+J24B.jpg	      0		751	557													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			20.6
+J24B.jpg	      0		369	288													Macroalgae	Erect fine branching	Red	Open		90300910			38.2
+J24B.jpg	      0		915	1760													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J24B.jpg	      0		41	326													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			54.7
+J24B.jpg	      0		824	23													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			62.7
+J24B.jpg	      0		744	1424													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			67.4
+J24B.jpg	      0		958	1637													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			91.3
+J24B.jpg	      0		777	100													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			54.8
+J24B.jpg	      0		359	1735													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			94.1
+J24B.jpg	      0		898	1718													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			96.1
+J24B.jpg	      0		450	244													Macroalgae	Erect fine branching	Red	Open		90300910			39.6
+J24B.jpg	      0		444	279													Macroalgae	Erect fine branching	Red	Open		90300910			36.7
+J24B.jpg	      0		268	29													Macroalgae	Erect fine branching	Red	Open		90300910			62.6
+J24B.jpg	      0		716	356													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			32.1
+J24B.jpg	      0		544	406													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			24.3
+J24B.jpg	      0		186	1249													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			59.4
+J24B.jpg	      0		321	188													Consolidated	Rock	No biota	Open		82001002			47.9
+J24B.jpg	      0		779	8													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			62.5
+J24B.jpg	      0		354	516													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			22.7
+J24B.jpg	      0		155	246													Macroalgae	Sheet-like membranous		Open		80300922			51.8
+J24B.jpg	      0		187	630													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			32.4
+J24B.jpg	      0		1027	1260													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			65.8
+J24B.jpg	      0		1001	1669													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			95.3
+J24B.jpg	      0		651	228													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			40.9
+J24B.jpg	      0		74	171													Sponges	Massive forms		Open		10000903			61.5
+J25B.jpg	      0		100	1094													Macroalgae	Erect fine branching	Red	Open		90300910			41.4
+J25B.jpg	      0		703	1675													Consolidated	Rock	Turf mat	Open		82001002			69.1
+J25B.jpg	      0		726	1791													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			81.5
+J25B.jpg	      0		967	1697													Consolidated	Rock	Turf mat	Open		82001002			84.3
+J25B.jpg	      0		686	1165													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			23.6
+J25B.jpg	      0		162	765													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			46.1
+J25B.jpg	      0		654	1063													Macroalgae	Erect fine branching	Red	Open		90300910			17.3
+J25B.jpg	      0		186	808													Macroalgae	Erect fine branching	Red	Open		90300910			41.3
+J25B.jpg	      0		568	1034													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			8.4
+J25B.jpg	      0		61	1809													Macroalgae	Erect fine branching	Red	Open		90300910			91.6
+J25B.jpg	      0		810	1198													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			36.9
+J25B.jpg	      0		450	1430													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.8
+J25B.jpg	      0		383	1191													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			18.3
+J25B.jpg	      0		300	1219													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			26.6
+J25B.jpg	      0		124	1192													Macroalgae	Erect fine branching	Red	Open		90300910			41.4
+J25B.jpg	      0		351	1109													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			15.8
+J25B.jpg	      0		287	580													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			54.4
+J25B.jpg	      0		967	1101													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			50.4
+J25B.jpg	      0		574	219													Macroalgae	Erect fine branching	Red	Open		90300910			88.4
+J25B.jpg	      0		480	1376													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			33.9
+J25B.jpg	      0		487	105													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J25B.jpg	      0		773	644													Macroalgae	Erect fine branching	Red	Open		90300910			52.4
+J25B.jpg	      0		569	293													Macroalgae	Erect fine branching	Red	Open		90300910			80.6
+J25B.jpg	      0		589	1159													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			15.2
+J25B.jpg	      0		315	634													Macroalgae	Erect fine branching	Red	Open		90300910			48.0
+J26B.jpg	      0		433	1107													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			10.2
+J26B.jpg	      0		767	1532													Macroalgae	Erect course branching	Brown	Open		80300904			58.1
+J26B.jpg	      0		626	1894													Macroalgae	Filamentous and filiform		Open		80300930			87.8
+J26B.jpg	      0		103	1245													Consolidated	Rock	Veneer	Open		82001002			43.9
+J26B.jpg	      0		297	1498													Macroalgae	Filamentous and filiform		Open		80300930			51.0
+J26B.jpg	      0		939	1479													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			64.1
+J26B.jpg	      0		313	1410													Macroalgae	Filamentous and filiform		Open		80300930			42.3
+J26B.jpg	      0		516	1535													Consolidated	Rock	Veneer	Open		82001002			51.3
+J26B.jpg	      0		786	226													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			83.7
+J26B.jpg	      0		707	390													Macroalgae	Filamentous and filiform		Open		80300930			65.8
+J26B.jpg	      0		446	1434													Consolidated	Rock	Veneer	Open		82001002			41.3
+J26B.jpg	      0		422	340													Consolidated	Rock	Veneer	Open		82001002			67.2
+J26B.jpg	      0		292	807													Macroalgae	Erect fine branching	Red	Open		90300910			28.2
+J26B.jpg	      0		957	1034													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			46.8
+J26B.jpg	      0		601	43													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			96.9
+J26B.jpg	      0		767	432													Consolidated	Rock	Veneer	Open		82001002			64.2
+J26B.jpg	      0		163	619													Macroalgae	Erect fine branching	Red	Open		90300910			50.5
+J26B.jpg	      0		560	1090													Macroalgae	Erect fine branching	Red	Open		90300910			10.4
+J26B.jpg	      0		699	1555													Macroalgae	Erect course branching	Brown	Open		80300904			57.2
+J26B.jpg	      0		572	78													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			93.2
+J26B.jpg	      0		730	913													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			26.4
+J26B.jpg	      0		194	1063													Macroalgae	Erect fine branching	Red	Open		90300910			29.0
+J26B.jpg	      0		51	1815													Macroalgae	Erect course branching	Brown	Open		80300904			89.7
+J26B.jpg	      0		14	121													Macroalgae	Filamentous and filiform		Open		80300930			100.0
+J26B.jpg	      0		140	1768													Macroalgae	Filamentous and filiform		Open		80300930			81.6
+J27B.jpg	      0		403	981													Macroalgae	Filamentous and filiform		Limited		80300930			12.0
+J27B.jpg	      0		264	477													Macroalgae	Erect fine branching	Red	Limited		90300910			57.0
+J27B.jpg	      0		962	1748													Macroalgae	Erect fine branching	Red	Limited		90300910			87.8
+J27B.jpg	      0		277	1120													Macroalgae	Erect fine branching	Red	Limited		90300910			27.9
+J27B.jpg	      0		336	1142													Macroalgae	Erect fine branching	Red	Limited		90300910			24.3
+J27B.jpg	      0		265	140													Macroalgae	Erect fine branching	Red	Limited		90300910			88.2
+J27B.jpg	      0		697	682													Unconsolidated	Sand	mud (coarse sand)	Limited		82001014			35.0
+J27B.jpg	      0		516	1662													Macroalgae	Erect fine branching	Red	Limited		90300910			67.5
+J27B.jpg	      0		355	1205													Macroalgae	Erect fine branching	Red	Limited		90300910			27.5
+J27B.jpg	      0		553	1915													Macroalgae	Erect fine branching	Red	Limited		90300910			92.7
+J27B.jpg	      0		206	703													Macroalgae	Sheet-like membranous		Limited		80300922			42.4
+J27B.jpg	      0		701	793													Macroalgae	Erect fine branching	Red	Limited		90300910			26.1
+J27B.jpg	      0		1039	1414													Macroalgae	Erect fine branching	Red	Limited		90300910			66.9
+J27B.jpg	      0		629	1214													Macroalgae	Sheet-like membranous		Limited		80300922			25.1
+J27B.jpg	      0		312	679													Unconsolidated	Sand	mud (coarse sand)	Limited		82001014			37.2
+J27B.jpg	      0		514	1819													Consolidated	Rock	Turf mat	Limited		82001002			83.1
+J27B.jpg	      0		714	252													Unknown			Limited					75.7
+J27B.jpg	      0		300	992													Unconsolidated	Sand	mud (coarse sand)	Limited		82001014			22.3
+J27B.jpg	      0		605	925													Macroalgae	Erect fine branching	Red	Limited		90300910			10.2
+J27B.jpg	      0		584	557													Macroalgae	Erect fine branching	Red	Limited		90300910			43.3
+J27B.jpg	      0		66	1878													Macroalgae	Filamentous and filiform		Limited		80300930			100.0
+J27B.jpg	      0		592	371													Unknown			Limited					61.7
+J27B.jpg	      0		115	261													Consolidated	Rock	Veneer	Limited		82001002			83.0
+J27B.jpg	      0		1055	835													Unknown			Limited					55.2
+J27B.jpg	      0		1018	884													Unknown			Limited					50.5
+J28B.jpg	      0		1040	715													Macroalgae	Erect fine branching	Red	Open		90300910			58.9
+J28B.jpg	      0		795	940													Macroalgae	Erect fine branching	Red	Open		90300910			23.5
+J28B.jpg	      0		814	1575													Macroalgae	Erect fine branching	Red	Open		90300910			67.6
+J28B.jpg	      0		907	1671													Macroalgae	Erect fine branching	Red	Open		90300910			81.5
+J28B.jpg	      0		867	469													Macroalgae	Erect fine branching	Red	Open		90300910			66.4
+J28B.jpg	      0		969	448													Macroalgae	Erect fine branching	Red	Open		90300910			74.3
+J28B.jpg	      0		614	1307													Consolidated	Rock	Veneer	Open		82001002			33.6
+J28B.jpg	      0		183	1776													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			96.5
+J28B.jpg	      0		824	1706													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			81.7
+J28B.jpg	      0		156	736													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			56.5
+J28B.jpg	      0		431	1015													Macroalgae	Laminate		Open		80300918			17.8
+J28B.jpg	      0		72	263													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J28B.jpg	      0		354	1626													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			73.5
+J28B.jpg	      0		271	499													Macroalgae	Erect fine branching	Red	Open		90300910			66.1
+J28B.jpg	      0		704	1482													Macroalgae	Filamentous and filiform		Limited		80300930			54.3
+J28B.jpg	      0		910	625													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			54.6
+J28B.jpg	      0		773	1488													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			57.0
+J28B.jpg	      0		18	1056													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			63.6
+J28B.jpg	      0		1042	886													Macroalgae	Erect fine branching	Red	Open		90300910			51.4
+J28B.jpg	      0		70	558													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			75.8
+J28B.jpg	      0		557	499													Macroalgae	Erect fine branching	Red	Open		90300910			55.9
+J28B.jpg	      0		643	1022													Macroalgae	Erect fine branching	Red	Open		90300910			5.9
+J28B.jpg	      0		656	265													Macroalgae	Erect fine branching	Red	Open		90300910			81.9
+J28B.jpg	      0		196	1068													Consolidated	Rock	Turf mat	Open		82001002			44.3
+J28B.jpg	      0		932	1405													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			58.1
+J29B.jpg	      0		586	761													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			9.5
+J29B.jpg	      0		540	1587													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			66.0
+J29B.jpg	      0		978	541													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			45.6
+J29B.jpg	      0		363	1034													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			26.3
+J29B.jpg	      0		438	1347													Macroalgae	Sheet-like membranous		Limited		80300922			46.2
+J29B.jpg	      0		966	325													Macroalgae	Erect fine branching	Red	Open		90300910			59.6
+J29B.jpg	      0		162	510													Macroalgae	Erect fine branching	Red	Open		90300910			51.1
+J29B.jpg	      0		404	183													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			64.5
+J29B.jpg	      0		1071	1855													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			100.0
+J29B.jpg	      0		721	1193													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			32.0
+J29B.jpg	      0		575	199													Macroalgae	Erect fine branching	Red	Open		90300910			60.6
+J29B.jpg	      0		459	374													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			46.4
+J29B.jpg	      0		295	715													Consolidated	Rock	Veneer	Open		82001002			30.6
+J29B.jpg	      0		218	1649													Consolidated	Rock	Turf mat	Open		82001002			79.3
+J29B.jpg	      0		701	864													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			9.5
+J29B.jpg	      0		692	846													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			8.9
+J29B.jpg	      0		895	1118													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			35.7
+J29B.jpg	      0		1001	469													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			51.6
+J29B.jpg	      0		900	808													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			28.2
+J29B.jpg	      0		258	1516													Consolidated	Rock	Turf mat	Open		82001002			66.9
+J29B.jpg	      0		60	1387													Consolidated	Rock	Turf mat	Open		82001002			68.2
+J29B.jpg	      0		566	826													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			4.5
+J29B.jpg	      0		678	200													Macroalgae	Erect fine branching	Red	Open		90300910			61.0
+J29B.jpg	      0		485	453													Macroalgae	Erect fine branching	Red	Open		90300910			38.9
+J29B.jpg	      0		896	859													Consolidated	Rock	Veneer	Open		82001002			27.3
+J2B.jpg	      0		690	243													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			59.8
+J2B.jpg	      0		891	393													Macroalgae	Erect course branching	Brown	Open		80300904			56.4
+J2B.jpg	      0		165	1133													Unknown			Limited					40.8
+J2B.jpg	      0		1058	285													Macroalgae	Erect course branching	Brown	Open		80300904			74.4
+J2B.jpg	      0		381	1790													Consolidated	Rock	Turf mat	Open		82001002			88.1
+J2B.jpg	      0		208	1573													Macroalgae	Erect fine branching	Brown	Open		80300908			72.5
+J2B.jpg	      0		71	842													Unknown			Limited					40.4
+J2B.jpg	      0		249	552													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			37.0
+J2B.jpg	      0		195	692													Consolidated	Rock	Turf mat	Open		82001002			32.6
+J2B.jpg	      0		800	653													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			33.6
+J2B.jpg	      0		650	320													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			51.9
+J2B.jpg	      0		885	1647													Macroalgae	Erect fine branching	Brown	Open		80300908			82.1
+J2B.jpg	      0		803	1735													Consolidated	Rock	Turf mat	Open		82001002			86.8
+J2B.jpg	      0		785	851													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			26.4
+J2B.jpg	      0		398	276													Unknown			Limited					55.0
+J2B.jpg	      0		883	1856													Macroalgae	Erect fine branching	Brown	Open		80300908			100.0
+J2B.jpg	      0		84	622													Sponges	Hollow forms		Open		10000909			44.8
+J2B.jpg	      0		188	517													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			43.2
+J2B.jpg	      0		235	55													Consolidated	Rock	Turf mat	Open		82001002			78.8
+J2B.jpg	      0		1020	1030													Consolidated	Rock	Turf mat	Open		82001002			50.9
+J2B.jpg	      0		524	1856													Macroalgae	Erect fine branching	Brown	Open		80300908			93.4
+J2B.jpg	      0		70	1277													Consolidated	Rock	Turf mat	Open		82001002			56.4
+J2B.jpg	      0		1074	361													Macroalgae	Erect course branching	Brown	Open		80300904			70.6
+J2B.jpg	      0		122	256													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			66.4
+J2B.jpg	      0		150	573													Consolidated	Rock	Turf mat	Open		82001002			42.2
+J30B.jpg	      0		198	1155													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			27.2
+J30B.jpg	      0		981	486													Macroalgae	Erect fine branching	Brown	Open		80300908			72.7
+J30B.jpg	      0		550	1783													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			77.3
+J30B.jpg	      0		202	905													Consolidated	Rock	Turf mat	Open		82001002			23.5
+J30B.jpg	      0		582	1291													Macroalgae	Erect course branching	Brown	Open		80300904			32.4
+J30B.jpg	      0		494	1514													Macroalgae	Erect fine branching	Red	Open		90300910			50.7
+J30B.jpg	      0		450	1534													Macroalgae	Erect fine branching	Red	Open		90300910			52.3
+J30B.jpg	      0		614	196													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			79.4
+J30B.jpg	      0		479	1443													Macroalgae	Erect fine branching	Red	Open		90300910			43.8
+J30B.jpg	      0		59	210													Macroalgae	Erect fine branching	Brown	Open		80300908			84.0
+J30B.jpg	      0		575	963													Consolidated	Rock	Veneer	Open		82001002			14.6
+J30B.jpg	      0		458	206													Macroalgae	Erect fine branching	Brown	Open		80300908			76.4
+J30B.jpg	      0		202	1458													Macroalgae	Erect fine branching	Brown	Open		80300908			50.0
+J30B.jpg	      0		259	336													Macroalgae	Erect fine branching	Brown	Open		80300908			65.8
+J30B.jpg	      0		14	48													Macroalgae	Erect fine branching	Brown	Open		80300908			100.0
+J30B.jpg	      0		119	1353													Macroalgae	Filamentous and filiform		Limited		80300930			45.8
+J30B.jpg	      0		388	1068													Consolidated	Rock	Veneer	Open		82001002			8.1
+J30B.jpg	      0		588	1292													Macroalgae	Erect course branching	Brown	Open		80300904			32.7
+J30B.jpg	      0		69	77													Macroalgae	Erect fine branching	Brown	Open		80300908			95.4
+J30B.jpg	      0		934	1025													Consolidated	Rock	Veneer	Open		82001002			49.1
+J30B.jpg	      0		868	1839													Macroalgae	Filamentous and filiform		Limited		80300930			92.2
+J30B.jpg	      0		1025	356													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			84.6
+J30B.jpg	      0		250	934													Consolidated	Rock	Veneer	Open		82001002			18.2
+J30B.jpg	      0		144	1671													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			71.0
+J30B.jpg	      0		198	1717													Consolidated	Rock	Turf mat	Open		82001002			73.4
+J31B.jpg	      0		968	1786													Consolidated	Rock	Turf mat	Limited		82001002			100.0
+J31B.jpg	      0		508	293													Macroalgae	Filamentous and filiform		Limited		80300930			59.2
+J31B.jpg	      0		846	376													Unknown			Limited					60.7
+J31B.jpg	      0		858	1495													Sponges	Small mixed		Limited		10000000			69.4
+J31B.jpg	      0		845	623													Unknown			Limited					42.1
+J31B.jpg	      0		207	893													Macroalgae	Erect fine branching	Green	Limited		80300909			30.6
+J31B.jpg	      0		479	686													Macroalgae	Erect fine branching	Green	Limited		80300909			20.4
+J31B.jpg	      0		988	175													Unknown			Limited					85.2
+J31B.jpg	      0		483	355													Consolidated	Rock	Veneer	Limited		82001002			53.1
+J31B.jpg	      0		51	61													Macroalgae	Erect fine branching	Green	Limited		80300909			94.4
+J31B.jpg	      0		153	1113													Macroalgae	Large canopy-forming	Ecklonia radiata	Limited		54080001			42.4
+J31B.jpg	      0		302	1411													Macroalgae	Large canopy-forming	Ecklonia radiata	Limited		54080001			56.2
+J31B.jpg	      0		767	1323													Macroalgae	Erect fine branching	Green	Limited		80300909			49.9
+J31B.jpg	      0		27	522													Macroalgae	Erect fine branching	Green	Limited		80300909			60.7
+J31B.jpg	      0		671	178													Consolidated	Rock	Veneer	Limited		82001002			72.4
+J31B.jpg	      0		308	382													Macroalgae	Erect fine branching	Green	Limited		80300909			54.4
+J31B.jpg	      0		260	235													Macroalgae	Erect fine branching	Green	Limited		80300909			69.7
+J31B.jpg	      0		883	1446													Sponges	Small mixed		Limited		10000000			66.5
+J31B.jpg	      0		296	1173													Unconsolidated	Sand	mud (coarse sand)	Limited		82001014			35.8
+J31B.jpg	      0		264	1321													Macroalgae	Large canopy-forming	Ecklonia radiata	Limited		54080001			49.7
+J31B.jpg	      0		20	1311													Macroalgae	Erect fine branching	Green	Limited		80300909			64.7
+J31B.jpg	      0		414	1293													Macroalgae	Large canopy-forming	Ecklonia radiata	Limited		54080001			41.5
+J31B.jpg	      0		977	1462													Consolidated	Rock	Veneer	Limited		82001002			73.3
+J31B.jpg	      0		762	1380													Macroalgae	Erect fine branching	Green	Limited		80300909			54.8
+J31B.jpg	      0		530	912													Macroalgae	Erect fine branching	Green	Limited		80300909			2.9
+J32B.jpg	      0		351	326													Stony corals	Tabulate	Live	Open		11290911			49.0
+J32B.jpg	      0		125	839													Stony corals	Tabulate	Live	Open		11290911			37.5
+J32B.jpg	      0		1064	535													Stony corals	Tabulate	Live	Open		11290911			59.4
+J32B.jpg	      0		681	740													Stony corals	Tabulate	Live	Open		11290911			17.6
+J32B.jpg	      0		797	31													Stony corals	Tabulate	Live	Open		11290911			79.8
+J32B.jpg	      0		534	1374													Sponges	Crusts		Open		10000901			54.8
+J32B.jpg	      0		525	27													Stony corals	Tabulate	Live	Open		11290911			75.3
+J32B.jpg	      0		78	1449													Macroalgae	Erect fine branching	Red	Open		90300910			74.8
+J32B.jpg	      0		54	1281													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			63.7
+J32B.jpg	      0		443	985													Stony corals	Tabulate	Live	Open		11290911			18.4
+J32B.jpg	      0		120	64													Macroalgae	Erect fine branching	Red	Open		90300910			81.1
+J32B.jpg	      0		178	1787													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J32B.jpg	      0		535	484													Stony corals	Tabulate	Live	Open		11290911			31.3
+J32B.jpg	      0		216	423													Stony corals	Tabulate	Live	Open		11290911			46.8
+J32B.jpg	      0		295	1448													Macroalgae	Erect fine branching	Red	Open		90300910			65.3
+J32B.jpg	      0		879	1231													Stony corals	Tabulate	Live	Open		11290911			54.2
+J32B.jpg	      0		767	1532													Consolidated	Rock	Turf mat	Open		82001002			74.2
+J32B.jpg	      0		816	1434													Macroalgae	Erect fine branching	Brown	Open		80300908			67.3
+J32B.jpg	      0		736	1054													Macroalgae	Erect fine branching	Brown	Open		80300908			32.2
+J32B.jpg	      0		877	689													Stony corals	Tabulate	Live	Open		11290911			37.0
+J32B.jpg	      0		478	680													Stony corals	Tabulate	Live	Open		11290911			12.7
+J32B.jpg	      0		367	533													Stony corals	Tabulate	Live	Open		11290911			29.9
+J32B.jpg	      0		443	703													Stony corals	Tabulate	Live	Open		11290911			12.0
+J32B.jpg	      0		440	213													Stony corals	Tabulate	Live	Open		11290911			57.8
+J32B.jpg	      0		1000	312													Stony corals	Tabulate	Live	Open		11290911			67.1
+J33B.jpg	      0		1010	197													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			84.8
+J33B.jpg	      0		608	993													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			9.5
+J33B.jpg	      0		583	762													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			14.6
+J33B.jpg	      0		997	22													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J33B.jpg	      0		383	1209													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			36.9
+J33B.jpg	      0		677	1092													Macroalgae	Erect course branching	Brown	Open		80300904			21.6
+J33B.jpg	      0		759	487													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			46.6
+J33B.jpg	      0		344	1308													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			47.6
+J33B.jpg	      0		885	959													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			31.9
+J33B.jpg	      0		422	690													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			27.2
+J33B.jpg	      0		438	789													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			18.6
+J33B.jpg	      0		402	1047													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			23.1
+J33B.jpg	      0		354	1541													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			68.9
+J33B.jpg	      0		551	273													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			64.8
+J33B.jpg	      0		282	1168													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			40.5
+J33B.jpg	      0		674	480													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			44.6
+J33B.jpg	      0		530	900													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			5.0
+J33B.jpg	      0		771	1639													Macroalgae	Erect course branching	Brown	Open		80300904			77.6
+J33B.jpg	      0		776	35													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			91.3
+J33B.jpg	      0		421	1075													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			23.6
+J33B.jpg	      0		133	1399													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			67.9
+J33B.jpg	      0		664	1013													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			14.0
+J33B.jpg	      0		461	1492													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			61.2
+J33B.jpg	      0		933	624													Macroalgae	Erect course branching	Brown	Open		80300904			46.3
+J33B.jpg	      0		394	1444													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			58.2
+J34B.jpg	      0		154	1493													Consolidated	Rock	No biota	Open		82001002			75.8
+J34B.jpg	      0		184	1348													Consolidated	Rock	No biota	Open		82001002			61.2
+J34B.jpg	      0		989	1039													Macroalgae	Erect fine branching	Red	Open		90300910			51.4
+J34B.jpg	      0		534	715													Consolidated	Rock	No biota	Open		82001002			18.9
+J34B.jpg	      0		656	920													Consolidated	Rock	No biota	Open		82001002			13.6
+J34B.jpg	      0		531	102													Consolidated	Rock	No biota	Open		82001002			84.3
+J34B.jpg	      0		474	1110													Consolidated	Rock	No biota	Open		82001002			24.1
+J34B.jpg	      0		352	1811													Sponges	Crusts		Open		10000901			100.0
+J34B.jpg	      0		457	979													Consolidated	Rock	Turf mat	Open		82001002			12.3
+J34B.jpg	      0		991	897													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			49.0
+J34B.jpg	      0		380	954													Consolidated	Rock	No biota	Open		82001002			17.5
+J34B.jpg	      0		258	680													Consolidated	Rock	Turf mat	Open		82001002			36.9
+J34B.jpg	      0		412	1275													Consolidated	Rock	Turf mat	Open		82001002			42.9
+J34B.jpg	      0		862	62													Consolidated	Rock	Turf mat	Open		82001002			95.4
+J34B.jpg	      0		269	984													Consolidated	Rock	No biota	Open		82001002			29.7
+J34B.jpg	      0		910	207													Consolidated	Rock	No biota	Open		82001002			83.5
+J34B.jpg	      0		667	1277													Consolidated	Rock	Turf mat	Open		82001002			43.6
+J34B.jpg	      0		834	822													Consolidated	Rock	No biota	Open		82001002			33.2
+J34B.jpg	      0		688	1105													Consolidated	Rock	No biota	Open		82001002			28.2
+J34B.jpg	      0		308	1116													Consolidated	Rock	Turf mat	Open		82001002			33.8
+J34B.jpg	      0		195	591													Consolidated	Rock	No biota	Open		82001002			48.2
+J34B.jpg	      0		946	500													Macroalgae	Erect fine branching	Red	Open		90300910			60.9
+J34B.jpg	      0		896	159													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			87.4
+J34B.jpg	      0		123	754													Consolidated	Rock	Turf mat	Open		82001002			46.0
+J34B.jpg	      0		215	1391													Consolidated	Rock	No biota	Open		82001002			63.1
+J35B.jpg	      0		291	881													Macroalgae	Erect fine branching	Red	Open		90300910			24.5
+J35B.jpg	      0		475	1331													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			47.5
+J35B.jpg	      0		912	1668													Macroalgae	Erect course branching	Green	Open		80300905			90.4
+J35B.jpg	      0		781	1528													Consolidated	Rock	Turf mat	Open		82001002			72.0
+J35B.jpg	      0		602	1624													Macroalgae	Erect fine branching	Red	Open		90300910			77.4
+J35B.jpg	      0		538	611													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			26.4
+J35B.jpg	      0		156	1309													Consolidated	Rock	No biota	Open		82001002			59.0
+J35B.jpg	      0		185	1255													Consolidated	Rock	No biota	Open		82001002			52.9
+J35B.jpg	      0		867	1551													Macroalgae	Erect course branching	Green	Open		80300905			77.6
+J35B.jpg	      0		253	316													Consolidated	Rock	Turf mat	Open		82001002			63.3
+J35B.jpg	      0		585	1090													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			23.2
+J35B.jpg	      0		380	636													Macroalgae	Erect fine branching	Brown	Open		80300908			28.5
+J35B.jpg	      0		113	180													Consolidated	Rock	Turf mat	Open		82001002			82.4
+J35B.jpg	      0		462	1846													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J35B.jpg	      0		992	389													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			68.1
+J35B.jpg	      0		228	1016													Macroalgae	Erect fine branching	Red	Open		90300910			34.3
+J35B.jpg	      0		851	1401													Consolidated	Rock	Turf mat	Open		82001002			63.4
+J35B.jpg	      0		475	593													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			28.9
+J35B.jpg	      0		545	349													Consolidated	Rock	Turf mat	Open		82001002			53.2
+J35B.jpg	      0		122	1001													Macroalgae	Erect course branching	Green	Open		80300905			43.9
+J35B.jpg	      0		357	203													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			70.4
+J35B.jpg	      0		880	177													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			79.3
+J35B.jpg	      0		569	276													Consolidated	Rock	Turf mat	Open		82001002			60.9
+J35B.jpg	      0		847	316													Consolidated	Rock	Turf mat	Open		82001002			65.2
+J35B.jpg	      0		801	200													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			73.8
+J36B.jpg	      0		605	194													Macroalgae	Erect fine branching	Red	Open		90300910			67.6
+J36B.jpg	      0		566	1908													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J36B.jpg	      0		981	76													Consolidated	Rock	Veneer	Limited		82001002			88.3
+J36B.jpg	      0		800	836													Consolidated	Rock	Veneer	Limited		82001002			22.2
+J36B.jpg	      0		1073	1382													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			68.5
+J36B.jpg	      0		263	568													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			43.8
+J36B.jpg	      0		310	1397													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			56.5
+J36B.jpg	      0		465	108													Macroalgae	Erect fine branching	Red	Open		90300910			76.8
+J36B.jpg	      0		315	1482													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			63.8
+J36B.jpg	      0		181	1368													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			61.2
+J36B.jpg	      0		699	417													Consolidated	Rock	Turf mat	Open		82001002			47.2
+J36B.jpg	      0		704	1346													Consolidated	Rock	No biota	Open		82001002			46.7
+J36B.jpg	      0		604	887													Consolidated	Rock	Veneer	Limited		82001002			2.5
+J36B.jpg	      0		740	1287													Consolidated	Rock	Veneer	Limited		82001002			42.3
+J36B.jpg	      0		143	747													Macroalgae	Erect fine branching	Red	Open		90300910			44.6
+J36B.jpg	      0		1055	1138													Consolidated	Rock	No biota	Open		82001002			52.7
+J36B.jpg	      0		694	886													Consolidated	Rock	Turf mat	Open		82001002			11.3
+J36B.jpg	      0		957	125													Consolidated	Rock	Veneer	Limited		82001002			83.0
+J36B.jpg	      0		335	1334													Consolidated	Rock	Turf mat	Open		82001002			49.9
+J36B.jpg	      0		324	405													Consolidated	Rock	No biota	Open		82001002			53.0
+J36B.jpg	      0		515	241													Macroalgae	Erect fine branching	Red	Open		90300910			63.3
+J36B.jpg	      0		1025	248													Macroalgae	Erect fine branching	Red	Open		90300910			76.0
+J36B.jpg	      0		978	1749													Consolidated	Rock	Veneer	Limited		82001002			93.1
+J36B.jpg	      0		34	444													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			68.5
+J36B.jpg	      0		98	1551													Sponges	Massive forms		Open		10000903			80.3
+J37B.jpg	      0		209	832													Consolidated	Rock	Turf mat	Open		82001002			37.9
+J37B.jpg	      0		127	79													Consolidated	Rock	Turf mat	Open		82001002			100.0
+J37B.jpg	      0		1049	1108													Macroalgae	Filamentous and filiform		Open		80300930			51.6
+J37B.jpg	      0		255	666													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			43.3
+J37B.jpg	      0		767	1898													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			96.0
+J37B.jpg	      0		547	600													Consolidated	Rock	No biota	Open		82001002			37.5
+J37B.jpg	      0		876	1151													Macroalgae	Sheet-like membranous		Open		80300922			37.0
+J37B.jpg	      0		707	1167													Macroalgae	Erect fine branching	Brown	Open		80300908			24.9
+J37B.jpg	      0		761	952													Consolidated	Rock	Turf mat	Open		82001002			20.7
+J37B.jpg	      0		688	686													Macroalgae	Erect fine branching	Brown	Open		80300908			31.7
+J37B.jpg	      0		181	703													Macroalgae	Filamentous and filiform		Open		80300930			46.6
+J37B.jpg	      0		1023	437													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			71.6
+J37B.jpg	      0		382	1314													Macroalgae	Erect fine branching	Brown	Open		80300908			38.9
+J37B.jpg	      0		239	870													Consolidated	Rock	Turf mat	Open		82001002			33.7
+J37B.jpg	      0		362	180													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			82.3
+J37B.jpg	      0		94	799													Macroalgae	Sheet-like membranous		Open		80300922			49.9
+J37B.jpg	      0		383	1593													Consolidated	Rock	Veneer	Open		82001002			65.2
+J37B.jpg	      0		1004	1786													Consolidated	Rock	No biota	Open		82001002			93.9
+J37B.jpg	      0		701	1335													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.5
+J37B.jpg	      0		548	1797													Consolidated	Rock	Veneer	Open		82001002			83.4
+J37B.jpg	      0		110	679													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			53.9
+J37B.jpg	      0		952	1329													Macroalgae	Sheet-like membranous		Open		80300922			53.9
+J37B.jpg	      0		482	904													Macroalgae	Sheet-like membranous		Open		80300922			10.1
+J37B.jpg	      0		995	350													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			76.8
+J37B.jpg	      0		482	1062													Macroalgae	Erect fine branching	Brown	Open		80300908			11.9
+J38B.jpg	      0		708	1629													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			56.9
+J38B.jpg	      0		699	1693													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			62.7
+J38B.jpg	      0		718	700													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			32.1
+J38B.jpg	      0		152	930													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			44.5
+J38B.jpg	      0		15	960													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			56.7
+J38B.jpg	      0		11	968													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			57.1
+J38B.jpg	      0		739	1670													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			61.2
+J38B.jpg	      0		890	1788													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			75.7
+J38B.jpg	      0		211	1184													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			40.8
+J38B.jpg	      0		1003	110													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			93.1
+J38B.jpg	      0		221	1367													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			48.9
+J38B.jpg	      0		804	1035													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			17.5
+J38B.jpg	      0		956	150													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			88.0
+J38B.jpg	      0		1060	1125													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			42.4
+J38B.jpg	      0		1011	195													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			86.2
+J38B.jpg	      0		1063	56													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J38B.jpg	      0		838	1514													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			50.0
+J38B.jpg	      0		1031	1491													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			58.1
+J38B.jpg	      0		29	297													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			87.8
+J38B.jpg	      0		449	1100													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			17.2
+J38B.jpg	      0		789	1889													Consolidated	Rock	Veneer	Open		82001002			82.2
+J38B.jpg	      0		653	699													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			30.9
+J38B.jpg	      0		498	1419													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			38.3
+J38B.jpg	      0		215	570													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			57.0
+J38B.jpg	      0		680	1147													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			12.6
+J3B.jpg	      0		1063	1310													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			67.2
+J3B.jpg	      0		322	824													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			27.9
+J3B.jpg	      0		1041	1654													Unknown			Limited					94.0
+J3B.jpg	      0		857	1500													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			71.1
+J3B.jpg	      0		488	689													Consolidated	Rock	Turf mat	Open		82001002			21.2
+J3B.jpg	      0		372	1086													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			31.7
+J3B.jpg	      0		667	458													Macroalgae	Erect fine branching	Brown	Open		80300908			43.3
+J3B.jpg	      0		80	1092													Unknown			Limited					57.5
+J3B.jpg	      0		236	181													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			80.0
+J3B.jpg	      0		621	944													Macroalgae	Erect fine branching	Red	Open		90300910			8.6
+J3B.jpg	      0		751	1020													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			23.1
+J3B.jpg	      0		536	1202													Macroalgae	Erect fine branching	Red	Open		90300910			35.0
+J3B.jpg	      0		651	1143													Macroalgae	Erect fine branching	Red	Open		90300910			29.2
+J3B.jpg	      0		143	1656													Unknown			Limited					93.6
+J3B.jpg	      0		485	14													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			89.1
+J3B.jpg	      0		695	306													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			59.3
+J3B.jpg	      0		956	1227													Macroalgae	Erect fine branching	Red	Open		90300910			53.3
+J3B.jpg	      0		995	239													Macroalgae	Erect fine branching	Red	Open		90300910			77.7
+J3B.jpg	      0		516	331													Macroalgae	Erect fine branching	Red	Open		90300910			56.1
+J3B.jpg	      0		587	1758													Unknown			Limited					92.2
+J3B.jpg	      0		822	441													Consolidated	Rock	Veneer	Limited		82001002			50.4
+J3B.jpg	      0		1003	129													Macroalgae	Erect fine branching	Red	Open		90300910			87.8
+J3B.jpg	      0		36	75													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			100.0
+J3B.jpg	      0		280	699													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			36.3
+J3B.jpg	      0		476	1727													Unknown			Limited					89.7
+J4B.jpg	      0		49	1071													Sponges	Crusts		Open		10000901			48.9
+J4B.jpg	      0		969	901													Consolidated	Rock	No biota	Open		82001002			42.5
+J4B.jpg	      0		74	1755													Macroalgae	Erect fine branching	Red	Open		90300910			95.8
+J4B.jpg	      0		406	311													Macroalgae	Erect fine branching	Red	Open		90300910			44.4
+J4B.jpg	      0		611	706													Macroalgae	Erect fine branching	Red	Open		90300910			11.8
+J4B.jpg	      0		1052	1302													Macroalgae	Erect fine branching	Red	Open		90300910			67.3
+J4B.jpg	      0		313	697													Consolidated	Rock	Veneer	Open		82001002			19.9
+J4B.jpg	      0		657	36													Consolidated	Rock	Veneer	Open		82001002			69.4
+J4B.jpg	      0		412	224													Macroalgae	Erect fine branching	Red	Open		90300910			52.0
+J4B.jpg	      0		427	1604													Macroalgae	Erect fine branching	Red	Open		90300910			73.9
+J4B.jpg	      0		780	709													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			25.4
+J4B.jpg	      0		808	1287													Macroalgae	Erect fine branching	Red	Open		90300910			52.3
+J4B.jpg	      0		716	695													Macroalgae	Erect fine branching	Red	Open		90300910			20.4
+J4B.jpg	      0		343	1553													Consolidated	Rock	Turf mat	Open		82001002			70.6
+J4B.jpg	      0		776	250													Consolidated	Rock	Turf mat	Open		82001002			54.3
+J4B.jpg	      0		609	603													Consolidated	Rock	Veneer	Open		82001002			19.0
+J4B.jpg	      0		311	1558													Consolidated	Rock	Turf mat	Open		82001002			71.7
+J4B.jpg	      0		381	60													Consolidated	Rock	Veneer	Open		82001002			67.1
+J4B.jpg	      0		922	257													Consolidated	Rock	Turf mat	Open		82001002			60.8
+J4B.jpg	      0		218	91													Macroalgae	Erect fine branching	Red	Open		90300910			68.5
+J4B.jpg	      0		869	1256													Macroalgae	Erect fine branching	Red	Open		90300910			53.1
+J4B.jpg	      0		633	900													Consolidated	Rock	Veneer	Open		82001002			14.8
+J4B.jpg	      0		292	118													Consolidated	Rock	Veneer	Open		82001002			63.9
+J4B.jpg	      0		40	1791													Consolidated	Rock	Turf mat	Open		82001002			100.0
+J4B.jpg	      0		123	16													Macroalgae	Erect fine branching	Red	Open		90300910			78.3
+J5B.jpg	      0		271	1476													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			62.2
+J5B.jpg	      0		631	1535													Macroalgae	Sheet-like membranous		Open		80300922			60.0
+J5B.jpg	      0		162	371													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			71.0
+J5B.jpg	      0		700	960													Macroalgae	Erect fine branching	Red	Open		90300910			12.2
+J5B.jpg	      0		1059	909													Macroalgae	Erect fine branching	Red	Open		90300910			48.2
+J5B.jpg	      0		538	1155													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			22.0
+J5B.jpg	      0		458	893													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			13.3
+J5B.jpg	      0		367	1912													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J5B.jpg	      0		839	736													Macroalgae	Erect fine branching	Red	Open		90300910			33.1
+J5B.jpg	      0		1021	638													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			53.7
+J5B.jpg	      0		289	525													Consolidated	Rock	Turf mat	Open		82001002			51.0
+J5B.jpg	      0		50	797													Macroalgae	Erect fine branching	Red	Open		90300910			55.3
+J5B.jpg	      0		520	108													Macroalgae	Erect fine branching	Red	Open		90300910			83.9
+J5B.jpg	      0		1025	1679													Macroalgae	Sheet-like membranous		Open		80300922			86.7
+J5B.jpg	      0		1021	1055													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			45.7
+J5B.jpg	      0		772	1299													Macroalgae	Erect fine branching	Red	Open		90300910			40.9
+J5B.jpg	      0		1046	785													Macroalgae	Erect fine branching	Red	Open		90300910			49.3
+J5B.jpg	      0		38	1274													Macroalgae	Erect fine branching	Red	Open		90300910			64.0
+J5B.jpg	      0		641	628													Macroalgae	Sheet-like membranous		Open		80300922			32.0
+J5B.jpg	      0		173	1552													Consolidated	Rock	Turf mat	Open		82001002			73.9
+J5B.jpg	      0		1018	906													Macroalgae	Erect fine branching	Red	Open		90300910			44.0
+J5B.jpg	      0		307	583													Consolidated	Rock	Turf mat	Open		82001002			45.2
+J5B.jpg	      0		817	1010													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			24.8
+J5B.jpg	      0		409	264													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			70.1
+J5B.jpg	      0		349	455													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			54.1
+J6B.jpg	      0		86	680													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			57.1
+J6B.jpg	      0		720	1712													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			58.4
+J6B.jpg	      0		664	1178													Consolidated	Rock	Turf mat	Open		82001002			11.6
+J6B.jpg	      0		300	1241													Macroalgae	Sheet-like membranous		Open		80300922			29.5
+J6B.jpg	      0		394	432													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			60.2
+J6B.jpg	      0		64	90													Sponges	Small mixed		Open		10000000			100.0
+J6B.jpg	      0		1033	567													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			60.9
+J6B.jpg	      0		975	1385													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			44.7
+J6B.jpg	      0		671	364													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			64.4
+J6B.jpg	      0		689	1232													Sponges	Crusts		Open		10000901			16.9
+J6B.jpg	      0		658	1722													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			58.3
+J6B.jpg	      0		557	1502													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			38.3
+J6B.jpg	      0		460	1019													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			12.3
+J6B.jpg	      0		242	1335													Sponges	Small mixed		Open		10000000			38.5
+J6B.jpg	      0		800	1017													Sponges	Small mixed		Open		10000000			20.1
+J6B.jpg	      0		563	1577													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			45.0
+J6B.jpg	      0		673	1569													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			45.0
+J6B.jpg	      0		440	1899													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			75.0
+J6B.jpg	      0		37	965													Macroalgae	Erect fine branching	Red	Open		90300910			50.1
+J6B.jpg	      0		1064	1900													Unknown			Open					85.6
+J6B.jpg	      0		194	561													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			58.0
+J6B.jpg	      0		1022	1220													Sponges	Small mixed		Open		10000000			41.4
+J6B.jpg	      0		817	578													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			49.4
+J6B.jpg	      0		858	411													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			64.5
+J6B.jpg	      0		622	736													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			30.7
+J7B.jpg	      0		792	1416													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			50.6
+J7B.jpg	      0		635	1259													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			29.5
+J7B.jpg	      0		452	1758													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			84.2
+J7B.jpg	      0		1001	708													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			52.7
+J7B.jpg	      0		395	403													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			66.3
+J7B.jpg	      0		999	1468													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			67.3
+J7B.jpg	      0		357	1747													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			85.6
+J7B.jpg	      0		691	251													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			79.6
+J7B.jpg	      0		419	1307													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			39.3
+J7B.jpg	      0		1016	1171													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			49.1
+J7B.jpg	      0		57	698													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			65.7
+J7B.jpg	      0		783	102													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			97.1
+J7B.jpg	      0		159	1097													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			48.5
+J7B.jpg	      0		201	807													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			46.7
+J7B.jpg	      0		858	1748																					86.4
+J7B.jpg	      0		826	84													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+J7B.jpg	      0		264	475													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			65.6
+J7B.jpg	      0		893	491													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			62.0
+J7B.jpg	      0		840	1752																					86.2
+J7B.jpg	      0		499	1297																					34.9
+J7B.jpg	      0		701	625													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			40.4
+J7B.jpg	      0		632	1361																					40.3
+J7B.jpg	      0		110	1534													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			78.7
+J7B.jpg	      0		889	896													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			32.8
+J7B.jpg	      0		458	213													Unconsolidated	Pebble	gravel (pebble 10-64mm)	Open		82001012			84.4
+J8B.jpg	      0		191	1436													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			64.0
+J8B.jpg	      0		310	1086													Macroalgae	Erect fine branching	Red	Open		90300910			30.3
+J8B.jpg	      0		12	494													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			63.6
+J8B.jpg	      0		59	253													Macroalgae	Erect fine branching	Red	Open		90300910			76.6
+J8B.jpg	      0		500	1270													Macroalgae	Erect fine branching	Red	Open		90300910			38.3
+J8B.jpg	      0		503	740													Macroalgae	Erect fine branching	Red	Open		90300910			13.9
+J8B.jpg	      0		780	1413													Macroalgae	Erect fine branching	Red	Open		90300910			56.8
+J8B.jpg	      0		460	1581													Macroalgae	Erect fine branching	Red	Open		90300910			68.7
+J8B.jpg	      0		248	283													Macroalgae	Erect fine branching	Red	Open		90300910			64.4
+J8B.jpg	      0		153	665													Macroalgae	Erect fine branching	Red	Open		90300910			43.1
+J8B.jpg	      0		366	195													Macroalgae	Erect fine branching	Red	Open		90300910			68.4
+J8B.jpg	      0		482	653													Macroalgae	Erect fine branching	Red	Open		90300910			22.5
+J8B.jpg	      0		563	979													Consolidated	Rock	Veneer	Open		82001002			10.0
+J8B.jpg	      0		640	612													Consolidated	Rock	Turf mat	Open		82001002			27.4
+J8B.jpg	      0		580	1526													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			63.0
+J8B.jpg	      0		256	866													Macroalgae	Erect fine branching	Red	Open		90300910			27.9
+J8B.jpg	      0		741	29													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			84.5
+J8B.jpg	      0		1009	1797													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J8B.jpg	      0		711	847													Macroalgae	Erect fine branching	Red	Open		90300910			16.6
+J8B.jpg	      0		1065	1190													Macroalgae	Erect fine branching	Red	Open		90300910			59.0
+J8B.jpg	      0		1056	606													Macroalgae	Erect fine branching	Red	Open		90300910			56.3
+J8B.jpg	      0		825	1389													Macroalgae	Erect fine branching	Red	Open		90300910			56.6
+J8B.jpg	      0		681	1580													Macroalgae	Erect fine branching	Red	Open		90300910			69.4
+J8B.jpg	      0		494	328													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			53.5
+J8B.jpg	      0		891	124													Macroalgae	Erect fine branching	Red	Open		90300910			80.5
+J9B.jpg	      0		470	604													Consolidated	Rock	Turf mat	Open		82001002			38.2
+J9B.jpg	      0		575	125													Consolidated	Rock	Turf mat	Open		82001002			85.1
+J9B.jpg	      0		30	1109													Macroalgae	Erect fine branching	Red	Open		90300910			50.2
+J9B.jpg	      0		752	1141													Macroalgae	Erect fine branching	Red	Open		90300910			26.7
+J9B.jpg	      0		1054	1580													Macroalgae	Erect fine branching	Red	Open		90300910			77.9
+J9B.jpg	      0		850	1654													Consolidated	Rock	Turf mat	Open		82001002			72.7
+J9B.jpg	      0		481	1753													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			75.3
+J9B.jpg	      0		663	1484													Macroalgae	Erect fine branching	Red	Open		90300910			50.5
+J9B.jpg	      0		703	670													Macroalgae	Sheet-like membranous		Open		80300922			35.8
+J9B.jpg	      0		1066	1765													Macroalgae	Erect fine branching	Red	Open		90300910			93.0
+J9B.jpg	      0		208	738													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			39.8
+J9B.jpg	      0		308	1814													Macroalgae	Erect fine branching	Red	Open		90300910			83.9
+J9B.jpg	      0		81	1072													Sponges	Small mixed		Open		10000000			44.5
+J9B.jpg	      0		362	845													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			21.5
+J9B.jpg	      0		451	7													Consolidated	Rock	Turf mat	Open		82001002			96.8
+J9B.jpg	      0		903	44													Macroalgae	Erect fine branching	Red	Open		90300910			100.0
+J9B.jpg	      0		23	870													Unknown			Open					50.9
+J9B.jpg	      0		730	1480													Macroalgae	Erect fine branching	Red	Open		90300910			52.3
+J9B.jpg	      0		610	764													Consolidated	Rock	Turf mat	Open		82001002			23.6
+J9B.jpg	      0		256	1293													Macroalgae	Erect fine branching	Red	Open		90300910			40.0
+J9B.jpg	      0		899	411													Macroalgae	Erect fine branching	Red	Open		90300910			67.6
+J9B.jpg	      0		275	375													Consolidated	Rock	Turf mat	Open		82001002			65.2
+J9B.jpg	      0		632	1422													Macroalgae	Erect fine branching	Red	Open		90300910			43.8
+J9B.jpg	      0		260	1323													Macroalgae	Erect fine branching	Red	Open		90300910			42.1
+J9B.jpg	      0		517	378													Consolidated	Rock	Turf mat	Open		82001002			60.1
