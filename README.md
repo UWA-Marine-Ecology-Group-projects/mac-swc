@@ -16,3 +16,4 @@ Campgain IDs
 Both random points and grid annotation methods have been used for the stereo-BRUV campaigns.
 Waiting on Kye to confirm if they are complete annotations 30/09/2021
 
+BOSS scripts are tidy but need up to date data 01/10/2021
