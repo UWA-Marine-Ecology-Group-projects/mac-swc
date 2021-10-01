@@ -166,7 +166,7 @@ write.csv(qaqc, paste(study,"random-points","images-and-annotations-missing.csv"
 
 # Create %fov----
 fov.points <- habitat.points%>%
-  dplyr::select(-c(broad,morphology,type,relief))%>%
+  dplyr::select(-c(broad,morphology,type))%>%
   dplyr::filter(!fieldofview=="")%>%
   dplyr::filter(!is.na(fieldofview))%>%
   dplyr::mutate(fieldofview=paste("fov",fieldofview,sep = "."))%>%
@@ -180,7 +180,7 @@ fov.points <- habitat.points%>%
 
 # CREATE catami_broad------
 broad.points <- habitat.points%>%
-  dplyr::select(-c(fieldofview,morphology,type,relief))%>%
+  dplyr::select(-c(fieldofview,morphology,type))%>%
   filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
   dplyr::mutate(broad=paste("broad",broad,sep = "."))%>%
   dplyr::mutate(count=1)%>%
@@ -195,7 +195,7 @@ broad.points <- habitat.points%>%
 
 # CREATE catami_morphology------
 detailed.points <- habitat.points%>%
-  dplyr::select(-c(fieldofview,relief))%>%
+  dplyr::select(-c(fieldofview))%>%
   dplyr::filter(!morphology%in%c("",NA,"Unknown"))%>%
   dplyr::filter(!broad%in%c("",NA,"Unknown","Open.Water"))%>%
   dplyr::mutate(morphology=paste("detailed",broad,morphology,type,sep = "."))%>%
@@ -243,4 +243,4 @@ habitat.detailed.points <- metadata%>%
   left_join(detailed.points, by = "sample")
 
 write.csv(habitat.broad.points,file=paste(study,"random-points_broad.habitat.csv",sep = "_"), row.names=FALSE)
-write.csv(habitat.broad.grid,file=paste(study,"grid_broad.habitat.csv",sep = "_"), row.names=FALSE)
+write.csv(habitat.detailed.points,file=paste(study,"random-points_detailed.habitat.csv",sep = "_"), row.names=FALSE)
