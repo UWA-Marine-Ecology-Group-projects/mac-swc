@@ -56,9 +56,9 @@ north.points <- read.delim("2020-10_south-west_BOSS_north_Dot Point Measurements
 
 length(unique(north.points$sample)) # 168 samples
 
-no.annotations <- north.points%>%
+north.no.annotations <- north.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  summarise(north.points.annotated=n())
 
 test <- north.points %>%
   filter(broad%in%c("",NA))
@@ -72,25 +72,25 @@ east.points <- read.delim("2020-10_south-west_BOSS_east_Dot Point Measurements.t
 
 length(unique(east.points$sample)) # 169
 
-no.annotations <- east.points%>%
+east.no.annotations <- east.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  summarise(east.points.annotated=n())
 
 test <- east.points %>%
   filter(broad%in%c("",NA))
 
 south.points <- read.delim("2020-10_south-west_BOSS_south_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
-  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","S"=""))) %>%
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","S"="","256"="356"))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   select(sample,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
 length(unique(south.points$sample)) # 169
 
-no.annotations <- south.points%>%
+south.no.annotations <- south.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  summarise(south.points.annotated=n())
 
 test <- south.points %>%
   filter(broad%in%c("",NA))
@@ -104,9 +104,9 @@ west.points <- read.delim("2020-10_south-west_BOSS_west_Dot Point Measurements.t
 
 length(unique(west.points$sample)) # 169
 
-no.annotations <- west.points%>%
+west.no.annotations <- west.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  summarise(west.points.annotated=n())
 
 test <- west.points %>%
   filter(broad%in%c("",NA))
@@ -125,66 +125,44 @@ wrong.number<-number.of.annotations%>%
 missing.metadata <- anti_join(habitat.points,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
 missing.habitat <- anti_join(metadata,habitat.points, by = c("sample")) # samples in the metadata that don't have a match in habitat
 
-forwards.missing <- anti_join(metadata, habitat.forwards.points, by = c("sample"))%>% 
-  filter(successful.count%in%c("Yes"))
+north.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/North"
+east.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/East"
+south.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/South"
+west.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/West"
+
+north.list <- dir(north.dir)%>%as.data.frame()%>%rename(north.image.name=1)%>%
+  filter(!north.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_North.TMObs", "2020_10_SouthWest_BOSS_Habitat_North.TMObs_AUTO"))%>%
+  mutate(sample=str_replace_all(.$north.image.name,c(".png"="",".jpg"="",".JPG"="","N"="")))
+
+east.list <- dir(east.dir)%>%as.data.frame()%>%rename(east.image.name=1)%>%
+  filter(!east.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_East.TMObs", "2020_10_SouthWest_BOSS_Habitat_East.TMObs_AUTO"))%>%
+  mutate(sample=str_replace_all(.$east.image.name,c(".png"="",".jpg"="",".JPG"="","E"="")))
+
+south.list <- dir(south.dir)%>%as.data.frame()%>%rename(south.image.name=1)%>%
+  filter(!south.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_South.TMObs", "2020_10_SouthWest_BOSS_Habitat_South.TMObs_AUTO"))%>%
+  mutate(sample=str_replace_all(.$south.image.name,c(".png"="",".jpg"="",".JPG"="","S"="")))
+
+west.list <- dir(west.dir)%>%as.data.frame()%>%rename(west.image.name=1)%>%
+  filter(!west.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_West.TMObs", "2020_10_SouthWest_BOSS_Habitat_West.TMObs_AUTO"))%>%
+  mutate(sample=str_replace_all(.$west.image.name,c(".png"="",".jpg"="",".JPG"="","W"="")))
+
+
+# Create checking dataframe for North ----
+qaqc <- metadata %>%
+  dplyr::select(sample, date, time.bottom) %>%
+  dplyr::left_join(north.list)%>%
+  dplyr::left_join(north.no.annotations)%>%
+  dplyr::left_join(east.list)%>%
+  dplyr::left_join(east.no.annotations)%>%
+  dplyr::left_join(south.list)%>%
+  dplyr::left_join(south.no.annotations)%>%
+  dplyr::left_join(west.list)%>%
+  dplyr::left_join(west.no.annotations)
 
 setwd(error.dir)
-
-write.csv(forwards.missing, "2020-10_south-west_stereo-BRUV_random-points_forwards_missing.csv",row.names = FALSE)
-
-backwards.missing <- anti_join(metadata, habitat.backwards.points, by = c("sample"))%>% 
-  filter(successful.count%in%c("Yes"))
-
-# read in grid annotations ----
-setwd(tm.export.dir)
 dir()
 
-habitat.forwards.grid <- read.delim("2020-10_south-west_stereo-BRUVs_grid_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
-  ga.clean.names() %>% # tidy the column names using GlobalArchive function
-  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""," take 2"=""))) %>%
-  mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
-  select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
-  glimpse() # preview
-
-length(unique(habitat.forwards.grid$sample)) # 245 samples
-
-no.annotations <- habitat.forwards.grid%>%
-  group_by(sample)%>%
-  summarise(n=n()) # good
-
-test <- habitat.forwards.grid %>%
-  filter(broad%in%c("",NA)) # good
-
-habitat.backwards.grid <- read.delim("2020-10_south-west_stereo-BRUVs_grid_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
-  ga.clean.names() %>% # tidy the column names using GlobalArchive function
-  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
-  mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
-  select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
-  glimpse() # preview
-
-length(unique(habitat.backwards.grid$sample)) # 259 samples
-
-no.annotations <- habitat.backwards.grid%>%
-  group_by(sample)%>%
-  summarise(n=n()) # good
-
-test <- habitat.backwards.grid %>%
-  filter(broad%in%c("",NA)) # good
-
-habitat.grid <- bind_rows(habitat.forwards.grid,habitat.backwards.grid)
-
-# Check that the image names match the metadata samples -----
-missing.metadata <- anti_join(habitat.grid,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
-missing.habitat <- anti_join(metadata,habitat.grid, by = c("sample")) # samples in the metadata that don't have a match in habitat
-
-forwards.missing <- anti_join(metadata, habitat.forwards.grid, by = c("sample"))%>% 
-  filter(successful.count%in%c("Yes"))
-
-setwd(error.dir)
-
-write.csv(forwards.missing, "2020-10_south-west_stereo-BRUV_grid_forwards_missing.csv",row.names = FALSE)
-backwards.missing <- anti_join(metadata, habitat.backwards.grid, by = c("sample"))%>% 
-  filter(successful.count%in%c("Yes"))
+write.csv(qaqc, paste(study,"random-points","images-and-annotations-missing.csv",sep="_"),row.names=FALSE)  
 
 # Create %fov----
 fov.points <- habitat.points%>%
@@ -200,20 +178,6 @@ fov.points <- habitat.points%>%
   dplyr::mutate(fov.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   ga.clean.names()
 
-fov.grid <- habitat.grid%>%
-  dplyr::select(-c(broad,morphology,type,relief))%>%
-  dplyr::filter(!fieldofview=="")%>%
-  dplyr::filter(!is.na(fieldofview))%>%
-  dplyr::mutate(fieldofview=paste("fov",fieldofview,sep = "."))%>%
-  dplyr::mutate(count=1)%>%
-  tibble::rowid_to_column()%>%
-  spread(key=fieldofview,value=count, fill=0)%>%
-  dplyr::select(-c(image.row,image.col,rowid))%>%
-  dplyr::group_by(sample)%>%
-  dplyr::summarise_all(funs(sum))%>%
-  dplyr::mutate(fov.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
-  ga.clean.names()
-
 # CREATE catami_broad------
 broad.points <- habitat.points%>%
   dplyr::select(-c(fieldofview,morphology,type,relief))%>%
@@ -223,21 +187,6 @@ broad.points <- habitat.points%>%
   dplyr::group_by(sample)%>%
   tidyr::spread(key=broad,value=count,fill=0)%>%
   dplyr::select(-c(image.row,image.col))%>%
-  dplyr::group_by(sample)%>%
-  dplyr::summarise_all(funs(sum))%>%
-  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
-  ga.clean.names()%>%
-  glimpse
-
-broad.grid <- habitat.grid%>%
-  dplyr::select(-c(fieldofview,morphology,type,relief))%>%
-  filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
-  dplyr::mutate(broad=paste("broad",broad,sep = "."))%>%
-  dplyr::mutate(count=1)%>%
-  dplyr::group_by(sample)%>%
-  tibble::rowid_to_column()%>%
-  tidyr::spread(key=broad,value=count,fill=0)%>%
-  dplyr::select(-c(image.row,image.col,rowid))%>%
   dplyr::group_by(sample)%>%
   dplyr::summarise_all(funs(sum))%>%
   dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
@@ -261,26 +210,6 @@ detailed.points <- habitat.points%>%
   dplyr::mutate(detailed.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   ga.clean.names()%>%
   glimpse()
-
-detailed.grid <- habitat.grid%>%
-  dplyr::select(-c(fieldofview,relief))%>%
-  dplyr::filter(!morphology%in%c("",NA,"Unknown"))%>%
-  dplyr::filter(!broad%in%c("",NA,"Unknown","Open.Water"))%>%
-  dplyr::mutate(morphology=paste("detailed",broad,morphology,type,sep = "."))%>%
-  dplyr::mutate(morphology=str_replace_all(.$morphology, c(".NA"="","[^[:alnum:] ]"=".","sand.."="sand.","Sand . mud "="Sand.mud","Sand.mud .c"="Sand.mud.c")))%>%
-  dplyr::select(-c(broad,type))%>%
-  dplyr::mutate(count=1)%>%
-  dplyr::group_by(sample)%>%
-  tibble::rowid_to_column()%>%
-  spread(key=morphology,value=count,fill=0)%>%
-  dplyr::select(-c(image.row,image.col,rowid))%>%
-  dplyr::group_by(sample)%>%
-  dplyr::summarise_all(funs(sum))%>%
-  dplyr::mutate(detailed.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
-  ga.clean.names()%>%
-  glimpse()
-
-names(detailed.grid)
 
 # Create relief----
 relief.grid<-habitat.grid%>%
@@ -313,19 +242,5 @@ habitat.detailed.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
   left_join(detailed.points, by = "sample")
 
-habitat.broad.grid <- metadata%>%
-  left_join(fov.grid, by = "sample")%>%
-  left_join(broad.grid, by = "sample")%>%
-  left_join(relief.grid)
-
-habitat.detailed.grid <- metadata%>%
-  left_join(fov.grid, by = "sample")%>%
-  left_join(detailed.grid, by = "sample")%>%
-  left_join(relief.grid)
-
 write.csv(habitat.broad.points,file=paste(study,"random-points_broad.habitat.csv",sep = "_"), row.names=FALSE)
 write.csv(habitat.broad.grid,file=paste(study,"grid_broad.habitat.csv",sep = "_"), row.names=FALSE)
-
-write.csv(habitat.detailed.points,file=paste(study,"random-points_detailed.habitat.csv",sep = "_"), row.names=FALSE)
-write.csv(habitat.detailed.grid,file=paste(study,"grid_detailed.habitat.csv",sep = "_"), row.names=FALSE)
-
