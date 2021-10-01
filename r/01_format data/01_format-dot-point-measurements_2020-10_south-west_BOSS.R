@@ -16,7 +16,7 @@ library(readr)
 library(ggplot2)
 
 # Study name ----
-study <- "2020-10_south-west_stereo-BRUVS"  
+study <- "2020-10_south-west_BOSS"  
 
 ## Set your working directory ----
 working.dir <- getwd() # this only works through github projects
@@ -34,9 +34,9 @@ setwd(em.export.dir)
 dir()
 
 # Read in metadata----
-metadata <- read_csv("2020-10_south-west_stereo-BRUVs_Metadata.csv") %>% # read in the file
+metadata <- read_csv("2020-10_south-west_BOSS_Metadata.csv") %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function 
-  dplyr::select(sample, latitude, longitude, date, time, site, location, successful.count,habitat.backwards.image.saved) %>% # select only these columns to keep
+  dplyr::select(sample, latitude, longitude, date, time.bottom, site, location, successful.count) %>% # select only these columns to keep
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   glimpse() # preview
 
@@ -47,39 +47,71 @@ setwd(tm.export.dir)
 dir()
 
 # read in the points annotations ----
-habitat.forwards.points <- read.delim("2020-10_south-west_stereo-BRUVs_random-points_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+north.points <- read.delim("2020-10_south-west_BOSS_north_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
-  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""," take 2"=""))) %>%
-  mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
-  select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","N"=""))) %>%
+  mutate(sample=as.character(sample)) %>% 
+  select(sample,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.forwards.points$sample)) # only 245 samples
+length(unique(north.points$sample)) # 168 samples
 
-no.annotations <- habitat.forwards.points%>%
+no.annotations <- north.points%>%
   group_by(sample)%>%
   summarise(n=n())
 
-test <- habitat.forwards.points %>%
+test <- north.points %>%
   filter(broad%in%c("",NA))
 
-habitat.backwards.points <- read.delim("2020-10_south-west_stereo-BRUVs_random-points_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+east.points <- read.delim("2020-10_south-west_BOSS_east_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
-  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","E"="","RDO"="REDO"))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
-  select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
+  select(sample,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.backwards.points$sample)) # only 259
+length(unique(east.points$sample)) # 169
 
-no.annotations <- habitat.backwards.points%>%
+no.annotations <- east.points%>%
   group_by(sample)%>%
   summarise(n=n())
 
-test <- habitat.backwards.points %>%
+test <- east.points %>%
   filter(broad%in%c("",NA))
 
-habitat.points <- bind_rows(habitat.forwards.points,habitat.backwards.points)
+south.points <- read.delim("2020-10_south-west_BOSS_south_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+  ga.clean.names() %>% # tidy the column names using GlobalArchive function
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","S"=""))) %>%
+  mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
+  select(sample,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
+  glimpse() # preview
+
+length(unique(south.points$sample)) # 169
+
+no.annotations <- south.points%>%
+  group_by(sample)%>%
+  summarise(n=n())
+
+test <- south.points %>%
+  filter(broad%in%c("",NA))
+
+west.points <- read.delim("2020-10_south-west_BOSS_west_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+  ga.clean.names() %>% # tidy the column names using GlobalArchive function
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","W"=""))) %>%
+  mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
+  select(sample,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
+  glimpse() # preview
+
+length(unique(west.points$sample)) # 169
+
+no.annotations <- west.points%>%
+  group_by(sample)%>%
+  summarise(n=n())
+
+test <- west.points %>%
+  filter(broad%in%c("",NA))
+
+habitat.points <- bind_rows(north.points,east.points,west.points,south.points)
 
 # Check number of points per image ----
 number.of.annotations <- habitat.points%>%
@@ -87,7 +119,7 @@ number.of.annotations <- habitat.points%>%
   dplyr::summarise(number.of.annotations=n()) # count the number of annotations per image
 
 wrong.number<-number.of.annotations%>%
-  filter(!number.of.annotations==40) # see images where there is too many or too little annotations (in this example there are none), go back into the *.TMObs file to fix this before re-exporting DO NOT FIX IN THE TXT FILE
+  filter(!number.of.annotations==80) # see images where there is too many or too little annotations (in this example there are none), go back into the *.TMObs file to fix this before re-exporting DO NOT FIX IN THE TXT FILE
 
 # Check that the image names match the metadata samples -----
 missing.metadata <- anti_join(habitat.points,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
