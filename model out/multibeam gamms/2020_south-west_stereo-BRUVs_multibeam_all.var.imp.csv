@@ -1,7 +1,0 @@
-"","mean.relief","log.sd.relief","broad.macroalgae","distance.to.ramp","aspect","log.tpi","log.roughness","sqrt.slope","depth","status"
-"Heterodontidae Heterodontus portusjacksoni",0.019,0.54,0.002,0.014,0.016,0.04,0.821,0.165,0.953,0.232
-"Labridae Coris auricularis",0,0,0,0.995,0,1,0,1,0.005,0
-"Monacanthidae Nelusetta ayraud",0,0.187,0,0.043,0.079,0.083,0.124,0.137,0.842,0.508
-"Sparidae Chrysophrys auratus",0.063,0.066,0.305,0.036,0.178,0.302,0.758,0.056,0.034,0.536
-"total.abundance",1,0,0,0,1,1,0,0,0,0
-"species.richness",0.914,0.157,0,0,0.057,0.107,0.344,0.455,0.005,0.247
