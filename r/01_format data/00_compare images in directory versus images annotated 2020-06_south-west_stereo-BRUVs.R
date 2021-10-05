@@ -16,7 +16,7 @@ library(readr)
 library(ggplot2)
 
 # Study name ----
-study <- "2020-10_south-west_stereo-BRUVS"  
+study <- "2020-06_south-west_stereo-BRUVS"  
 
 ## Set your working directory ----
 working.dir <- getwd() # this only works through github projects
@@ -34,9 +34,9 @@ setwd(em.export.dir)
 dir()
 
 # Read in metadata----
-metadata <- read_csv("2020-10_south-west_stereo-BRUVs_Metadata.csv") %>% # read in the file
+metadata <- read_csv("2020-06_south-west_stereo-BRUVs_Metadata.csv") %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function 
-  dplyr::select(sample, latitude, longitude, date, site, location, successful.count) %>% # select only these columns to keep
+  dplyr::select(sample, latitude, longitude, date, time, site, location, successful.count) %>% # select only these columns to keep
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   glimpse() # preview
 
@@ -47,7 +47,7 @@ setwd(tm.export.dir)
 dir()
 
 # read in the points annotations ----
-habitat.forwards.points <- read.delim("2020-10_south-west_stereo-BRUVs_random-points_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+habitat.forwards.points <- read.delim("2020-06_south-west_stereo-BRUVs_random-points_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""," take 2"=""))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
@@ -58,7 +58,7 @@ forwards.points.no.annotations <- habitat.forwards.points%>%
   group_by(sample)%>%
   summarise(forwards.points.no.annotations=n())
 
-habitat.backwards.points <- read.delim("2020-10_south-west_stereo-BRUVs_random-points_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+habitat.backwards.points <- read.delim("2020-06_south-west_stereo-BRUVs_random-points_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
@@ -69,20 +69,19 @@ backwards.points.no.annotations <- habitat.backwards.points%>%
   group_by(sample)%>%
   summarise(backwards.points.no.annotations=n())
 
-habitat.points <- bind_rows(habitat.forwards.points,habitat.backwards.points)
-
 # Point to images folders ----
-forwards.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/Habitat Images/Forwards"
-backwards.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/Habitat Images/Backwards"
+forwards.dir <- "Y:/Project Folders/2020-06_south-west_stereo-BRUVs/Working/Video Analysis/Habitat Images/Forward Facing"
+backwards.dir <- "Y:/Project Folders/2020-06_south-west_stereo-BRUVs/Working/Video Analysis/Habitat Images/Backwards Facing"
 
 forwards.list <- dir(forwards.dir)%>%as.data.frame()%>%rename(forwards.image.name=1)%>%
+  dplyr::filter(!forwards.image.name %in%c("ALL Dot Point Measurements.txt","ForwardFacing.TMObs","ForwardFacing.TMObs_AUTO","ForwardFacing_Dot Point Measurements.txt")) %>%
   mutate(sample=str_replace_all(.$forwards.image.name,c(".png"="",".jpg"="",".JPG"="")))
 
 backwards.list <- dir(backwards.dir)%>%as.data.frame()%>%rename(backwards.image.name=1) %>%
   dplyr::filter(!backwards.image.name %in%c("Thumbs.db")) %>%
   mutate(sample=str_replace_all(.$backwards.image.name,c(".png"="",".jpg"="",".JPG"="")))
 
-# Create checking dataframe ----
+# Create checking data frame ----
 qaqc.points <- metadata %>%
   dplyr::select(sample, date) %>%
   dplyr::left_join(forwards.list)%>%
@@ -92,7 +91,7 @@ qaqc.points <- metadata %>%
   glimpse()
 
 # Find samples where images and annotations are missing:
-forwards.points.missing.image.not.annotated <- qaqc.points%>%filter(forwards.image.name%in%c("NA",NA))%>%filter(forwards.points.no.annotations%in%c("NA",NA))
+forwards.points.missing.image.not.annotated <- qaqc.points%>%filter(forwards.image.name%in%c("NA",NA))%>%filter(forwards.points.no.annotations%in%c("NA",NA)) # ok because failed deployments
 backwards.points.missing.image.not.annotated <- qaqc.points%>%filter(backwards.image.name%in%c("NA",NA))%>%filter(backwards.points.no.annotations%in%c("NA",NA))
 
 # Find samples where image is exported but missing annotations:
@@ -108,29 +107,27 @@ dir()
 
 write.csv(qaqc.points, paste(study,"random-points","images-and-annotations-missing.csv",sep="_"),row.names=FALSE) 
 
-# Now do the same for grid ----
 # read in grid annotations ----
 setwd(tm.export.dir)
 dir()
 
-habitat.forwards.grid <- read.delim("2020-10_south-west_stereo-BRUVs_grid_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+habitat.forwards.grid <- read.delim("2020-06_south-west_stereo-BRUVs_grid_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""," take 2"=""))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.forwards.grid$sample)) # 245 samples
-
 forwards.grid.no.annotations <- habitat.forwards.grid%>%
   group_by(sample)%>%
-  summarise(forwards.grid.no.annotation=n()) 
+  summarise(forwards.grid.no.annotations=n()) # good
 
-habitat.backwards.grid <- read.delim("2020-10_south-west_stereo-BRUVs_grid_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+habitat.backwards.grid <- read.delim("2020-06_south-west_stereo-BRUVs_grid_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
-  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
+  mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"="","1.1"="1","2.1"="2","3.1"="3","4.1"="4","5.1"="5","6.1"="6","7.1"="7","8.1"="8","9.1"="9","0.1"="0"))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
+  mutate(sample=str_pad(sample,width = 2, side = "left", pad = "0")) %>%
   glimpse() # preview
 
 backwards.grid.no.annotations <- habitat.backwards.grid%>%
@@ -147,17 +144,16 @@ qaqc.grid <- metadata %>%
   glimpse()
 
 # Find samples where images and annotations are missing:
-forwards.grid.missing.image.not.annotated <- qaqc.grid%>%filter(forwards.image.name%in%c("NA",NA))%>%filter(forwards.grid.no.annotation%in%c("NA",NA))
+forwards.grid.missing.image.not.annotated <- qaqc.grid%>%filter(forwards.image.name%in%c("NA",NA))%>%filter(forwards.grid.no.annotations%in%c("NA",NA))
 backwards.grid.missing.image.not.annotated <- qaqc.grid%>%filter(backwards.image.name%in%c("NA",NA))%>%filter(backwards.grid.no.annotations%in%c("NA",NA))
 
 # Find samples where image is exported but missing annotations:
-forwards.grid.missing.annotation <- qaqc.grid%>%filter(!forwards.image.name%in%c("NA",NA))%>%filter(forwards.grid.no.annotation%in%c("NA",NA))
+forwards.grid.missing.annotation <- qaqc.grid%>%filter(!forwards.image.name%in%c("NA",NA))%>%filter(forwards.grid.no.annotations%in%c("NA",NA))
 backwards.grid.missing.annotation <- qaqc.grid%>%filter(!backwards.image.name%in%c("NA",NA))%>%filter(backwards.grid.no.annotations%in%c("NA",NA))
 
 # Find samples annotated but missing images:
-forwards.grid.missing.image <- qaqc.grid%>%filter(forwards.image.name%in%c("NA",NA))%>%filter(!forwards.grid.no.annotation%in%c("NA",NA))
+forwards.grid.missing.image <- qaqc.grid%>%filter(forwards.image.name%in%c("NA",NA))%>%filter(!forwards.grid.no.annotations%in%c("NA",NA))
 backwards.grid.missing.image <- qaqc.grid%>%filter(backwards.image.name%in%c("NA",NA))%>%filter(!backwards.grid.no.annotations%in%c("NA",NA))
-
 
 setwd(error.dir)
 dir()
@@ -177,7 +173,7 @@ qaqc.all <- metadata %>%
 
 forwards.points.not.grid <- qaqc.all %>%
   filter(!forwards.points.no.annotations%in%c("NA",NA))%>%
-  filter(forwards.grid.no.annotation%in%c("NA",NA)) # NONE = good
+  filter(forwards.grid.no.annotations%in%c("NA",NA)) # NONE = good
 
 backwards.points.not.grid <- qaqc.all %>%
   filter(!backwards.points.no.annotations%in%c("NA",NA))%>%
@@ -185,11 +181,11 @@ backwards.points.not.grid <- qaqc.all %>%
 
 forwards.grid.not.points <- qaqc.all %>%
   filter(forwards.points.no.annotations%in%c("NA",NA))%>%
-  filter(!forwards.grid.no.annotation%in%c("NA",NA)) # NONE = good
+  filter(!forwards.grid.no.annotations%in%c("NA",NA)) # 2 = not good
 
 backwards.grid.not.points <- qaqc.all %>%
   filter(backwards.points.no.annotations%in%c("NA",NA))%>%
-  filter(!backwards.grid.no.annotations%in%c("NA",NA)) # NONE = good
+  filter(!backwards.grid.no.annotations%in%c("NA",NA)) # 3 = not good
 
 
 ### USE THIS ONLY ONCE ###
