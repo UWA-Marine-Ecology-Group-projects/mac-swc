@@ -1,8 +1,8 @@
 Dot Point Measurements
 
-Generated: Thursday 07 October 2021 08:10:54
+Generated: Monday 25 October 2021 14:39:53
 
-Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	Broad	Morphology	Type	Fine	FieldOfView	CAAB_CODE			Radius %
+Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100B.jpg	      0		1046	743													Macroalgae	Erect Fine Branching	Red	Foliose	Open	80300910			57.5
 100B.jpg	      0		1005	1100													Macroalgae	Erect Fine Branching	Red	Foliose	Open	80300910			53.7
 100B.jpg	      0		850	282													Substrate	Unconsolidated (Soft)	Sand / Mud (<2Mm)	Coarse Sand (With Shell Fragments)	Open	82001014			73.5

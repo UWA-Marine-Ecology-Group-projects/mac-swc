@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Friday 01 October 2021 13:03:55
+Generated: Friday 22 October 2021 10:32:07
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.JPG	      0		139	196													Open Water			Open					100.0
@@ -5143,6 +5143,26 @@ IOC05.JPG	      0		139	1724													Open Water			Open					100.0
 IOC05.JPG	      0		406	1724													Macroalgae	Erect course branching	Brown	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	80300904			89.9
 IOC05.JPG	      0		674	1724													Macroalgae	Erect course branching	Brown	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	80300904			89.9
 IOC05.JPG	      0		941	1724													Unconsolidated	Sand	mud (coarse sand)	Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.	82001014			100.0
+IOC06.JPG	      0		379	404													Open Water			Open					100.0
+IOC06.JPG	      0		1126	404													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			84.0
+IOC06.JPG	      0		1874	404													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			84.0
+IOC06.JPG	      0		2621	404													Consolidated	Rock	Veneer	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	82001002			100.0
+IOC06.JPG	      0		379	1202													Open Water			Open					70.6
+IOC06.JPG	      0		1126	1202													Open Water			Open					45.2
+IOC06.JPG	      0		1874	1202													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			45.2
+IOC06.JPG	      0		2621	1202													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	63600903			70.6
+IOC06.JPG	      0		379	2000													Open Water			Open					57.5
+IOC06.JPG	      0		1126	2000													Open Water			Open					19.2
+IOC06.JPG	      0		1874	2000													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open	.3. Good relief structure with some overhangs. >45 substrate slope.	63600903			19.2
+IOC06.JPG	      0		2621	2000													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			57.5
+IOC06.JPG	      0		379	2798													Open Water			Open					70.6
+IOC06.JPG	      0		1126	2798													Open Water			Open					45.2
+IOC06.JPG	      0		1874	2798													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open	.3. Good relief structure with some overhangs. >45 substrate slope.	63600903			45.2
+IOC06.JPG	      0		2621	2798													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			70.6
+IOC06.JPG	      0		379	3596													Open Water			Open					100.0
+IOC06.JPG	      0		1126	3596													Open Water			Open					84.0
+IOC06.JPG	      0		1874	3596													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	63600903			84.0
+IOC06.JPG	      0		2621	3596													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			100.0
 IOCP11-1.JPG	      0		139	196													Open Water			Limited					100.0
 IOCP11-1.JPG	      0		406	196													Open Water			Open					89.9
 IOCP11-1.JPG	      0		674	196													Unconsolidated	Sand	mud (coarse sand)	Open	".0. Flat substrate, sandy, rubble with few features. ~0 substrate slope."	82001014			89.9
