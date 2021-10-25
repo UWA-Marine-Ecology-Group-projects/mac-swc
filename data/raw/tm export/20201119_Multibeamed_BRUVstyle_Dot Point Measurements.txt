@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Monday 25 October 2021 14:51:56
+Generated: Tuesday 26 October 2021 07:42:54
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 J10E.jpg	      0		139	196													Unknown			Open					100.0

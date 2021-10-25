@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Monday 25 October 2021 14:39:54
+Generated: Tuesday 26 October 2021 07:42:49
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100E.jpg	      0		970	1440													Macroalgae	Erect fine branching	Red	Open		90300910			54.4
@@ -4278,7 +4278,7 @@ FH61E.jpg	      0		716	563													Consolidated	Rock	Turf mat	Open		82001002
 FH61E.jpg	      0		951	427													Macroalgae	Erect fine branching	Red	Open		90300910			61.2
 FH61E.jpg	      0		857	522													Macroalgae	Erect fine branching	Red	Open		90300910			50.2
 FH61E.jpg	      0		995	1601													Consolidated	Rock	Turf mat	Open		82001002			58.8
-FH61E.jpg	      0		685	3																					100.0
+FH61E.jpg	      0		685	3													Consolidated	Rock	Turf mat	Open		82001002			100.0
 FH61E.jpg	      0		553	1531													Unknown			Open					52.4
 FH61E.jpg	      0		822	1646													Consolidated	Rock	Turf mat	Open		82001002			59.3
 FH61E.jpg	      0		591	675													Consolidated	Rock	Turf mat	Open		82001002			38.9

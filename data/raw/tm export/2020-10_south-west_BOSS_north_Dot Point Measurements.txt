@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Monday 25 October 2021 14:39:55
+Generated: Tuesday 26 October 2021 07:42:50
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100N.jpg	      0		728	813													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			29.5
@@ -4382,7 +4382,7 @@ FH93N.jpg	      0		767	1671													Sponges	Hollow forms		Open		10000909			8
 FH93N.jpg	      0		1031	989													Macroalgae	Small mixed		Open		80300000			33.9
 FH93N.jpg	      0		868	887													Consolidated	Rock	Turf mat	Open		82001002			20.3
 FH93N.jpg	      0		628	497													Seagrasses	Strap-like leaves	Thalassodendrum sp.	Open		63600903			22.4
-FH93N.jpg	      0		691	195																					42.2
+FH93N.jpg	      0		691	195													Sponges	Massive forms		Open		10000903			42.2
 FH95N.jpg	      0		1002	931													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			22.0
 FH95N.jpg	      0		685	1236													Macroalgae	Erect fine branching	Red	Open		90300910			18.2
 FH95N.jpg	      0		844	1767													Macroalgae	Erect course branching	Brown	Open		80300904			55.2

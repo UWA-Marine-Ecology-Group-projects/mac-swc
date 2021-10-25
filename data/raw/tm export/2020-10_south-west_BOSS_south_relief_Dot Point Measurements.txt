@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Monday 25 October 2021 14:39:57
+Generated: Tuesday 26 October 2021 07:42:52
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100S.jpg	      0		139	196																Open					100.0

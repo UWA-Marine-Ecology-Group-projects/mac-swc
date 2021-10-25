@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Monday 25 October 2021 14:39:57
+Generated: Tuesday 26 October 2021 07:42:51
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 100S.jpg	      0		738	594													Macroalgae	Erect fine branching	Red	Open		90300910			42.2
@@ -2169,7 +2169,7 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 311S.jpg	      0		572	190													Consolidated	Rock	Turf mat	Open		82001002			66.7
 311S.jpg	      0		653	636													Consolidated	Rock	Turf mat	Open		82001002			23.6
 311S.jpg	      0		977	1066													Consolidated	Rock	Turf mat	Open		82001002			29.4
-311S.jpg	      0		1050	1781																					96.7
+311S.jpg	      0		1050	1781													Consolidated	Rock	Turf mat	Open		82001002			96.7
 311S.jpg	      0		1026	354													Consolidated	Rock	Turf mat	Open		82001002			52.3
 311S.jpg	      0		846	72													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			74.9
 311S.jpg	      0		842	514													Consolidated	Rock	Turf mat	Open		82001002			31.6
@@ -2481,7 +2481,7 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 334S.jpg	      0		572	1314													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			47.8
 334S.jpg	      0		832	386													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			44.6
 334S.jpg	      0		932	118													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			70.2
-334S.jpg	      0		1074	1913																					100.0
+334S.jpg	      0		1074	1913													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
 334S.jpg	      0		833	414													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			42.1
 335S.jpg	      0		944	439													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			48.4
 335S.jpg	      0		589	379													Macroalgae	Large canopy-forming	Ecklonia radiata	Open		54080001			54.3
