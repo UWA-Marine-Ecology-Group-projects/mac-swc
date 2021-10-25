@@ -46,7 +46,7 @@ names(metadata)
 setwd(tm.export.dir)
 dir()
 
-june.points <- read.delim("20201119_Multibeamed_BOSSstyle_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+june.points <- read.delim("2020-11_south-west_BOSS_multibeamed_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""
                                              ,"N"="","E"="","S"="","W"=""
@@ -90,7 +90,7 @@ north.points <- read.delim("2020-10_south-west_BOSS_north_Dot Point Measurements
   select(sample,filename,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(north.points$sample)) # 168 samples
+length(unique(north.points$sample)) # 225 samples
 
 north.no.annotations <- north.points%>%
   group_by(sample)%>%
@@ -107,7 +107,7 @@ east.points <- read.delim("2020-10_south-west_BOSS_east_Dot Point Measurements.t
   select(sample,filename,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(east.points$sample)) # 169
+length(unique(east.points$sample)) # 225
 
 east.no.annotations <- east.points%>%
   group_by(sample)%>%
@@ -124,7 +124,7 @@ south.points <- read.delim("2020-10_south-west_BOSS_south_Dot Point Measurements
   select(sample,filename,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(south.points$sample)) # 169
+length(unique(south.points$sample)) # 225
 
 south.no.annotations <- south.points%>%
   group_by(sample)%>%
@@ -141,18 +141,21 @@ west.points <- read.delim("2020-10_south-west_BOSS_west_Dot Point Measurements.t
   select(sample,filename,image.row,image.col,broad,morphology,type,fieldofview) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(west.points$sample)) # 169
+length(unique(west.points$sample)) # 225
 
 west.no.annotations <- west.points%>%
   group_by(sample)%>%
   summarise(west.points.annotated=n())%>%
   bind_rows(june.west)
 
+test <- west.points %>%
+  filter(broad%in%c("",NA))
+
 # Point to images folders ----
-north.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/North"
-east.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/East"
-south.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/South"
-west.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/West"
+north.dir <- "Z:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/North"
+east.dir <- "Z:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/East"
+south.dir <- "Z:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/South"
+west.dir <- "Z:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/BOSS/Habitat Images/2020-10/West"
 
 north.list <- dir(north.dir)%>%as.data.frame()%>%rename(north.image.name=1)%>%
   filter(!north.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_North.TMObs", "2020_10_SouthWest_BOSS_Habitat_North.TMObs_AUTO"))%>%
@@ -160,7 +163,7 @@ north.list <- dir(north.dir)%>%as.data.frame()%>%rename(north.image.name=1)%>%
 
 east.list <- dir(east.dir)%>%as.data.frame()%>%rename(east.image.name=1)%>%
   filter(!east.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_East.TMObs", "2020_10_SouthWest_BOSS_Habitat_East.TMObs_AUTO"))%>%
-  mutate(sample=str_replace_all(.$east.image.name,c(".png"="",".jpg"="",".JPG"="","E"="")))
+  mutate(sample=str_replace_all(.$east.image.name,c(".png"="",".jpg"="",".JPG"="","E"="","RDO"="REDO")))
 
 south.list <- dir(south.dir)%>%as.data.frame()%>%rename(south.image.name=1)%>%
   filter(!south.image.name%in%c("2020_10_SouthWest_BOSS_Habitat_South.TMObs", "2020_10_SouthWest_BOSS_Habitat_South.TMObs_AUTO"))%>%
