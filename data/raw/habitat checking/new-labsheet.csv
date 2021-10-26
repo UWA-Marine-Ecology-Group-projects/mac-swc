@@ -1,30 +1,30 @@
 "Date","Sample","Time.bottom","Time.end","Depth","Raw.hdd.number","Con.hdd.number","Longitude","Latitude","Comment","Forwards.habitat.exported","Downwards.habitat.exported","Forwards.habitat.completed","Downwards.habitat.completed","Habitat.notes","Site","Location","Status","Observer","Successful.count","Successful.length","Video.notes","Maxn.analyst","Maxn.complete.yyyymmdd","Maxn.checker","Length.analyst","Length.complete.date.yyyymmdd","Notes","forwards.habitat.north.exported","forwards.habitat.north.annotated","forwards.habitat.east.exported","forwards.habitat.east.annotated","forwards.habitat.south.exported","forwards.habitat.south.annotated","forwards.habitat.west.exported","forwards.habitat.west.annotated"
-20201020,"FH92","08:34:48","08:37:38",44.1,"BU3","",114.8714,-33.8437,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH61","09:06:40","09:09:40",NA,"BU3","",114.8639,-33.8412,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH27","09:32:24","09:35:24",42.8,"BU3","",114.8714,-33.8362,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH17","09:46:43","09:49:43",NA,"BU3","",114.8764,-33.8337,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH56","10:00:37","10:03:37",41.9,"BU3","",114.8664,-33.8312,"558 - file corrupt","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH96","10:40:01","10:43:01",NA,"BU3","",114.8339,-33.8187,"417 took photos","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH60","10:54:30","10:57:00",44.4,"BU3","",114.8214,-33.8162,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH26","11:05:07","11:08:00",43.9,"BU3","",114.8289,-33.8112,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH110","11:17:02","11:20:00",44.9,"BU3","",114.8214,-33.8087,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH48","11:30:39","11:33:00",45,"BU3","",114.8139,-33.7962,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH21","11:41:29","11:44:00",46.3,"BU3","",114.8089,-33.7937,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH18","11:55:54","11:59:00",45.1,"BU3","",114.8214,-33.7912,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH106","12:06:58","12:10:00",46.2,"BU3","",114.8164,-33.7887,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH57","12:18:13","12:21:00",44.2,"BU3","",114.8114,-33.7887,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH34","12:51:20","12:54:00",44.6,"BU3","",114.8839,-33.7862,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH7","13:04:33","13:08:00",45.2,"BU3","",114.8789,-33.7837,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH20","13:17:56","13:21:00",42.4,"BU3","",114.8727,-33.7827,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH93","13:32:44","13:36:00",44.3,"BU3","",114.8689,-33.7762,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH44","13:46:18","13:50:00",44.5,"BU3","",114.8639,-33.7712,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH14","13:59:42","14:04:00",44.9,"BU3","",114.8714,-33.7662,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH95","14:17:10","14:21:00",NA,"BU3","",114.8914,-33.7587,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH62","14:32:04","14:36:00",45.2,"BU3","",114.8814,-33.7562,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201020,"FH30","14:44:05","14:48:00",NA,"BU3","",114.8889,-33.7512,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
+20201020,"FH92","08:34:48","08:37:38",44.1,"BU3","",114.8714,-33.8437,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH61","09:06:40","09:09:40",NA,"BU3","",114.8639,-33.8412,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH27","09:32:24","09:35:24",42.8,"BU3","",114.8714,-33.8362,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH17","09:46:43","09:49:43",NA,"BU3","",114.8764,-33.8337,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH56","10:00:37","10:03:37",41.9,"BU3","",114.8664,-33.8312,"558 - file corrupt","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH96","10:40:01","10:43:01",NA,"BU3","",114.8339,-33.8187,"417 took photos","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH60","10:54:30","10:57:00",44.4,"BU3","",114.8214,-33.8162,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH26","11:05:07","11:08:00",43.9,"BU3","",114.8289,-33.8112,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH110","11:17:02","11:20:00",44.9,"BU3","",114.8214,-33.8087,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH48","11:30:39","11:33:00",45,"BU3","",114.8139,-33.7962,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH21","11:41:29","11:44:00",46.3,"BU3","",114.8089,-33.7937,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH18","11:55:54","11:59:00",45.1,"BU3","",114.8214,-33.7912,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH106","12:06:58","12:10:00",46.2,"BU3","",114.8164,-33.7887,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH57","12:18:13","12:21:00",44.2,"BU3","",114.8114,-33.7887,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH34","12:51:20","12:54:00",44.6,"BU3","",114.8839,-33.7862,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH7","13:04:33","13:08:00",45.2,"BU3","",114.8789,-33.7837,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH20","13:17:56","13:21:00",42.4,"BU3","",114.8727,-33.7827,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH93","13:32:44","13:36:00",44.3,"BU3","",114.8689,-33.7762,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH44","13:46:18","13:50:00",44.5,"BU3","",114.8639,-33.7712,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH14","13:59:42","14:04:00",44.9,"BU3","",114.8714,-33.7662,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH95","14:17:10","14:21:00",NA,"BU3","",114.8914,-33.7587,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH62","14:32:04","14:36:00",45.2,"BU3","",114.8814,-33.7562,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201020,"FH30","14:44:05","14:48:00",NA,"BU3","",114.8889,-33.7512,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201030,"261","07:00:38","07:03:38",46.5,"BU4","reconvert/check both",114.9214,-33.9762,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201030,"338","07:16:01","07:19:01",46,"BU4","reconvert/check both",114.9225,-33.9723,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
-20201030,"260","07:25:21","07:28:21",46.1,"BU4","reconvert/check both",114.9164,-33.9712,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes",NA,NA,"Yes","Yes"
+20201030,"260","07:25:21","07:28:21",46.1,"BU4","reconvert/check both",114.9164,-33.9712,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201030,"259","07:39:07","07:42:07",46.3,"BU4","reconvert/check both",114.9214,-33.9687,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201030,"258","07:48:52","07:51:52",46.2,"BU4","reconvert/check both",114.9139,-33.9662,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201030,"FH10","08:08:24","08:11:24",NA,"BU4","reconvert/check both",114.8864,-33.9862,"Fishing HWY sample","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
@@ -68,7 +68,7 @@
 20201031,"236","08:47:27","08:50:27",46,"BU4","",114.8964,-34.0787,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"237","08:57:11","09:00:11",43.2,"BU4","",114.9239,-34.0812,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"C02","09:07:10","09:10:10",45,"BU4","",114.9364,-34.0812,"Snapper! Dhuey lump. 30m from 357. ","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
-20201031,"235REDO","09:17:31","09:20:31",44.3,"BU4","",114.9279,-34.0854,"Redo","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes",NA,"Yes","Yes","Yes","Yes","Yes"
+20201031,"235REDO","09:17:31","09:20:31",44.3,"BU4","",114.9279,-34.0854,"Redo","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"239","09:25:33","09:28:33",45.3,"BU4","",114.9364,-34.0912,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"91","09:43:27","09:46:27",42.7,"BU4","",114.9314,-34.0912,"422 restarted - Sound trap on","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"80","09:51:03","09:54:03",43.1,"BU4","",114.8939,-34.0937,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
@@ -101,7 +101,7 @@
 20201031,"339","14:40:57","14:43:57",42.1,"BU4","",114.8814,-34.0162,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"262","14:48:37","14:51:37",42.1,"BU4","",114.8785,-34.0146,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201031,"263","14:57:46","15:00:46",42.6,"BU4","",114.8739,-34.0137,"","Y","Y",NA,"Y","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
-20201104,"278","07:43","",140,"BU4","CON1",114.8789,-34.0087,"Rope Snapped- time on bottom not accurate","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210315,"Rachel",NA,NA,"","Yes",NA,"Yes","Yes","Yes","Yes","Yes","Yes"
+20201104,"278","07:43","",140,"BU4","CON1",114.8789,-34.0087,"Rope Snapped- time on bottom not accurate","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210315,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201104,"40","10:31:33","10:34",130,"BU4","CON1",114.6389,-34.1112,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210315,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201104,"36","10:42:42","10:45",129,"BU4","CON1",114.7139,-34.1037,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210315,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201104,"37","10:54:04","10:58",129,"BU4","CON1",114.7189,-34.1037,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210315,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
@@ -148,40 +148,40 @@
 20201107,"322","13:56:13","13:59",145,"BU4","",114.5414,-34.0287,"","Y","Y",NA,"Y","epiphyte macroalgae growing on sponge",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201107,"346","14:08","14:11",145,"BU4","",114.5439,-34.0327,"Time in not accurate","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201107,"345","14:17:40","14:20",146,"BU4","",114.5464,-34.0262,"","Y","Y",NA,"","",NA,NA,NA,"","",NA,"","",NA,"",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
-20201108,"49","07:03:31","07:06",130,"BU5","CON1",114.5514,-34.0287,"Cameras turned on at 6:30AM","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210310,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"47","07:14:14","07:14",127,"BU5","CON1",114.7064,-34.0612,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210310,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"46","07:25:59","07:29",125,"BU5","CON1",114.7114,-34.0637,"Sponge garden","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210310,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"290","07:38:01","07:41",124,"BU5","CON1",114.7114,-34.0687,"","Y","Y",NA,"Y","very blurry",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"302","07:48:30","07:51",122,"BU5","CON1",114.7189,-34.0687,"","Y","Y",NA,"Y","very blurry",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"329","07:59:37","08:02",118,"BU5","CON1",114.7239,-34.0712,"Fish on Sounder","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"117","08:11:19","08:14",112,"BU5","CON1",114.7266,-34.0648,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"113","08:21:39","08:24",111,"BU5","CON1",114.7389,-34.0637,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"115","08:31:25","08:34",111,"BU5","CON1",114.7389,-34.0587,"Checked Cameras","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"4","08:57:56","09:01",60,"BU5","CON1",114.7364,-34.0537,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"5","09:07:02","09:10",66,"BU5","CON1",114.7814,-34.0912,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"1","09:18:31","09:21",62.6,"BU5","CON1",114.7764,-34.0887,"Facing upwards","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"3","09:29:21","09:32",61.4,"BU5","CON1",114.7839,-34.0762,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"335","09:40:59","09:41",54.9,"BU5","CON1",114.794,-34.0669,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"",NA,NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"206","09:49:23","09:52",58.2,"BU5","CON1",114.7914,-34.0637,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes","Yes","Yes",NA
-20201108,"204","09:59:09","10:02",60.6,"BU5","CON1",114.7864,-34.0662,"Checked Cameras","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"207","10:08:10","10:11",60.2,"BU5","CON1",114.7864,-34.0612,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"312","10:20:56","10:23",65.2,"BU5","CON1",114.7788721,-34.05868897,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"334","10:29:33","10:32",63,"BU5","CON1",114.7754,-34.0616,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"310","10:37:49","10:40",64.1,"BU5","CON1",114.7739,-34.0587,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"311","10:47:06","10:50",67.2,"BU5","CON1",114.7689,-34.0562,"Changed all camera batteries","Y","Y",NA,"Y","rock covered in weird fluffy stuff",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"check maculatus - claude not convinced either","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"327","11:34:53","11:37",64.9,"BU5","CON1",114.7624,-34.0295,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"267","11:42:58","11:45",62.7,"BU5","CON1",114.7639,-34.0262,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"365","11:54:40","11:57",72,"BU5","CON1",114.7539,-34.0237,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"check scaber","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"266","12:03:40","12:06",67.3,"BU5","CON1",114.7589,-34.0212,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"325","12:21:33","12:24",82.4,"BU5","CON1",114.7443,-33.9918,"Ledge- good ground","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"361","12:30:37","12:33",84.3,"BU5","CON1",114.7414,-33.9887,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"374","12:39:45","12:42",74.8,"BU5","CON1",114.7464,-33.9862,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"363","12:48:25","12:51",65.6,"BU5","CON1",114.7514,-33.9862,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"227","13:05:40","13:08",54.1,"BU5","CON1",114.7839,-33.9987,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"229","13:14:36","13:17",52.5,"BU5","CON1",114.7864,-33.9937,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,NA,NA,"Yes",NA
-20201108,"241","13:22:31","13:25",51.3,"BU5","CON1",114.7914,-33.9937,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201108,"228","13:32:47","13:35",50.6,"BU5","CON1",114.7939,-34.0037,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"unknown wrasse","Yes",NA,"Yes",NA,"Yes",NA,"Yes",NA
-20201111,"278REDO","07:18:57","07:21",140,"BU5","CON1",114.8789,-34.0087,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"was NA in lat long, added same lat long as 278","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes",NA,"Yes","Yes","Yes","Yes","Yes"
+20201108,"49","07:03:31","07:06",130,"BU5","CON1",114.5514,-34.0287,"Cameras turned on at 6:30AM","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210310,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"47","07:14:14","07:14",127,"BU5","CON1",114.7064,-34.0612,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210310,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"46","07:25:59","07:29",125,"BU5","CON1",114.7114,-34.0637,"Sponge garden","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210310,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"290","07:38:01","07:41",124,"BU5","CON1",114.7114,-34.0687,"","Y","Y",NA,"Y","very blurry",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"302","07:48:30","07:51",122,"BU5","CON1",114.7189,-34.0687,"","Y","Y",NA,"Y","very blurry",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"329","07:59:37","08:02",118,"BU5","CON1",114.7239,-34.0712,"Fish on Sounder","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"117","08:11:19","08:14",112,"BU5","CON1",114.7266,-34.0648,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"113","08:21:39","08:24",111,"BU5","CON1",114.7389,-34.0637,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"115","08:31:25","08:34",111,"BU5","CON1",114.7389,-34.0587,"Checked Cameras","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"4","08:57:56","09:01",60,"BU5","CON1",114.7364,-34.0537,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210311,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"5","09:07:02","09:10",66,"BU5","CON1",114.7814,-34.0912,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"1","09:18:31","09:21",62.6,"BU5","CON1",114.7764,-34.0887,"Facing upwards","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"3","09:29:21","09:32",61.4,"BU5","CON1",114.7839,-34.0762,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"335","09:40:59","09:41",54.9,"BU5","CON1",114.794,-34.0669,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"206","09:49:23","09:52",58.2,"BU5","CON1",114.7914,-34.0637,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"204","09:59:09","10:02",60.6,"BU5","CON1",114.7864,-34.0662,"Checked Cameras","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"207","10:08:10","10:11",60.2,"BU5","CON1",114.7864,-34.0612,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210315,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"312","10:20:56","10:23",65.2,"BU5","CON1",114.7788721,-34.05868897,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"334","10:29:33","10:32",63,"BU5","CON1",114.7754,-34.0616,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"310","10:37:49","10:40",64.1,"BU5","CON1",114.7739,-34.0587,"","Y","Y",NA,"Y","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"311","10:47:06","10:50",67.2,"BU5","CON1",114.7689,-34.0562,"Changed all camera batteries","Y","Y",NA,"Y","rock covered in weird fluffy stuff",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"check maculatus - claude not convinced either","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"327","11:34:53","11:37",64.9,"BU5","CON1",114.7624,-34.0295,"","Y","Y",NA,"","",NA,NA,NA,"Rachel","y",NA,"","Rachel",20210316,"Claude",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"267","11:42:58","11:45",62.7,"BU5","CON1",114.7639,-34.0262,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"365","11:54:40","11:57",72,"BU5","CON1",114.7539,-34.0237,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"check scaber","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"266","12:03:40","12:06",67.3,"BU5","CON1",114.7589,-34.0212,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"325","12:21:33","12:24",82.4,"BU5","CON1",114.7443,-33.9918,"Ledge- good ground","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"361","12:30:37","12:33",84.3,"BU5","CON1",114.7414,-33.9887,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"374","12:39:45","12:42",74.8,"BU5","CON1",114.7464,-33.9862,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"363","12:48:25","12:51",65.6,"BU5","CON1",114.7514,-33.9862,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"227","13:05:40","13:08",54.1,"BU5","CON1",114.7839,-33.9987,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"229","13:14:36","13:17",52.5,"BU5","CON1",114.7864,-33.9937,"","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"241","13:22:31","13:25",51.3,"BU5","CON1",114.7914,-33.9937,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201108,"228","13:32:47","13:35",50.6,"BU5","CON1",114.7939,-34.0037,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"unknown wrasse","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
+20201111,"278REDO","07:18:57","07:21",140,"BU5","CON1",114.8789,-34.0087,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"was NA in lat long, added same lat long as 278","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201111,"277","07:30:06","07:33",139,"BU5","CON1",114.6464,-34.1062,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"no fish","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201111,"343","07:41:11","07:44",140,"BU5","CON1",114.6407,-34.1026,"Skippy spot of Deans, heaps of fish! can see mysetery object in distance N","Y","Y",NA,"","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"sea cube cube bust ups","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"
 20201111,"276","07:53","07:56",141,"BU5","CON1",114.6364,-34.1012,"","Y","Y",NA,"Y","",NA,NA,NA,"Claude","Y",NA,"","Claude",20210316,"Rachel",NA,NA,"","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"

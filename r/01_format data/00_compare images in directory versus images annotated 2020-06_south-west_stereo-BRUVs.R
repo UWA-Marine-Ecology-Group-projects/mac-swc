@@ -70,8 +70,8 @@ backwards.points.no.annotations <- habitat.backwards.points%>%
   summarise(backwards.points.no.annotations=n())
 
 # Point to images folders ----
-forwards.dir <- "Y:/Project Folders/2020-06_south-west_stereo-BRUVs/Working/Video Analysis/Habitat Images/Forward Facing"
-backwards.dir <- "Y:/Project Folders/2020-06_south-west_stereo-BRUVs/Working/Video Analysis/Habitat Images/Backwards Facing"
+forwards.dir <- "Z:/Project Folders/2020-06_south-west_stereo-BRUVs/Working/Video Analysis/Habitat Images/Forward Facing"
+backwards.dir <- "Z:/Project Folders/2020-06_south-west_stereo-BRUVs/Working/Video Analysis/Habitat Images/Backwards Facing"
 
 forwards.list <- dir(forwards.dir)%>%as.data.frame()%>%rename(forwards.image.name=1)%>%
   dplyr::filter(!forwards.image.name %in%c("ALL Dot Point Measurements.txt","ForwardFacing.TMObs","ForwardFacing.TMObs_AUTO","ForwardFacing_Dot Point Measurements.txt")) %>%

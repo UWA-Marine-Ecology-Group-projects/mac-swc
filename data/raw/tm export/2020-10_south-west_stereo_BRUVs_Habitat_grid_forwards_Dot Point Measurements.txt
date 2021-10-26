@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Friday 22 October 2021 10:32:08
+Generated: Tuesday 26 October 2021 08:30:36
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.jpg	      0		139	196													Open Water			Open					100.0
@@ -603,6 +603,26 @@ FH35.jpg	      0		139	1724													Open Water			Open					100.0
 FH35.jpg	      0		406	1724													Open Water			Open					89.9
 FH35.jpg	      0		674	1724													Open Water			Open					89.9
 FH35.jpg	      0		941	1724													Unconsolidated	Sand	mud (coarse sand)	Open	".0. Flat substrate, sandy, rubble with few features. ~0 substrate slope."	82001014			100.0
+FH36.jpg	      0		118	167																Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.				100.0
+FH36.jpg	      0		345	167																Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.				89.9
+FH36.jpg	      0		572	167																Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.				89.9
+FH36.jpg	      0		799	167																Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.				100.0
+FH36.jpg	      0		118	491																Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.				64.2
+FH36.jpg	      0		345	491																Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.				46.9
+FH36.jpg	      0		572	491																Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.				46.9
+FH36.jpg	      0		799	491																Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.				64.2
+FH36.jpg	      0		118	815																Open					46.5
+FH36.jpg	      0		345	815																Open					15.5
+FH36.jpg	      0		572	815																Open					15.5
+FH36.jpg	      0		799	815																Open					46.5
+FH36.jpg	      0		118	1139																Open					64.2
+FH36.jpg	      0		345	1139																Open					46.9
+FH36.jpg	      0		572	1139																Open					46.9
+FH36.jpg	      0		799	1139																Open					64.2
+FH36.jpg	      0		118	1463																Open					100.0
+FH36.jpg	      0		345	1463																Open					89.9
+FH36.jpg	      0		572	1463																Open					89.9
+FH36.jpg	      0		799	1463																Open					100.0
 FH37.jpg	      0		139	196													Open Water			Open					100.0
 FH37.jpg	      0		406	196													Macroalgae	Erect course branching	Brown	Open	.3. Good relief structure with some overhangs. >45 substrate slope.	80300904			89.9
 FH37.jpg	      0		674	196													Macroalgae	Erect course branching	Brown	Open	.3. Good relief structure with some overhangs. >45 substrate slope.	80300904			89.9

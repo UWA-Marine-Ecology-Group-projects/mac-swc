@@ -72,8 +72,8 @@ backwards.points.no.annotations <- habitat.backwards.points%>%
 habitat.points <- bind_rows(habitat.forwards.points,habitat.backwards.points)
 
 # Point to images folders ----
-forwards.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/Habitat Images/Forwards"
-backwards.dir <- "Y:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/Habitat Images/Backwards"
+forwards.dir <- "Z:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/Habitat Images/Forwards"
+backwards.dir <- "Z:/Project Folders/2020-10_south-west_stereo_BRUVs_BOSS/Working/Video Analysis/Habitat Images/Backwards"
 
 forwards.list <- dir(forwards.dir)%>%as.data.frame()%>%rename(forwards.image.name=1)%>%
   mutate(sample=str_replace_all(.$forwards.image.name,c(".png"="",".jpg"="",".JPG"="")))

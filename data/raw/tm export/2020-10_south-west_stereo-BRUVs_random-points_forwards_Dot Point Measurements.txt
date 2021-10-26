@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Friday 22 October 2021 10:32:06
+Generated: Tuesday 26 October 2021 08:30:35
 
 Filename	Frame	Time (HMS)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 FH10.jpg	      0		740	1858													Open Water			Open					93.4
@@ -603,6 +603,26 @@ FH35.jpg	      0		561	1374													Open Water			Open					53.7
 FH35.jpg	      0		646	1154													Open Water			Open					29.6
 FH35.jpg	      0		1049	949													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			30.5
 FH35.jpg	      0		749	528													Open Water			Open					37.1
+FH36.jpg	      0		895	1373													Unknown			Limited					50.4
+FH36.jpg	      0		492	1374													Open Water			Open					51.4
+FH36.jpg	      0		852	865													Open Water			Open					20.7
+FH36.jpg	      0		548	1352													Open Water			Open					46.5
+FH36.jpg	      0		747	543													Open Water			Open					48.7
+FH36.jpg	      0		609	1429													Open Water			Open					52.9
+FH36.jpg	      0		530	104													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			100.0
+FH36.jpg	      0		836	1379													Unknown			Limited					48.6
+FH36.jpg	      0		481	545													Macroalgae	Erect fine branching	Red	Open		90300910			54.3
+FH36.jpg	      0		484	1623													Open Water			Open					77.8
+FH36.jpg	      0		680	263													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			80.1
+FH36.jpg	      0		907	1063													Open Water			Open					25.3
+FH36.jpg	      0		912	383													Macroalgae	Erect fine branching	Red	Open		90300910			70.6
+FH36.jpg	      0		753	1528													Open Water			Open					63.3
+FH36.jpg	      0		691	1271													Open Water			Open					34.0
+FH36.jpg	      0		852	1200													Unknown			Limited					31.0
+FH36.jpg	      0		669	653													Open Water			Open					36.2
+FH36.jpg	      0		644	840													Open Water			Open					16.3
+FH36.jpg	      0		558	1313													Open Water			Open					42.0
+FH36.jpg	      0		910	316													Macroalgae	Erect fine branching	Red	Open		90300910			77.7
 FH37.jpg	      0		923	1078													Unknown			Limited					9.5
 FH37.jpg	      0		657	41													Unknown			Open					100.0
 FH37.jpg	      0		1040	1195													Consolidated	Rock	Turf mat	Open		82001002			19.3
