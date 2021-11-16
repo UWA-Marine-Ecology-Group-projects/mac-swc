@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Friday 01 October 2021 13:03:53
+Generated: Tuesday 16 November 2021 09:09:54
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 1.1.JPG	      0		349	372													Sponges	Small mixed		Open	.3. Good relief structure with some overhangs. >45 substrate slope.	10000000			100.0
@@ -63,6 +63,26 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 11.1.JPG	      0		1126	3596													Open Water			Open					84.0
 11.1.JPG	      0		1874	3596													Unconsolidated	Sand	mud (coarse sand)	Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.	82001014			84.0
 11.1.JPG	      0		2621	3596													Unconsolidated	Sand	mud (coarse sand)	Open	.1. Some relief features amongst mostly flat substrate/sand/rubble. <45 degree substrate slope.	82001014			100.0
+12.1.JPG	      0		349	372													Open Water			Open					100.0
+12.1.JPG	      0		1036	372													Open Water			Open					84.0
+12.1.JPG	      0		1724	372													Open Water			Open					84.0
+12.1.JPG	      0		2411	372													Open Water			Limited					100.0
+12.1.JPG	      0		349	1106													Open Water			Open					70.6
+12.1.JPG	      0		1036	1106													Open Water			Open					45.2
+12.1.JPG	      0		1724	1106													Open Water			Open					45.2
+12.1.JPG	      0		2411	1106													Open Water			Limited					70.6
+12.1.JPG	      0		349	1840													Open Water			Open					57.5
+12.1.JPG	      0		1036	1840													Open Water			Open					19.2
+12.1.JPG	      0		1724	1840													Open Water			Open					19.2
+12.1.JPG	      0		2411	1840													Open Water			Limited					57.5
+12.1.JPG	      0		349	2574													Open Water			Open					70.6
+12.1.JPG	      0		1036	2574													Open Water			Open					45.2
+12.1.JPG	      0		1724	2574													Open Water			Open					45.2
+12.1.JPG	      0		2411	2574													Sponges	Massive forms		Open	.3. Good relief structure with some overhangs. >45 substrate slope.	10000903			70.6
+12.1.JPG	      0		349	3308													Open Water			Open					100.0
+12.1.JPG	      0		1036	3308													Open Water			Open					84.0
+12.1.JPG	      0		1724	3308													Open Water			Open					84.0
+12.1.JPG	      0		2411	3308													Sponges	Massive forms		Open	.3. Good relief structure with some overhangs. >45 substrate slope.	10000903			100.0
 13.1.JPG	      0		379	404													Open Water			Open					100.0
 13.1.JPG	      0		1126	404													Sponges	Small mixed		Limited	.3. Good relief structure with some overhangs. >45 substrate slope.	10000000			84.0
 13.1.JPG	      0		1874	404													Macroalgae	Erect fine branching	Red	Open	.2. Mostly relief features amongst some flat substrate or rubble. ~45 substrate slope.	90300910			84.0
