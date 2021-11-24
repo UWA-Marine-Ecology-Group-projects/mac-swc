@@ -23,8 +23,9 @@ str(march)
 
 october <- read.csv("2020-10_south-west_BOSS_random-points_broad.habitat.csv")%>%
   ga.clean.names()%>%
-  dplyr::select(-c(successful.count, location, broad.total.points.annotated, fov.total.points.annotated, site, fov.facing.up, fov.limited, fov.open))%>%
+  dplyr::select(-c(successful.count, location, fov.total.points.annotated, site, fov.facing.up, fov.limited, fov.open))%>%
   dplyr::mutate(date = as.character(date))%>%
+  dplyr::mutate(broad.unknown = c(0))%>%
   dplyr::mutate(campaignid = c('2020-10_south-west_BOSS'))%>%
   dplyr::select(campaignid, everything())%>%
   glimpse()
@@ -44,7 +45,7 @@ full <- bind_rows(march,october)%>%
 full$sum <- as.numeric(apply(full[,8:20], 1, sum))
 
 
-write.csv(full, file = "2020-2021_south-west_broad.habitat.csv")
+write.csv(full, file = "2020-2021_south-west_broad.habitat.csv", row.names = F)
 
 
 

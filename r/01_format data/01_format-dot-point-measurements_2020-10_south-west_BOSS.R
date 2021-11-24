@@ -213,9 +213,13 @@ broad.points <- habitat.points%>%
   dplyr::select(-c(image.row,image.col))%>%
   dplyr::group_by(sample)%>%
   dplyr::summarise_all(funs(sum))%>%
-  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))
+  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
+  dplyr::mutate_each(funs(./broad.total.points.annotated*100), matches("broad"))%>%  
+  dplyr::select(-broad.total.points.annotated)%>%
+  dplyr::ungroup()%>%
   ga.clean.names()%>%
   glimpse
+
 
 # CREATE catami_morphology------
 detailed.points <- habitat.points%>%
@@ -231,9 +235,12 @@ detailed.points <- habitat.points%>%
   dplyr::select(-c(image.row,image.col))%>%
   dplyr::group_by(sample)%>%
   dplyr::summarise_all(funs(sum))%>%
-  dplyr::mutate(detailed.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
+  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
+  dplyr::mutate_each(funs(./broad.total.points.annotated*100), matches("broad"))%>%  
+  dplyr::select(-broad.total.points.annotated)%>%
+  dplyr::ungroup()%>%
   ga.clean.names()%>%
-  glimpse()
+  glimpse
 
 # # Create relief----
 # relief.grid<-habitat.grid%>%
