@@ -195,3 +195,4 @@ habitat.detailed <- metadata%>%
   left_join(detailed,by="sample")
 
 write.csv(habitat.detailed,file=paste(study,"_detailed.habitat.csv",sep = "."), row.names=FALSE)
+

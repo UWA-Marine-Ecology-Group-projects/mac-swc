@@ -1,4 +1,4 @@
-"sample","latitude","longitude","date","time.bottom","site","location","successful.count","depth","fov.facing.up","fov.limited","fov.open","fov.total.points.annotated","broad.ascidians","broad.bryozoa","broad.consolidated","broad.crinoids","broad.hydroids","broad.invertebrate.complex","broad.macroalgae","broad.octocoral.black","broad.seagrasses","broad.sponges","broad.stony.corals","broad.unconsolidated","broad.total.points.annotated"
+"sample","latitude","longitude","date","time.bottom","site","location","successful.count","depth","fov.facing.up","fov.limited","fov.open","fov.total.points.annotated","broad.Ascidians","broad.Bryozoa","broad.Consolidated","broad.Crinoids","broad.Hydroids","broad.Invertebrate Complex","broad.Macroalgae","broad.Octocoral/Black","broad.Seagrasses","broad.Sponges","broad.Stony corals","broad.Unconsolidated","broad.total.points.annotated"
 "FH92",-33.8437,114.8714,20201020,08:34:48,NA,NA,NA,44.1,0,0,80,80,0,0,27,0,0,0,6,0,8,9,0,8,58
 "FH61",-33.8412,114.8639,20201020,09:06:40,NA,NA,NA,NA,0,0,80,80,0,0,34,0,0,0,11,0,15,2,0,3,65
 "FH27",-33.8362,114.8714,20201020,09:32:24,NA,NA,NA,42.8,0,1,79,80,0,0,35,0,0,1,15,0,3,7,0,6,67
@@ -128,7 +128,6 @@
 "342",-34.1387,114.5364,20201107,08:22:30,NA,NA,NA,229,0,0,80,80,0,0,10,0,0,18,0,0,0,22,0,3,53
 "288",-34.0958,114.4752,20201107,08:39:29,NA,NA,NA,201,0,0,80,80,0,0,0,0,0,0,0,0,0,3,0,64,67
 "274",-34.0912,114.4814,20201107,08:51:59,NA,NA,NA,218,0,7,73,80,0,1,0,0,0,4,0,0,0,3,0,49,57
-"287",-34.0912,114.4764,20201107,09:00:00,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
 "286",-34.0787,114.4739,20201107,09:13:10,NA,NA,NA,203,0,0,80,80,0,0,0,0,0,1,0,0,0,1,0,61,63
 "285",-34.0787,114.4789,20201107,09:26:10,NA,NA,NA,215,0,0,80,80,0,1,0,0,0,10,0,0,0,12,0,41,64
 "341",-34.0737,114.4764,20201107,09:39:17,NA,NA,NA,215,0,0,80,80,0,0,0,0,0,14,0,1,0,32,0,17,64

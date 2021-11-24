@@ -213,7 +213,7 @@ broad.points <- habitat.points%>%
   dplyr::select(-c(image.row,image.col))%>%
   dplyr::group_by(sample)%>%
   dplyr::summarise_all(funs(sum))%>%
-  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
+  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))
   ga.clean.names()%>%
   glimpse
 
@@ -262,11 +262,15 @@ dir()
 
 habitat.broad.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
-  left_join(broad.points, by = "sample")
+  left_join(broad.points, by = "sample")%>%
+  dplyr::filter(!sample%in%c('287'))%>%
+  glimpse()#remove sample not deployed but still in metadata
 
 habitat.detailed.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
-  left_join(detailed.points, by = "sample")
+  left_join(detailed.points, by = "sample")%>%
+  dplyr::filter(!sample%in%c('287'))%>%
+  glimpse()#remove sample not deployed but still in metadata
 
 write.csv(habitat.broad.points,file=paste(study,"random-points_broad.habitat.csv",sep = "_"), row.names=FALSE)
 write.csv(habitat.detailed.points,file=paste(study,"random-points_detailed.habitat.csv",sep = "_"), row.names=FALSE)
