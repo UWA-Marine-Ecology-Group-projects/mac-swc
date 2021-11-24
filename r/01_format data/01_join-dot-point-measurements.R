@@ -21,7 +21,7 @@ march  <- read.csv("2021-03_West-Coast_BOSS._broad.habitat.csv")%>%
 names(march)
 str(march)
 
-october <- read.csv("2020-10_south-west_BOSS_random-points_broad.habitat.csv")%>%
+october <- read.csv("2020-10_south-west_BOSS_random-points_percent-cover_broad.habitat.csv")%>%
   ga.clean.names()%>%
   dplyr::select(-c(successful.count, location, fov.total.points.annotated, site, fov.facing.up, fov.limited, fov.open))%>%
   dplyr::mutate(date = as.character(date))%>%

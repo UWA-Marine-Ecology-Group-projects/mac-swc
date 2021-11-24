@@ -203,7 +203,7 @@ fov.points <- habitat.points%>%
   ga.clean.names()
 
 # CREATE catami_broad------
-broad.points <- habitat.points%>%
+broad.percent <- habitat.points%>%
   dplyr::select(-c(fieldofview,morphology,type, direction))%>%
   filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
   dplyr::mutate(broad=paste("broad",broad,sep = "."))%>%
@@ -216,6 +216,44 @@ broad.points <- habitat.points%>%
   dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   dplyr::mutate_each(funs(./broad.total.points.annotated*100), matches("broad"))%>%  
   dplyr::select(-broad.total.points.annotated)%>%
+  dplyr::ungroup()%>%
+  ga.clean.names()%>%
+  glimpse
+
+
+# CREATE catami_morphology------
+detailed.percent <- habitat.points%>%
+  dplyr::select(-c(fieldofview, direction))%>%
+  dplyr::filter(!morphology%in%c("",NA,"Unknown"))%>%
+  dplyr::filter(!broad%in%c("",NA,"Unknown","Open.Water"))%>%
+  dplyr::mutate(morphology=paste("detailed",broad,morphology,type,sep = "."))%>%
+  dplyr::mutate(morphology=str_replace_all(.$morphology, c(".NA"="","[^[:alnum:] ]"="."," "="","10mm.."="10mm.")))%>%
+  dplyr::select(-c(broad,type))%>%
+  dplyr::mutate(count=1)%>%
+  dplyr::group_by(sample)%>%
+  spread(key=morphology,value=count,fill=0)%>%
+  dplyr::select(-c(image.row,image.col))%>%
+  dplyr::group_by(sample)%>%
+  dplyr::summarise_all(funs(sum))%>%
+  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
+  dplyr::mutate_each(funs(./broad.total.points.annotated*100), matches("broad"))%>%  
+  dplyr::select(-broad.total.points.annotated)%>%
+  dplyr::ungroup()%>%
+  ga.clean.names()%>%
+  glimpse
+
+# CREATE catami_broad------
+broad.points <- habitat.points%>%
+  dplyr::select(-c(fieldofview,morphology,type, direction))%>%
+  filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
+  dplyr::mutate(broad=paste("broad",broad,sep = "."))%>%
+  dplyr::mutate(count=1)%>%
+  dplyr::group_by(sample)%>%
+  tidyr::spread(key=broad,value=count,fill=0)%>%
+  dplyr::select(-c(image.row,image.col))%>%
+  dplyr::group_by(sample)%>%
+  dplyr::summarise_all(funs(sum))%>%
+  dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   dplyr::ungroup()%>%
   ga.clean.names()%>%
   glimpse
@@ -236,8 +274,6 @@ detailed.points <- habitat.points%>%
   dplyr::group_by(sample)%>%
   dplyr::summarise_all(funs(sum))%>%
   dplyr::mutate(broad.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
-  dplyr::mutate_each(funs(./broad.total.points.annotated*100), matches("broad"))%>%  
-  dplyr::select(-broad.total.points.annotated)%>%
   dplyr::ungroup()%>%
   ga.clean.names()%>%
   glimpse
@@ -267,6 +303,18 @@ detailed.points <- habitat.points%>%
 setwd(tidy.dir)
 dir()
 
+habitat.broad.percent <- metadata%>%
+  left_join(fov.points, by = "sample")%>%
+  left_join(broad.percent, by = "sample")%>%
+  dplyr::filter(!sample%in%c('287'))%>%
+  glimpse()#remove sample not deployed but still in metadata
+
+habitat.detailed.percent <- metadata%>%
+  left_join(fov.points, by = "sample")%>%
+  left_join(detailed.percent, by = "sample")%>%
+  dplyr::filter(!sample%in%c('287'))%>%
+  glimpse()#remove sample not deployed but still in metadata
+
 habitat.broad.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
   left_join(broad.points, by = "sample")%>%
@@ -281,4 +329,6 @@ habitat.detailed.points <- metadata%>%
 
 write.csv(habitat.broad.points,file=paste(study,"random-points_broad.habitat.csv",sep = "_"), row.names=FALSE)
 write.csv(habitat.detailed.points,file=paste(study,"random-points_detailed.habitat.csv",sep = "_"), row.names=FALSE)
+write.csv(habitat.broad.points,file=paste(study,"random-points_percent-cover_broad.habitat.csv",sep = "_"), row.names=FALSE)
+write.csv(habitat.detailed.points,file=paste(study,"random-points_percent-cover_detailed.habitat.csv",sep = "_"), row.names=FALSE)
 
