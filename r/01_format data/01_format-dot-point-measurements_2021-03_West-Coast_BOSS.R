@@ -15,15 +15,13 @@ library(GlobalArchive)
 library(ggplot2)
 
 # Set work directories----
-working.dir<- "//uniwa.uwa.edu.au/userhome/staff0/00104220/My Documents/R Scripts/SWC Habitat"
-raw.dir<-paste(working.dir,"Raw Data",sep="/") # links to folder called 'example raw data'
-tidy.dir<-paste(working.dir,"Tidy Data",sep="/") # links to folder called 'example tidy data'
-
+working.dir<- "H:/GitHub/mac-swc"
+raw.dir<- "H:/GitHub/mac-swc/data/raw/tm export" # links to folder called 'example raw data'
+staging.dir <- "H:/GitHub/mac-swc/data/staging"
+tidy.dir<- "H:/GitHub/mac-swc/data/tidy" # links to folder called 'example tidy data'
 
 # Functions----
 se <- function(x) sd(x)/sqrt(length(x))
-
-
 
 
 # p.est <- mean(binary)
@@ -35,11 +33,11 @@ se <- function(x) sd(x)/sqrt(length(x))
 # Study name----
 
 study <- "2021-03_West-Coast_BOSS"
-study2 <- "2021-03_West-Coast_BOSS_Relief"
+study2 <- "2021-03_West-Coast_BOSS_relief"
 
 
 # Read in metadata----
-setwd(raw.dir)
+setwd(staging.dir)
 dir()
 metadata <- read_csv("MEG_Labsheets_2021 - 2021-03_West-Coast_BOSS.csv") %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function 
@@ -52,7 +50,7 @@ metadata <- read_csv("MEG_Labsheets_2021 - 2021-03_West-Coast_BOSS.csv") %>% # r
 setwd(raw.dir)
 dir()
 
-habitat <- read.delim(paste(study,"Dot Point Measurements.txt",sep = "_"),header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
+habitat <- read.delim("2021-03_West-Coast_BOSS_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
   mutate(filename=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>% #keep filename but remove .jpg (need this for later to ensure unique ID)
@@ -62,8 +60,7 @@ habitat <- read.delim(paste(study,"Dot Point Measurements.txt",sep = "_"),header
   glimpse() # preview
 
 
-
-relief<-read.delim(paste(study2,"Dot Point Measurements.txt",sep = "_"),header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
+relief <-read.delim("2021-03_West-Coast_BOSS_Relief_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
   mutate(filename=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>% #keep filename but remove .jpg (need this for later to ensure unique ID)
@@ -71,8 +68,6 @@ relief<-read.delim(paste(study2,"Dot Point Measurements.txt",sep = "_"),header=T
   mutate(filename=as.character(filename)) %>%
   select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
-
-
 
 
 
