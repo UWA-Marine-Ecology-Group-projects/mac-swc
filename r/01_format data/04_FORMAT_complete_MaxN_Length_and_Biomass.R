@@ -44,13 +44,16 @@ library(fst)
 study<-"2020_south-west_stereo-BRUVs"
 
 ## Set your working directory ----
-working.dir<-dirname(rstudioapi::getActiveDocumentContext()$path) # to directory of current file - or type your own
+working.dir <- 'H:/GitHub/mac-swc' # to directory of current file - or type your own
 
-## Save these directory names to use later---- 
-data.dir<-paste(working.dir,"Data",sep="/")
-plots.dir=paste(working.dir,"Plots",sep="/")
-tidy.dir<-paste(data.dir,"Tidy",sep="/")
-error.dir=paste(data.dir,"Errors to check",sep="/")
+## Save these directory names to use later----
+data.dir<-paste(working.dir,"data",sep="/")
+plots.dir<-paste(working.dir,"plots",sep="/")
+download.dir<-paste(data.dir,"raw",sep="/")
+
+to.be.checked.dir<-paste(data.dir,"staging",sep="/") 
+tidy.dir<-paste(data.dir,"tidy",sep="/")
+error.dir=paste(data.dir,"errors to check",sep="/")
 
 # Read in the data----
 setwd(tidy.dir)
@@ -61,7 +64,7 @@ metadata<-read_csv(file=paste(study,"checked.metadata.csv",sep = "."),na = c("",
   dplyr::mutate(id=paste(campaignid,sample,sep="."))%>%
   dplyr::glimpse()
 
-unique(metadata$sample) # 316 - this includes unsuccessful drops!!!
+length(unique(metadata$sample)) # 311 
 
 # Make complete.maxn: fill in 0s and join in factors----
 dat<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c("", " "))%>%
@@ -113,8 +116,8 @@ complete.length.number<-read_csv(file=paste(study,"checked.length.csv",sep = "."
   dplyr::filter(successful.length=="Yes")%>%
   dplyr::glimpse()
 
-length(unique(metadata$id)) # 295
-length(unique(complete.length.number$id)) # 274
+length(unique(metadata$id)) # 311
+length(unique(complete.length.number$id)) # 277
 
 # Make the expanded length data----
 # For use in length analyses - i.e KDE or histograms
@@ -140,7 +143,10 @@ ggplot(data=expanded.length, aes(y=as.numeric(length))) +
 # There are 6 steps
 # 1. use life.history---
 setwd(tidy.dir)
-master <- read.csv("australia.life.history.csv") %>% 
+
+url <- "https://docs.google.com/spreadsheets/d/1SMLvR9t8_F-gXapR2EemQMEPSw_bUbPLcXd3lJ5g5Bo/edit?ts=5e6f36e2#gid=825736197"
+
+master <- googlesheets4::read_sheet(url) %>% 
   ga.clean.names()%>%
   filter(grepl('Australia', global.region))%>%
   filter(grepl('SW', marine.region))%>%
@@ -262,13 +268,13 @@ write.csv(expanded.length, file=paste(study,"expanded.length.csv",sep = "."), ro
 
 write.csv(complete.length.number.mass, file=paste(study,"complete.mass.csv",sep = "."), row.names=FALSE)
 
-complete.length.number<-complete.length.number%>%
-  filter(number>0)
-
-unique(complete.maxn$sample)
-
-
-# Write .fst files for shiny app ---
-write.fst(complete.maxn, "complete.maxn.fst")
-write.fst(complete.length.number,"complete.length.fst")
-write.fst(complete.length.number.mass,"complete.mass.fst")
+# complete.length.number<-complete.length.number%>%
+#   filter(number>0)
+# 
+# unique(complete.maxn$sample)
+# 
+# 
+# # Write .fst files for shiny app ---
+# write.fst(complete.maxn, "complete.maxn.fst")
+# write.fst(complete.length.number,"complete.length.fst")
+# write.fst(complete.length.number.mass,"complete.mass.fst")

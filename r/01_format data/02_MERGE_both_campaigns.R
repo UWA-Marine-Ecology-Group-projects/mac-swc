@@ -42,21 +42,20 @@ study<-"2020_south-west_stereo-BRUVs"  # BG changed this from 2020-06 on 27/01/2
 # **The only folder you will need to create is your working directory**
 
 ## Set your working directory ----
-working.dir<-dirname(rstudioapi::getActiveDocumentContext()$path) # to directory of current file - or type your own
+working.dir <- 'H:/GitHub/mac-swc' # to directory of current file - or type your own
 
 ## Save these directory names to use later----
-data.dir<-paste(working.dir,"Data",sep="/")
+data.dir<-paste(working.dir,"data",sep="/")
 
-download.dir<-paste(data.dir,"Raw",sep="/")
+download.dir<-paste(data.dir,"raw/em export",sep="/")
 
-tidy.dir<-paste(data.dir,"Tidy",sep="/")
-staging.dir<-paste(data.dir,"Staging",sep="/") 
+tidy.dir<-paste(data.dir,"tidy",sep="/")
+staging.dir<-paste(data.dir,"staging",sep="/") 
 
-setwd(working.dir)
-
+setwd(download.dir)
 ## Create Staging and Tidy data folders ----
-dir.create(file.path(data.dir, "Staging"))
-dir.create(file.path(data.dir, "Tidy"))
+# dir.create(file.path(data.dir, "Staging"))
+# dir.create(file.path(data.dir, "Tidy"))
 
 # Combine all data----
 
@@ -85,17 +84,18 @@ multiple.types <- sites%>%
   dplyr::summarise(n=n())
 
 unique(metadata$campaignid) # check the number of campaigns in metadata, and the campaign name
-unique(metadata$sample) # 294 (39+255)
+length(unique(metadata$sample)) # 311 (39+272)
 
 double.ups <- metadata %>%
   dplyr::group_by(sample) %>%
   dplyr::summarise(n=n()) %>%
-  dplyr::filter(n>1) # One double up where the BRUV wasn't retrieved
+  dplyr::filter(n>1) # No double ups
 
 setwd(staging.dir)
 write.csv(metadata,paste(study,"metadata.csv",sep="_"),row.names = FALSE)
 
 ## Combine Points and Count files into maxn ----
+setwd(download.dir)
 points.files <-ga.list.files("_Points.txt") # list all files ending in "Lengths.txt"
 points.files$lines<-sapply(points.files,countLines) # Count lines in files (to avoid empty files breaking the script)
 
@@ -125,13 +125,13 @@ maxn<-points%>%
   dplyr::mutate(maxn=as.numeric(maxn))%>%
   dplyr::filter(maxn>0)%>%
   dplyr::ungroup() %>%
-  dplyr::inner_join(metadata)%>%
+  dplyr::left_join(metadata)%>%
   replace_na(list(family="Unknown",genus="Unknown",species="spp"))%>% # remove any NAs in taxa name
   dplyr::filter(!family%in%c("Unknown"))%>%
-  dplyr::filter(successful.count=="Yes")%>%dplyr::ungroup() # This will need to be turned on once  we have cleaned the metadata
+  dplyr::filter(successful.count%in%"Yes")%>%dplyr::ungroup() # This will need to be turned on once  we have cleaned the metadata
 
-unique(maxn$sample) #294 (this should drop)
-
+unique(maxn$successful.count)
+length(unique(maxn$sample)) #311
 
 no.fish <- anti_join(metadata,maxn)
 
@@ -143,13 +143,13 @@ write.csv(maxn,paste(study,"maxn.csv",sep="_"),row.names = FALSE)
 length3dpoints<-ga.create.em.length3dpoints()%>%
   dplyr::mutate(species=if_else(genus%in%c("Orectolobus","Caesioperca","Platycephalus","Squalus"),"spp",species))%>%
   dplyr::select(-c(time,comment))%>% # take time out as there is also a time column in the metadata
-  dplyr::inner_join(metadata)%>%
-  dplyr::filter(successful.length=="Yes")%>%
+  dplyr::left_join(metadata)%>%
+  dplyr::filter(successful.length%in%"Yes")%>%
   replace_na(list(family="Unknown",genus="Unknown",species="spp"))%>% # remove any NAs in taxa name
   dplyr::filter(!family%in%c("Unknown"))%>%
   glimpse()
 
-unique(length3dpoints$sample) # 274 (243 + 31)
+length(unique(length3dpoints$sample)) # 277 (33 + 242 = 275??) - CHECK THIS
 
 no.lengths <- anti_join(metadata,length3dpoints)
 

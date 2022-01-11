@@ -10,6 +10,7 @@ require(GlobalArchive)
 require(googlesheets4)
 require(stringr)
 require(data.table)
+library(googlesheets4)
 
 rm(list=ls())
 
@@ -17,14 +18,15 @@ rm(list=ls())
 name <- '2020_south-west_stereo-BRUVs' # for the study
 
 ## Set working directory----
-working.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
+working.dir <- getwd()
+setwd(working.dir)
 
 ## Set sub directories----
-d.dir <- paste(working.dir,"Data/Tidy",sep="/") 
-h.dir <- paste(working.dir, "Data/Habitat/BRUV Style annotation/tidy data",sep="/") 
-s.dir <- paste(working.dir,"shapefiles",sep="/")
-p.dir <- paste(working.dir,"Plots",sep="/")
-m.dir <- paste(working.dir,"Model Out GAM", sep="/")
+d.dir <- paste(working.dir,"data/tidy",sep="/") 
+h.dir <- paste(working.dir, "data/tidy",sep="/") 
+s.dir <- paste(working.dir,"data/shapefiles",sep="/")
+p.dir <- paste(working.dir,"plots",sep="/")
+m.dir <- paste(working.dir,"output/gamms", sep="/")
 
 # Bring in and format the data----
 setwd(d.dir)
@@ -57,14 +59,15 @@ ramps <- read.csv(paste(name, 'distance.to.ramp.csv',sep=".")) %>%
   dplyr::glimpse()
 
 # Habitat ----
-habitat.2020.10 <- read.csv("2020-10_south-west_stereo-BRUVs_BRUV_style.broad.habitat.csv") %>%
-  dplyr::select(-c(rowid.x,rowid.y)) %>%
+#-----------------NEED TO REMEMBER TO DIVIDE POINTS BY TOTAL POINTS ANNOTATED!!!
+habitat.2020.10 <- read.csv("2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
+  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved)) %>%
   dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs") %>%
   dplyr::glimpse()
 
 summary(habitat.2020.10)
 
-habitat.2020.06 <- read.csv("2020-06._broad.habitat_BRUV_Style.csv") %>%
+habitat.2020.06 <- read.csv("2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count)) %>%
   dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs") %>%
   dplyr::glimpse()
@@ -72,16 +75,18 @@ habitat.2020.06 <- read.csv("2020-06._broad.habitat_BRUV_Style.csv") %>%
 summary(habitat.2020.06) # 0-100
 
 habitat <-bind_rows(habitat.2020.06, habitat.2020.10) %>%
-  tidyr::replace_na(list(broad.Consolidated=0,
-                         broad.Macroalgae=0,
-                         broad.Seagrasses=0,
-                         broad.Sponges=0,
-                         broad.Unconsolidated=0,
-                         broad.Bryozoa=0,
-                         broad.Hydroids=0,
-                         broad.Octocoral.Black=0,
-                         broad.Stony.corals=0,
-                         fov.Facing.Up=0)) %>%
+  tidyr::replace_na(list(broad.consolidated=0,
+                         broad.macroalgae=0,
+                         broad.seagrasses=0,
+                         broad.sponges=0,
+                         broad.unconsolidated=0,
+                         broad.bryozoa=0,
+                         broad.hydroids=0,
+                         broad.octocoral.black=0,
+                         broad.stony.corals=0,
+                         fov.facing.up=0,
+                         broad.ascidians=0,
+                         broad.true.anemones=0)) %>%
   ga.clean.names() %>%
   dplyr::mutate(broad.reef = broad.bryozoa + broad.consolidated + broad.hydroids + broad.macroalgae + broad.octocoral.black + broad.seagrasses + broad.sponges + broad.stony.corals) %>%
   dplyr::select(order(colnames(.))) %>%
@@ -102,11 +107,9 @@ ta.sr <- maxn %>%
   dplyr::glimpse()
 
 # Create abundance of all recreational fished species ----
-setwd(d.dir)
-dir()
+url <- "https://docs.google.com/spreadsheets/d/1SMLvR9t8_F-gXapR2EemQMEPSw_bUbPLcXd3lJ5g5Bo/edit?ts=5e6f36e2#gid=825736197"
 
-# Had to download and use csv as Nectar can't connect to googlesheets :(
-master <- read.csv("australia.life.history.csv") %>%
+master <- googlesheets4::read_sheet(url) %>%
   ga.clean.names()%>%
   dplyr::filter(grepl('Australia', global.region))%>% # Change country here
   dplyr::filter(grepl('SW', marine.region))%>% # Select marine region (currently this is only for Australia)

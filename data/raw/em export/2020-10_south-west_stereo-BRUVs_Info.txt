@@ -1,6 +1,7 @@
 OpCode	TapeReader	Depth	Comment	Info5Name	Info5Value	Info6Name	Info6Value	Info7Name	Info7Value	Info8Name	Info8Value	Info9Name	Info9Value	Info10Name	Info10Value	Info11Name	Info11Value	Info12Name	Info12Value
 FH50	Daphne	44.6																	
 FHC	Daphne	36.2																	
+IO267	Daphne	62.5																	
 IO72	Ramesh																		
 FHA	Daphne	44.6																	
 IO65	Ramesh																		
@@ -254,3 +255,19 @@ FH2	Daphne	43.9
 FH40	Daphne	42.9																	
 IO189	Daphne	139																	
 IO16	Daphne	41.4																	
+FH32	Daphne	42.9																	
+IO17	Daphne	41.1																	
+IO130	Daphne	41.4																	
+IO157	Daphne	45.6																	
+IO235	Daphne	46.5																	
+IO336	Daphne	43.2																	
+FH77	Daphne	42																	
+FH113	Daphne	45																	
+IO344	Daphne	138																	
+FH62	Daphne	45.1																	
+IO372	Daphne	140																	
+IO272	Daphne	49.2																	
+FH33	Daphne	42.3																	
+IO206	Daphne	58.2																	
+IO326	Daphne	121																	
+IO275	Daphne	140																	

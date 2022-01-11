@@ -24,6 +24,8 @@
 "2020-06_south-west_stereo-BRUVs","04","Scorpididae","Neatypus","obliquus",204.82464,33,187,220,"too big",17.82464,93.1021090909091,"1",NA
 "2020-06_south-west_stereo-BRUVs","04","Scorpididae","Neatypus","obliquus",201.93803,33,187,220,"too big",14.93803,91.7900136363636,"1",NA
 "2020-06_south-west_stereo-BRUVs","04","Labridae","Coris","auricularis",365.29453,60,340,400,"too big",25.29453,91.3236325,"1",NA
+"2020-06_south-west_stereo-BRUVs","05","Tetraodontidae","Omegophora","armilla",254.13328,37.5,212.5,250,"too big",41.63328,101.653312,"1",NA
+"2020-06_south-west_stereo-BRUVs","05","Oplegnathidae","Oplegnathus","woodwardi",418.23047,67.5,382.5,450,"too big",35.73047,92.9401044444444,"1",NA
 "2020-06_south-west_stereo-BRUVs","06","Oplegnathidae","Oplegnathus","woodwardi",430.17641,67.5,382.5,450,"too big",47.67641,95.5947577777778,"1",NA
 "2020-06_south-west_stereo-BRUVs","06","Odacidae","Siphonognathus","caninis",86.22724,15,85,100,"too big",1.22723999999999,86.22724,"1",NA
 "2020-06_south-west_stereo-BRUVs","06","Labridae","Coris","auricularis",356.46574,60,340,400,"too big",16.46574,89.116435,"1",NA
@@ -128,6 +130,13 @@
 "2020-06_south-west_stereo-BRUVs","28","Pomacentridae","Chromis","klunzingeri",70.09382,9.75,55.25,65,"too big",14.84382,107.836646153846,"1",NA
 "2020-06_south-west_stereo-BRUVs","28","Pomacentridae","Chromis","klunzingeri",62.34884,9.75,55.25,65,"too big",7.09884,95.9212923076923,"1",NA
 "2020-06_south-west_stereo-BRUVs","28","Pomacentridae","Chromis","klunzingeri",69.45846,9.75,55.25,65,"too big",14.20846,106.859169230769,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Pomacentridae","Chromis","klunzingeri",80.63882,9.75,55.25,65,"too big",25.38882,124.059723076923,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Pomacentridae","Chromis","klunzingeri",73.69818,9.75,55.25,65,"too big",18.44818,113.381815384615,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Pomacentridae","Chromis","klunzingeri",62.31279,9.75,55.25,65,"too big",7.06279,95.8658307692308,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Pomacentridae","Chromis","klunzingeri",67.78717,9.75,55.25,65,"too big",12.53717,104.287953846154,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Labridae","Pseudolabrus","biserialis",157.02911,25.8,146.2,172,"too big",10.82911,91.2959941860465,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Labridae","Pseudolabrus","biserialis",153.60283,25.8,146.2,172,"too big",7.40283000000002,89.3039709302326,"1",NA
+"2020-06_south-west_stereo-BRUVs","29","Labridae","Coris","auricularis",358.87873,60,340,400,"too big",18.87873,89.7196825,"1",NA
 "2020-06_south-west_stereo-BRUVs","30","Labridae","Pseudolabrus","biserialis",173.30534,25.8,146.2,172,"too big",27.10534,100.758918604651,"1",NA
 "2020-06_south-west_stereo-BRUVs","30","Pomacentridae","Chromis","klunzingeri",65.09436,9.75,55.25,65,"too big",9.84435999999999,100.145169230769,"1",NA
 "2020-06_south-west_stereo-BRUVs","30","Pomacentridae","Chromis","klunzingeri",77.05564,9.75,55.25,65,"too big",21.80564,118.547138461538,"1",NA
@@ -721,6 +730,8 @@
 "2020-10_south-west_stereo-BRUVs","FH42","Pomacentridae","Chromis","klunzingeri",70.99294,9.75,55.25,65,"too big",15.74294,109.219907692308,"RAW2","CON1/CON2"
 "2020-10_south-west_stereo-BRUVs","FH42","Pomacentridae","Chromis","klunzingeri",66.81572,9.75,55.25,65,"too big",11.56572,102.793415384615,"RAW2","CON1/CON2"
 "2020-10_south-west_stereo-BRUVs","FH42","Monacanthidae","Scobinichthys","granulatus",259.21667,45,255,300,"too big",4.21667000000002,86.4055566666667,"RAW2","CON1/CON2"
+"2020-10_south-west_stereo-BRUVs","FH10","Scorpididae","Neatypus","obliquus",199.07815,33,187,220,"too big",12.07815,90.4900681818182,"RAW2","CON1/CON2"
+"2020-10_south-west_stereo-BRUVs","FH10","Scorpididae","Neatypus","obliquus",208.44379,33,187,220,"too big",21.44379,94.7471772727273,"RAW2","CON1/CON2"
 "2020-10_south-west_stereo-BRUVs","FH9","Labridae","Eupetrichthys","angustipes",105.94548,18.6,105.4,124,"too big",0.545480000000012,85.4399032258065,"RAW2","CON1/CON2"
 "2020-10_south-west_stereo-BRUVs","FH9","Labridae","Pseudolabrus","biserialis",149.17976,25.8,146.2,172,"too big",2.97976,86.7324186046511,"RAW2","CON1/CON2"
 "2020-10_south-west_stereo-BRUVs","IO311","Labridae","Suezichthys","bifurcatus",99.28741,13.5,76.5,90,"too big",22.78741,110.319344444444,"RAW2",NA

@@ -24,7 +24,7 @@ rm(list=ls())
 # Libraries required ----
 # To connect to GlobalArchive
 library(devtools)
-install_github("UWAMEGFisheries/GlobalArchive") #to check for updates
+#install_github("UWAMEGFisheries/GlobalArchive") #to check for updates
 library(GlobalArchive)
 # To connect to life.history
 library(httpuv)
@@ -51,21 +51,21 @@ study<-"2020_south-west_stereo-BRUVs"
 #'Errors to check' to save all the error files e.g. lists of taxa that are not in the life history sheet
 
 ## Set your working directory ----
-working.dir<-dirname(rstudioapi::getActiveDocumentContext()$path) # sets working directory to that of this script - or type your own
+working.dir <- 'H:/GitHub/mac-swc' # sets working directory to that of this script - or type your own
 
 ## Save these directory names to use later----
-data.dir<-paste(working.dir,"Data",sep="/")
-plots.dir<-paste(working.dir,"Plots",sep="/")
-download.dir<-paste(data.dir,"Raw",sep="/")
+data.dir<-paste(working.dir,"data",sep="/")
+plots.dir<-paste(working.dir,"plots",sep="/")
+download.dir<-paste(data.dir,"raw",sep="/")
 
-to.be.checked.dir<-paste(data.dir,"Staging",sep="/") 
-tidy.dir<-paste(data.dir,"Tidy",sep="/")
-error.dir=paste(data.dir,"Errors to check",sep="/")
+to.be.checked.dir<-paste(data.dir,"staging",sep="/") 
+tidy.dir<-paste(data.dir,"tidy",sep="/")
+error.dir=paste(data.dir,"errors to check",sep="/")
 
 ## Create a folder for Plots and Errors ----
 # The two lines below will create the 'Plots' and 'Errors to check' subfolders within the working directory
-dir.create(file.path(working.dir, "Plots"))
-dir.create(file.path(data.dir, "Errors to check"))
+# dir.create(file.path(working.dir, "Plots"))
+# dir.create(file.path(data.dir, "Errors to check"))
 
 # Import unchecked data from staging folder----
 setwd(to.be.checked.dir)
@@ -79,13 +79,13 @@ maxn<-read_csv(paste(study,"maxn.csv",sep="_"))%>%
   dplyr::mutate(species=tolower(species))%>%
   dplyr::select(campaignid,sample,family,genus,species,maxn)%>%
   replace_na(list(family="Unknown",genus="Unknown",species="spp"))%>% # remove any NAs in taxa name
-  dplyr::mutate(genus=ifelse((family%in%c("Carangidae")&species%in%c("sp10")),"Pseudocaranx",genus)) %>%
-  dplyr::mutate(species=ifelse((species%in%c("sp10")),"spp",species)) %>%
+  # dplyr::mutate(genus=ifelse((family%in%c("Carangidae")&species%in%c("sp10")),"Pseudocaranx",genus)) %>%
+  # dplyr::mutate(species=ifelse((species%in%c("sp10")),"spp",species)) %>%
   dplyr::glimpse()
 
 # Check that there is no fish with family unknown
 
-unique(maxn$sample) # 294
+length(unique(maxn$sample)) # 311
 
 # Import length/3d file----
 length<-read_csv(file=paste(study,"length3dpoints.csv",sep = "_"),na = c("", " "))%>%
@@ -96,7 +96,13 @@ length<-read_csv(file=paste(study,"length3dpoints.csv",sep = "_"),na = c("", " "
   dplyr::filter(!is.na(number)) %>% # find and remove sync points that are not fish
   replace_na(list(family="Unknown",genus="Unknown",species="spp"))%>% # remove any NAs in taxa name
   dplyr::mutate(genus=str_replace_all(.$genus,c("NA"="Unknown")))%>%
+  dplyr::mutate(length = ifelse(family%in%'Urolophidae',NA,length))%>%                        #remove all the lengths for stingaroos
+  dplyr::mutate(length = ifelse(family%in%'Trygonorrhinidae',NA,length))%>%
+  dplyr::mutate(length = ifelse(family%in%'Rhinobatidae',NA,length))%>%
+  dplyr::mutate(length = ifelse(family%in%'Dasyatidae',NA,length))%>%
   dplyr::glimpse()
+
+length(unique(length$sample)) # 277
 
 # BASIC checks----
 # Check if we have 3d points (Number) in addition to length----
@@ -189,8 +195,11 @@ write.csv(out.of.range, "out.of.range.csv")
 # Use the abbreviation in the code below
 setwd(tidy.dir)
 dir()
+library(googlesheets4)
 
-master <- read.csv("australia.life.history.csv") %>% 
+url <- "https://docs.google.com/spreadsheets/d/1SMLvR9t8_F-gXapR2EemQMEPSw_bUbPLcXd3lJ5g5Bo/edit?ts=5e6f36e2#gid=825736197"
+
+master <- googlesheets4::read_sheet(url) %>% 
   ga.clean.names()%>%
   dplyr::filter(grepl('Australia', global.region))%>% # Change country here
   dplyr::filter(grepl('SW', marine.region))%>% # Select marine region (currently this is only for Australia)
@@ -202,7 +211,9 @@ master <- read.csv("australia.life.history.csv") %>%
   dplyr::distinct()%>%
   dplyr::glimpse()
 
-synonyms<- read.csv("synonyms.australia.csv") %>% 
+synonymsurl <- "https://docs.google.com/spreadsheets/d/1R0uU9Q0VkUDQFgGTK3VnIGxmc101jxhlny926ztWoiQ/edit#gid=567803926"
+
+synonyms<- googlesheets4::read_sheet(synonymsurl)%>% 
   distinct()%>%
   ga.clean.names()%>%
   select(-comment)
