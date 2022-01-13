@@ -2,47 +2,35 @@ rm(list=ls())
 
 library(dplyr)
 library(tidyr)
-
+library(ggtext)
+library(ggplot2)
+library(cowplot)
 
 # Set the study name
 name <- '2020_south-west_stereo-BRUVs' # for the study
 
 ## Set working directory----
-working.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
-
-## Set sub directories----
-d.dir <- paste(working.dir,"Data/Tidy",sep="/") 
-h.dir <- paste(working.dir, "Data/Habitat/BRUV Style annotation/tidy data",sep="/") 
-s.dir <- paste(working.dir,"shapefiles",sep="/")
-p.dir <- paste(working.dir,"Plots",sep="/")
-m.dir <- paste(working.dir,"Model Out GAM", sep="/")
-
-# Bring in and format the data----
-setwd(m.dir)
-dir()
+working.dir <- getwd()
+setwd(working.dir)
 
 # custom plot of importance scores----
-
-# FISHING HIGHWAY ----
 # Load the importance score dataset produced above
-dat.fh1 <-read.csv("2020_south-west_stereo-BRUVs_FH_all.var.imp.csv")%>% #from local copy
+dat1 <-read.csv("output/fish gamms/2020_south-west_stereo-BRUVs_all.var.imp.csv")%>% #from local copy
   rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
 
-dat.fh2 <-read.csv("2020_south-west_stereo-BRUVs_FH_length_all.var.imp.csv")%>% #from local copy
+dat2 <-read.csv("output/fish gamms/2020_south-west_stereo-BRUVs_length_all.var.imp.csv")%>% #from local copy
   rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
 
 
-dat.fh <- bind_rows(dat.fh1,dat.fh2) %>%
-  filter(!resp.var%in%c("targeted.abundance","Labridae Ophthalmolepis lineolatus","Scorpididae Neatypus obliquus",
-                        "fished greater than 20 cm","fished greater than 30 cm"))
+dat <- bind_rows(dat1,dat2)%>%
+  glimpse()
 
 
 # Plotting defaults----
-library(ggplot2)
 # Theme-
 Theme1 <-
   theme( # use theme_get() to see available options
@@ -72,178 +60,55 @@ re <- colorRampPalette(c("mistyrose", "red2","darkred"))(200)
 legend_title<-"Importance"
 
 # Annotations-
-dat.taxa.label<-dat.fh%>%
+dat.taxa.label<-dat%>%
   mutate(label=NA)%>%
-  mutate(label=ifelse(predictor=="Distance"&resp.var=="BDS","X",
-                      ifelse(predictor=="Status"&resp.var=="BDS","X",
-                             ifelse(predictor=="sqrt.X500um"&resp.var=="BDS","X",label))))%>%
-  mutate(label=ifelse(predictor=="lobster"&resp.var=="BMS","X",label))%>%
-  mutate(label=ifelse(predictor=="sqrt.X4mm"&resp.var=="CPN","X",
-                      ifelse(predictor=="lobster"&resp.var=="CPN","X",label)))%>%
+  mutate(resp.var = factor(resp.var, levels = c("Scorpididae Neatypus obliquus","Pomacentridae Chromis klunzingeri","Labridae Coris auricularis",
+                                                "Sparidae Chrysophrys auratus","smaller than legal size","greater than legal size",
+                                                "all greater than 30 cm","all greater than 20 cm","species.richness", "targeted.abundance",
+                                                "total.abundance")))%>%  #change order of response variables
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="targeted.abundance","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="targeted.abundance","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="Labridae Coris auricularis","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.sponges"&resp.var=="Pomacentridae Chromis klunzingeri","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="Pomacentridae Chromis klunzingeri","X",label))%>%
+  mutate(label=ifelse(predictor=="status"&resp.var=="Pomacentridae Chromis klunzingeri","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="Scorpididae Neatypus obliquus","X",label))%>%
+  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="Scorpididae Neatypus obliquus","X",label))%>%
+  mutate(label=ifelse(predictor=="aspect"&resp.var=="Sparidae Chrysophrys auratus","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="Sparidae Chrysophrys auratus","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="Sparidae Chrysophrys auratus","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="all greater than 20 cm","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="all greater than 20 cm","X",label))%>%
+  mutate(label=ifelse(predictor=="distance.to.ramp"&resp.var=="all greater than 30 cm","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="all greater than 30 cm","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.macroalgae"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.sponges"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
-
-unique(dat.fh$predictor)
-unique(dat.fh$resp.var)
-
-# Plot gg.importance.scores ----
-library(ggtext)
-
-
-gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=importance))+
-  geom_tile(show.legend=T) +
-  scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
-                       limits = c(0, max(dat.taxa.label$importance)))+
-  scale_x_discrete(limits=c("status",
-                            "distance.to.ramp",
-                            "depth",
-                            "mean.relief",
-                            "sd.relief",
-                            "broad.reef",
-                            "broad.macroalgae",
-                            "log.sponges",
-                            "aspect",
-                            "log.tpi",
-                            "log.roughness",
-                            "log.slope"),
-                   labels=c(
-                     "Status",
-                     "Distance to ramp",
-                     "Depth",
-                     "Mean relief",
-                     "SD relief",
-                     "Reef",
-                     "Macroalgae",
-                     "Log Sponges",
-                     "Aspect",
-                     "Log TPI",
-                     "Log Roughness",
-                     "Log Slope"
-                   ))+
-  scale_y_discrete(limits = c("smaller than legal size" ,  
-                                                            "greater than legal size",
-                                                            "all greater than 30 cm",
-                                                            "all greater than 20 cm" ,
-                                                            "Heterodontidae Heterodontus portusjacksoni",
-                                                            "Labridae Coris auricularis",
-                                                            "Sparidae Chrysophrys auratus",
-                                                            "species.richness",
-                                                            "total.abundance"
-  ),
-                   labels=c(                            "Smaller than legal size",
-                                                        "Greater than legal size",
-                                                        "Greater than 30 cm",
-                                                        "Greater than 20 cm",
-                                                        "*H. portusjacksoni*",
-                                                        "*C. auricularis*",
-                                                        "*C. auratus*",
-                                                        "Species richness",
-                                                        "Total abundance"
-                   ))+
-  xlab(NULL)+
-  ylab(NULL)+
-  theme_classic()+
-  Theme1+
-  theme(axis.text.y = element_markdown())+
-  geom_text(aes(label=label))
-gg.importance.scores
-
-
-# IN/OUT----
-# Load the importance score dataset produced above
-dat.io1 <-read.csv("2020_south-west_stereo-BRUVs_IO_all.var.imp.csv")%>% #from local copy
-  rename(resp.var=X)%>%
-  gather(key=predictor,value=importance,2:ncol(.))%>%
-  glimpse()
-
-dat.io2 <-read.csv("2020_south-west_stereo-BRUVs_IO_length_all.var.imp.csv")%>% #from local copy
-  rename(resp.var=X)%>%
-  gather(key=predictor,value=importance,2:ncol(.))%>%
-  glimpse()
-
-
-dat.io <- bind_rows(dat.io1,dat.io2) %>%
-  filter(!resp.var%in%c("targeted.abundance","Labridae Ophthalmolepis lineolatus","Scorpididae Neatypus obliquus",
-                        "fished greater than 20 cm","fished greater than 30 cm","sublegal size pink snapper"))
-
-
-
-# 
-# Annotations-
-dat.taxa.label<-dat.io%>%
-  mutate(label=NA)%>%
-  mutate(label=ifelse(predictor=="Distance"&resp.var=="BDS","X",
-                      ifelse(predictor=="Status"&resp.var=="BDS","X",
-                             ifelse(predictor=="sqrt.X500um"&resp.var=="BDS","X",label))))%>%
-  mutate(label=ifelse(predictor=="lobster"&resp.var=="BMS","X",label))%>%
-  mutate(label=ifelse(predictor=="sqrt.X4mm"&resp.var=="CPN","X",
-                      ifelse(predictor=="lobster"&resp.var=="CPN","X",label)))%>%
-  glimpse()
-
-unique(dat.io$predictor)
-unique(dat.io$resp.var)
 
 # Plot gg.importance.scores ----
 gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=importance))+
   geom_tile(show.legend=T) +
   scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
                        limits = c(0, max(dat.taxa.label$importance)))+
-  scale_x_discrete(limits=c("status",
-                            "distance.to.ramp",
-                            "depth",
-                            "mean.relief",
-                            "sd.relief",
-                            "broad.reef",
-                            "broad.macroalgae",
-                            "log.sponges",
-                            "aspect",
-                            "log.tpi",
-                            "log.roughness",
-                            "log.slope"),
-                   labels=c(
-                     "Status",
-                     "Distance to ramp",
-                     "Depth",
-                     "Mean relief",
-                     "SD relief",
-                     "Reef",
-                     "Macroalgae",
-                     "Log Sponges",
-                     "Aspect",
-                     "Log TPI",
-                     "Log Roughness",
-                     "Log Slope"
-                   ))+
-  scale_y_discrete(limits = c("smaller than legal size" ,
-                              "greater than legal size",
-                              "all greater than 30 cm",
-                              "all greater than 20 cm" ,
-                              "Monacanthidae Nelusetta ayraud",
-                              "Heterodontidae Heterodontus portusjacksoni",
-                             
-                              "Labridae Coris auricularis",
-                              "Sparidae Chrysophrys auratus",
-                              "species.richness",
-                              "total.abundance"
-  ),
-  labels=c(                            "Smaller than legal size",
-                                       "Greater than legal size",
-                                       "Greater than 30 cm",
-                                       "Greater than 20 cm",
-                                       "*N. ayraud*",
-                                       "*H. portusjacksoni*",
-                                       
-                                       "*C. auricularis*",
-                                       "*C. auratus*",
-                                       "Species richness",
-                                       "Total abundance"
-  ))+
+  # scale_y_discrete(labels=c("All greater than 20cm", "All greater than 30cm", "Greater than legal size", "*Coris auricularis*",
+  #                           "*Chromis klunzingeri*", "*Neatypus obliquus*", "Smaller than legal size","*Chrysophrys auratus*",
+  #                           "Species richness","Targeted abundance","Total abundance"))+         #Tidy Taxa names
+  scale_x_discrete(labels = c("Aspect","Macroalgae","Reef","Sponges","Depth","Distance to boat ramp","Mean relief","Roughness",
+                              "SD relief","Status","TPI"))+   #Tidy predictor names
   xlab(NULL)+
   ylab(NULL)+
   theme_classic()+
   Theme1+
-  theme(axis.text.y = element_markdown())+
+  theme(axis.text.y = ggtext::element_markdown())+
   geom_text(aes(label=label))
 gg.importance.scores
 
-
-
+#save output - changed dimensions for larger text in report
+save_plot("plots/original gamms/swc_fish-importance-full.png", gg.importance.scores,base_height = 6.75,base_width = 6.275)
