@@ -13,20 +13,11 @@ library(rstudioapi)
 # clear workspace ----
 rm(list = ls())
 
-# set working directories ----
-#w.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
-
-w.dir <- "Z:/SWC-multibeam-GAMMS"
-# Set data directory - to read the data from
-dt.dir <- (paste(w.dir, "Data/Tidy", sep='/'))
-h.dir <- (paste(w.dir, "Data/Habitat/BRUV Style annotation/tidy data"))
-s.dir <- (paste(w.dir, "shapefiles", sep='/'))
-# Set graph directory - to save plots
-p.dir <- paste(w.dir, "Plots", sep='/')
-r.dir <- paste(w.dir, "rasters", sep='/')
+working.dir <- getwd()
+setwd(working.dir)
 
 # Load Multibeam ----
-b <- raster(paste(r.dir, "SwC_Multibeam.tiff", sep='/'))
+b <- raster("data/spatial/rasters/SwC_Multibeam.tiff")
 plot(b)
 
 # crop to extent --
@@ -39,7 +30,7 @@ b # 4x4m resolution
 #### Transform from utm to lat long ----
 
 # open reference file 
-ref <- raster(paste(r.dir, "GB-SW_250mBathy.tif", sep='/'))
+ref <- raster("data/spatial/rasters/GB-SW_250mBathy.tif")
 ref.crs <- proj4string(ref)
 
 b <- projectRaster(b, crs = ref.crs)
@@ -62,7 +53,5 @@ plot(f)
 ders <- stack(b,s,a,r,t,f)
 names(ders) <- c("depth", "slope",  "aspect" ,  "roughness"  ,   "tpi" ,   "flowdir")
 
-
-
 # save stack of derivatives
-writeRaster(ders, paste(r.dir, "Multibeam_derivatives.tif", sep='/'))
+writeRaster(ders, "data/spatial/rasters/Multibeam_derivatives.tif")

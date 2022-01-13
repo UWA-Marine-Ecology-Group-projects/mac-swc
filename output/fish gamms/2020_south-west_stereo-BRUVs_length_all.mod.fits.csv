@@ -1,0 +1,18 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","aspect","tpi","roughness","depth","status","cumsum.wi"
+"all greater than 20 cm.broad.reef+roughness","broad.reef+roughness",1740.11100874981,1856.41570873777,0.28483,NA,30.29,0,0,21.862,0.109,0,0,0,0,0,1,0,0,0,1,0,0,0.109
+"all greater than 20 cm.aspect+broad.reef+roughness","aspect+broad.reef+roughness",1740.11530626374,1856.42511507309,0.28483,NA,31.29,1,0.004,21.871,0.109,0,0,0,0,0,1,0,1,0,1,0,0,0.218
+"all greater than 20 cm.broad.reef+roughness+status","broad.reef+roughness+status",1740.13377880787,1855.43520841936,0.2648,NA,29.81,0,0.023,20.881,0.108,0,0,0,0,0,1,0,0,0,1,0,1,0.326
+"all greater than 20 cm.mean.relief+roughness","mean.relief+roughness",1741.60368613062,1854.21602952909,0.27931,NA,29.04,0,1.493,19.662,0.052,0,1,0,0,0,0,0,0,0,1,0,0,0.378
+"all greater than 20 cm.aspect+mean.relief+roughness","aspect+mean.relief+roughness",1741.60740771602,1854.2242448236,0.27931,NA,30.04,1,1.496,19.67,0.052,0,1,0,0,0,0,0,1,0,1,0,0,0.43
+"all greater than 20 cm.broad.macroalgae+roughness","broad.macroalgae+roughness",1741.66948827749,1847.9393515827,0.25983,NA,26.93,0,1.558,13.386,0.05,0,0,0,0,1,0,0,0,0,1,0,0,0.48
+"all greater than 20 cm.aspect+broad.macroalgae+roughness","aspect+broad.macroalgae+roughness",1741.67184724286,1847.94457770949,0.25983,NA,27.93,1,1.561,13.391,0.05,0,0,0,0,1,0,0,1,0,1,0,0,0.53
+"all greater than 30 cm.distance.to.ramp+roughness","distance.to.ramp+roughness",1435.40610177502,1588.45873476348,0.4583,NA,43.57,0,0,2.096,0.149,0.09,0,0,0,0,0,1,0,0,1,0,0,0.149
+"all greater than 30 cm.depth+roughness","depth+roughness",1435.45463754739,1587.00405488032,0.45908,NA,42.67,0,0.049,0.641,0.145,0.186,0,0,0,0,0,0,0,0,1,1,0,0.294
+"all greater than 30 cm.aspect+depth+roughness","aspect+depth+roughness",1435.47635554767,1587.04678363673,0.45908,NA,43.67,1,0.07,0.684,0.144,0.182,0,0,0,0,0,0,1,0,1,1,0,0.438
+"all greater than 30 cm.distance.to.ramp+roughness+tpi","distance.to.ramp+roughness+tpi",1435.83145550265,1591.99694448237,0.46248,NA,44.67,0,0.425,5.634,0.12,0.015,0,0,0,0,0,1,0,1,1,0,0,0.558
+"all greater than 30 cm.distance.to.ramp+roughness+status","distance.to.ramp+roughness+status",1436.1022179199,1587.04487201712,0.45216,NA,42.37,0,0.696,0.682,0.105,0.182,0,0,0,0,0,1,0,0,1,0,1,0.663
+"all greater than 30 cm.depth+roughness+status","depth+roughness+status",1436.42495659473,1586.36282239774,0.45378,NA,41.52,0,1.019,0,0.09,0.256,0,0,0,0,0,0,0,0,1,1,1,0.753
+"all greater than 30 cm.depth+roughness+tpi","depth+roughness+tpi",1436.44044236141,1591.59332744409,0.46299,NA,43.76,0,1.034,5.231,0.089,0.019,0,0,0,0,0,0,0,1,1,1,0,0.842
+"greater than legal size","broad.macroalgae+roughness+sd.relief",2280.3164089305,2481.28585344213,0.29604,NA,64.12,0,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,1
+"smaller than legal size.broad.sponges+depth+roughness","broad.sponges+depth+roughness",805.062987023788,954.252108473406,0.21357,NA,43.07,0,0,2.474,0.311,0.078,0,0,1,0,0,0,0,0,1,1,0,0.311
+"smaller than legal size.broad.sponges+distance.to.ramp+roughness","broad.sponges+distance.to.ramp+roughness",805.107542678855,952.139797809473,0.21596,NA,42.28,0,0.045,0.362,0.304,0.224,0,0,1,0,0,1,0,0,1,0,0,0.615

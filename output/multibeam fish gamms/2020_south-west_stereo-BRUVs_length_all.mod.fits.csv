@@ -1,0 +1,14 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","aspect","tpi","roughness","depth.multibeam","status","cumsum.wi"
+"all greater than 20 cm","roughness+sd.relief+tpi",716.762580001783,741.636107901827,0.12959,NA,5.94,0,0,0,0.713,0.997,0,1,0,0,0,0,0,1,1,0,0,0.713
+"all greater than 30 cm.depth.multibeam+roughness","depth.multibeam+roughness",576.671544083984,612.66073724533,0.44143,NA,8.6,0,0,2.038,0.384,0.235,0,0,0,0,0,0,0,0,1,1,0,0.384
+"all greater than 30 cm.distance.to.ramp+roughness+sd.relief","distance.to.ramp+roughness+sd.relief",577.220783863697,610.622968778772,0.42151,NA,8.55,0,0.549,0,0.292,0.652,0,1,0,0,0,1,0,0,1,0,0,0.676
+"all greater than 30 cm.depth.multibeam+roughness+tpi","depth.multibeam+roughness+tpi",577.88835535619,614.397073661449,0.44075,NA,9.09,0,1.217,3.774,0.209,0.099,0,0,0,0,0,0,0,1,1,1,0,0.885
+"greater than legal size","distance.to.ramp+roughness+sd.relief",486.723609252652,542.118869196242,0.49095,NA,21.27,0,0,0,1,0.999,0,1,0,0,0,1,0,0,1,0,0,1
+"legal size pink snapper","depth.multibeam+roughness+status",181.467563029976,202.0995095958,0.18041,NA,6.81,1,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1
+"smaller than legal size.aspect+roughness","aspect+roughness",364.380999723994,421.165891792237,0.21545,NA,22.5,0,0,2.086,0.119,0.085,0,0,0,0,0,0,1,0,1,0,0,0.119
+"smaller than legal size.aspect+roughness+status","aspect+roughness+status",364.402989183085,421.663046358471,0.20949,NA,23.05,0,0.022,2.583,0.117,0.066,0,0,0,0,0,0,1,0,1,0,1,0.236
+"smaller than legal size.aspect+broad.reef+roughness","aspect+broad.reef+roughness",365.184575131524,422.650098472695,0.21558,NA,23.04,0,0.804,3.57,0.079,0.04,0,0,0,0,1,0,1,0,1,0,0,0.315
+"smaller than legal size.aspect","aspect",365.420218053812,419.080382885012,0.21703,NA,20.7,0,1.039,0,0.071,0.24,0,0,0,0,0,0,1,0,0,0,0,0.386
+"smaller than legal size.aspect+distance.to.ramp+roughness","aspect+distance.to.ramp+roughness",365.812275259706,422.807169371273,0.2118,NA,22.53,0,1.431,3.727,0.058,0.037,0,0,0,0,0,1,1,0,1,0,0,0.444
+"sublegal size pink snapper.null","null",223.184202361797,270.353564288245,0.26422,NA,17.25,0,0,0,0.411,0.427,0,0,0,0,0,0,0,0,0,0,0,0.411
+"sublegal size pink snapper.aspect","aspect",223.184543452654,270.354036323193,0.26422,NA,18.25,1,0,0,0.411,0.427,0,0,0,0,0,0,1,0,0,0,0,0.822

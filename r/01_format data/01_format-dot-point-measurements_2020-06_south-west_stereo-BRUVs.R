@@ -54,12 +54,12 @@ habitat.forwards.points <- read.delim("2020-06_south-west_stereo-BRUVs_random-po
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.forwards.points$sample)) # only 38 samples
-38*20
+length(unique(habitat.forwards.points$sample)) # 40 samples
+40*20
 
 no.annotations <- habitat.forwards.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  dplyr::summarise(n=n())
 
 test <- habitat.forwards.points %>%
   filter(broad%in%c("",NA))
@@ -71,12 +71,12 @@ habitat.backwards.points <- read.delim("2020-06_south-west_stereo-BRUVs_random-p
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.backwards.points$sample)) # only 35 samples
-35*20
+length(unique(habitat.backwards.points$sample)) # 39 samples
+39*20
 
 no.annotations <- habitat.backwards.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  dplyr::summarise(n=n())
 
 test <- habitat.backwards.points %>%
   filter(broad%in%c("",NA))
@@ -89,7 +89,7 @@ number.of.annotations <- habitat.points%>%
   dplyr::summarise(number.of.annotations=n()) # count the number of annotations per image
 
 wrong.number<-number.of.annotations%>%
-  filter(!number.of.annotations==40) # see images where there is too many or too little annotations (in this example there are none), go back into the *.TMObs file to fix this before re-exporting DO NOT FIX IN THE TXT FILE
+  filter(!number.of.annotations==40) # see images where there is too many or too little annotations
 
 # Check that the image names match the metadata samples -----
 missing.metadata <- anti_join(habitat.points,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
@@ -101,6 +101,7 @@ forwards.missing <- anti_join(metadata, habitat.forwards.points, by = c("sample"
 setwd(error.dir)
 
 write.csv(forwards.missing, "2020-06_south-west_stereo-BRUV_random-points_forwards_missing.csv",row.names = FALSE)
+
 backwards.missing <- anti_join(metadata, habitat.backwards.points, by = c("sample"))%>% 
   filter(successful.count%in%c("Yes"))
 
@@ -119,7 +120,7 @@ length(unique(habitat.forwards.grid$sample)) # 40 samples
 
 no.annotations <- habitat.forwards.grid%>%
   group_by(sample)%>%
-  summarise(n=n()) # good
+  dplyr::summarise(n=n()) # good
 
 test <- habitat.forwards.grid %>%
   filter(broad%in%c("",NA)) # good
@@ -133,11 +134,11 @@ habitat.backwards.grid <- read.delim("2020-06_south-west_stereo-BRUVs_grid_backw
   mutate(sample=str_pad(sample,width = 2, side = "left", pad = "0")) %>%
   glimpse() # preview
 
-length(unique(habitat.backwards.grid$sample)) # 38 samples
+length(unique(habitat.backwards.grid$sample)) # 39 samples
 
 no.annotations <- habitat.backwards.grid%>%
   group_by(sample)%>%
-  summarise(n=n()) # good
+  dplyr::summarise(n=n()) # good
 
 test <- habitat.backwards.grid %>%
   filter(broad%in%c("",NA)) # good
@@ -148,15 +149,15 @@ habitat.grid <- bind_rows(habitat.forwards.grid,habitat.backwards.grid)
 missing.metadata <- anti_join(habitat.grid,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
 missing.habitat <- anti_join(metadata,habitat.grid, by = c("sample")) # samples in the metadata that don't have a match in habitat
 
-forwards.missing <- anti_join(metadata, habitat.forwards.grid, by = c("sample"))%>% 
+forwards.missing <- anti_join(metadata, habitat.forwards.grid, by = c("sample"))%>%
   filter(successful.count%in%c("Yes"))
 
 setwd(error.dir)
 
 write.csv(forwards.missing, "2020-10_south-west_stereo-BRUV_grid_forwards_missing.csv",row.names = FALSE)
-backwards.missing <- anti_join(metadata, habitat.backwards.grid, by = c("sample"))%>% 
-  filter(successful.count%in%c("Yes"))
 
+backwards.missing <- anti_join(metadata, habitat.backwards.grid, by = c("sample"))%>%
+  filter(successful.count%in%c("Yes"))
 
 # Create %fov----
 fov.points <- habitat.points%>%
@@ -276,11 +277,13 @@ dir()
 
 habitat.broad.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
-  left_join(broad.points, by = "sample")
+  left_join(broad.points, by = "sample")%>%
+  left_join(relief.grid)
 
 habitat.detailed.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
-  left_join(detailed.points, by = "sample")
+  left_join(detailed.points, by = "sample")%>%
+  left_join(relief.grid)
 
 habitat.broad.grid <- metadata%>%
   left_join(fov.grid, by = "sample")%>%
@@ -297,4 +300,3 @@ write.csv(habitat.broad.grid,file=paste(study,"grid_broad.habitat.csv",sep = "_"
 
 write.csv(habitat.detailed.points,file=paste(study,"random-points_detailed.habitat.csv",sep = "_"), row.names=FALSE)
 write.csv(habitat.detailed.grid,file=paste(study,"grid_detailed.habitat.csv",sep = "_"), row.names=FALSE)
-

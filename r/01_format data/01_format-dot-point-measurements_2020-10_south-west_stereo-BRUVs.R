@@ -54,11 +54,11 @@ habitat.forwards.points <- read.delim("2020-10_south-west_stereo-BRUVs_random-po
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.forwards.points$sample)) # only 245 samples
+length(unique(habitat.forwards.points$sample)) # 273 samples
 
 no.annotations <- habitat.forwards.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  dplyr::summarise(n=n())
 
 test <- habitat.forwards.points %>%
   filter(broad%in%c("",NA))
@@ -70,11 +70,11 @@ habitat.backwards.points <- read.delim("2020-10_south-west_stereo-BRUVs_random-p
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.backwards.points$sample)) # only 259
+length(unique(habitat.backwards.points$sample)) # 260
 
 no.annotations <- habitat.backwards.points%>%
   group_by(sample)%>%
-  summarise(n=n())
+  dplyr::summarise(n=n())
 
 test <- habitat.backwards.points %>%
   filter(broad%in%c("",NA))
@@ -107,34 +107,34 @@ backwards.missing <- anti_join(metadata, habitat.backwards.points, by = c("sampl
 setwd(tm.export.dir)
 dir()
 
-habitat.forwards.grid <- read.delim("2020-10_south-west_stereo-BRUVs_grid_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+habitat.forwards.grid <- read.delim("2020-10_south-west_stereo_BRUVs_Habitat_grid_forwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""," take 2"=""))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.forwards.grid$sample)) # 245 samples
+length(unique(habitat.forwards.grid$sample)) # 273 samples
 
 no.annotations <- habitat.forwards.grid%>%
   group_by(sample)%>%
-  summarise(n=n()) # good
+  dplyr::summarise(n=n()) # good
 
 test <- habitat.forwards.grid %>%
   filter(broad%in%c("",NA)) # good
 
-habitat.backwards.grid <- read.delim("2020-10_south-west_stereo-BRUVs_grid_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
+habitat.backwards.grid <- read.delim("2020-10_south-west_stereo_BRUVs_Habitat_grid_backwards_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE) %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
   mutate(sample=as.character(sample)) %>% # in this example dataset, the samples are numerical
   select(sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-length(unique(habitat.backwards.grid$sample)) # 259 samples
+length(unique(habitat.backwards.grid$sample)) # 260 samples
 
 no.annotations <- habitat.backwards.grid%>%
   group_by(sample)%>%
-  summarise(n=n()) # good
+  dplyr::summarise(n=n()) # good
 
 test <- habitat.backwards.grid %>%
   filter(broad%in%c("",NA)) # good
@@ -275,11 +275,13 @@ dir()
 
 habitat.broad.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
-  left_join(broad.points, by = "sample")
+  left_join(broad.points, by = "sample")%>%
+  left_join(relief.grid)
 
 habitat.detailed.points <- metadata%>%
   left_join(fov.points, by = "sample")%>%
-  left_join(detailed.points, by = "sample")
+  left_join(detailed.points, by = "sample")%>%
+  left_join(relief.grid)
 
 habitat.broad.grid <- metadata%>%
   left_join(fov.grid, by = "sample")%>%
@@ -297,3 +299,4 @@ write.csv(habitat.broad.grid,file=paste(study,"grid_broad.habitat.csv",sep = "_"
 write.csv(habitat.detailed.points,file=paste(study,"random-points_detailed.habitat.csv",sep = "_"), row.names=FALSE)
 write.csv(habitat.detailed.grid,file=paste(study,"grid_detailed.habitat.csv",sep = "_"), row.names=FALSE)
 
+setwd(working.dir)

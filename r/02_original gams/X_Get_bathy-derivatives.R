@@ -7,18 +7,18 @@ library(sp)
 library(sf)
 library(raster)
 library(rgdal)
-library(spastat)
+library(spatstat)
 
 # set working directories ----
-w.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
+w.dir <- getwd()
 #w.dir <- "H:/Github/GB_2015_Survey"
 # Set data directory - to read the data from
-dt.dir <- (paste(w.dir, "Data/Tidy", sep='/'))
-h.dir <- (paste(w.dir, "Data/Habitat/BRUV Style annotation/tidy data"))
-s.dir <- (paste(w.dir, "shapefiles", sep='/'))
+dt.dir <- (paste(w.dir, "data/tidy", sep='/'))
+h.dir <- (paste(w.dir, "data/raw/tm export"))
+s.dir <- (paste(w.dir, "data/spatial/shapefiles", sep='/'))
 # Set graph directory - to save plots
-p.dir <- paste(w.dir, "Plots", sep='/')
-r.dir <- paste(w.dir, "rasters", sep='/')
+p.dir <- paste(w.dir, "plots", sep='/')
+r.dir <- paste(w.dir, "data/spatial/rasters", sep='/')
 
 # Load data ----
 study <- "2020_south-west_stereo-BRUVs"
@@ -38,11 +38,23 @@ s <- raster(paste(r.dir, "SW_slope-to-260m.tif", sep='/'))
 a <- raster(paste(r.dir, "SW_aspect-to-260m.tif", sep='/'))
 r <- raster(paste(r.dir, "SW_roughness-to-260m.tif", sep='/'))
 t <- raster(paste(r.dir, "SW_tpi-to-260m.tif", sep='/'))
+b <- raster(paste(r.dir, "SW_bathy-to-260m.tif", sep='/'))
 
-d <- stack(s,a,r,t)
-plot(d)
-names(d) <- c("slope", "aspect", "roughness", "tpi")
+d <- stack(s,a,r,t, b)
+plot(t)
+names(d) <- c("slope", "aspect", "roughness", "tpi", "ga_depth")
 
+weird <- df %>% 
+  dplyr::filter(sample %in% c("IO267"))%>%
+  glimpse()
+
+weird <- dfs[dfs$SW_tpi.to.260m < -10, ]
+test <- buffer(weird, 1000)
+plot(test, add = T)
+
+t_crop <- crop(d, test)
+plot(t_crop)
+plot(weird, add = T)
 
 # Extract bathy derivatives from data points --
 dfs <- raster::extract(d, dfs, sp = T)

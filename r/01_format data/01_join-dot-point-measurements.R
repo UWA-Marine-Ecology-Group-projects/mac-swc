@@ -5,7 +5,7 @@ rm(list=ls())
 library(dplyr)
 library(GlobalArchive)
 
-working.dir <- "H:/GitHub/mac-swc/data/tidy"
+working.dir <- getwd()
 setwd(working.dir)
 
 dir()

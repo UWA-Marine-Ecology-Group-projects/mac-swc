@@ -14,12 +14,10 @@ library(sp)
 library(sf)
 library(raster)
 library(rgdal)
-library(spastat)
-
+library(spatsat)
 
 # clear workspace ----
 rm(list = ls())
-
 
 # set working directories ----
 w.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)

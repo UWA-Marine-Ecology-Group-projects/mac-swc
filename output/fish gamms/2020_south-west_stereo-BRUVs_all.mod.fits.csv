@@ -1,0 +1,18 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","aspect","tpi","roughness","depth","status","cumsum.wi"
+"targeted.abundance","mean.relief+roughness",1628.45049945717,1816.57679627369,0.23606,NA,54.11,0,0,1.419,0.636,0.232,1,0,0,0,0,0,0,0,1,0,0,0.636
+"Labridae Coris auricularis.aspect+depth","aspect+depth",1738.54971361715,1859.90837875032,0.13391,NA,30.12,0,0,8.567,0.274,0.012,0,0,0,0,0,0,1,0,0,1,0,0.274
+"Labridae Coris auricularis.depth","depth",1739.23691287718,1851.34183775284,0.13054,NA,27.93,0,0.687,0,0.195,0.895,0,0,0,0,0,0,0,0,0,1,0,0.469
+"Labridae Coris auricularis.aspect+depth+status","aspect+depth+status",1739.41862981983,1863.91779965091,0.13485,NA,31.21,0,0.869,12.576,0.178,0.002,0,0,0,0,0,0,1,0,0,1,1,0.647
+"Pomacentridae Chromis klunzingeri","broad.sponges+depth+status",1040.51517503536,1069.34547481845,0.06726,NA,5.72,0,0,0,0.789,0.753,0,0,1,0,0,0,0,0,0,1,1,0.789
+"Scorpididae Neatypus obliquus.mean.relief+sd.relief","mean.relief+sd.relief",1314.7710525477,1457.79342612733,0.26746,NA,38.3,0,0,1.161,0.351,0.224,1,1,0,0,0,0,0,0,0,0,0,0.351
+"Scorpididae Neatypus obliquus.aspect+mean.relief+sd.relief","aspect+mean.relief+sd.relief",1314.79647784171,1457.84979710725,0.26746,NA,39.3,1,0.025,1.217,0.346,0.217,1,1,0,0,0,0,1,0,0,0,0,0.697
+"Sparidae Chrysophrys auratus","aspect+depth+roughness",701.719113405841,860.001005965953,0.2598,NA,42.86,0,0,0,0.714,0.966,0,0,0,0,0,0,1,0,1,1,0,0.714
+"total.abundance.mean.relief+tpi","mean.relief+tpi",2758.81632492925,2841.87528318144,0.30506,NA,17.36,0,0,8.463,0.142,0.007,1,0,0,0,0,0,0,1,0,0,0,0.142
+"total.abundance.aspect+mean.relief+tpi","aspect+mean.relief+tpi",2758.83890214491,2841.93070033821,0.30506,NA,18.36,1,0.023,8.518,0.14,0.007,1,0,0,0,0,0,1,1,0,0,0,0.282
+"total.abundance.mean.relief","mean.relief",2758.92399654189,2833.41238604791,0.27953,NA,15.3,0,0.108,0,0.134,0.463,1,0,0,0,0,0,0,0,0,0,0,0.416
+"total.abundance.aspect+mean.relief","aspect+mean.relief",2758.93006508563,2833.42790888181,0.27953,NA,16.3,1,0.114,0.016,0.134,0.46,1,0,0,0,0,0,1,0,0,0,0,0.55
+"total.abundance.mean.relief+sd.relief+tpi","mean.relief+sd.relief+tpi",2759.28093001518,2844.91149459024,0.30007,NA,18.11,0,0.465,11.499,0.112,0.001,1,1,0,0,0,0,0,1,0,0,0,0.662
+"total.abundance.mean.relief+roughness","mean.relief+roughness",2760.72203897619,2839.41718350931,0.28091,NA,16.65,0,1.906,6.005,0.055,0.023,1,0,0,0,0,0,0,0,1,0,0,0.717
+"total.abundance.aspect+mean.relief+roughness","aspect+mean.relief+roughness",2760.72608384005,2839.42759390988,0.28091,NA,17.65,1,1.91,6.015,0.054,0.023,1,0,0,0,0,0,1,0,1,0,0,0.771
+"species.richness.mean.relief+sd.relief","mean.relief+sd.relief",1619.95866563955,1759.04281681914,0.59575,NA,35.51,0,0,2.111,0.425,0.181,1,1,0,0,0,0,0,0,0,0,0,0.425
+"species.richness.mean.relief+sd.relief+tpi","mean.relief+sd.relief+tpi",1620.73698314409,1776.23303285411,0.61171,NA,39.53,0,0.778,19.301,0.288,0,1,1,0,0,0,0,0,1,0,0,0,0.713

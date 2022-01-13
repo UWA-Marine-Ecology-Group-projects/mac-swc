@@ -15,10 +15,10 @@ working.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
 study<-"2020_south-west_stereo-BRUVs"
 
 ## Set sub directories----
-d.dir <- paste(working.dir,"Data/Tidy",sep="/") 
-r.dir <- paste(working.dir,"Data",sep="/")
-s.dir <- paste(working.dir,"shapefiles",sep="/") # spatial is where I keep spatial data files, rasters and shapefiles
-p.dir <- paste(working.dir,"Plots",sep="/")
+d.dir <- paste(working.dir,"data/tidy",sep="/") 
+r.dir <- paste(working.dir,"data",sep="/")
+s.dir <- paste(working.dir,"data/spatial/shapefiles",sep="/") # spatial is where I keep spatial data files, rasters and shapefiles
+p.dir <- paste(working.dir,"plots",sep="/")
 
 ## Load metadata
 setwd(d.dir)

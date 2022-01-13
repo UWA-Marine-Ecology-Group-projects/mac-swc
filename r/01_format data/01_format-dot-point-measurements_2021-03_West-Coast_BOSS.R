@@ -14,27 +14,21 @@ library(devtools)
 library(GlobalArchive)
 library(ggplot2)
 
-# Set work directories----
-working.dir<- "H:/GitHub/mac-swc"
-raw.dir<- "H:/GitHub/mac-swc/data/raw/tm export" # links to folder called 'example raw data'
-staging.dir <- "H:/GitHub/mac-swc/data/staging"
-tidy.dir<- "H:/GitHub/mac-swc/data/tidy" # links to folder called 'example tidy data'
+## Set your working directory ----
+working.dir <- getwd() # this only works through github projects
 
-# Functions----
-se <- function(x) sd(x)/sqrt(length(x))
-
-
-# p.est <- mean(binary)
-# variance <- (p.est*(1-p.est))/nrow(binary)
-# std.dev <- sqrt(variance)
-
-
+## Save these directory names to use later----
+data.dir <- paste(working.dir,"data",sep="/") 
+raw.dir <- paste(data.dir,"raw",sep="/") 
+tidy.dir <- paste(data.dir,"tidy",sep="/")
+staging.dir <- paste(data.dir, "staging",sep = "/")
+tm.export.dir <- paste(raw.dir,"tm export",sep="/") 
+em.export.dir <- paste(raw.dir, "em export", sep = "/")
+error.dir <- paste(data.dir,"errors to check",sep="/")
 
 # Study name----
-
 study <- "2021-03_West-Coast_BOSS"
 study2 <- "2021-03_West-Coast_BOSS_relief"
-
 
 # Read in metadata----
 setwd(staging.dir)
@@ -45,9 +39,8 @@ metadata <- read_csv("MEG_Labsheets_2021 - 2021-03_West-Coast_BOSS.csv") %>% # r
   mutate(sample=as.character(sample)) %>% 
   glimpse() # preview
 
-
 # Load and format annotation data----
-setwd(raw.dir)
+setwd(tm.export.dir)
 dir()
 
 habitat <- read.delim("2021-03_West-Coast_BOSS_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
@@ -59,7 +52,6 @@ habitat <- read.delim("2021-03_West-Coast_BOSS_Dot Point Measurements.txt",heade
   select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
-
 relief <-read.delim("2021-03_West-Coast_BOSS_Relief_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function
   mutate(sample=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>%
@@ -68,8 +60,6 @@ relief <-read.delim("2021-03_West-Coast_BOSS_Relief_Dot Point Measurements.txt",
   mutate(filename=as.character(filename)) %>%
   select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
-
-
 
 # Check number of points per image ----
 number.of.annotations<-habitat%>%
@@ -80,7 +70,6 @@ wrong.number<-number.of.annotations%>%
   filter(!number.of.annotations==80) %>% 
   glimpse() # see images where there is too many or too little annotations - there are some extra points accidentally added, Kye says this is no issue as would need to reanalyse whole image to fix
 
-
 # Check number of points per image ----
 number.of.annotations2<-relief%>%
   dplyr::group_by(filename)%>%
@@ -90,12 +79,10 @@ wrong.number<-number.of.annotations2%>%
   filter(!number.of.annotations==80) %>% 
   glimpse()
 
-
 # Check that the image names match the metadata samples -----
 missing.metadata <- anti_join(habitat,metadata, by = c("sample")) # samples in habitat that don't have a match in the metadata
 missing.relief <- anti_join(relief,metadata, by = c("sample")) # samples in relief that don't have a match in the metadata
 missing.habitat <- anti_join(metadata,habitat, by = c("sample")) # samples in the metadata that don't have a match in habitat
-
 
 # Create %fov----
 fov<-habitat%>%
@@ -133,9 +120,7 @@ relief2<-relief%>%
   dplyr::ungroup()%>%
   glimpse()
 
-
 # CREATE catami point score------
-
 broad<-habitat%>%
   dplyr::select(-c(morphology,type))%>%
   # filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
@@ -175,9 +160,7 @@ detailed<-habitat%>%
   dplyr::select(-Total.Sum)%>%
   glimpse()
 
-
 # Write habitat data----
-
 setwd(tidy.dir)
 dir()
 
@@ -185,7 +168,6 @@ habitat.broad <- metadata%>%
   left_join(fov,by="sample")%>%
   left_join(relief2,by="sample")%>%
   left_join(broad,by="sample")
-
 
 write.csv(habitat.broad,file=paste(study,"_broad.habitat.csv",sep = "."), row.names=FALSE)
 
@@ -196,3 +178,4 @@ habitat.detailed <- metadata%>%
 
 write.csv(habitat.detailed,file=paste(study,"_detailed.habitat.csv",sep = "."), row.names=FALSE)
 
+setwd(working.dir)

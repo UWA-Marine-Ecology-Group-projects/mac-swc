@@ -1,0 +1,36 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","aspect","tpi","roughness","depth.multibeam","status","cumsum.wi"
+"targeted.abundance.aspect+roughness","aspect+roughness",661.570075794253,723.836972997373,0.3325,NA,22.32,0,0,0,0.289,0.248,0,0,0,0,0,0,1,0,1,0,0,0.289
+"targeted.abundance.aspect+depth.multibeam+roughness","aspect+depth.multibeam+roughness",662.906526411832,724.980532843361,0.32461,NA,22.08,0,1.336,1.144,0.148,0.14,0,0,0,0,0,0,1,0,1,1,0,0.437
+"targeted.abundance.aspect+roughness+status","aspect+roughness+status",663.264930129576,726.417653109154,0.33519,NA,22.76,0,1.695,2.581,0.124,0.068,0,0,0,0,0,0,1,0,1,0,1,0.561
+"targeted.abundance.aspect+broad.macroalgae+roughness","aspect+broad.macroalgae+roughness",663.49084948288,724.465275810522,0.31718,NA,21.38,0,1.921,0.628,0.111,0.181,0,0,0,1,0,0,1,0,1,0,0,0.672
+"Labridae Coris auricularis.depth.multibeam","depth.multibeam",824.181075239319,864.028751168607,0.09007,NA,10.88,0,0,0,0.184,0.255,0,0,0,0,0,0,0,0,0,1,0,0.184
+"Labridae Coris auricularis.aspect+depth.multibeam","aspect+depth.multibeam",824.18382055062,864.033922949251,0.09007,NA,11.88,1,0.003,0.005,0.184,0.255,0,0,0,0,0,0,1,0,0,1,0,0.368
+"Labridae Coris auricularis.depth.multibeam+status","depth.multibeam+status",825.52073223235,867.084769872615,0.09186,NA,11.59,0,1.34,3.056,0.094,0.055,0,0,0,0,0,0,0,0,0,1,1,0.462
+"Labridae Coris auricularis.aspect+depth.multibeam+status","aspect+depth.multibeam+status",825.525068369758,867.092836466712,0.09186,NA,12.59,1,1.344,3.064,0.094,0.055,0,0,0,0,0,0,1,0,0,1,1,0.556
+"Labridae Coris auricularis.broad.sponges+depth.multibeam","broad.sponges+depth.multibeam",825.558356471127,865.25830242435,0.0888,NA,10.53,0,1.377,1.23,0.093,0.138,0,0,1,0,0,0,0,0,0,1,0,0.649
+"Labridae Coris auricularis.aspect+broad.sponges+depth.multibeam","aspect+broad.sponges+depth.multibeam",825.561065115451,865.260263321854,0.0888,NA,11.53,1,1.38,1.232,0.092,0.138,0,0,1,0,0,0,1,0,0,1,0,0.741
+"Pomacentridae Chromis klunzingeri","broad.sponges+depth.multibeam+status",501.613167163731,518.10268248696,0.09068,NA,5,1,0,0,0.637,0.731,0,0,1,0,0,0,0,0,0,1,1,0.637
+"Scorpididae Neatypus obliquus.depth.multibeam+roughness","depth.multibeam+roughness",588.396070725434,648.712155404356,0.09807,NA,20.89,0,0,4.224,0.221,0.063,0,0,0,0,0,0,0,0,1,1,0,0.221
+"Scorpididae Neatypus obliquus.depth.multibeam+roughness+status","depth.multibeam+roughness+status",588.93239089692,650.41745961109,0.09612,NA,21.65,0,0.536,5.929,0.169,0.027,0,0,0,0,0,0,0,0,1,1,1,0.39
+"Scorpididae Neatypus obliquus.depth.multibeam","depth.multibeam",590.151128472564,644.487968427018,0.08685,NA,17.72,0,1.755,0,0.092,0.525,0,0,0,0,0,0,0,0,0,1,0,0.482
+"Sparidae Chrysophrys auratus.aspect+sd.relief+tpi","aspect+sd.relief+tpi",333.06627322129,393.523346860778,0.33299,NA,23.07,1,0,6.455,0.076,0.006,0,1,0,0,0,0,1,1,0,0,0,0.076
+"Sparidae Chrysophrys auratus.sd.relief+tpi","sd.relief+tpi",333.073223555764,393.533905077092,0.33299,NA,22.08,0,0.007,6.466,0.076,0.006,0,1,0,0,0,0,0,1,0,0,0,0.152
+"Sparidae Chrysophrys auratus.tpi","tpi",333.519994303357,392.738601021788,0.34035,NA,21.3,0,0.454,5.67,0.061,0.009,0,0,0,0,0,0,0,1,0,0,0,0.213
+"Sparidae Chrysophrys auratus.aspect+tpi","aspect+tpi",333.529849461457,392.754176798995,0.34035,NA,22.3,1,0.464,5.686,0.061,0.009,0,0,0,0,0,0,1,1,0,0,0,0.274
+"Sparidae Chrysophrys auratus.distance.to.ramp+tpi","distance.to.ramp+tpi",334.302594545108,394.359519428182,0.3332,NA,21.86,0,1.236,7.291,0.041,0.004,0,0,0,0,0,1,0,1,0,0,0,0.315
+"Sparidae Chrysophrys auratus.aspect+distance.to.ramp+tpi","aspect+distance.to.ramp+tpi",334.305739607638,394.36453308865,0.3332,NA,22.86,1,1.239,7.296,0.041,0.004,0,0,0,0,0,1,1,1,0,0,0,0.356
+"Sparidae Chrysophrys auratus.mean.relief+sd.relief+tpi","mean.relief+sd.relief+tpi",334.533907513394,396.613633420605,0.32991,NA,23.07,0,1.468,9.545,0.037,0.001,1,1,0,0,0,0,0,1,0,0,0,0.393
+"Sparidae Chrysophrys auratus.sd.relief+status+tpi","sd.relief+status+tpi",334.701463989872,396.770755557409,0.3295,NA,23.12,0,1.635,9.702,0.034,0.001,0,1,0,0,0,0,0,1,0,0,1,0.427
+"Sparidae Chrysophrys auratus.status+tpi","status+tpi",334.857741194388,395.666143905016,0.33363,NA,22.36,0,1.791,8.598,0.031,0.002,0,0,0,0,0,0,0,1,0,0,1,0.458
+"Sparidae Chrysophrys auratus.aspect+status+tpi","aspect+status+tpi",334.868952240407,395.683521283503,0.33363,NA,23.36,1,1.803,8.615,0.031,0.002,0,0,0,0,0,0,1,1,0,0,1,0.489
+"Sparidae Chrysophrys auratus.mean.relief+tpi","mean.relief+tpi",334.959868378289,395.911384636607,0.34292,NA,22.35,0,1.894,8.843,0.03,0.002,1,0,0,0,0,0,0,1,0,0,0,0.519
+"Sparidae Chrysophrys auratus.aspect+mean.relief+tpi","aspect+mean.relief+tpi",334.982214075729,395.945913981167,0.34293,NA,23.35,1,1.916,8.878,0.029,0.002,1,0,0,0,0,0,1,1,0,0,0,0.548
+"total.abundance.mean.relief+tpi","mean.relief+tpi",1183.6781035208,1231.00632480323,0.31316,NA,14.38,0,0,7.34,0.189,0.007,1,0,0,0,0,0,0,1,0,0,0,0.189
+"total.abundance.mean.relief+roughness","mean.relief+roughness",1184.41593112815,1225.29056059606,0.30655,NA,11.5,0,0.738,1.624,0.13,0.122,1,0,0,0,0,0,0,0,1,0,0,0.319
+"total.abundance.aspect+mean.relief+roughness","aspect+mean.relief+roughness",1184.41933209735,1225.29753377419,0.30655,NA,12.5,1,0.741,1.631,0.13,0.122,1,0,0,0,0,0,1,0,1,0,0,0.449
+"total.abundance.mean.relief+roughness+tpi","mean.relief+roughness+tpi",1185.49848811185,1234.03857551857,0.32331,NA,14.46,0,1.82,10.372,0.076,0.002,1,0,0,0,0,0,0,1,1,0,0,0.525
+"total.abundance.mean.relief+status+tpi","mean.relief+status+tpi",1185.52743218302,1235.13526233706,0.31811,NA,15.63,0,1.849,11.469,0.075,0.001,1,0,0,0,0,0,0,1,0,0,1,0.6
+"species.richness.mean.relief+roughness","mean.relief+roughness",676.095563124799,732.332960455092,0.58406,NA,18.76,0,0,0,0.24,0.28,1,0,0,0,0,0,0,0,1,0,0,0.24
+"species.richness.aspect+mean.relief+roughness","aspect+mean.relief+roughness",676.098678501201,732.338233973322,0.58406,NA,19.76,1,0.003,0.005,0.24,0.279,1,0,0,0,0,0,1,0,1,0,0,0.48
+"species.richness.mean.relief+roughness+tpi","mean.relief+roughness+tpi",677.174887170165,735.41762246493,0.5885,NA,19.81,0,1.079,3.085,0.14,0.06,1,0,0,0,0,0,0,1,1,0,0,0.62
+"species.richness.mean.relief+roughness+status","mean.relief+roughness+status",677.343610159776,735.09996630354,0.58762,NA,19.64,0,1.248,2.767,0.129,0.07,1,0,0,0,0,0,0,0,1,0,1,0.749

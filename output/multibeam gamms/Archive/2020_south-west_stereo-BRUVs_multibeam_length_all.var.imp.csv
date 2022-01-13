@@ -1,7 +1,0 @@
-"","mean.relief","log.sd.relief","broad.macroalgae","distance.to.ramp","aspect","log.tpi","log.roughness","sqrt.slope","depth","status"
-"all greater than 20 cm",0.087,0.878,0.003,0.005,0.984,0.99,0.01,0.006,0.004,0.005
-"all greater than 30 cm",0,0.028,0,0.083,0.879,0.009,0.665,0.335,0.917,0.023
-"greater than legal size",0.005,0.024,0.022,0.065,0.723,0.456,0.567,0.375,0.174,0.241
-"legal size pink snapper",0.037,0.034,0.083,0.017,0.109,0.252,0.39,0.242,0.44,0.498
-"smaller than legal size",0.009,0.128,0.069,0.001,0.997,0.011,0.563,0.435,0.001,0.776
-"sublegal size pink snapper",0.001,0.051,0.006,0.002,0.043,0.312,0.618,0.188,0.861,0.318

@@ -1,0 +1,8 @@
+"","mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","aspect","tpi","roughness","depth.multibeam","status"
+"targeted.abundance",0.106,0.043,0.001,0.123,0.038,0.056,0.942,0.08,0.969,0.16,0.138
+"Labridae Coris auricularis",0,0.197,0.26,0,0,0,0.443,0.01,0.011,0.994,0.266
+"Pomacentridae Chromis klunzingeri",0,0.2,0.976,0,0.002,0,0.072,0.009,0.013,0.999,0.66
+"Scorpididae Neatypus obliquus",0.174,0.184,0.088,0,0,0.001,0.019,0.063,0.584,0.821,0.344
+"Sparidae Chrysophrys auratus",0.127,0.319,0.058,0.077,0.069,0.137,0.367,0.638,0.131,0.087,0.196
+"total.abundance",0.887,0.192,0,0.003,0.108,0,0.227,0.491,0.45,0,0.167
+"species.richness",0.775,0.024,0,0,0.223,0,0.303,0.188,0.995,0,0.177
