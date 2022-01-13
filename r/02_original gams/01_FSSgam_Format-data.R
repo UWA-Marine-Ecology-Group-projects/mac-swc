@@ -21,7 +21,7 @@ name <- '2020_south-west_stereo-BRUVs' # for the study
 working.dir <- getwd()
 setwd(working.dir)
 
-######MAXN###############
+######    MAXN    ###############
 # Bring in and format the data----
 # MaxN ----
 maxn <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv") %>%
@@ -122,7 +122,7 @@ master <- googlesheets4::read_sheet(url) %>%
   dplyr::mutate(bll=as.numeric(bll))%>%
   dplyr::mutate(a=as.numeric(a))%>%
   dplyr::mutate(b=as.numeric(b))%>%
-  dplyr::select(family,genus,species,fishing.type,australian.common.name)%>%
+  dplyr::select(family,genus,species,fishing.type,australian.common.name,minlegal.wa)%>%
   dplyr::distinct()%>%
   dplyr::glimpse()
 
@@ -166,6 +166,7 @@ maxn.sum <- maxn %>%
   dplyr::summarise(maxn = sum(maxn)) %>%
   dplyr::top_n(10)%>%
   ungroup()
+
 ggplot(maxn.sum, aes(x = reorder(scientific, maxn), y = maxn)) +   
   geom_bar(stat="identity",position = position_dodge()) +
   coord_flip() +
@@ -191,25 +192,11 @@ test.samples <- species.maxn %>%
   dplyr::summarise(n=n())
 
 unique(species.maxn$scientific)
-
-# 311 samples x 7 species
-311*7
-
-centroberyx <- maxn %>%
-  dplyr::filter(genus%in%c("Centroberyx")) %>%
-  dplyr::group_by(scientific,sample) %>%
-  dplyr::summarise(maxn = sum(maxn)) %>%
-  spread(scientific,maxn, fill = 0) %>%
-  dplyr::mutate(centroberyx=rowSums(.[,2:(ncol(.))],na.rm = TRUE )) %>% #Add in Totals
-  dplyr::select(sample,centroberyx) %>%
-  gather(.,"scientific","maxn",2:2) %>%
-  dplyr::glimpse() # there is actually not that many
-
 unique(maxn$scientific)
 
 ## Combine all the maxn data to be modeled into a single data frame
 combined.maxn <- bind_rows(fished.maxn, species.maxn, 
-                           ta.sr, centroberyx)%>%
+                           ta.sr)%>%
   left_join(metadata) %>%
   left_join(bathy) %>%
   left_join(ramps) %>%
@@ -217,7 +204,8 @@ combined.maxn <- bind_rows(fished.maxn, species.maxn,
   distinct()
 
 unique(combined.maxn$scientific)
-11*311 # when specific species are included
+
+7*311 # 2177 when specific species are included
 
 length(unique(combined.maxn$sample)) # 311
 
@@ -225,30 +213,28 @@ length(unique(combined.maxn$sample)) # 311
 pred.vars=c("depth", "slope", "aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
             "broad.consolidated", "broad.hydroids", "broad.macroalgae", "broad.octocoral.black", 
             "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated")
-dat <- combined.maxn
+dat.maxn <- combined.maxn
 
 # Check for correlation of predictor variables- remove anything highly correlated (>0.95)---
-round(cor(dat[,pred.vars], use = "complete.obs"),2)
-#slope and roughness
-#unconsolidated and reef
+round(cor(dat.maxn[,pred.vars], use = "complete.obs"),2)
 par(mfrow=c(1,1))
-plot(dat$maxn)
+plot(dat.maxn$maxn)
 
 # remove 2 samples with maxn >400? Prob an outlier and driving a lot of relationships
-outlier <- dat %>%
+outlier <- dat.maxn %>%
   filter(maxn>400)%>%
   glimpse()
  
-dat <- dat %>%
+dat.maxn <- dat.maxn %>%
   filter(maxn <400)%>%
   glimpse()
 
-plot(dat$maxn)
+plot(dat.maxn$maxn)
 
 # Plot of likely transformations
 par(mfrow=c(3,2))
 for (i in pred.vars) {
-  x<-dat[ ,i]
+  x<-dat.maxn[ ,i]
   x = as.numeric(unlist(x))
   hist((x))
   plot((x),main = paste(i))
@@ -285,14 +271,14 @@ pred.vars=c("mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.
             "distance.to.ramp","aspect", "tpi","roughness","depth")
 
 # Remove any unused columns from the dataset
-dat <- dat %>%
+dat.maxn <- dat.maxn %>%
   dplyr::select(sample, status, site, planned.or.exploratory, scientific, maxn,
                 "mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
                 "distance.to.ramp","aspect", "tpi","roughness","depth") %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
   as.data.frame()
 
-saveRDS(dat.length, "data/tidy/dat.length.rds")
+saveRDS(dat.maxn, "data/tidy/dat.maxn.full.rds")
 
 #####LENGTHS#####
 # Bring in and format the data----
@@ -318,91 +304,6 @@ test <- total.no.pinkies %>%
 sum(test$number) # 188 measured
 
 188/225*100 # 84% measured
-
-# Metadata ----
-metadata <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
-  dplyr::mutate(status = as.factor(status)) %>%
-  dplyr::mutate(sample = as.factor(sample)) %>%
-  dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
-  dplyr::mutate(site = as.factor(site)) %>%
-  dplyr::filter(successful.count%in%c("Yes")) %>%
-  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::glimpse()
-
-# Bathymetry derivatives ----
-bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.bathymetry.derivatives.csv') %>%
-  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::glimpse()
-
-# Distance to boat ramp ----
-ramps <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.distance.to.ramp.csv') %>%
-  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::glimpse()
-
-# Habitat ----
-#-----------------NEED TO REMEMBER TO DIVIDE POINTS BY TOTAL POINTS ANNOTATED!!!
-habitat.2020.10 <- read.csv("data/tidy/2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved)) %>%
-  dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs") %>%
-  dplyr::glimpse()
-
-summary(habitat.2020.10)
-
-habitat.2020.06 <- read.csv("data/tidy/2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count)) %>%
-  dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs") %>%
-  dplyr::glimpse()
-
-summary(habitat.2020.06) # 0-100
-
-habitat <-bind_rows(habitat.2020.06, habitat.2020.10) %>%
-  tidyr::replace_na(list(broad.consolidated=0,
-                         broad.macroalgae=0,
-                         broad.seagrasses=0,
-                         broad.sponges=0,
-                         broad.unconsolidated=0,
-                         broad.bryozoa=0,
-                         broad.hydroids=0,
-                         broad.octocoral.black=0,
-                         broad.stony.corals=0,
-                         fov.facing.up=0,
-                         broad.ascidians=0,
-                         broad.true.anemones=0,
-                         broad.crinoids=0)) %>%
-  ga.clean.names() %>%
-  dplyr::mutate(broad.reef = broad.bryozoa + broad.consolidated + broad.hydroids + broad.macroalgae + broad.octocoral.black + broad.seagrasses + broad.sponges + broad.stony.corals) %>%
-  dplyr::mutate(broad.ascidians = broad.ascidians/broad.total.points.annotated,
-                broad.bryozoa = broad.bryozoa/broad.total.points.annotated,
-                broad.consolidated = broad.consolidated/broad.total.points.annotated,
-                broad.crinoids = broad.crinoids/broad.total.points.annotated,
-                broad.hydroids = broad.hydroids/broad.total.points.annotated,
-                broad.invertebrate.complex = broad.invertebrate.complex/broad.total.points.annotated,
-                broad.macroalgae = broad.macroalgae/broad.total.points.annotated,
-                broad.octocoral.black = broad.octocoral.black/broad.total.points.annotated,
-                broad.reef = broad.reef/broad.total.points.annotated,
-                broad.seagrasses = broad.seagrasses/broad.total.points.annotated,
-                broad.sponges = broad.sponges/broad.total.points.annotated,
-                broad.stony.corals = broad.stony.corals/broad.total.points.annotated,
-                broad.true.anemones = broad.true.anemones/broad.total.points.annotated,
-                broad.unconsolidated = broad.unconsolidated/broad.total.points.annotated)%>%
-  dplyr::select(order(colnames(.))) %>%
-  dplyr::select(campaignid,sample,everything()) %>% # re-ordering hab columns 
-  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::glimpse()
-
-url <- "https://docs.google.com/spreadsheets/d/1SMLvR9t8_F-gXapR2EemQMEPSw_bUbPLcXd3lJ5g5Bo/edit?ts=5e6f36e2#gid=825736197"
-
-master <- googlesheets4::read_sheet(url) %>%
-  ga.clean.names()%>%
-  dplyr::filter(grepl('Australia', global.region))%>% # Change country here
-  dplyr::filter(grepl('SW', marine.region))%>% # Select marine region (currently this is only for Australia)
-  dplyr::mutate(all=as.numeric(all))%>%
-  dplyr::mutate(bll=as.numeric(bll))%>%
-  dplyr::mutate(a=as.numeric(a))%>%
-  dplyr::mutate(b=as.numeric(b))%>%
-  dplyr::select(family,genus,species,fishing.type,australian.common.name,minlegal.wa)%>%
-  dplyr::distinct()%>%
-  dplyr::glimpse()
 
 unique(master$fishing.type)
 
@@ -522,4 +423,4 @@ dat.length <- complete.length%>%
 par(mfrow=c(1,1))
 plot(dat$number) #looks fine for outliers
 
-saveRDS(dat.length, "data/tidy/dat.length.rds")
+saveRDS(dat.length, "data/tidy/dat.length.full.rds")

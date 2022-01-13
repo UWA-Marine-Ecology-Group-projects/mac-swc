@@ -17,7 +17,7 @@ name <- '2020_south-west_stereo-BRUVs_length' # for the study
 working.dir <- getwd()
 setwd(working.dir)
 
-dat <- readRDS('data/tidy/dat.length.rds')%>%
+dat <- readRDS('data/tidy/dat.length.full.rds')%>%
   glimpse()
 
 # Set predictor variables 
