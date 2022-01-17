@@ -36,19 +36,13 @@ name <- '2020_south-west_stereo-BRUVs' # for the study
 ## Set working directory----
 working.dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
 
-## Set sub directories----
-d.dir <- paste(working.dir,"Data/Tidy",sep="/") 
-h.dir <- paste(working.dir, "Data/Habitat/BRUV Style annotation/tidy data",sep="/") 
-s.dir <- paste(working.dir,"shapefiles",sep="/")
-p.dir <- paste(working.dir,"Plots",sep="/")
-m.dir <- paste(working.dir,"Model Out GAM", sep="/")
+## Set working directory----
+working.dir <- getwd()
+setwd(working.dir)
 
-# Bring in and format the data----
-setwd(d.dir)
-dir()
-
+#bring in and format data
 # Length ----
-length <-read.csv(paste(name, 'complete.length.csv',sep=".")) %>%
+length <-read.csv('complete.length.csv',sep=".") %>%
   dplyr::select(campaignid, sample, length, number, family, genus, species) %>%
   dplyr::mutate(scientific=paste(family,genus,species,sep=" ")) %>%
   dplyr::glimpse()

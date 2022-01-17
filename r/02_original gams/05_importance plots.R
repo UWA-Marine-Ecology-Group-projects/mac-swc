@@ -97,9 +97,9 @@ gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=i
   geom_tile(show.legend=T) +
   scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
                        limits = c(0, max(dat.taxa.label$importance)))+
-  # scale_y_discrete(labels=c("All greater than 20cm", "All greater than 30cm", "Greater than legal size", "*Coris auricularis*",
-  #                           "*Chromis klunzingeri*", "*Neatypus obliquus*", "Smaller than legal size","*Chrysophrys auratus*",
-  #                           "Species richness","Targeted abundance","Total abundance"))+         #Tidy Taxa names
+  scale_y_discrete(labels=c("*Neatypus obliquus*","*Chromis klunzingeri*",  "*Coris auricularis*", "*Chrysophrys auratus*",
+                            "Smaller than legal size", "Greater than legal size","All greater than 30cm", "All greater than 20cm",
+                            "Species richness","Targeted abundance","Total abundance"))+         #Tidy Taxa names
   scale_x_discrete(labels = c("Aspect","Macroalgae","Reef","Sponges","Depth","Distance to boat ramp","Mean relief","Roughness",
                               "SD relief","Status","TPI"))+   #Tidy predictor names
   xlab(NULL)+
