@@ -18,13 +18,12 @@ working.dir <- getwd()
 setwd(working.dir)
 
 dat <- readRDS('data/tidy/dat.length.full.rds')%>%
+  dplyr::filter(scientific%in%c("greater than legal size","smaller than legal size"))%>%
   glimpse()
-
+unique(dat$scientific)
 # Set predictor variables 
 pred.vars=c("mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-            "distance.to.ramp","aspect", "tpi","roughness","depth")
-
-unique(dat$scientific)
+            "distance.to.ramp", "tpi","roughness","depth")
 
 unique.vars=unique(as.character(dat$scientific))
 unique.vars
@@ -45,7 +44,6 @@ use.dat=as.data.frame(dat)
 str(use.dat)
 
 factor.vars=c("status")# Status as a Factor with two levels
-cyclic.vars=c("aspect")
 out.all=list()
 var.imp=list()
 
@@ -62,7 +60,7 @@ for(i in 1:length(resp.vars)){
                                # smooth.smooth.interactions = c("depth"),
                                pred.vars.cont=pred.vars,
                                pred.vars.fact=factor.vars,
-                               cyclic.vars = cyclic.vars,
+                               #cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
                                null.terms="s(site ,bs='re')"

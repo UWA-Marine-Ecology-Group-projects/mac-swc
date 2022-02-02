@@ -1,3 +1,13 @@
+###
+# Project: Marine and Coastal Hub - South-west Corner
+# Data:    BRUV fish and habitat, broad bathymetry derivatives
+# Task:    Check predictors and combine data for FSSgam fish length and abundance - full extent of BRUV samples
+# author:  Claude & Brooke
+# date:    February 2022
+##
+
+
+#load packages
 #devtools::install_github("beckyfisher/FSSgam_package") #run once
 library(rstanarm)
 library(tidyverse)
@@ -40,7 +50,8 @@ metadata <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.cs
   dplyr::glimpse()
 
 # Bathymetry derivatives ----
-bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.bathymetry.derivatives.csv') %>%
+#we are missing detrended bathymetry, not sure if this is an issue
+bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.bathymetry.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
 
@@ -421,6 +432,6 @@ dat.length <- complete.length%>%
   as.data.frame()
 
 par(mfrow=c(1,1))
-plot(dat$number) #looks fine for outliers
+plot(dat.length$number) #looks fine for outliers
 
 saveRDS(dat.length, "data/tidy/dat.length.full.rds")

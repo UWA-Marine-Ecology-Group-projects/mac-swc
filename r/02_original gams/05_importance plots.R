@@ -54,7 +54,7 @@ Theme1 <-
 
 
 # colour ramps-
-re <- colorRampPalette(c("mistyrose", "red2","darkred"))(200)
+re <- colorRampPalette(c("#1034A6", "white","#F62D2D"))(200)
 
 # Labels-
 legend_title<-"Importance"
@@ -62,28 +62,12 @@ legend_title<-"Importance"
 # Annotations-
 dat.taxa.label<-dat%>%
   mutate(label=NA)%>%
-  mutate(resp.var = factor(resp.var, levels = c("Scorpididae Neatypus obliquus","Pomacentridae Chromis klunzingeri","Labridae Coris auricularis",
-                                                "Sparidae Chrysophrys auratus","smaller than legal size","greater than legal size",
-                                                "all greater than 30 cm","all greater than 20 cm","species.richness", "targeted.abundance",
-                                                "total.abundance")))%>%  #change order of response variables
-  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="targeted.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="targeted.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="depth"&resp.var=="Labridae Coris auricularis","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.sponges"&resp.var=="Pomacentridae Chromis klunzingeri","X",label))%>%
-  mutate(label=ifelse(predictor=="depth"&resp.var=="Pomacentridae Chromis klunzingeri","X",label))%>%
-  mutate(label=ifelse(predictor=="status"&resp.var=="Pomacentridae Chromis klunzingeri","X",label))%>%
-  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="Scorpididae Neatypus obliquus","X",label))%>%
-  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="Scorpididae Neatypus obliquus","X",label))%>%
-  mutate(label=ifelse(predictor=="aspect"&resp.var=="Sparidae Chrysophrys auratus","X",label))%>%
-  mutate(label=ifelse(predictor=="depth"&resp.var=="Sparidae Chrysophrys auratus","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="Sparidae Chrysophrys auratus","X",label))%>%
+  mutate(resp.var=factor(resp.var, levels = c("smaller than legal size","greater than legal size","species.richness","total.abundance")))%>%
+  mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","broad.sponges","mean.relief","sd.relief",
+                                                "depth","roughness","tpi","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="sd.relief"&resp.var=="species.richness","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="all greater than 20 cm","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="all greater than 20 cm","X",label))%>%
-  mutate(label=ifelse(predictor=="distance.to.ramp"&resp.var=="all greater than 30 cm","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="all greater than 30 cm","X",label))%>%
   mutate(label=ifelse(predictor=="broad.macroalgae"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="sd.relief"&resp.var=="greater than legal size","X",label))%>%
@@ -96,12 +80,9 @@ dat.taxa.label<-dat%>%
 gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=importance))+
   geom_tile(show.legend=T) +
   scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
-                       limits = c(0, max(dat.taxa.label$importance)))+
-  scale_y_discrete(labels=c("*Neatypus obliquus*","*Chromis klunzingeri*",  "*Coris auricularis*", "*Chrysophrys auratus*",
-                            "Smaller than legal size", "Greater than legal size","All greater than 30cm", "All greater than 20cm",
-                            "Species richness","Targeted abundance","Total abundance"))+         #Tidy Taxa names
-  scale_x_discrete(labels = c("Aspect","Macroalgae","Reef","Sponges","Depth","Distance to boat ramp","Mean relief","Roughness",
-                              "SD relief","Status","TPI"))+   #Tidy predictor names
+                       limits = c(-1, 1))+
+  scale_y_discrete(labels=c("Smaller than legal size","Greater than legal size","Species richness","Total abundance"))+         #Tidy Taxa names
+  scale_x_discrete(labels = c("Reef","Macroalgae","Sponges","Mean relief","SD relief","Depth","Roughness","TPI","Distance to ramp","Status"))+   #Tidy predictor names
   xlab(NULL)+
   ylab(NULL)+
   theme_classic()+
@@ -111,4 +92,4 @@ gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=i
 gg.importance.scores
 
 #save output - changed dimensions for larger text in report
-save_plot("plots/original gamms/swc_fish-importance-full.png", gg.importance.scores,base_height = 6.75,base_width = 6.275)
+save_plot("plots/original gamms/swc_fish-importance-full.png", gg.importance.scores,base_height = 5,base_width = 7)
