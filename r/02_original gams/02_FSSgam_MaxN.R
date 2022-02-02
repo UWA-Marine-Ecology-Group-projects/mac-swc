@@ -1,3 +1,12 @@
+###
+# Project: Marine and Coastal Hub - South-west Corner
+# Data:    BRUV fish and habitat, broad bathymetry derivatives
+# Task:    MaxN - Full subset GAM over the full BRUV sample extent
+# author:  Claude & Brooke
+# date:    February 2022
+##
+
+
 #devtools::install_github("beckyfisher/FSSgam_package") #run once
 require(rstanarm)
 require(tidyverse)
@@ -29,7 +38,7 @@ unique(dat$scientific)
 
 # Set predictor variables 
 pred.vars=c("mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-            "distance.to.ramp", "tpi","roughness","depth")
+            "distance.to.ramp", "detrended","tpi","roughness","depth")
 
 unique.vars=unique(as.character(dat$scientific))
 

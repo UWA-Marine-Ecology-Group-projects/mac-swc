@@ -1,4 +1,9 @@
-"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth","status","cumsum.wi"
-"greater than legal size","broad.macroalgae+roughness+sd.relief",2280.3164089305,2481.28585344213,0.29604,NA,64.12,0,0,0,1,1,0,1,0,1,0,0,0,1,0,0,1
-"smaller than legal size.broad.sponges+depth+roughness","broad.sponges+depth+roughness",805.062987023788,954.252108473406,0.21357,NA,43.07,0,0,2.474,0.313,0.078,0,0,1,0,0,0,0,1,1,0,0.313
-"smaller than legal size.broad.sponges+distance.to.ramp+roughness","broad.sponges+distance.to.ramp+roughness",805.107542678855,952.139797809473,0.21596,NA,42.28,0,0.045,0.362,0.306,0.225,0,0,1,0,0,1,0,1,0,0,0.619
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","detrended","broad.sponges","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth","status","cumsum.wi"
+"greater than legal size.distance.to.ramp+status","distance.to.ramp+status",1011.86253368882,1187.15257828484,0.28441,NA,52.31,0,0,0.928,0.192,0.223,0,0,0,0,0,0,1,0,0,0,1,0.192
+"greater than legal size.status","status",1012.01528610767,1186.22467167359,0.28451,NA,52.38,0,0.153,0,0.178,0.355,0,0,0,0,0,0,0,0,0,0,1,0.37
+"greater than legal size.broad.sponges+distance.to.ramp+status","broad.sponges+distance.to.ramp+status",1012.15257043013,1190.10280788859,0.28292,NA,53.38,0,0.29,3.878,0.167,0.051,0,0,0,1,0,0,1,0,0,0,1,0.537
+"greater than legal size.broad.sponges+status","broad.sponges+status",1012.60883581188,1189.5680877254,0.28319,NA,53.44,0,0.746,3.343,0.133,0.067,0,0,0,1,0,0,0,0,0,0,1,0.67
+"greater than legal size.null","null",1012.86581559254,1187.28421894288,0.28549,NA,52.49,0,1.003,1.06,0.117,0.209,0,0,0,0,0,0,0,0,0,0,0,0.787
+"greater than legal size.distance.to.ramp","distance.to.ramp",1013.39346596122,1189.58001738532,0.28508,NA,52.6,0,1.531,3.355,0.09,0.066,0,0,0,0,0,0,1,0,0,0,0,0.877
+"smaller than legal size.broad.sponges+depth+roughness","broad.sponges+depth+roughness",804.431748411941,952.887332006533,0.21332,NA,42.88,0,0,2.572,0.295,0.075,0,0,0,1,0,0,0,0,1,1,0,0.295
+"smaller than legal size.broad.sponges+distance.to.ramp+roughness","broad.sponges+distance.to.ramp+roughness",804.44147408656,950.732132679647,0.2155,NA,42.09,0,0.01,0.417,0.294,0.219,0,0,0,1,0,0,1,0,1,0,0,0.589

@@ -50,7 +50,6 @@ metadata <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.cs
   dplyr::glimpse()
 
 # Bathymetry derivatives ----
-#we are missing detrended bathymetry, not sure if this is an issue
 bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.bathymetry.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
@@ -221,7 +220,7 @@ unique(combined.maxn$scientific)
 length(unique(combined.maxn$sample)) # 311
 
 # Set predictor variables---
-pred.vars=c("depth", "slope", "aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
+pred.vars=c("depth", "slope", "detrended","aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
             "broad.consolidated", "broad.hydroids", "broad.macroalgae", "broad.octocoral.black", 
             "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated")
 dat.maxn <- combined.maxn
@@ -278,14 +277,14 @@ for (i in pred.vars) {
 # bryozoa - too few
 
 # Set predictor variables 
-pred.vars=c("mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
+pred.vars=c("mean.relief","detrended","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
             "distance.to.ramp","aspect", "tpi","roughness","depth")
 
 # Remove any unused columns from the dataset
 dat.maxn <- dat.maxn %>%
   dplyr::select(sample, status, site, planned.or.exploratory, scientific, maxn,
                 "mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-                "distance.to.ramp","aspect", "tpi","roughness","depth") %>%
+                "distance.to.ramp","aspect", "tpi","roughness","depth","detrended") %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
   as.data.frame()
 
@@ -427,7 +426,7 @@ unique(complete.length$scientific)
 dat.length <- complete.length%>%
   dplyr::select(sample, status, site, planned.or.exploratory, scientific, number,
                 "mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-                "distance.to.ramp","aspect", "tpi","roughness","depth") %>%
+                "distance.to.ramp","aspect","detrended", "tpi","roughness","depth") %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
   as.data.frame()
 

@@ -1,3 +1,11 @@
+###
+# Project: Marine and Coastal Hub - South-west Corner
+# Data:    BRUV fish and habitat, broad bathymetry derivatives
+# Task:    Length - Full subset GAM over the full BRUV sample extent
+# author:  Claude & Brooke
+# date:    February 2022
+##
+
 library(rstanarm)
 library(tidyverse)
 library(dplyr)
@@ -22,7 +30,7 @@ dat <- readRDS('data/tidy/dat.length.full.rds')%>%
   glimpse()
 unique(dat$scientific)
 # Set predictor variables 
-pred.vars=c("mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
+pred.vars=c("mean.relief","sd.relief","detrended","broad.sponges","broad.macroalgae","broad.reef",
             "distance.to.ramp", "tpi","roughness","depth")
 
 unique.vars=unique(as.character(dat$scientific))
