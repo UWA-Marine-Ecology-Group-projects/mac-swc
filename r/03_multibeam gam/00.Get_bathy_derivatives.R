@@ -1,5 +1,11 @@
-## Script to extract bathymetry covariates from raster files ####
-library(plyr)
+###
+# Project: mac - South-west Corner
+# Data:    SwC Multibeam 
+# Task:    Calculate and extract bathymetry derivatives from multibeam data
+# author:  Claude & Anita?
+# date:    February 2022
+##
+#library(plyr)
 library(dplyr)
 library(stringr)
 library(ggplot2)
@@ -9,6 +15,8 @@ library(raster)
 library(rgdal)
 library(spatstat)
 library(rstudioapi)
+library(stars)
+library(starsExtra)
 
 # clear workspace ----
 rm(list = ls())
@@ -39,19 +47,32 @@ proj4string(b) # check it worked
 
 
 # Calculate bathy derivatives ----
+#slope
 s <- terrain(b, 'slope')
 plot(s)
+#aspect
 a <- terrain(b, 'aspect')
 plot(a)
+#roughness
 r <- terrain(b, 'roughness')
 plot(r)
+#TPI
 t <- terrain(b, 'TPI')
 plot(t)
+#flow direction
 f <- terrain(b, 'flowdir')
 plot(f)
 
+# detrend bathy to highlight local topo
+zstar <- st_as_stars(b)
+detre <- detrend(zstar, parallel = 8)
+detre <- as(object = detre, Class = "Raster")
+names(detre) <- c("detrended", "lineartrend")
+
 ders <- stack(b,s,a,r,t,f)
-names(ders) <- c("depth", "slope",  "aspect" ,  "roughness"  ,   "tpi" ,   "flowdir")
+ders <- stack(ders, detre[[1]])
+names(ders) <- c("depth", "slope",  "aspect" ,  "roughness"  ,   "tpi" ,   "flowdir","detrended")
+plot(ders)
 
 # save stack of derivatives
-writeRaster(ders, "data/spatial/rasters/Multibeam_derivatives.tif")
+writeRaster(ders, "data/spatial/rasters/Multibeam_derivatives.tif", overwrite=T)

@@ -1,5 +1,5 @@
 ###
-# Project: Marine and Coastal Hub - South-west Corner
+# Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
 # Task:    Plot variable importance scores - full extent of BRUV samples
 # author:  Claude & Brooke

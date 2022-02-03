@@ -1,5 +1,5 @@
 ###
-# Project: Marine and Coastal Hub - South-west Corner
+# Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
 # Task:    Plots of the most parsimonious model - full BRUV sample extent (MaxN)
 # author:  Claude & Brooke
@@ -253,7 +253,7 @@ ggmod.sub.sponge<- ggplot() +
 ggmod.sub.sponge
 
 # depth ----
-ggmod.sub.sponge<- ggplot() +
+ggmod.sub.depth<- ggplot() +
   ylab("")+
   xlab("Depth")+
   geom_point(data=dat.sub,aes(x=depth,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
@@ -262,7 +262,7 @@ ggmod.sub.sponge<- ggplot() +
   geom_line(data=predicts.sub.depth,aes(x=depth,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1
-ggmod.sub.sponge
+ggmod.sub.depth
 
 # roughness ----
 ggmod.sub.roughness<- ggplot() +
@@ -276,19 +276,22 @@ ggmod.sub.roughness<- ggplot() +
   Theme1
 ggmod.sub.roughness
 
+plot(dat.sub$number)
+
+check <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv")%>%
+  filter(sample%in%c("IO331","IOCP11-2"))%>%
+  glimpse()
 
 # Combine wth patchwork
 library(patchwork)
+library(cowplot)
 
 # view plots
-plot.grid <- plot_grid(ggmod.ta.mean.relief.io, NULL, NULL,
-                    ggmod.sr.mean.relief.io, ggmod.sr.sd.relief.io, NULL,
-                    ggmod.ps.status.io, ggmod.ps.mean.relief.io, ggmod.ps.log.slope.x.status,
-                    ggmod.wkw.status.io,ggmod.wkw.distance.to.ramp.x.status.io, ggmod.wkw.log.sponges.x.status.io,
-                    ggmod.pj.depth.io,ggmod.pj.log.roughness.io,NULL,
-                    ggmod.ol.status.io,ggmod.ol.depth.x.status,ggmod.ol.sd.relief.io,
-                    ncol = 3,
-                    labels = c('a',' ',' ','b','c',' ','d','e','f','g','h','i','j','k',' ','l','m','n'),align = "vh")
+plot.grid <- ggmod.total.relief+plot_spacer()+plot_spacer()+
+             ggmod.sr.mean+ggmod.sr.sd+plot_spacer()+
+             ggmod.leg.status+plot_spacer()+plot_spacer()+
+             ggmod.sub.sponge+ggmod.sub.depth+ggmod.sub.roughness+
+             plot_annotation(tag_levels = 'a') + plot_layout(ncol = 3,nrow = 4)
 plot.grid
 
-save_plot("swc.gam.plots.png", fhwy.plot,base_height = 9,base_width = 8.5)
+save_plot("plots/original gamms/swc.gam.plots.png", plot.grid,base_height = 9,base_width = 8.5)

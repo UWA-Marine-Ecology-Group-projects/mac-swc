@@ -1,5 +1,11 @@
-## prepare spatial environmental covariates###
-library(plyr)
+###
+# Project: mac - South-west Corner
+# Data:    SwC Multibeam 
+# Task:    prepare bathmetry derivatives and write to csv
+# author:  Claude & Anita?
+# date:    February 2022
+##
+# library(plyr)
 library(dplyr)
 library(stringr)
 library(ggplot2)
@@ -19,16 +25,10 @@ study <- "2020_south-west_stereo-BRUVs"
 working.dir <- getwd()
 setwd(working.dir)
 
-#Claude just wants to extract only multibeam derivatives
-
 df <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv")%>%
   dplyr::select(campaignid, sample, latitude, longitude, depth)%>%
   glimpse()
 
-
-# df <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv")%>%
-#   mutate_at(vars(sample, scientific, family, genus,  species, status, site, dataset), list(as.factor)) %>% # make these columns as factors
-#   glimpse()
 head(df)
 str(df)
 
@@ -52,7 +52,6 @@ names(bds) <- names2$x
 names(bds)
 plot(bds)
 
-
 # Extract bathy derivatives from data points --
 dfs <- raster::extract(bds, dfs, sp = T)
 str(dfs)
@@ -64,8 +63,8 @@ dfs <- as.data.frame(dfs) %>%
   dplyr::mutate(depth.multibeam = abs(depth.multibeam))%>%
   glimpse()
 
-# save maxn with covariates ----
-write.csv(dfs, "data/tidy/2020_sw_multibeam-derivatives.csv")           #Claude changed name
+# save covariates ----
+write.csv(dfs, "data/tidy/2020_south-west_multibeam-derivatives.csv",row.names = F)           #Claude changed name
 
 # ###       ###       ###       ###
 # 
