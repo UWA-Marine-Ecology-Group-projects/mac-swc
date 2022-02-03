@@ -493,7 +493,7 @@ pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
 dat.length <- complete.length %>%
   dplyr::select(sample, status, site, scientific, number,
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
-                "distance.to.ramp","aspect", "tpi","roughness","depth.multibeam","detrended")%>%
+                "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")%>%
   as.data.frame()
 
 saveRDS(dat.length, "data/tidy/dat.length.multibeam.rds")

@@ -2,7 +2,7 @@
 # Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
 # Task:    Plot variable importance scores - full extent of BRUV samples
-# author:  Claude & Brooke
+# author:  Claude
 # date:    February 2022
 ##
 
@@ -12,6 +12,7 @@ library(dplyr)
 library(tidyr)
 library(ggtext)
 library(ggplot2)
+library(cowplot)
 
 # Set the study name
 name <- '2020_south-west_stereo-BRUVs' # for the study
@@ -36,7 +37,6 @@ dat2 <-read.csv("output/fish gamms/2020_south-west_stereo-BRUVs_length_all.var.i
 dat <- bind_rows(dat1,dat2)%>%
   glimpse()
 
-
 # Plotting defaults----
 # Theme-
 Theme1 <-
@@ -59,7 +59,6 @@ Theme1 <-
     axis.line.y=element_line(colour="black", size=0.5,linetype='solid'),
     strip.background = element_blank())
 
-
 # colour ramps-
 re <- colorRampPalette(c("#1034A6", "white","#F62D2D"))(200)
 
@@ -70,15 +69,17 @@ legend_title<-"Importance"
 dat.taxa.label<-dat%>%
   mutate(label=NA)%>%
   mutate(resp.var=factor(resp.var, levels = c("smaller than legal size","greater than legal size","species.richness","total.abundance")))%>%
-  mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","broad.sponges","mean.relief","sd.relief",
+  mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief","sd.relief",
                                                 "depth","roughness","tpi","detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="sd.relief"&resp.var=="species.richness","X",label))%>%
-  mutate(label=ifelse(predictor=="status"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.sponges"&resp.var=="smaller than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="depth"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.macroalgae"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="tpi"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="smaller than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="status"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
 
 # Plot gg.importance.scores ----
@@ -87,7 +88,7 @@ gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=i
   scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
                        limits = c(-1, 1))+
   scale_y_discrete(labels=c("Smaller than legal size","Greater than legal size","Species richness","Total abundance"))+         #Tidy Taxa names
-  scale_x_discrete(labels = c("Reef","Macroalgae","Sponges","Mean relief","SD relief","Depth","Roughness","TPI","Detrended bathymetry","Distance to ramp","Status"))+   #Tidy predictor names
+  scale_x_discrete(labels = c("Reef","Macroalgae","Mean relief","SD relief","Depth","Roughness","TPI","Detrended bathymetry","Distance to ramp","Status"))+   #Tidy predictor names
   xlab(NULL)+
   ylab(NULL)+
   theme_classic()+

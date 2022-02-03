@@ -6,19 +6,18 @@
 # date:    February 2022
 ##
 
-
 #devtools::install_github("beckyfisher/FSSgam_package") #run once
-require(rstanarm)
-require(tidyverse)
-require(dplyr)
-require(mgcv)
-require(FSSgam)
-require(MuMIn)
-require(doBy)
-require(GlobalArchive)
-require(googlesheets4)
-require(stringr)
-require(data.table)
+library(rstanarm)
+library(tidyverse)
+library(dplyr)
+library(mgcv)
+library(FSSgam)
+library(MuMIn)
+library(doBy)
+library(GlobalArchive)
+library(googlesheets4)
+library(stringr)
+library(data.table)
 library(googlesheets4)
 
 rm(list=ls())

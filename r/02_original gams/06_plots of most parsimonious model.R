@@ -2,7 +2,7 @@
 # Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
 # Task:    Plots of the most parsimonious model - full BRUV sample extent (MaxN)
-# author:  Claude & Brooke
+# author:  Claude
 # date:    February 2022
 ##
 
@@ -62,7 +62,7 @@ dat.tot <- dat %>% filter(scientific=="total.abundance")
 
 mod=gam(maxn~s(mean.relief,k=3,bs='cr')+ s(site,bs="re"), family=tw,data=dat.tot)
 
-# predict - aspect ----
+# predict - mean relief ----
 testdata <- expand.grid(mean.relief=seq(min(dat$mean.relief),max(dat$mean.relief),length.out = 20),
                         site=(mod$model$site))%>%
   distinct()%>%
@@ -150,82 +150,119 @@ ggmod.sr.sd<- ggplot() +
   Theme1
 ggmod.sr.sd
 
-# MODEL greater than legal size (status) ----
+# MODEL greater than legal size (broad.macroalgae + sd relief + tpi) ----
 dat.leg <- dat.length %>% filter(scientific=="greater than legal size")
 
-mod=gam(number~status + s(site,bs="re"), family=tw,data=dat.leg)
+mod=gam(number~s(broad.macroalgae,k=3,bs='cr') + s(sd.relief,k=3,bs='cr')+ s(tpi,k=3,bs='cr') + s(site,bs="re"), family=tw,data=dat.leg)
 
-# predict - mean relief ----
-testdata <- expand.grid(status=c("Fished","No-take"),
+# predict - macroalgae ----
+testdata <- expand.grid(broad.macroalgae=seq(min(dat$broad.macroalgae),max(dat$broad.macroalgae),length.out = 20),
+                        sd.relief=mean(mod$model$sd.relief),
+                        tpi=mean(mod$model$tpi),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.leg.status = testdata%>%data.frame(fits)%>%
-  group_by(status)%>% #only change here
+predicts.leg.macro = testdata%>%data.frame(fits)%>%
+  group_by(broad.macroalgae)%>% #only change here
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
-#Plots for greater than legal size ----
-#status
-ggmod.leg.status<- ggplot(aes(x=status,y=number,fill=status,colour=status), data=predicts.leg.status) +
+# predict - sd relief ----
+testdata <- expand.grid(sd.relief=seq(min(dat$sd.relief),max(dat$sd.relief),length.out = 20),
+                        broad.macroalgae=mean(mod$model$broad.macroalgae),
+                        tpi=mean(mod$model$tpi),
+                        site=(mod$model$site))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.leg.relief = testdata%>%data.frame(fits)%>%
+  group_by(sd.relief)%>% #only change here
+  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
+# predict - TPI ----
+testdata <- expand.grid(tpi=seq(min(dat$tpi),max(dat$tpi),length.out = 20),
+                        broad.macroalgae=mean(mod$model$broad.macroalgae),
+                        sd.relief=mean(mod$model$sd.relief),
+                        site=(mod$model$site))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.leg.tpi = testdata%>%data.frame(fits)%>%
+  group_by(tpi)%>% #only change here
+  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
+# PLOTS for greater than legal size ----
+# macroalgae ----
+ggmod.leg.macro<- ggplot() +
   ylab("")+
-  xlab('Status')+
-  scale_fill_manual(labels = c("Fished", "No-take"),values=c("#b9e6fb", "#7bbc63"))+
-  scale_colour_manual(labels = c("Fished", "No-take"),values=c("black", "black"))+
-  scale_x_discrete(limits = rev(levels(predicts.leg.status$status)))+
-  geom_bar(stat = "identity", alpha=0.8)+
-  geom_errorbar(aes(ymin = number-se.fit,ymax = number+se.fit),width = 0.5) +
+  xlab("Macroalgae")+
+  geom_point(data=dat.leg,aes(x=broad.macroalgae,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.leg.macro,aes(x=broad.macroalgae,y=number),alpha=0.5)+
+  geom_line(data=predicts.leg.macro,aes(x=broad.macroalgae,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.leg.macro,aes(x=broad.macroalgae,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
-  #annotate("text", x = -Inf, y=Inf, label = "C. auratus",vjust = 1, hjust = -.1,size=4,fontface="italic")+
-  ylim(-0.2,4)+
-  theme(legend.position = "none")+
   ggtitle("Greater than legal size") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.leg.status
+ggmod.leg.macro
+
+# sd relief ----
+ggmod.leg.relief<- ggplot() +
+  ylab("")+
+  xlab("SD relief")+
+  geom_point(data=dat.leg,aes(x=sd.relief,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.leg.relief,aes(x=sd.relief,y=number),alpha=0.5)+
+  geom_line(data=predicts.leg.relief,aes(x=sd.relief,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.leg.relief,aes(x=sd.relief,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  theme_classic()+
+  Theme1
+ggmod.leg.relief
+
+# TPI ----
+ggmod.leg.tpi<- ggplot() +
+  ylab("")+
+  xlab("TPI")+
+  geom_point(data=dat.leg,aes(x=tpi,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.leg.tpi,aes(x=tpi,y=number),alpha=0.5)+
+  geom_line(data=predicts.leg.tpi,aes(x=tpi,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.leg.tpi,aes(x=tpi,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  theme_classic()+
+  Theme1
+ggmod.leg.tpi
 
 # MODEL smaller than legal size (broad.sponges+depth+roughness) ----
 dat.sub <- dat.length %>% filter(scientific=="smaller than legal size")
 
-mod=gam(number~s(broad.sponges,k=3,bs='cr')+ s(depth,k=3,bs='cr')+ s(roughness,k=3,bs='cr') + s(site,bs="re"), family=tw,data=dat.sub)
+mod=gam(number~s(broad.reef,k=3,bs='cr')+ s(roughness,k=3,bs='cr')+ status + s(site,bs="re"), family=tw,data=dat.sub)
 
-# predict - broad.sponges ----
-testdata <- expand.grid(broad.sponges=seq(min(dat$broad.sponges),max(dat$broad.sponges),length.out = 20),
-                        depth=mean(mod$model$depth),
+# predict - broad.reef ----
+testdata <- expand.grid(broad.reef=seq(min(dat$broad.reef),max(dat$broad.reef),length.out = 20),
                         roughness=mean(mod$model$roughness),
+                        status=c('No-take','Fished'),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.sub.sponge = testdata%>%data.frame(fits)%>%
-  group_by(broad.sponges)%>% #only change here
+predicts.sub.reef = testdata%>%data.frame(fits)%>%
+  group_by(broad.reef)%>% #only change here
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
-# predict - depth ----
-testdata <- expand.grid(depth=seq(min(dat$depth),max(dat$depth),length.out = 20),
-                        broad.sponges=mean(mod$model$broad.sponges),
-                        roughness=mean(mod$model$roughness),
-                        site=(mod$model$site))%>%
-  distinct()%>%
-  glimpse()
-
-fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
-
-predicts.sub.depth = testdata%>%data.frame(fits)%>%
-  group_by(depth)%>% #only change here
-  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
-  ungroup()
-
-# predict - depth ----
+# predict - roughness ----
 testdata <- expand.grid(roughness=seq(min(dat$roughness),max(dat$roughness),length.out = 20),
-                        broad.sponges=mean(mod$model$broad.sponges),
-                        depth=mean(mod$model$depth),
+                        broad.reef=mean(mod$model$broad.reef),
+                        status=c('No-take','Fished'),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
@@ -237,35 +274,38 @@ predicts.sub.roughness = testdata%>%data.frame(fits)%>%
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
-# PLOTS for Total abundance ----
-# sponges ----
-ggmod.sub.sponge<- ggplot() +
+# predict - status ----
+testdata <- expand.grid(roughness=mean(mod$model$roughness),
+                        broad.reef=mean(mod$model$broad.reef),
+                        status=c('No-take','Fished'),
+                        site=(mod$model$site))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.sub.status = testdata%>%data.frame(fits)%>%
+  group_by(status)%>% #only change here
+  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
+# PLOTS for Smaller than legal size ----
+# reef ----
+ggmod.sub.reef<- ggplot() +
   ylab("")+
-  xlab("Sponges")+
-  geom_point(data=dat.sub,aes(x=broad.sponges,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sub.sponge,aes(x=broad.sponges,y=number),alpha=0.5)+
-  geom_line(data=predicts.sub.sponge,aes(x=broad.sponges,y=number - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sub.sponge,aes(x=broad.sponges,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("Reef")+
+  geom_point(data=dat.sub,aes(x=broad.reef,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sub.reef,aes(x=broad.reef,y=number),alpha=0.5)+
+  geom_line(data=predicts.sub.reef,aes(x=broad.reef,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sub.reef,aes(x=broad.reef,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
   ggtitle("Smaller than legal size") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.sub.sponge
-
-# depth ----
-ggmod.sub.depth<- ggplot() +
-  ylab("")+
-  xlab("Depth")+
-  geom_point(data=dat.sub,aes(x=depth,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sub.depth,aes(x=depth,y=number),alpha=0.5)+
-  geom_line(data=predicts.sub.depth,aes(x=depth,y=number - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sub.depth,aes(x=depth,y=number + se.fit),linetype="dashed",alpha=0.5)+
-  theme_classic()+
-  Theme1
-ggmod.sub.depth
+ggmod.sub.reef
 
 # roughness ----
-ggmod.sub.roughness<- ggplot() +
+ggmod.sub.rough<- ggplot() +
   ylab("")+
   xlab("Roughness")+
   geom_point(data=dat.sub,aes(x=roughness,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
@@ -274,23 +314,33 @@ ggmod.sub.roughness<- ggplot() +
   geom_line(data=predicts.sub.roughness,aes(x=roughness,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1
-ggmod.sub.roughness
+ggmod.sub.rough
 
-plot(dat.sub$number)
-
-check <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv")%>%
-  filter(sample%in%c("IO331","IOCP11-2"))%>%
-  glimpse()
+#status
+ggmod.sub.status<- ggplot(aes(x=status,y=number,fill=status,colour=status), data=predicts.sub.status) +
+  ylab("")+
+  xlab('Status')+
+  scale_fill_manual(labels = c("No-take","Fished"),values=c("#7bbc63","#b9e6fb"))+
+  scale_colour_manual(labels = c("No-take","Fished"),values=c("black", "black"))+
+  scale_x_discrete(limits = rev(levels(predicts.sub.status$status)))+
+  geom_bar(stat = "identity", alpha=0.8)+
+  geom_errorbar(aes(ymin = number-se.fit,ymax = number+se.fit),width = 0.5) +
+  theme_classic()+
+  Theme1+
+  #annotate("text", x = -Inf, y=Inf, label = "C. auratus",vjust = 1, hjust = -.1,size=4,fontface="italic")+
+  ylim(-0.2,4)+
+  theme(legend.position = "none")
+ggmod.sub.status
 
 # Combine wth patchwork
 library(patchwork)
-library(cowplot)
+library(cowplot) #for save_plot
 
 # view plots
 plot.grid <- ggmod.total.relief+plot_spacer()+plot_spacer()+
              ggmod.sr.mean+ggmod.sr.sd+plot_spacer()+
-             ggmod.leg.status+plot_spacer()+plot_spacer()+
-             ggmod.sub.sponge+ggmod.sub.depth+ggmod.sub.roughness+
+             ggmod.leg.macro+ggmod.leg.relief+ggmod.leg.tpi+
+             ggmod.sub.reef+ggmod.sub.rough+ggmod.sub.status+
              plot_annotation(tag_levels = 'a') + plot_layout(ncol = 3,nrow = 4)
 plot.grid
 
