@@ -1,3 +1,11 @@
+###
+# Project: mac - South-west Corner
+# Data:    BRUV fish and habitat, fine bathymetry derivatives
+# Task:    Run FSSgam for lengths
+# author:  Claude & Brooke
+# date:    February 2022
+##
+
 library(rstanarm)
 library(tidyverse)
 library(dplyr)
@@ -17,6 +25,13 @@ name <- '2020_south-west_stereo-BRUVs_length' # for the study
 working.dir <- getwd()
 setwd(working.dir)
 
+#bring in the data
+dat <- readRDS('data/tidy/dat.length.multibeam.rds')%>%
+  glimpse()
+
+#set predictor variables
+pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
+            "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")
 
 unique.vars=unique(as.character(dat$scientific))
 
@@ -31,7 +46,6 @@ unique.vars.use
 
 resp.vars <- unique.vars.use
 factor.vars <- c("status")
-cyclic.vars <- c("aspect")    
 
 out.all <- list()
 var.imp <- list()
@@ -58,7 +72,6 @@ for(i in 1:length(resp.vars)){
                                # smooth.smooth.interactions = c("depth"),
                                pred.vars.cont=pred.vars,
                                pred.vars.fact=factor.vars,
-                               cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
                                null.terms="s(site ,bs='re')"

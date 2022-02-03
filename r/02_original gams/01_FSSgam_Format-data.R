@@ -1,5 +1,5 @@
 ###
-# Project: Marine and Coastal Hub - South-west Corner
+# Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
 # Task:    Check predictors and combine data for FSSgam fish length and abundance - full extent of BRUV samples
 # author:  Claude & Brooke
@@ -48,6 +48,10 @@ metadata <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.cs
   dplyr::filter(successful.count%in%c("Yes")) %>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
+
+#have a look at points in state waters
+ggplot()+geom_point(data=metadata,aes(x=longitude,y=latitude,color = state.zone))+theme_classic()
+#need to yeet all those in state water sanctuary zones
 
 # Bathymetry derivatives ----
 bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.bathymetry.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
@@ -205,8 +209,7 @@ unique(species.maxn$scientific)
 unique(maxn$scientific)
 
 ## Combine all the maxn data to be modeled into a single data frame
-combined.maxn <- bind_rows(fished.maxn, species.maxn, 
-                           ta.sr)%>%
+combined.maxn <- bind_rows(ta.sr)%>%           #removed all other taxa
   left_join(metadata) %>%
   left_join(bathy) %>%
   left_join(ramps) %>%
@@ -223,28 +226,32 @@ length(unique(combined.maxn$sample)) # 311
 pred.vars=c("depth", "slope", "detrended","aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
             "broad.consolidated", "broad.hydroids", "broad.macroalgae", "broad.octocoral.black", 
             "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated")
-dat.maxn <- combined.maxn
 
 # Check for correlation of predictor variables- remove anything highly correlated (>0.95)---
-round(cor(dat.maxn[,pred.vars], use = "complete.obs"),2)
+round(cor(combined.maxn[,pred.vars], use = "complete.obs"),2)
 par(mfrow=c(1,1))
-plot(dat.maxn$maxn)
+ggplot()+
+  geom_point(data = dat.maxn,aes(sample,maxn),alpha = 0.2)+
+  theme_classic()+facet_wrap(~scientific)+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
 
 # remove 2 samples with maxn >400? Prob an outlier and driving a lot of relationships
-outlier <- dat.maxn %>%
+outlier <- combined.maxn %>%
   filter(maxn>400)%>%
   glimpse()
  
-dat.maxn <- dat.maxn %>%
+combined.maxn <- combined.maxn %>%
   filter(maxn <400)%>%
   glimpse()
 
-plot(dat.maxn$maxn)
+plot(combined.maxn$maxn)
 
 # Plot of likely transformations
 par(mfrow=c(3,2))
 for (i in pred.vars) {
-  x<-dat.maxn[ ,i]
+  x<-combined.maxn[ ,i]
   x = as.numeric(unlist(x))
   hist((x))
   plot((x),main = paste(i))
@@ -278,13 +285,14 @@ for (i in pred.vars) {
 
 # Set predictor variables 
 pred.vars=c("mean.relief","detrended","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-            "distance.to.ramp","aspect", "tpi","roughness","depth")
+            "distance.to.ramp", "tpi","roughness","depth")
 
 # Remove any unused columns from the dataset
-dat.maxn <- dat.maxn %>%
+dat.maxn <- combined.maxn %>%
+  dplyr::filter(is.na(state.zone))%>%
   dplyr::select(sample, status, site, planned.or.exploratory, scientific, maxn,
-                "mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-                "distance.to.ramp","aspect", "tpi","roughness","depth","detrended") %>%
+                "mean.relief","sd.relief","broad.macroalgae","broad.reef",
+                "distance.to.ramp", "tpi","roughness","depth","detrended") %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
   as.data.frame()
 
@@ -399,8 +407,7 @@ all.bigger.30cm <- length %>%
   dplyr::glimpse()
 
 ## Combine all the maxn data to be modeled into a single data frame
-combined.length <- bind_rows(legal, sublegal, all.bigger.20cm, all.bigger.30cm, 
-                             pinksnapper.legal, pinksnapper.sublegal) # add pink snapper and other indicator species
+combined.length <- bind_rows(legal, sublegal) # removed all other taxa
 
 unique(combined.length$scientific)
 
@@ -424,13 +431,19 @@ unique(complete.length$scientific)
 
 # Remove any unused columns from the dataset 
 dat.length <- complete.length%>%
+  dplyr::filter(is.na(state.zone))%>%
   dplyr::select(sample, status, site, planned.or.exploratory, scientific, number,
-                "mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
-                "distance.to.ramp","aspect","detrended", "tpi","roughness","depth") %>%
+                "mean.relief","sd.relief","broad.macroalgae","broad.reef",
+                "distance.to.ramp", "tpi","roughness","depth","detrended") %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
   as.data.frame()
 
-par(mfrow=c(1,1))
-plot(dat.length$number) #looks fine for outliers
+ggplot()+
+  geom_point(data = dat.length,aes(sample,number),alpha = 0.2)+
+  theme_classic()+facet_wrap(~scientific)+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+#a few potential outliers, leave them in for now
 
 saveRDS(dat.length, "data/tidy/dat.length.full.rds")

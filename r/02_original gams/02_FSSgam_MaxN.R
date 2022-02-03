@@ -1,5 +1,5 @@
 ###
-# Project: Marine and Coastal Hub - South-west Corner
+# Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
 # Task:    MaxN - Full subset GAM over the full BRUV sample extent
 # author:  Claude & Brooke
@@ -37,7 +37,7 @@ dat <- readRDS('data/tidy/dat.maxn.full.rds')%>%
 unique(dat$scientific)
 
 # Set predictor variables 
-pred.vars=c("mean.relief","sd.relief","broad.sponges","broad.macroalgae","broad.reef",
+pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
             "distance.to.ramp", "detrended","tpi","roughness","depth")
 
 unique.vars=unique(as.character(dat$scientific))
