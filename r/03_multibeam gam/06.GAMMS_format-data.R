@@ -153,7 +153,7 @@ fished.species <- maxn %>%
                                                        "Scombridae Sarda spp",
                                                        "Scombridae Unknown spp",
                                                        "Sillaginidae Sillago spp"),"R",fishing.type))%>%
-  dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R"))%>%
+  dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R","C","B/C"))%>%
   dplyr::filter(!species%in%c("nigricans","lineolatus","cirratus"))%>% # Brooke removed dusky morwong, maori wrasse, common saw shark
   dplyr::filter(!family%in%c("Monacanthidae", "Scorpididae", "Mullidae")) # Brooke removed leatherjackets, sea sweeps and goat fish
 
@@ -323,7 +323,7 @@ fished.species <- length %>%
                                                        "Scombridae Sarda spp",
                                                        "Scombridae Unknown spp",
                                                        "Sillaginidae Sillago spp"),"R",fishing.type))%>%
-  dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R"))%>%
+  dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R","C","B/C"))%>%
   dplyr::filter(!species%in%c("nigricans","lineolatus","cirratus"))%>% # Brooke removed dusky morwong, maori wrasse, common saw shark
   dplyr::filter(!family%in%c("Monacanthidae", "Scorpididae", "Mullidae")) %>% # Brooke removed leatherjackets, sea sweeps and goat fish
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Carangidae Pseudocaranx spp"),250,minlegal.wa))%>%

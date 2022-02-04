@@ -69,9 +69,9 @@ dat.taxa.label<-dat%>%
   mutate(label=NA)%>%
   mutate(resp.var=factor(resp.var, levels = c("smaller than legal size","greater than legal size","species.richness","total.abundance")))%>%
   mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief","sd.relief",
-                                                "depth","roughness","tpi","detrended","distance.to.ramp","status")))%>%
+                                                "depth.multibeam","roughness","tpi","detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="tpi","X",label))%>%
+  mutate(label=ifelse(predictor=="tpi"&resp.var=="total.abundance","X",label))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="broad.reef"&resp.var=="greater than legal size","X",label))%>%
