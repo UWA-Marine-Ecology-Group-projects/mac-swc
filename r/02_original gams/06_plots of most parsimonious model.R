@@ -1,7 +1,7 @@
 ###
 # Project: mac - South-west Corner
 # Data:    BRUV fish and habitat, broad bathymetry derivatives
-# Task:    Plots of the most parsimonious model - full BRUV sample extent (MaxN)
+# Task:    Plots of the most parsimonious model - full BRUV sample extent
 # author:  Claude
 # date:    February 2022
 ##
