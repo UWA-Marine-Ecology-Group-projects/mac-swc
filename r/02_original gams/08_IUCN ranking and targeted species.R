@@ -68,7 +68,7 @@ fished.species <- unique.species %>%
   dplyr::select(status,scientific,fishing.type,australian.common.name)%>%
   glimpse()
 
-iucn.species <- species.list %>%
+iucn.species <- unique.species %>%
   dplyr::left_join(master) %>%
   dplyr::filter(!is.na(iucn.ranking))%>%
   dplyr::filter(!iucn.ranking%in%c("Least Concern", "Data Deficient")) %>%

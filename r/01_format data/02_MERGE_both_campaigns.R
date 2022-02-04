@@ -10,7 +10,7 @@ rm(list=ls()) # Clear memory
 ## Load Libraries ----
 # To connect to GlobalArchive
 library(devtools)
-install_github("UWAMEGFisheries/GlobalArchive") #to check for updates
+#install_github("UWAMEGFisheries/GlobalArchive") #to check for updates
 library(GlobalArchive)
 # To connect to GitHub
 library(RCurl)
@@ -42,7 +42,7 @@ study<-"2020_south-west_stereo-BRUVs"  # BG changed this from 2020-06 on 27/01/2
 # **The only folder you will need to create is your working directory**
 
 ## Set your working directory ----
-working.dir <- 'H:/GitHub/mac-swc' # to directory of current file - or type your own
+working.dir <- getwd() # to directory of current file - or type your own
 
 ## Save these directory names to use later----
 data.dir<-paste(working.dir,"data",sep="/")
@@ -149,7 +149,7 @@ length3dpoints<-ga.create.em.length3dpoints()%>%
   dplyr::filter(!family%in%c("Unknown"))%>%
   glimpse()
 
-length(unique(length3dpoints$sample)) # 277 (33 + 242 = 275??) - CHECK THIS
+length(unique(length3dpoints$sample)) # 277 - have checked - CS
 
 no.lengths <- anti_join(metadata,length3dpoints)
 
@@ -159,6 +159,7 @@ lengths.no.metadata <- anti_join(length3dpoints,metadata)
 setwd(staging.dir)
 write.csv(length3dpoints,paste(study,"length3dpoints.csv",sep="_"),row.names = FALSE)
 
+setwd(working.dir)
 # TO GET CO-ORDS for metadata
 # setwd(download.dir)
 # dir()

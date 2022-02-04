@@ -51,7 +51,7 @@ study<-"2020_south-west_stereo-BRUVs"
 #'Errors to check' to save all the error files e.g. lists of taxa that are not in the life history sheet
 
 ## Set your working directory ----
-working.dir <- 'H:/GitHub/mac-swc' # sets working directory to that of this script - or type your own
+working.dir <- getwd() # sets working directory to that of this script - or type your own
 
 ## Save these directory names to use later----
 data.dir<-paste(working.dir,"data",sep="/")
@@ -216,7 +216,7 @@ synonymsurl <- "https://docs.google.com/spreadsheets/d/1R0uU9Q0VkUDQFgGTK3VnIGxm
 synonyms<- googlesheets4::read_sheet(synonymsurl)%>% 
   distinct()%>%
   ga.clean.names()%>%
-  select(-comment)
+  dplyr::select(-comment)
 
 # Update by synonyms ----
 # This function will change the names of species that have been reclassified (i.e. Pagrus auratus to Chrysophrys auratus). This function also fixes some common spelling mistakes (i.e. Chyrosophyrs	auratus to Chrysophrys auratus)
@@ -387,4 +387,5 @@ write.csv(metadata, file=paste(study,"checked.metadata.csv",sep = "."), row.name
 write.csv(maxn, file=paste(study,"checked.maxn.csv",sep = "."), row.names=FALSE)
 write.csv(length, file=paste(study,"checked.length.csv",sep = "."), row.names=FALSE)
 
+setwd(working.dir)
 # Go to FORMAT script (3) 

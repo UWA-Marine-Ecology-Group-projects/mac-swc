@@ -26,7 +26,7 @@ rm(list=ls())
 # Libraries required ----
 # To connect to GlobalArchive
 library(devtools)
-install_github("UWAMEGFisheries/GlobalArchive") #to check for updates
+#install_github("UWAMEGFisheries/GlobalArchive") #to check for updates
 library(GlobalArchive)
 # To connect to life.history
 library(httpuv)
@@ -44,7 +44,7 @@ library(fst)
 study<-"2020_south-west_stereo-BRUVs"
 
 ## Set your working directory ----
-working.dir <- 'H:/GitHub/mac-swc' # to directory of current file - or type your own
+working.dir <- getwd() # to directory of current file - or type your own
 
 ## Save these directory names to use later----
 data.dir<-paste(working.dir,"data",sep="/")
@@ -98,7 +98,7 @@ complete.maxn<-dat%>%
 # Make complete.length.number.mass: fill in 0s and join in factors----
 length.families<-read_csv(file=paste(study,"checked.length.csv",sep = "."),na = c("", " "))%>%
   filter(!(family=="Unknown"))%>%
-  select(family,genus,species)%>%
+  dplyr::select(family,genus,species)%>%
   distinct()%>% #to join back in after complete
   glimpse()
 
@@ -154,7 +154,7 @@ master <- googlesheets4::read_sheet(url) %>%
   dplyr::mutate(bll=as.numeric(bll))%>%
   dplyr::mutate(a=as.numeric(a))%>%
   dplyr::mutate(b=as.numeric(b))%>%
-  select(family,genus,species,marine.region,length.measure,a,b,all,bll,fb.length_max,fb.ltypemaxm)%>% 
+  dplyr::select(family,genus,species,marine.region,length.measure,a,b,all,bll,fb.length_max,fb.ltypemaxm)%>% 
   distinct()%>%
   glimpse()
 
@@ -178,7 +178,7 @@ family.missing.lw <- complete.length.number%>%
 
 #3. Fill length data with relevant a and b and if blank use family---
 length.species.ab<-master%>% #done this way around to avoid duplicating Family coloum
-  select(-family)%>%
+  dplyr::select(-family)%>%
   inner_join(complete.length.number,., by=c("genus","species")) # only keeps row if has a and b
 
 # 4. Make family length.weigth
@@ -268,6 +268,7 @@ write.csv(expanded.length, file=paste(study,"expanded.length.csv",sep = "."), ro
 
 write.csv(complete.length.number.mass, file=paste(study,"complete.mass.csv",sep = "."), row.names=FALSE)
 
+setwd(working.dir)
 # complete.length.number<-complete.length.number%>%
 #   filter(number>0)
 # 
