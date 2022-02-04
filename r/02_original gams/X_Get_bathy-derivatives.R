@@ -24,10 +24,19 @@ r.dir <- paste(w.dir, "data/spatial/rasters", sep='/')
 
 # Load data ----
 study <- "2020_south-west_stereo-BRUVs"
+name <- "2020_south-west_stereo-BRUVs-BOSS"
 
-df <- read.csv(paste(dt.dir, paste(study, "checked.metadata.csv", sep='.'), sep = '/'))%>%
+boss <- read.csv("data/tidy/2021-03_West-Coast_BOSS.checked.metadata.csv")%>%
   mutate_at(vars(campaignid, sample, status, site, dataset), list(as.factor)) %>% # make these columns as factors
+  dplyr::mutate(method = "BOSS")%>%
   glimpse()
+
+bruv <- read.csv(paste(dt.dir, paste(study, "checked.metadata.csv", sep='.'), sep = '/'))%>%
+  mutate_at(vars(campaignid, sample, status, site, dataset), list(as.factor)) %>% # make these columns as factors
+  dplyr::mutate(method = "BRUV")%>%
+  glimpse()
+
+df <- bind_rows(bruv,boss)
 
 head(df)
 str(df)
@@ -76,10 +85,10 @@ dfs <- ders %>%
 
 # Save dfs --
 bathy <- dfs %>%
-  dplyr::select(campaignid,sample,slope,aspect,roughness,tpi,detrended)
+  dplyr::select(campaignid,sample,method,slope,aspect,roughness,tpi,detrended)
 
 setwd(dt.dir)
 
-write.csv(bathy,paste(study,"bathymetry.derivatives.csv",sep="."),row.names = F)
+write.csv(bathy,paste(name,"bathymetry.derivatives.csv",sep="."),row.names = F)
 
 setwd(w.dir)

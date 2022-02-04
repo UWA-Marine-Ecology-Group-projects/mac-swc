@@ -31,11 +31,11 @@ study <- "2021-03_West-Coast_BOSS"
 study2 <- "2021-03_West-Coast_BOSS_relief"
 
 # Read in metadata----
-setwd(staging.dir)
+setwd(tidy.dir)
 dir()
-metadata <- read_csv("MEG_Labsheets_2021 - 2021-03_West-Coast_BOSS.csv") %>% # read in the file
+metadata <- read_csv("2021-03_West-Coast_BOSS.checked.metadata.csv") %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function 
-  dplyr::select(sample, latitude, longitude, date, time.bottom, location, depth) %>% # select only these columns to keep
+  dplyr::select(sample, latitude, longitude, date, location, depth) %>% # select only these columns to keep
   mutate(sample=as.character(sample)) %>% 
   glimpse() # preview
 
@@ -49,7 +49,7 @@ habitat <- read.delim("2021-03_West-Coast_BOSS_Dot Point Measurements.txt",heade
   mutate(filename=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>% #keep filename but remove .jpg (need this for later to ensure unique ID)
   mutate(sample=as.character(sample)) %>% 
   mutate(filename=as.character(filename)) %>%
-  select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
+  dplyr::select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
 relief <-read.delim("2021-03_West-Coast_BOSS_Relief_Dot Point Measurements.txt",header=T,skip=4,stringsAsFactors=FALSE)%>% # read in the file
@@ -58,7 +58,7 @@ relief <-read.delim("2021-03_West-Coast_BOSS_Relief_Dot Point Measurements.txt",
   mutate(filename=str_replace_all(.$filename,c(".png"="",".jpg"="",".JPG"=""))) %>% #keep filename but remove .jpg (need this for later to ensure unique ID)
   mutate(sample=as.character(sample)) %>% 
   mutate(filename=as.character(filename)) %>%
-  select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
+  dplyr::select(filename,sample,image.row,image.col,broad,morphology,type,fieldofview,relief) %>% # select only these columns to keep
   glimpse() # preview
 
 # Check number of points per image ----
@@ -123,7 +123,7 @@ relief2<-relief%>%
 # CREATE catami point score------
 broad<-habitat%>%
   dplyr::select(-c(morphology,type))%>%
-  # filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
+  filter(!broad%in%c("",NA,"Unknown","Open.Water","Open Water"))%>%
   filter(!broad%in%c("",NA,"Open.Water","Open Water"))%>%
   dplyr::mutate(broad=paste("broad",broad,sep = "."))%>%
   dplyr::mutate(count=1)%>%
@@ -135,9 +135,11 @@ broad<-habitat%>%
   dplyr::summarise_all(funs(sum))%>%
   dplyr::mutate(Total.Sum=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   dplyr::group_by(sample)%>%
-  dplyr::mutate_each(funs(./Total.Sum*100), matches("broad"))%>%  
-  dplyr::select(-Total.Sum)%>%
+  dplyr::summarise_all(funs(sum))%>%
+  #dplyr::mutate(detailed.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   dplyr::ungroup()%>%
+  ga.clean.names()%>%
+  dplyr::rename(total.points.annotated=total.sum)%>%
   glimpse
 
 # CREATE catami_morphology------
@@ -156,8 +158,10 @@ detailed<-habitat%>%
   dplyr::summarise_if(is.numeric,sum,na.rm=TRUE)%>% 
   dplyr::mutate(Total.Sum=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
   dplyr::group_by(sample)%>%
-  dplyr::mutate_each(funs(./Total.Sum*100), matches("detailed"))%>%
-  dplyr::select(-Total.Sum)%>%
+  dplyr::summarise_all(funs(sum))%>%
+  dplyr::mutate(detailed.total.points.annotated=rowSums(.[,2:(ncol(.))],na.rm = TRUE ))%>%
+  ga.clean.names()%>%
+  dplyr::rename(total.points.annotated=total.sum)%>%
   glimpse()
 
 # Write habitat data----

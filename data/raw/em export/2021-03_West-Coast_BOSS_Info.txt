@@ -1,0 +1,5 @@
+OpCode	TapeReader	Depth	Comment	Info5Name	Info5Value	Info6Name	Info6Value	Info7Name	Info7Value	Info8Name	Info8Value	Info9Name	Info9Value	Info10Name	Info10Value	Info11Name	Info11Value	Info12Name	Info12Value
+20210308_0735-1537	Claude																		
+20210309_0735-1530	Claude																		
+20210310_0737-1601	Claude																		
+20210311_0735-1315	Claude																		

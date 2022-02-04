@@ -21,11 +21,12 @@ library(googlesheets4)
 library(stringr)
 library(data.table)
 library(googlesheets4)
+library(ggplot2)
 
 rm(list=ls())
 
 # Set the study name
-name <- '2020_south-west_stereo-BRUVs' # for the study
+name <- '2020_south-west_stereo-BRUVs-BOSS' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -34,51 +35,83 @@ setwd(working.dir)
 ######    MAXN    ###############
 # Bring in and format the data----
 # MaxN ----
-maxn <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv") %>%
+#BRUV
+maxn.bruv <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv") %>%
   dplyr::select(campaignid, sample, scientific, maxn, family, genus, species) %>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(method = "BRUV")%>%
   dplyr::glimpse()
 
+#BOSS
+maxn.boss <-read.csv("data/tidy/2021-03_West-Coast_BOSS.complete.maxn.csv") %>%
+  dplyr::select(campaignid, sample, scientific, maxn, family, genus, species) %>%
+  dplyr::mutate(method = "BOSS")%>%
+  dplyr::glimpse()
+
+maxn <- bind_rows(maxn.bruv,maxn.boss)                                          #doing it like this the species wont be completed between methods
+                                                                                #but dont think it matters?
 # Metadata ----
-metadata <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
+#bruv
+metadata.bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::mutate(status = as.factor(status)) %>%
   dplyr::mutate(sample = as.factor(sample)) %>%
   dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
   dplyr::mutate(site = as.factor(site)) %>%
   dplyr::filter(successful.count%in%c("Yes")) %>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(method = "BRUV")%>%
   dplyr::glimpse()
 
+#boss
+metadata.boss <- read.csv("data/tidy/2021-03_West-Coast_BOSS.checked.metadata.csv") %>%
+  dplyr::mutate(status = as.factor(status)) %>%
+  dplyr::mutate(sample = as.factor(sample)) %>%
+  dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
+  dplyr::mutate(site = as.factor(site)) %>%
+  dplyr::filter(successful.count%in%c("Yes")) %>%
+  dplyr::mutate(method = "BOSS")%>%
+  dplyr::glimpse()
+
+metadata <- bind_rows(metadata.bruv,metadata.boss)
+
 #have a look at points in state waters
-ggplot()+geom_point(data=metadata,aes(x=longitude,y=latitude,color = state.zone))+theme_classic()
+ggplot()+geom_point(data=metadata,aes(x=longitude,y=latitude,color = method))+theme_classic()
 #need to yeet all those in state water sanctuary zones
 
 # Bathymetry derivatives ----
-bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.bathymetry.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
+bathy <- read.csv('data/tidy/2020_south-west_stereo-BRUVs-BOSS.bathymetry.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
 
 # Distance to boat ramp ----
-ramps <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.distance.to.ramp.csv') %>%
+ramps <- read.csv('data/tidy/2020_south-west_stereo-BRUVs-BOSS.distance.to.ramp.csv') %>%            #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
 
 # Habitat ----
 habitat.2020.10 <- read.csv("data/tidy/2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved)) %>%
-  dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs") %>%
+  dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs",method = "BRUV") %>%
   dplyr::glimpse()
-
-summary(habitat.2020.10)
 
 habitat.2020.06 <- read.csv("data/tidy/2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count)) %>%
-  dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs") %>%
+  dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs",method = "BRUV") %>%
   dplyr::glimpse()
+
+habitat.2021.03 <- read.csv("data/tidy/2021-03_West-Coast_BOSS._broad.habitat.csv") %>%
+  dplyr::select(-c(latitude,longitude,date,location)) %>%
+  dplyr::mutate(campaignid = "2021-03_West-Coast_BOSS",method = "BOSS") %>%
+  ga.clean.names()%>%
+  dplyr::glimpse()
+
+names(habitat.2020.06)
+names(habitat.2020.10)
+names(habitat.2021.03)
 
 summary(habitat.2020.06) # 0-100
 
-habitat <-bind_rows(habitat.2020.06, habitat.2020.10) %>%
+habitat <-bind_rows(habitat.2020.06, habitat.2020.10,habitat.2021.03) %>%
   tidyr::replace_na(list(broad.consolidated=0,
                          broad.macroalgae=0,
                          broad.seagrasses=0,
