@@ -55,13 +55,9 @@ unique.vars.use
 savedir <- "output/fish gamms"
 resp.vars=unique.vars.use
 use.dat=as.data.frame(dat)
-use.dat$method <- as.factor(use.dat$method)
-use.dat$sample <- as.factor(use.dat$sample)
-use.dat$scientific <- as.factor(use.dat$scientific)
-use.dat$roughness <- as.numeric(use.dat$roughness)
 str(use.dat)
 
-#factor.vars=c("status")# Status as a Factor with two levels
+factor.vars=c("status")# Status as a Factor with two levels
 #cyclic.vars=c("aspect")
 out.all=list()
 var.imp=list()
@@ -69,8 +65,12 @@ var.imp=list()
 # Loop through the FSS function for each Taxa----
 for(i in 1:length(resp.vars)){
   use.dat=as.data.frame(dat[which(dat$scientific==resp.vars[i]),])
-  Model1=gam(maxn~s(depth,k=3,bs='cr') +
-             s(site,bs='re'),
+  use.dat$method <- as.factor(use.dat$method)
+  use.dat$sample <- as.factor(use.dat$sample)
+  use.dat$scientific <- as.factor(use.dat$scientific)
+  use.dat$roughness <- as.numeric(use.dat$roughness)
+  use.dat$site <- as.factor(use.dat$site)
+  Model1=gam(maxn~s(depth,k=3,bs='cr')+method+s(site ,bs='re'),
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -78,11 +78,11 @@ for(i in 1:length(resp.vars)){
                                factor.smooth.interactions = FALSE,
                                # smooth.smooth.interactions = c("depth"),
                                pred.vars.cont=pred.vars,
-                               #pred.vars.fact=factor.vars,
+                               pred.vars.fact=factor.vars,
                                #cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
-                              null.terms="s(site ,bs='re')+method"                             #
+                               null.terms="s(site ,bs='re')+method"                              #
   )
   out.list=fit.model.set(model.set,
                          max.models=600,
@@ -106,13 +106,23 @@ for(i in 1:length(resp.vars)){
     if(best.model.name!="null"){
       par(mfrow=c(3,1),mar=c(9,4,3,1))
       best.model=out.list$success.models[[best.model.name]]
-      # plot(best.model, all.terms=T,pages=1,residuals=T,pch=16)   # this was causing an error
-      plot(best.model, pages=1,residuals=T,pch=16)
+      plot(best.model, all.terms=T,pages=1,residuals=T,pch=16)   
       mtext(side=2,text=resp.vars[i],outer=F)}  
     dev.off()
   }
 }
 
+
+test1 <- dat %>%
+  filter(scientific%in%"species.richness")%>%
+  dplyr::select(sample,method)
+
+test2 <- dat %>%
+  filter(scientific%in%"total.abundance")%>%
+  dplyr::select(sample,method)
+
+missing <- test1 %>%
+  anti_join(test2)
 # Model fits and importance---
 names(out.all)=resp.vars
 names(var.imp)=resp.vars

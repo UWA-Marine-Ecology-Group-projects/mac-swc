@@ -70,7 +70,8 @@ metadata.boss <- read.csv("data/tidy/2021-03_West-Coast_BOSS.checked.metadata.cs
   dplyr::mutate(site = as.factor(site)) %>%
   dplyr::filter(successful.count%in%c("Yes")) %>%
   dplyr::mutate(method = "BOSS")%>%
-  dplyr::mutate(site=as.factor(seq(1:154)))%>%
+  dplyr::mutate(site=seq(1:154))%>%
+  dplyr::mutate(site=paste(method,site,sep = ""))%>%
   dplyr::glimpse()
 
 metadata <- bind_rows(metadata.bruv,metadata.boss)
@@ -344,6 +345,12 @@ dat.maxn <- combined.maxn %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
   as.data.frame()
 
+#outliers remove 3 samples from total abundance
+#weird TPI samples remove 1 from tot and 1 from sr
+#filtering by state zone removes 26 - 13 from tot and 13 from sr
+
+930 - 3 - 2 - 26   #899 - all good
+
 saveRDS(dat.maxn, "data/tidy/dat.maxn.full.rds")
 
 #####LENGTHS#####
@@ -498,3 +505,4 @@ ggplot()+
 #a few potential outliers, leave them in for now
 
 saveRDS(dat.length, "data/tidy/dat.length.full.rds")
+
