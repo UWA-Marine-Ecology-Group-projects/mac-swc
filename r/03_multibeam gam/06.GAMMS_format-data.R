@@ -22,7 +22,7 @@ library(data.table)
 rm(list=ls())
 
 # Set the study name
-name <- '2020_south-west_stereo-BRUVs' # for the study
+name <- '2020_south-west_stereo-BRUVs-BOSS' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -30,24 +30,48 @@ setwd(working.dir)
 
 ###################### MAXN ################
 # Bring in and format the data----
-# MaxN ----
-maxn <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv") %>%
+#MaxN
+#BRUV
+maxn.bruv <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.maxn.csv") %>%
   dplyr::select(campaignid, sample, scientific, maxn, family, genus, species) %>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(method = "BRUV")%>%
   dplyr::glimpse()
 
+#BOSS
+maxn.boss <-read.csv("data/tidy/2021-03_West-Coast_BOSS.complete.maxn.csv") %>%
+  dplyr::select(campaignid, sample, scientific, maxn, family, genus, species) %>%
+  dplyr::mutate(method = "BOSS")%>%
+  dplyr::glimpse()
+
+maxn <- bind_rows(maxn.bruv,maxn.boss)   
+
 # Metadata ----
-metadata <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
+#bruv
+metadata.bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::mutate(status = as.factor(status)) %>%
   dplyr::mutate(sample = as.factor(sample)) %>%
   dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
   dplyr::mutate(site = as.factor(site)) %>%
   dplyr::filter(successful.count%in%c("Yes")) %>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(method = "BRUV")%>%
   dplyr::glimpse()
 
+#boss
+metadata.boss <- read.csv("data/tidy/2021-03_West-Coast_BOSS.checked.metadata.csv") %>%
+  dplyr::mutate(status = as.factor(status)) %>%
+  dplyr::mutate(sample = as.factor(sample)) %>%
+  dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
+  dplyr::mutate(site = as.factor(site)) %>%
+  dplyr::filter(successful.count%in%c("Yes")) %>%
+  dplyr::mutate(method = "BOSS")%>%
+  dplyr::glimpse()
+
+metadata <- bind_rows(metadata.bruv,metadata.boss)
+
 # Bathymetry derivatives ---- # Em change this so read in Anita's file, filter out NAs 
-bathy <- read.csv("data/tidy/2020_south-west_multibeam-derivatives.csv") %>%
+bathy <- read.csv("data/tidy/2020_south-west_multibeam-derivatives.csv") %>%    #from r/03_multibeam gam/01.prepare_covariates.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::filter(!flowdir=="NA")%>%
   dplyr::select(-depth)%>%
@@ -57,26 +81,35 @@ bathy <- read.csv("data/tidy/2020_south-west_multibeam-derivatives.csv") %>%
 length(unique(bathy$sample))
 
 # Distance to boat ramp ----
-ramps <- read.csv('data/tidy/2020_south-west_stereo-BRUVs.distance.to.ramp.csv') %>%
+ramps <- read.csv('data/tidy/2020_south-west_stereo-BRUVs-BOSS.distance.to.ramp.csv') %>%            #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
 
 # Habitat ----
 habitat.2020.10 <- read.csv("data/tidy/2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved)) %>%
-  dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs") %>%
+  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved,fov.total.points.annotated)) %>%
+  dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs",method = "BRUV") %>%
   dplyr::glimpse()
-
-summary(habitat.2020.10)
 
 habitat.2020.06 <- read.csv("data/tidy/2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count)) %>%
-  dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs") %>%
+  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,fov.total.points.annotated)) %>%
+  dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs",method = "BRUV") %>%
   dplyr::glimpse()
+
+habitat.2021.03 <- read.csv("data/tidy/2021-03_West-Coast_BOSS._broad.habitat.csv") %>%
+  dplyr::select(-c(latitude,longitude,date,location,depth)) %>%
+  dplyr::mutate(campaignid = "2021-03_West-Coast_BOSS",method = "BOSS") %>%
+  ga.clean.names()%>%
+  dplyr::rename(broad.total.points.annotated=total.points.annotated)%>%
+  dplyr::glimpse()
+
+names(habitat.2020.06)
+names(habitat.2020.10)
+names(habitat.2021.03)
 
 summary(habitat.2020.06) # 0-100
 
-habitat <-bind_rows(habitat.2020.06, habitat.2020.10) %>%
+habitat <-bind_rows(habitat.2020.06, habitat.2020.10,habitat.2021.03) %>%
   tidyr::replace_na(list(broad.consolidated=0,
                          broad.macroalgae=0,
                          broad.seagrasses=0,
@@ -91,7 +124,9 @@ habitat <-bind_rows(habitat.2020.06, habitat.2020.10) %>%
                          broad.true.anemones=0,
                          broad.crinoids=0)) %>%
   ga.clean.names() %>%
-  dplyr::mutate(broad.reef = broad.bryozoa + broad.consolidated + broad.hydroids + broad.macroalgae + broad.octocoral.black + broad.seagrasses + broad.sponges + broad.stony.corals) %>%
+  dplyr::mutate(broad.reef = broad.bryozoa + broad.consolidated + broad.hydroids + broad.macroalgae + broad.octocoral.black + 
+                  broad.seagrasses + broad.sponges + broad.stony.corals + broad.crinoids + broad.ascidians + broad.invertebrate.complex +
+                  broad.true.anemones) %>%
   dplyr::mutate(broad.ascidians = broad.ascidians/broad.total.points.annotated,
                 broad.bryozoa = broad.bryozoa/broad.total.points.annotated,
                 broad.consolidated = broad.consolidated/broad.total.points.annotated,
@@ -109,18 +144,19 @@ habitat <-bind_rows(habitat.2020.06, habitat.2020.10) %>%
   dplyr::select(order(colnames(.))) %>%
   dplyr::select(campaignid,sample,everything()) %>% # re-ordering hab columns 
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  # dplyr::mutate(test = rowSums(.[,c(3:10,12:14,16:17)]))%>%                     #all good             
   dplyr::glimpse()
-
 
 # Create total abundance and species richness ----
 ta.sr <- maxn %>%
   dplyr::ungroup() %>%
-  dplyr::group_by(scientific,sample) %>%
+  dplyr::group_by(scientific,sample,method) %>%
   dplyr::summarise(maxn = sum(maxn)) %>%
   tidyr::spread(scientific,maxn, fill = 0) %>%
-  dplyr::mutate(total.abundance=rowSums(.[,2:(ncol(.))],na.rm = TRUE )) %>% #Add in Totals
-  dplyr::mutate(species.richness=rowSums(.[,2:(ncol(.))] > 0)) %>% # double check these
-  dplyr::select(sample,total.abundance,species.richness) %>%
+  dplyr::ungroup()%>%
+  dplyr::mutate(total.abundance=rowSums(.[,3:(ncol(.))],na.rm = TRUE )) %>% #Add in Totals
+  dplyr::mutate(species.richness=rowSums(.[,3:(ncol(.))] > 0)) %>% # double check these
+  dplyr::select(sample,total.abundance,species.richness,method) %>%
   tidyr::gather(.,"scientific","maxn",2:3) %>%
   dplyr::glimpse()
 
@@ -150,6 +186,7 @@ fished.species <- maxn %>%
   dplyr::mutate(fishing.type = ifelse(scientific %in%c("Carangidae Pseudocaranx spp",
                                                        "Carangidae Unknown spp",
                                                        "Platycephalidae Platycephalus spp",
+                                                       "Platycephalidae Leviprora spp",
                                                        "Scombridae Sarda spp",
                                                        "Scombridae Unknown spp",
                                                        "Sillaginidae Sillago spp"),"R",fishing.type))%>%
@@ -215,8 +252,14 @@ combined.maxn <- bind_rows(#fished.maxn, species.maxn,
   distinct()%>%
   glimpse()
 
-length(unique(combined.maxn$sample))   #129
-129*2       #258 - all good
+testboss <- combined.maxn %>%
+  dplyr::filter(method%in%"BOSS")
+testbruv <- combined.maxn %>%
+  dplyr::filter(method%in%"BRUV")
+
+length(unique(testboss$sample))   #151
+length(unique(testbruv$sample))   #129
+(151+129)*2   #560 - all good
 
 # Set predictor variables---
 pred.vars=c("depth", "depth.multibeam","slope", "aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
@@ -246,7 +289,13 @@ for (i in pred.vars) {
 
 #sponge is a bit dodgy
 par(mfrow=c(1,1))
-plot(dat.maxn$maxn)
+ggplot()+
+  geom_point(data = combined.maxn,aes(sample,maxn),alpha = 0.2)+
+  theme_classic()+facet_wrap(~scientific)+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
 # remove sample with maxn >600? Prob an outlier and driving a lot of relationships
 outlier <- dat.maxn %>%
   filter(maxn>600)%>%
@@ -290,9 +339,9 @@ pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
 
 # Remove any unused columns from the dataset
 dat.maxn <- dat.maxn %>%
-  dplyr::select(sample, status, site, scientific, maxn,
+  dplyr::select(sample, method,status, site, scientific, maxn,
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
-                "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended") %>%
+                "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended",method) %>%
   as.data.frame()
 
 saveRDS(dat.maxn, "data/tidy/dat.maxn.multibeam.rds")
@@ -320,6 +369,7 @@ fished.species <- length %>%
   dplyr::mutate(fishing.type = ifelse(scientific %in%c("Carangidae Pseudocaranx spp",
                                                        "Carangidae Unknown spp",
                                                        "Platycephalidae Platycephalus spp",
+                                                       "Platycephalidae Leviprora spp",
                                                        "Scombridae Sarda spp",
                                                        "Scombridae Unknown spp",
                                                        "Sillaginidae Sillago spp"),"R",fishing.type))%>%
@@ -327,7 +377,8 @@ fished.species <- length %>%
   dplyr::filter(!species%in%c("nigricans","lineolatus","cirratus"))%>% # Brooke removed dusky morwong, maori wrasse, common saw shark
   dplyr::filter(!family%in%c("Monacanthidae", "Scorpididae", "Mullidae")) %>% # Brooke removed leatherjackets, sea sweeps and goat fish
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Carangidae Pseudocaranx spp"),250,minlegal.wa))%>%
-  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Platycephalus spp"),300,minlegal.wa))
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Platycephalus spp"),300,minlegal.wa))%>%
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Leviprora spp"),300,minlegal.wa))
 
 without.min.length <- fished.species %>%
   filter(is.na(minlegal.wa))%>%

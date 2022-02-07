@@ -19,15 +19,23 @@ library(spatstat)
 rm(list = ls())
 
 # Load data ----
-study <- "2020_south-west_stereo-BRUVs"
+study <- "2020_south-west_stereo-BRUVs-BOSS"
 
 #set working directory
 working.dir <- getwd()
 setwd(working.dir)
 
-df <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv")%>%
+bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv")%>%
   dplyr::select(campaignid, sample, latitude, longitude, depth)%>%
+  dplyr::mutate(method = "BRUV")%>%
   glimpse()
+
+boss <- read.csv("data/tidy/2021-03_West-Coast_BOSS.checked.metadata.csv")%>%
+  dplyr::select(campaignid, sample, latitude, longitude, depth)%>%
+  dplyr::mutate(method = "BOSS")%>%
+  glimpse()
+
+df <- bind_rows(bruv,boss)
 
 head(df)
 str(df)
