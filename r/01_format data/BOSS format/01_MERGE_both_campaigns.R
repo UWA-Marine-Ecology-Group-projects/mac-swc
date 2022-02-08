@@ -29,7 +29,7 @@ library(sp)
 
 ## Set Study Name ----
 # Change this to suit your study name. This will also be the prefix on your final saved files.
-study<-"2021-03_West-Coast_BOSS"
+study<-"2020-2021_south-west_BOSS"
 
 ## Folder Structure ----
 # This script uses one main folder ('working directory')
@@ -46,9 +46,7 @@ working.dir <- getwd() # to directory of current file - or type your own
 
 ## Save these directory names to use later----
 data.dir<-paste(working.dir,"data",sep="/")
-
 download.dir<-paste(data.dir,"raw/em export",sep="/")
-
 tidy.dir<-paste(data.dir,"tidy",sep="/")
 staging.dir<-paste(data.dir,"staging",sep="/") 
 
@@ -64,21 +62,66 @@ metadata <- ga.list.files("_Metadata.csv") %>%                                  
                 state.zone,raw.hdd.number,con.hdd.number)%>% 
   dplyr::mutate(sample=as.character(sample)) %>%
   dplyr::filter(successful.count%in%c("Yes"))%>%
-  dplyr::filter(campaignid %in% paste(study))%>%                                # only include boss samples here
-  #dplyr::select(-c(project))%>%                                                
+  dplyr::filter(campaignid %in% c("2020-10_south-west_BOSS","2021-03_West-Coast_BOSS"))%>%    # only include boss october and march samples here
+  #dplyr::select(-c(project))%>%
+  dplyr::mutate(id=paste(campaignid,sample,sep=" "))%>%
   glimpse()
+raw.metadata <- metadata                                                        #so we can do the status joining bit
 
+### Have to be careful as we have 2 campaigns with overlapping sample names
 unique(metadata$successful.count)
-
+unique(metadata$campaignid)
 names(metadata)
 
-unique(metadata$campaignid)                                                     # check the number of campaigns in metadata, and the campaign name
-length(unique(metadata$sample))                                                 # 154 - all good
+length(unique(metadata$id))                                                     # 279 (154 March, 125 october)
+154+125                                                                         #good
 
 double.ups <- metadata %>%
-  dplyr::group_by(sample) %>%
+  dplyr::group_by(id) %>%
   dplyr::summarise(n=n()) %>%
   dplyr::filter(n>1)                                                            # No double ups
+
+#join in state/commonwealth zone and fishing status to all metadata columns
+#we already have this for 2021-03 but will just add again for all
+# Spatial files ----
+setwd(working.dir)
+wgs.84 <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+
+commonwealth.marineparks <- readOGR(dsn="data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")
+proj4string(commonwealth.marineparks)
+
+wa.marineparks <- readOGR(dsn="data/spatial/shapefiles/test1.shp")
+proj4string(wa.marineparks)
+
+proj4string(commonwealth.marineparks)<-CRS(wgs.84)
+proj4string(wa.marineparks)<-CRS(wgs.84)
+
+str(metadata)
+metadata$latitude <- as.numeric(metadata$latitude)
+metadata$longitude <- as.numeric(metadata$longitude)
+coordinates(metadata) <- c('longitude','latitude')
+proj4string(metadata)<-CRS(wgs.84)
+
+metadata.commonwealth.marineparks <- over(metadata, commonwealth.marineparks) %>%
+  dplyr::select(ZoneName)
+
+unique(metadata.commonwealth.marineparks$ZoneName)
+
+metadata.state.marineparks <- over(metadata, wa.marineparks) %>%
+  dplyr::select(Name)
+
+unique(metadata.state.marineparks$Name)
+
+names(metadata.commonwealth.marineparks)
+
+metadata<-bind_cols(raw.metadata,metadata.commonwealth.marineparks)%>%
+  bind_cols(.,metadata.state.marineparks)%>%
+  dplyr::rename(Commonwealth.zone=ZoneName, State.zone=Name)%>%
+  mutate(Status = if_else((Commonwealth.zone%in%c("National Park Zone")|
+                             State.zone%in%c("Injidup Sanctuary Zone","Cape Freycinet Sanctuary Zone")),"No-take","Fished"))%>%
+  dplyr::select(-c(status,commonwealth.zone,state.zone))%>%
+  ga.clean.names()%>%
+  glimpse()
 
 setwd(staging.dir)
 write.csv(metadata,paste(study,"metadata.csv",sep="_"),row.names = FALSE)
@@ -95,7 +138,7 @@ points<-as.data.frame(points.files)%>%
   as_vector(.)%>%                                                               # remove all empty files
   purrr::map_df(~ga.read.files_txt(.))%>%
   dplyr::mutate(campaignid=str_replace_all(.$project,c("_Points.txt"="")))%>%
-  dplyr::filter(campaignid%in%paste(study))%>%                                  #filter for only BOSS samples
+  dplyr::filter(campaignid %in% c("2020-10_south-west_BOSS","2021-03_West-Coast_BOSS"))%>%        #filter for only BOSS march and october samples
   dplyr::select(-c(project),-sample)%>%                                         #remove sample column - multiple drops in one .emob
   dplyr::rename(sample=period)%>%                                               #rename period as sample
   glimpse()
@@ -126,9 +169,11 @@ maxn<-points%>%
   dplyr::ungroup()                   
 
 unique(maxn$successful.count)
-length(unique(maxn$sample))                                                     #154
+length(unique(maxn$id))                                                         #264
 
-no.fish <- anti_join(metadata,maxn)                                             #all good
+no.fish <- anti_join(metadata,maxn)                                             #15
+
+264+15                                                                          #279 = all good once i add back in no fish samples later
 
 # Save MaxN file ----
 setwd(staging.dir)

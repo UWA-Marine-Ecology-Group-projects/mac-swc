@@ -1,4 +1,3 @@
-
 ### Error checks of MaxN and Length files created from EventMeasure or generic stereo-video annotations via GlobalArchive
 
 ## This script is designed to be used interatively to suggest species name and length corrections that should be made to original EventMeasure (.EMObs) or generic annotation files AND for subsequent data analysis.

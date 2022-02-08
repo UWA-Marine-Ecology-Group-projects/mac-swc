@@ -39,7 +39,7 @@ library(stringr)
 
 ## Set Study Name ----
 # Change this to suit your study name. This will also be the prefix on your final saved files.
-study<-"2021-03_West-Coast_BOSS"
+study<-"2020-2021_south-west_BOSS"
 
 ## Folder Structure ----
 # This script uses one main folder ('working directory')
@@ -82,11 +82,12 @@ maxn<-read_csv(paste(study,"maxn.csv",sep="_"))%>%
   # dplyr::mutate(genus=ifelse((family%in%c("Carangidae")&species%in%c("sp10")),
   # "Pseudocaranx",genus)) %>%
   # dplyr::mutate(species=ifelse((species%in%c("sp10")),"spp",species)) %>%
+  dplyr::mutate(genus=ifelse((genus%in%c("Paraquula")),"Parequula",genus)) %>%
+  dplyr::mutate(id=paste(campaignid,sample,sep = " "))%>%
   dplyr::glimpse()
 
 # Check that there is no fish with family unknown
-
-length(unique(maxn$sample)) # 150
+length(unique(maxn$id))                                                         #264 - minus those drops with zero fish
 
 #no length data
 

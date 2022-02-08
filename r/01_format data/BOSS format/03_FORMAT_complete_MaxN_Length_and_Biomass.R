@@ -19,7 +19,6 @@
 
 ### Please forward any updates and improvements to tim.langlois@uwa.edu.au & brooke.gibbons@uwa.edu.au or raise an issue in the "globalarchive-query" GitHub repository
 
-
 # Clear memory ----
 rm(list=ls())
 
@@ -41,7 +40,7 @@ library(ggplot2)
 library(fst)
 
 # Study name---
-study<-"2021-03_West-Coast_BOSS"
+study<-"2020-2021_south-west_BOSS"
 
 ## Set your working directory ----
 working.dir <- getwd() # to directory of current file - or type your own
@@ -64,10 +63,10 @@ metadata<-read_csv(file=paste(study,"checked.metadata.csv",sep = "."),na = c("",
   dplyr::mutate(id=paste(campaignid,sample,sep="."))%>%
   dplyr::glimpse()
 
-length(unique(metadata$sample)) # 311 
+length(unique(metadata$id))                                                     # 279 
 
 samples <- metadata %>%                                                         #get all samples so we can keep in 0s
-  distinct(sample)
+  distinct(id,sample)
 
 # Make complete.maxn: fill in 0s and join in factors----
 dat<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c("", " "))%>%
@@ -76,15 +75,16 @@ dat<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c("", " "))%>%
   dplyr::full_join(samples)%>%
   tidyr::complete(nesting(id,campaignid,sample),nesting(family,genus,species)) %>%
   replace_na(list(maxn = 0))%>%
-  dplyr::group_by(sample,family,genus,species)%>%
+  dplyr::group_by(id,sample,family,genus,species)%>%
   dplyr::summarise(maxn=sum(maxn))%>%
   dplyr::ungroup()%>% #always a good idea to ungroup() after you have finished using the group_by()!
   dplyr::mutate(scientific=paste(family,genus,species,sep=" "))%>%
-  dplyr::select(sample,scientific,maxn)%>%
-  spread(scientific,maxn, fill = 0)%>% #why do we need this?
+  dplyr::select(id,sample,scientific,maxn)%>%
+  spread(scientific,maxn, fill = 0)%>% 
+ # dplyr::mutate(sample=ifelse(is.na(sample),id,sample))%>%
   dplyr::glimpse()
 
-length(unique(dat$sample))
+length(unique(dat$id))                                                          #good
 
 # Make family, genus and species names to merge back in after data is complete ---
 maxn.families<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c("", " "))%>%
@@ -110,13 +110,3 @@ dir()
 write.csv(complete.maxn, file=paste(study,"complete.maxn.csv",sep = "."), row.names=FALSE)
 
 setwd(working.dir)
-# complete.length.number<-complete.length.number%>%
-#   filter(number>0)
-# 
-# unique(complete.maxn$sample)
-# 
-# 
-# # Write .fst files for shiny app ---
-# write.fst(complete.maxn, "complete.maxn.fst")
-# write.fst(complete.length.number,"complete.length.fst")
-# write.fst(complete.length.number.mass,"complete.mass.fst")

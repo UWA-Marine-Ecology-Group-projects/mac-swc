@@ -90,69 +90,7 @@ ramps <- read.csv('data/tidy/2020_south-west_stereo-BRUVs-BOSS.distance.to.ramp.
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::glimpse()
 
-# Habitat ----
-habitat.2020.10 <- read.csv("data/tidy/2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved,fov.total.points.annotated)) %>%
-  dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs",method = "BRUV") %>%
-  dplyr::glimpse()
 
-habitat.2020.06 <- read.csv("data/tidy/2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,fov.total.points.annotated)) %>%
-  dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs",method = "BRUV") %>%
-  dplyr::glimpse()
-
-habitat.2021.03 <- read.csv("data/tidy/2021-03_West-Coast_BOSS._broad.habitat.csv") %>%
-  dplyr::select(-c(latitude,longitude,date,location,depth)) %>%
-  dplyr::mutate(campaignid = "2021-03_West-Coast_BOSS",method = "BOSS") %>%
-  ga.clean.names()%>%
-  dplyr::rename(broad.total.points.annotated=total.points.annotated)%>%
-  dplyr::glimpse()
-
-names(habitat.2020.06)
-names(habitat.2020.10)
-names(habitat.2021.03)
-
-summary(habitat.2020.06) # 0-100
-
-habitat <-bind_rows(habitat.2020.06, habitat.2020.10,habitat.2021.03) %>%
-  tidyr::replace_na(list(broad.consolidated=0,
-                         broad.macroalgae=0,
-                         broad.seagrasses=0,
-                         broad.sponges=0,
-                         broad.unconsolidated=0,
-                         broad.bryozoa=0,
-                         broad.hydroids=0,
-                         broad.octocoral.black=0,
-                         broad.stony.corals=0,
-                         fov.facing.up=0,
-                         broad.ascidians=0,
-                         broad.true.anemones=0,
-                         broad.crinoids=0)) %>%
-  ga.clean.names() %>%
-  dplyr::mutate(broad.reef = broad.bryozoa + broad.consolidated + broad.hydroids + broad.macroalgae + broad.octocoral.black + 
-                  broad.seagrasses + broad.sponges + broad.stony.corals + broad.crinoids + broad.ascidians + broad.invertebrate.complex +
-                  broad.true.anemones) %>%
-  dplyr::mutate(broad.ascidians = broad.ascidians/broad.total.points.annotated,
-                broad.bryozoa = broad.bryozoa/broad.total.points.annotated,
-                broad.consolidated = broad.consolidated/broad.total.points.annotated,
-                broad.crinoids = broad.crinoids/broad.total.points.annotated,
-                broad.hydroids = broad.hydroids/broad.total.points.annotated,
-                broad.invertebrate.complex = broad.invertebrate.complex/broad.total.points.annotated,
-                broad.macroalgae = broad.macroalgae/broad.total.points.annotated,
-                broad.octocoral.black = broad.octocoral.black/broad.total.points.annotated,
-                broad.reef = broad.reef/broad.total.points.annotated,
-                broad.seagrasses = broad.seagrasses/broad.total.points.annotated,
-                broad.sponges = broad.sponges/broad.total.points.annotated,
-                broad.stony.corals = broad.stony.corals/broad.total.points.annotated,
-                broad.true.anemones = broad.true.anemones/broad.total.points.annotated,
-                broad.unconsolidated = broad.unconsolidated/broad.total.points.annotated)%>%
-  dplyr::select(order(colnames(.))) %>%
-  dplyr::select(campaignid,sample,everything()) %>% # re-ordering hab columns 
-  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  # dplyr::mutate(test = rowSums(.[,c(3:10,12:14,16:17)]))%>%                     #all good             
-  dplyr::glimpse()
-
-#saveRDS(habitat,'data/tidy/dat.full.habitat.rds') #ran once for Kingsley w/ lat and long
 
 # Create total abundance and species richness ----
 ta.sr <- maxn %>%

@@ -1,0 +1,12 @@
+OpCode	TapeReader	Depth	Comment	Info5Name	Info5Value	Info6Name	Info6Value	Info7Name	Info7Value	Info8Name	Info8Value	Info9Name	Info9Value	Info10Name	Info10Value	Info11Name	Info11Value	Info12Name	Info12Value
+																			
+20201030_1301-1339	Claude																		
+20201031_0704-0744	Rachel 																		
+20201104_0737-1129	Claude																		
+20201104_1211-1516	Claude																		
+20201107_1030-1330	Claude																		
+20201108_0653-1053	Rachel																		
+20201108_1136-1340	Claude																		
+20201111_0717-0810	Claude																		
+20201111_1042-1440	Rachel																		
+20201119_0630-1036	Charlotte																		
