@@ -25,17 +25,9 @@ study <- "2020_south-west_stereo-BRUVs-BOSS"
 working.dir <- getwd()
 setwd(working.dir)
 
-bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv")%>%
+df <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv")%>%
   dplyr::select(campaignid, sample, latitude, longitude, depth)%>%
-  dplyr::mutate(method = "BRUV")%>%
   glimpse()
-
-boss <- read.csv("data/tidy/2021-03_West-Coast_BOSS.checked.metadata.csv")%>%
-  dplyr::select(campaignid, sample, latitude, longitude, depth)%>%
-  dplyr::mutate(method = "BOSS")%>%
-  glimpse()
-
-df <- bind_rows(bruv,boss)
 
 head(df)
 str(df)
@@ -72,7 +64,7 @@ dfs <- as.data.frame(dfs) %>%
   glimpse()
 
 # save covariates ----
-write.csv(dfs, "data/tidy/2020_south-west_multibeam-derivatives.csv",row.names = F)           #Claude changed name
+write.csv(dfs, "data/tidy/2020_south-west_stereo-BRUVs-BOSS.multibeam-derivatives.csv",row.names = F)           #Claude changed name
 
 # ###       ###       ###       ###
 # 

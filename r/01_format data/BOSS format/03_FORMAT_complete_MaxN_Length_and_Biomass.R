@@ -75,16 +75,14 @@ dat<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c("", " "))%>%
   dplyr::full_join(samples)%>%
   tidyr::complete(nesting(id,campaignid,sample),nesting(family,genus,species)) %>%
   replace_na(list(maxn = 0))%>%
-  dplyr::group_by(id,sample,family,genus,species)%>%
+  dplyr::group_by(id,family,genus,species)%>%
   dplyr::summarise(maxn=sum(maxn))%>%
   dplyr::ungroup()%>% #always a good idea to ungroup() after you have finished using the group_by()!
   dplyr::mutate(scientific=paste(family,genus,species,sep=" "))%>%
-  dplyr::select(id,sample,scientific,maxn)%>%
-  spread(scientific,maxn, fill = 0)%>% 
- # dplyr::mutate(sample=ifelse(is.na(sample),id,sample))%>%
+  dplyr::select(id,scientific,maxn)%>%
+  spread(scientific,maxn, fill = 0)%>%
+  #separate(id,c("campaignid","sample"),sep="\\.")%>%
   dplyr::glimpse()
-
-length(unique(dat$id))                                                          #good
 
 # Make family, genus and species names to merge back in after data is complete ---
 maxn.families<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c("", " "))%>%
@@ -96,12 +94,10 @@ maxn.families<-read_csv(file=paste(study,"checked.maxn.csv",sep = "."),na = c(""
 
 # Make complete data and join with metadata
 complete.maxn<-dat%>%
-  gather(key=scientific, value = maxn,-sample)%>%
+  gather(key=scientific, value = maxn,-id)%>%
   dplyr::inner_join(maxn.families,by=c("scientific"))%>%
   dplyr::left_join(metadata)%>% # Joining metadata will use a lot of memory - # out if you need too
   dplyr::glimpse()
-
-length(unique(complete.maxn$sample))
 
 # WRITE FINAL complete and expanded data----
 setwd(tidy.dir)

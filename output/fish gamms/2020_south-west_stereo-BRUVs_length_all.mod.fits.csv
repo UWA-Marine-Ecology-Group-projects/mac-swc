@@ -1,4 +1,0 @@
-"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","detrended","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth","status","cumsum.wi"
-"greater than legal size","broad.macroalgae+sd.relief+tpi",1983.74391794989,2174.81000075657,0.27658,NA,61.63,0,0,0,1,1,0,1,0,1,0,0,1,0,0,0,1
-"smaller than legal size.broad.reef+roughness+status","broad.reef+roughness+status",741.252007194616,880.886991843865,0.20652,NA,40,0,0,10.056,0.376,0.004,0,0,0,0,1,0,0,1,0,1,0.376
-"smaller than legal size.broad.reef+roughness+tpi","broad.reef+roughness+tpi",743.093075939925,884.041821204264,0.20915,NA,40.36,0,1.841,13.211,0.15,0.001,0,0,0,0,1,0,1,1,0,0,0.526
