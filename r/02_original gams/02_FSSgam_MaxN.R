@@ -23,7 +23,7 @@ library(googlesheets4)
 rm(list=ls())
 
 # Set the study name
-name <- '2020-2021_south-west_BRUVs-BOSS' # for the study
+name <- '2020-2021_south-west_BOSS-BRUV' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -70,7 +70,7 @@ for(i in 1:length(resp.vars)){
   use.dat$scientific <- as.factor(use.dat$scientific)
   use.dat$roughness <- as.numeric(use.dat$roughness)
   use.dat$site <- as.factor(use.dat$site)
-  Model1=gam(maxn~s(depth,k=3,bs='cr')+method+s(site ,bs='re'),
+  Model1=gam(maxn~s(depth,k=3,bs='cr')+method+s(site ,bs='re'),                                  #
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -82,7 +82,7 @@ for(i in 1:length(resp.vars)){
                                #cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
-                               null.terms="s(site ,bs='re')+method"                              #
+                               null.terms="s(site ,bs='re')+method"                              #takes a very long time to run with the random effect 
   )
   out.list=fit.model.set(model.set,
                          max.models=600,

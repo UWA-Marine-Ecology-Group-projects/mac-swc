@@ -75,7 +75,7 @@ distance.to.ramp<-samples.ramps%>%
   mutate(gracetown=distance(lat1=ramps[2,3],lat2=.$latitude,lon1=ramps[2,2],lon2=.$longitude))%>%
   mutate(gnarabup=distance(lat1=ramps[3,3],lat2=.$latitude,lon1=ramps[3,2],lon2=.$longitude))%>%
   mutate(hamelin=distance(lat1=ramps[4,3],lat2=.$latitude,lon1=ramps[4,2],lon2=.$longitude))%>%
-  mutate(distance.to.ramp=do.call(pmin, .[,4:7]))%>%
+  mutate(distance.to.ramp=do.call(pmin, .[,6:9]))%>%
   dplyr::select(campaignid,sample,method,distance.to.ramp)%>%
   distinct()%>% #need to be distinct otherwise joins dont work
   glimpse()

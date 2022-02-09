@@ -27,7 +27,7 @@ library(corrr)
 rm(list=ls())
 
 # Set the study name
-name <- '2020-2021_south-west_BRUVs-BOSS' # for the study
+name <- '2020-2021_south-west_BOSS-BRUV' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -58,46 +58,31 @@ maxn <- bind_rows(maxn.bruv,maxn.boss)
 
 # Metadata ----
 #bruv
-metadata.bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%    #from 01_format data/BRUV format/01-03
+metadata <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv") %>%    #from 01_format data/BRUV format/01-03
   dplyr::mutate(status = as.factor(status)) %>%
   dplyr::mutate(sample = as.factor(sample)) %>%
   dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
   dplyr::mutate(site = as.factor(site)) %>%
   dplyr::filter(successful.count%in%c("Yes")) %>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::mutate(method = "BRUV")%>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
   dplyr::glimpse()
-
-#boss
-metadata.boss <- read.csv("data/tidy/2020-2021_south-west_BOSS.checked.metadata.csv") %>%     #from 01_format data/BOSS format/01-03
-  dplyr::mutate(status = as.factor(status)) %>%
-  dplyr::mutate(sample = as.factor(sample)) %>%
-  dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%              
-  dplyr::mutate(site = as.factor(site)) %>%
-  dplyr::filter(successful.count%in%c("Yes")) %>%
-  dplyr::mutate(method = "BOSS")%>%
-  dplyr::mutate(site=seq(1:279))%>%
-  dplyr::mutate(site=paste(method,site,sep = ""))%>%
-  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  dplyr::glimpse()
-
-metadata <- bind_rows(metadata.bruv,metadata.boss)
 
 #have a look at points in state waters
 ggplot()+geom_point(data=metadata,aes(x=longitude,y=latitude,color = state.zone))+theme_classic()
 #need to yeet all those in state water sanctuary zones
 
 # Bathymetry derivatives ----
-bathy <- read.csv('data/tidy/2020-2021_south-west_BOSS-BRUV.bathymetry.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
+bathy <- readRDS('data/spatial/full-extent_spatial_covariates.rds') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  distinct%>%                                                                   #there are some duplicates here, need to fix in original
+  distinct()%>%                                                                 #there are some duplicates here, need to fix in original
+  dplyr::select(campaignid,sample,ga.depth,tri,tpi,roughness,
+                slope,aspect,detrended,lineartrend,id)%>%
   dplyr::glimpse()
 
 # Distance to boat ramp ----
-ramps <- read.csv('data/tidy/2020-2021_south-west_BRUVs-BOSS.distance.to.ramp.csv') %>%  #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
+ramps <- read.csv('data/tidy/2020-2021_south-west_BOSS-BRUV.distance.to.ramp.csv') %>%  #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
   distinct()%>%
@@ -322,7 +307,7 @@ length <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.length.csv") 
   dplyr::mutate(scientific=paste(family,genus,species,sep=" ")) %>%
   dplyr::glimpse()
 
-metadata.bruv <- metadata.bruv %>%
+metadata.bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::filter(successful.length%in%"Yes")%>%
   glimpse()
 
@@ -429,6 +414,7 @@ sublegal <- fished.species %>%
 combined.length <- bind_rows(legal, sublegal) # removed all other taxa
 
 unique(combined.length$scientific)
+
 
 complete.length <- combined.length %>%
   #dplyr::mutate(id=paste(campaignid,sample,sep="."))%>%
