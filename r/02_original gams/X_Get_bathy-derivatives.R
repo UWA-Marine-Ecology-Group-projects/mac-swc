@@ -9,7 +9,7 @@
 rm(list=ls())
 
 ## Script to extract bathymetry covariates from raster files ####
-library(plyr)
+# library(plyr)
 library(dplyr)
 library(stringr)
 library(ggplot2)
@@ -66,7 +66,8 @@ x <- raster(paste(r.dir, "SW_detrend.bathy-to-260m.tif", sep='/'))
 d <- stack(s,a,r,t, b)
 plot(t)
 names(d) <- c("slope", "aspect", "roughness", "tpi", "ga_depth")
-
+extent(d)
+plot(d)
 # weird <- df %>% 
 #   dplyr::filter(sample %in% c("IO267"))%>%
 #   glimpse()
@@ -95,6 +96,16 @@ dfs <- ders %>%
 # Save dfs --
 bathy <- dfs %>%
   dplyr::select(campaignid,sample,method,slope,aspect,roughness,tpi,detrended)
+
+test <- df %>%
+  dplyr::filter(id%in%c('2020-10_south-west_BOSS 358',"2020-10_south-west_BOSS 78","2020-10_south-west_BOSS 321","2020-10_south-west_BOSS 284"))%>%
+  dplyr::select(latitude,longitude,id)
+
+coordinates(test) <- ~longitude+latitude 
+
+par(mfrow=c(1,1))
+plot(t)
+plot(test, pch = 20, cex = 1, add=T)
 
 setwd(dt.dir)
 

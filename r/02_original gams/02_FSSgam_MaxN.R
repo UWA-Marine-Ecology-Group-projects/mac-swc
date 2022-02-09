@@ -23,7 +23,7 @@ library(googlesheets4)
 rm(list=ls())
 
 # Set the study name
-name <- '2020_south-west_stereo-BRUVs-BOSS' # for the study
+name <- '2020-2021_south-west_BRUVs-BOSS' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -112,17 +112,6 @@ for(i in 1:length(resp.vars)){
   }
 }
 
-
-test1 <- dat %>%
-  filter(scientific%in%"species.richness")%>%
-  dplyr::select(sample,method)
-
-test2 <- dat %>%
-  filter(scientific%in%"total.abundance")%>%
-  dplyr::select(sample,method)
-
-missing <- test1 %>%
-  anti_join(test2)
 # Model fits and importance---
 names(out.all)=resp.vars
 names(var.imp)=resp.vars
