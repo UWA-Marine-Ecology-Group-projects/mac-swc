@@ -22,7 +22,7 @@ library(data.table)
 rm(list=ls())
 
 # Set the study name
-name <- '2020_south-west_stereo-BRUVs' # for the study
+name <- '2020-2021_south-west_BOSS-BRUV' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -31,6 +31,7 @@ setwd(working.dir)
 # Bring in  the data----
 dat <- readRDS('data/tidy/dat.maxn.multibeam.rds')%>%
   glimpse()
+dat$campaignid <- as.factor(dat$campaignid)
 
 # Set predictor variables 
 pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
@@ -54,7 +55,7 @@ use.dat=as.data.frame(dat)
 use.dat$sample <- as.factor(use.dat$sample)
 str(use.dat)
 
-factor.vars=c("status")# Status as a Factor with two levels
+#factor.vars=c("")# Status as a Factor with two levels
 out.all=list()
 var.imp=list()
 
@@ -62,7 +63,7 @@ var.imp=list()
 for(i in 1:length(resp.vars)){
   use.dat=as.data.frame(dat[which(dat$scientific==resp.vars[i]),])
   Model1=gam(maxn~s(depth.multibeam,k=3,bs='cr') + 
-               s(site,bs='re'),
+               s(campaignid,bs='re'),
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -70,10 +71,10 @@ for(i in 1:length(resp.vars)){
                                factor.smooth.interactions = FALSE,
                                # smooth.smooth.interactions = c("depth"),
                                pred.vars.cont=pred.vars,
-                               pred.vars.fact=factor.vars,
+                               #pred.vars.fact=factor.vars,
                                #linear.vars="depth",
                                k=3,
-                               null.terms="s(site ,bs='re')"
+                               null.terms="s(campaignid ,bs='re')"
   )
   out.list=fit.model.set(model.set,
                          max.models=600,

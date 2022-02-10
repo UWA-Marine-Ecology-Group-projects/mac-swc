@@ -19,7 +19,7 @@ library(spatstat)
 rm(list = ls())
 
 # Load data ----
-study <- "2020_south-west_stereo-BRUVs-BOSS"
+study <- "2020-2021_south-west_BOSS-BRUV"
 
 #set working directory
 working.dir <- getwd()
@@ -64,7 +64,7 @@ dfs <- as.data.frame(dfs) %>%
   glimpse()
 
 # save covariates ----
-write.csv(dfs, "data/tidy/2020_south-west_stereo-BRUVs-BOSS.multibeam-derivatives.csv",row.names = F)           #Claude changed name
+write.csv(dfs, "data/tidy/2020-2021_south-west_BOSS-BRUV.multibeam-derivatives.csv",row.names = F)           #Claude changed name
 
 # ###       ###       ###       ###
 # 

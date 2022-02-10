@@ -1,0 +1,10 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth.multibeam","detrended","cumsum.wi"
+"greater than legal size.sd.relief","sd.relief",445.979768827161,456.633978033789,0.00105,NA,2,0,0,1.922,0.178,0.175,0,1,0,0,0,0,0,0,0,0.178
+"greater than legal size.depth.multibeam","depth.multibeam",446.576963847454,457.231661444863,0.0043,NA,2,0,0.597,2.519,0.132,0.13,0,0,0,0,0,0,0,1,0,0.31
+"greater than legal size.null","null",446.665835484099,454.712320343132,0,NA,1,0,0.686,0,0.126,0.458,0,0,0,0,0,0,0,0,0,0.436
+"greater than legal size.distance.to.ramp","distance.to.ramp",446.809650113453,458.225100266694,0.00424,NA,2.16,0,0.83,3.513,0.118,0.079,0,0,0,0,1,0,0,0,0,0.554
+"greater than legal size.distance.to.ramp+sd.relief","distance.to.ramp+sd.relief",446.87052234935,461.872496011311,0.01049,NA,3.41,0,0.891,7.16,0.114,0.013,0,1,0,0,1,0,0,0,0,0.668
+"greater than legal size.broad.macroalgae","broad.macroalgae",446.895885291903,457.550469825178,0.00511,NA,2,0,0.916,2.838,0.113,0.111,0,0,1,0,0,0,0,0,0,0.781
+"greater than legal size.depth.multibeam+sd.relief","depth.multibeam+sd.relief",447.449656098452,462.321079729781,0.01255,NA,3.41,0,1.47,7.609,0.085,0.01,0,1,0,0,0,0,0,1,0,0.866
+"greater than legal size.broad.macroalgae+sd.relief","broad.macroalgae+sd.relief",447.658067885325,462.45684849667,0.01134,NA,3.38,0,1.678,7.745,0.077,0.01,0,1,1,0,0,0,0,0,0,0.943
+"smaller than legal size","roughness+sd.relief+tpi",372.194082669693,389.966076726777,0.06733,NA,4.57,0,0,0,0.439,0.283,0,1,0,0,0,1,1,0,0,0.439
