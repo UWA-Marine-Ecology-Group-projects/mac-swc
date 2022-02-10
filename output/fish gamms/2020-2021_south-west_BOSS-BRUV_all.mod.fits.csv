@@ -1,5 +1,6 @@
 "","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","detrended","tpi","roughness","depth","status","cumsum.wi"
-"total.abundance.detrended+mean.relief","detrended+mean.relief",5466.85392321845,5501.29994368781,0.07866,NA,5.79,0,0,0.808,0.332,0.253,1,0,0,0,1,0,0,0,0,0.332
-"total.abundance.detrended+mean.relief+tpi","detrended+mean.relief+tpi",5467.16627289031,5505.8030283664,0.08028,NA,6.73,0,0.312,5.311,0.284,0.027,1,0,0,0,1,1,0,0,0,0.616
-"total.abundance.detrended+mean.relief+status","detrended+mean.relief+status",5468.0088568909,5506.76271115671,0.07957,NA,6.8,0,1.155,6.271,0.186,0.016,1,0,0,0,1,0,0,0,1,0.802
-"species.richness","broad.reef+roughness+status",2439.24649418545,2477.8600589865,0.67037,NA,6.71,0,0,0,0.993,0.999,0,0,1,0,0,0,1,0,1,0.993
+"total.abundance.detrended+mean.relief+status","detrended+mean.relief+status",5458.27386049865,5505.19889289381,0.0942,NA,8.35,0,0,6.162,0.259,0.024,1,0,0,0,1,0,0,0,1,0.259
+"total.abundance.detrended+mean.relief","detrended+mean.relief",5458.60724842883,5501.23460968361,0.09254,NA,7.34,0,0.333,2.198,0.219,0.171,1,0,0,0,1,0,0,0,0,0.478
+"total.abundance.detrended+mean.relief+tpi","detrended+mean.relief+tpi",5458.75116288129,5505.66625745933,0.0943,NA,8.33,0,0.477,6.63,0.204,0.019,1,0,0,0,1,1,0,0,0,0.682
+"total.abundance.mean.relief+roughness+tpi","mean.relief+roughness+tpi",5459.359567627,5502.15267628051,0.09728,NA,7.51,0,1.086,3.116,0.151,0.108,1,0,0,0,0,1,1,0,0,0.833
+"species.richness","broad.reef+roughness+tpi",2429.45065642187,2479.970203143,0.66739,NA,9.23,0,0,0,0.987,0.937,0,0,1,0,0,1,1,0,0,0.987

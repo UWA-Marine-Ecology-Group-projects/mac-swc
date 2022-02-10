@@ -34,6 +34,9 @@ dat <- readRDS('data/tidy/dat.maxn.full.rds')%>%
   dplyr::filter(scientific%in%c("total.abundance","species.richness"))%>%
   # dplyr::filter(method%in%"BOSS")%>%
   glimpse()
+str(dat)
+dat$campaignid <- as.factor(dat$campaignid)
+dat$scientific <- as.factor(dat$scientific)
 unique(dat$scientific)
 
 # Set predictor variables 
@@ -70,7 +73,7 @@ for(i in 1:length(resp.vars)){
   use.dat$scientific <- as.factor(use.dat$scientific)
   use.dat$roughness <- as.numeric(use.dat$roughness)
   use.dat$site <- as.factor(use.dat$site)
-  Model1=gam(maxn~s(depth,k=3,bs='cr')+method+s(site ,bs='re'),                                  #
+  Model1=gam(maxn~s(depth,k=3,bs='cr')+s(campaignid ,bs='re'),                                  #
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -82,7 +85,7 @@ for(i in 1:length(resp.vars)){
                                #cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
-                               null.terms="s(site ,bs='re')+method"                              #takes a very long time to run with the random effect 
+                               null.terms="s(campaignid ,bs='re')"                          
   )
   out.list=fit.model.set(model.set,
                          max.models=600,

@@ -288,7 +288,7 @@ pred.vars=c("mean.relief","detrended","sd.relief","broad.macroalgae","broad.reef
 # Remove any unused columns from the dataset
 dat.maxn <- combined.maxn %>%
   dplyr::filter(is.na(state.zone))%>%
-  dplyr::select(sample, method,status, site, planned.or.exploratory, scientific, maxn,
+  dplyr::select(campaignid,sample, method,status, site, planned.or.exploratory, scientific, maxn,
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
                 "distance.to.ramp", "tpi","roughness","depth","detrended") %>%
   dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
@@ -309,6 +309,7 @@ length <-read.csv("data/tidy/2020_south-west_stereo-BRUVs.complete.length.csv") 
 
 metadata.bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::filter(successful.length%in%"Yes")%>%
+  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   glimpse()
 
 length(unique(length$sample)) #277
@@ -414,7 +415,6 @@ sublegal <- fished.species %>%
 combined.length <- bind_rows(legal, sublegal) # removed all other taxa
 
 unique(combined.length$scientific)
-
 
 complete.length <- combined.length %>%
   #dplyr::mutate(id=paste(campaignid,sample,sep="."))%>%

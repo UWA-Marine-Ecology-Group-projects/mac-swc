@@ -1,4 +1,0 @@
-"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","detrended","tpi","roughness","depth","status","cumsum.wi"
-"total.abundance.mean.relief","mean.relief",5327.08832543163,5993.97742342926,0.36115,NA,203.52,0,0,0,0.335,0.56,1,0,0,0,0,0,0,0,0,0.335
-"total.abundance.mean.relief+status","mean.relief+status",5327.64675098464,5997.26821420628,0.35684,NA,205.43,0,0.558,3.291,0.253,0.108,1,0,0,0,0,0,0,0,1,0.588
-"species.richness","broad.macroalgae+distance.to.ramp+status",2457.1518823111,2709.23472355802,0.69958,NA,56.9,0,0,0,1,0.872,0,1,0,1,0,0,0,0,1,1
