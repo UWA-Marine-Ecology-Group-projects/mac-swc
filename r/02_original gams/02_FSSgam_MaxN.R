@@ -74,7 +74,7 @@ for(i in 1:length(resp.vars)){
   use.dat$scientific <- as.factor(use.dat$scientific)
   use.dat$roughness <- as.numeric(use.dat$roughness)
   use.dat$site <- as.factor(use.dat$site)
-  Model1=gam(maxn~s(depth,k=3,bs='cr')+s(campaignid ,bs='re'),                                  #
+  Model1=gam(maxn~s(depth,k=3,bs='cr')+s(site ,bs='re')+method,                                  #
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -86,7 +86,7 @@ for(i in 1:length(resp.vars)){
                                #cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
-                               null.terms="s(campaignid ,bs='re')"                          
+                               null.terms="s(site ,bs='re')+method"                          
   )
   out.list=fit.model.set(model.set,
                          max.models=600,

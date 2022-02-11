@@ -59,7 +59,8 @@ var.imp=list()
 # Loop through the FSS function for each Taxa----
 for(i in 1:length(resp.vars)){
   use.dat=as.data.frame(dat[which(dat$scientific==resp.vars[i]),])
-  Model1=gam(number~s(depth,k=3,bs='cr'),                                       #
+  use.dat$site <- as.factor(use.dat$site)
+  Model1=gam(number~s(depth,k=3,bs='cr')+s(site,bs='re'),                                       
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -71,7 +72,7 @@ for(i in 1:length(resp.vars)){
                                #cyclic.vars = cyclic.vars,
                                #linear.vars="depth",
                                k=3,
-                               null.terms=""                                    #s(site ,bs='re')
+                               null.terms="s(site ,bs='re')"                           
   )
   out.list=fit.model.set(model.set,
                          max.models=600,

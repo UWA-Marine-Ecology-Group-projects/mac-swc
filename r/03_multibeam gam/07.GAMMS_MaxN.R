@@ -62,8 +62,12 @@ var.imp=list()
 # Loop through the FSS function for each Taxa----
 for(i in 1:length(resp.vars)){
   use.dat=as.data.frame(dat[which(dat$scientific==resp.vars[i]),])
+  use.dat$sample <- as.factor(use.dat$sample)
+  use.dat$site <- as.factor(use.dat$site)
+  use.dat$method <- as.factor(use.dat$method)
+  use.dat$scientific <- as.factor(use.dat$scientific)
   Model1=gam(maxn~s(depth.multibeam,k=3,bs='cr') + 
-               s(campaignid,bs='re'),
+               s(site,bs='re')+method,
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -74,7 +78,7 @@ for(i in 1:length(resp.vars)){
                                #pred.vars.fact=factor.vars,
                                #linear.vars="depth",
                                k=3,
-                               null.terms="s(campaignid ,bs='re')"
+                               null.terms="s(site ,bs='re')+method"
   )
   out.list=fit.model.set(model.set,
                          max.models=600,
