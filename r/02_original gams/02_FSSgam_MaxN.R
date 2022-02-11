@@ -32,6 +32,7 @@ setwd(working.dir)
 # Bring in the data----
 dat <- readRDS('data/tidy/dat.maxn.full.rds')%>%
   dplyr::filter(scientific%in%c("total.abundance","species.richness"))%>%
+  dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
   # dplyr::filter(method%in%"BOSS")%>%
   glimpse()
 str(dat)

@@ -68,8 +68,15 @@ metadata <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv") %>
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
   dplyr::glimpse()
 
-#have a look at points in state waters
-ggplot()+geom_point(data=metadata,aes(x=longitude,y=latitude,color = state.zone))+theme_classic()
+#work out which points are on the sea cube
+metadata%>%
+  dplyr::filter(sample%in%c("S1","S2","S3","343","IO343"))%>%
+  ggplot()+
+  geom_point(aes(x=longitude,y=latitude))+theme_classic()
+
+seacube <- metadata %>%
+  filter(between(longitude,114.6,114.68))%>%
+  filter(between(latitude,-34.104,-34.101))
 #need to yeet all those in state water sanctuary zones
 
 # Bathymetry derivatives ----

@@ -27,6 +27,7 @@ setwd(working.dir)
 
 dat <- readRDS('data/tidy/dat.length.full.rds')%>%
   dplyr::filter(scientific%in%c("greater than legal size","smaller than legal size"))%>%
+  dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
   glimpse()
 unique(dat$scientific)
 # Set predictor variables 

@@ -1,6 +1,7 @@
 "","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","detrended","tpi","roughness","depth","status","cumsum.wi"
-"total.abundance.detrended+mean.relief+status","detrended+mean.relief+status",5458.27386049865,5505.19889289381,0.0942,NA,8.35,0,0,6.162,0.259,0.024,1,0,0,0,1,0,0,0,1,0.259
-"total.abundance.detrended+mean.relief","detrended+mean.relief",5458.60724842883,5501.23460968361,0.09254,NA,7.34,0,0.333,2.198,0.219,0.171,1,0,0,0,1,0,0,0,0,0.478
-"total.abundance.detrended+mean.relief+tpi","detrended+mean.relief+tpi",5458.75116288129,5505.66625745933,0.0943,NA,8.33,0,0.477,6.63,0.204,0.019,1,0,0,0,1,1,0,0,0,0.682
-"total.abundance.mean.relief+roughness+tpi","mean.relief+roughness+tpi",5459.359567627,5502.15267628051,0.09728,NA,7.51,0,1.086,3.116,0.151,0.108,1,0,0,0,0,1,1,0,0,0.833
-"species.richness","broad.reef+roughness+tpi",2429.45065642187,2479.970203143,0.66739,NA,9.23,0,0,0,0.987,0.937,0,0,1,0,0,1,1,0,0,0.987
+"total.abundance.detrended+mean.relief+status","detrended+mean.relief+status",5374.88893614802,5421.90185586718,0.09855,NA,8.48,0,0,3.294,0.44,0.083,1,0,0,0,1,0,0,0,1,0.44
+"total.abundance.detrended+mean.relief","detrended+mean.relief",5375.85778980886,5418.60774218333,0.09688,NA,7.48,0,0.969,0,0.271,0.433,1,0,0,0,1,0,0,0,0,0.711
+"total.abundance.detrended+mean.relief+tpi","detrended+mean.relief+tpi",5376.19311631614,5423.21697903526,0.0984,NA,8.48,0,1.304,4.609,0.229,0.043,1,0,0,0,1,1,0,0,0,0.94
+"species.richness.broad.reef+roughness+status","broad.reef+roughness+status",2316.73870284129,2363.69680168844,0.67675,NA,8.64,0,0,3.664,0.41,0.135,0,0,1,0,0,0,1,0,1,0.41
+"species.richness.broad.reef+roughness","broad.reef+roughness",2317.27019381802,2360.03321149995,0.67411,NA,7.68,0,0.531,0,0.314,0.842,0,0,1,0,0,0,1,0,0,0.724
+"species.richness.broad.reef+roughness+tpi","broad.reef+roughness+tpi",2317.54602972919,2367.81788760536,0.67506,NA,9.18,0,0.807,7.785,0.274,0.017,0,0,1,0,0,1,1,0,0,0.998
