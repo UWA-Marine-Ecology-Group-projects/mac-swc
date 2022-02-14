@@ -32,7 +32,7 @@ fbath_t <- projectRaster(fbath, crs = sppcrs)
 
 # calculate terrain on fine bathy
 preds <- terrain(fbath_t, neighbors = 8,
-                 opt = c("slope", "aspect", "TPI", "TRI", "roughness"))
+                 opt = c("TPI", "roughness"))
 preds <- stack(fbath_t, preds)
 plot(preds)
 
@@ -41,9 +41,14 @@ zstar <- st_as_stars(fbath_t)
 detre <- detrend(zstar, parallel = 8)
 detre <- as(object = detre, Class = "Raster")
 names(detre) <- c("detrended", "lineartrend")
-preds <- stack(preds, detre)
+preds <- stack(preds, detre[[1]])
 plot(preds)
+
+# write rasters
+saveRDS(preds, "data/spatial/250m_spatialcovariates_utm.rds")
+
 preds <- projectRaster(preds, crs = wgscrs)
+saveRDS(preds, "data/spatial/250m_spatialcovariates_wgs.rds")
 
 #load metadata to get lat longs
 df <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv")%>%
