@@ -15,7 +15,7 @@ library(ggplot2)
 library(cowplot)
 
 # Set the study name
-name <- '2020_south-west_stereo-BRUVs' # for the study
+name <- '2020-2021_south-west_BOSS-BRUV' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -23,7 +23,7 @@ setwd(working.dir)
 
 # custom plot of importance scores----
 # Load the importance score dataset produced above
-dat1 <-read.csv("output/multibeam fish gamms/2020_south-west_stereo-BRUVs_all.var.imp.csv")%>% #from local copy
+dat1 <-read.csv("output/multibeam fish gamms/2020-2021_south-west_BOSS-BRUV_all.var.imp.csv")%>% #from local copy
   dplyr::rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
@@ -71,11 +71,12 @@ dat.taxa.label<-dat%>%
   mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief","sd.relief",
                                                 "depth.multibeam","roughness","tpi","detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="tpi"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="total.abundance","X",label))%>%
+  mutate(label=ifelse(predictor=="depth.multibeam"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="species.richness","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="detrended"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
@@ -84,7 +85,7 @@ dat.taxa.label<-dat%>%
 gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=importance))+
   geom_tile(show.legend=T) +
   scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
-                       limits = c(-1, 1))+
+                       limits = c(-1.01, 1))+
   scale_y_discrete(labels=c("Smaller than legal size","Greater than legal size","Species richness","Total abundance"))+         #Tidy Taxa names
   scale_x_discrete(labels = c("Reef","Macroalgae","Mean relief","SD relief","Depth","Roughness","TPI","Detrended bathymetry","Distance to ramp","Status"))+   #Tidy predictor names
   xlab(NULL)+
@@ -97,3 +98,25 @@ gg.importance.scores
 
 #save output - changed dimensions for larger text in report
 save_plot("plots/multibeam gamms/swc_fish-importance-full.png", gg.importance.scores,base_height = 5,base_width = 7)
+
+# library(mgcv)
+# dat1 <- readRDS('data/tidy/dat.maxn.multibeam.rds')%>%
+#   dplyr::filter(scientific%in%c("total.abundance","species.richness"))%>%
+#   dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
+#   dplyr::mutate(method=as.factor(method))%>%
+#   # dplyr::filter(method%in%"BOSS")%>%
+#   glimpse()
+# 
+# dat2 <- readRDS('data/tidy/dat.length.multibeam.rds')%>%
+#   dplyr::filter(scientific%in%c("greater than legal size","smaller than legal size"))%>%
+#   dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
+#   dplyr::mutate(status=as.factor(status),scientific=as.factor(scientific),site=as.factor(site),sample=as.factor(sample))%>%
+#   glimpse()
+# str(dat2)
+# 
+# dat.tot <- dat1 %>% filter(scientific=="total.abundance")
+# dat.leg <- dat2 %>% filter(scientific=="greater than legal size")
+# dat.sub <- dat2 %>% filter(scientific=="smaller than legal size")
+# 
+# mod=gam(number ~ s(distance.to.ramp,k=3,bs = "cr") + s(site,bs="re"), family=tw, data=dat.sub) #s(mean.relief,k=3,bs = "cr")
+# plot(mod,pages=1,all.terms = T)

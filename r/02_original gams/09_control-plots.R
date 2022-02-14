@@ -20,6 +20,7 @@ library(rgdal)
 library(raster)
 library(png)
 library(cowplot)
+library(patchwork)
 
 #standard error
 se <- function(x) sd(x)/sqrt(length(x))
@@ -98,6 +99,7 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 1.5),fill = "#ffeec7")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 1.5, ymax = 2),fill = "#c7d6ff")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 2, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 0.25),fill = "#ffc7c7")+
   geom_errorbar(data = dat.cp,aes(ymin=legal-legal.se,ymax= legal+legal.se), width = 0.2,position=position_dodge(width=0.3))+
   geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
   theme_classic()+
@@ -110,7 +112,6 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
 gg.l
 
 # library(ggpubr)
-library(patchwork)
 grid <- gg.sr/gg.l+plot_layout(guides = 'collect')
 grid
 
