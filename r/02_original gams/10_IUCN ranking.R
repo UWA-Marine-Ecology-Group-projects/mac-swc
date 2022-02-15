@@ -64,10 +64,19 @@ species.list <- as.data.frame(unique(maxn$scientific)) %>%
 
 spp.species <- maxn %>%
   dplyr::filter(species%in%c("spp","sp","sp10"))%>%
-  select(scientific)%>%
+  dplyr::select(scientific)%>%
   distinct()%>%
   glimpse()
 
+all.species <- species.list %>%
+  left_join(master)%>%
+  dplyr::select(scientific,australian.common.name, fishing.type,iucn.ranking)%>%
+  dplyr::filter(!str_detect(scientific,"spp|sp10|sp|sp1|sus"))%>%
+  glimpse()
+
+write.csv(all.species, file = "plots/original gamms/swc.species.list.csv", row.names = F)
+
+#fished specis
 fished.species <- species.list %>%
   left_join(master)%>%
     dplyr::mutate(fishing.type = ifelse(scientific %in%c("Carangidae Pseudocaranx spp",
