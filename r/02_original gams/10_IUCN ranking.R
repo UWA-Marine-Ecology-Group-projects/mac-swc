@@ -1,5 +1,10 @@
-#Claude has edited this and it is pretty poxy
-#need to fix up
+###
+# Project: mac - South-west Corner
+# Data:    BOSS & BRUV fish full sample extent
+# Task:    Making tables for target spp, iucn redlist spp and full spp list
+# author:  Claude
+# date:    Nov-Dec 2021
+##
 
 # Set directories----
 rm(list=ls())

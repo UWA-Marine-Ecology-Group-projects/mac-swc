@@ -16,22 +16,22 @@ working.dir <- getwd()
 setwd(working.dir)
 
 # Habitat ----
-habitat.2020.10.bruv <- read.csv("data/tidy/2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
+habitat.2020.10.bruv <- read.csv("data/staging/2020-10_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,habitat.backwards.image.saved,fov.total.points.annotated)) %>%
   dplyr::mutate(campaignid = "2020-10_south-west_stereo-BRUVs",method = "BRUV") %>%
   dplyr::glimpse()
 
-habitat.2020.10.boss <- read.csv("data/tidy/2020-10_south-west_BOSS_random-points_broad.habitat.csv") %>%
+habitat.2020.10.boss <- read.csv("data/staging/2020-10_south-west_BOSS_random-points_broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,time.bottom,site,location,successful.count,fov.total.points.annotated,depth)) %>%
   dplyr::mutate(campaignid = "2020-10_south-west_BOSS",method = "BOSS") %>%
   dplyr::glimpse()
 
-habitat.2020.06 <- read.csv("data/tidy/2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
+habitat.2020.06 <- read.csv("data/staging/2020-06_south-west_stereo-BRUVS_random-points_broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,time,site,location,successful.count,fov.total.points.annotated)) %>%
   dplyr::mutate(campaignid = "2020-06_south-west_stereo-BRUVs",method = "BRUV") %>%
   dplyr::glimpse()
 
-habitat.2021.03 <- read.csv("data/tidy/2021-03_West-Coast_BOSS._broad.habitat.csv") %>%
+habitat.2021.03 <- read.csv("data/staging/2021-03_West-Coast_BOSS._broad.habitat.csv") %>%
   dplyr::select(-c(latitude,longitude,date,location,depth)) %>%
   dplyr::mutate(campaignid = "2021-03_West-Coast_BOSS",method = "BOSS") %>%
   ga.clean.names()%>%
@@ -64,20 +64,20 @@ habitat <-bind_rows(habitat.2020.06, habitat.2020.10.bruv,habitat.2020.10.boss,h
   dplyr::mutate(broad.reef = broad.bryozoa + broad.consolidated + broad.hydroids + broad.macroalgae + broad.octocoral.black + 
                   broad.seagrasses + broad.sponges + broad.stony.corals + broad.crinoids + broad.ascidians + broad.invertebrate.complex +
                   broad.true.anemones) %>%
-  dplyr::mutate(broad.ascidians = broad.ascidians/broad.total.points.annotated,
-                broad.bryozoa = broad.bryozoa/broad.total.points.annotated,
-                broad.consolidated = broad.consolidated/broad.total.points.annotated,
-                broad.crinoids = broad.crinoids/broad.total.points.annotated,
-                broad.hydroids = broad.hydroids/broad.total.points.annotated,
-                broad.invertebrate.complex = broad.invertebrate.complex/broad.total.points.annotated,
-                broad.macroalgae = broad.macroalgae/broad.total.points.annotated,
-                broad.octocoral.black = broad.octocoral.black/broad.total.points.annotated,
-                broad.reef = broad.reef/broad.total.points.annotated,
-                broad.seagrasses = broad.seagrasses/broad.total.points.annotated,
-                broad.sponges = broad.sponges/broad.total.points.annotated,
-                broad.stony.corals = broad.stony.corals/broad.total.points.annotated,
-                broad.true.anemones = broad.true.anemones/broad.total.points.annotated,
-                broad.unconsolidated = broad.unconsolidated/broad.total.points.annotated)%>%
+  # dplyr::mutate(broad.ascidians = broad.ascidians/broad.total.points.annotated,
+  #               broad.bryozoa = broad.bryozoa/broad.total.points.annotated,
+  #               broad.consolidated = broad.consolidated/broad.total.points.annotated,
+  #               broad.crinoids = broad.crinoids/broad.total.points.annotated,
+  #               broad.hydroids = broad.hydroids/broad.total.points.annotated,
+  #               broad.invertebrate.complex = broad.invertebrate.complex/broad.total.points.annotated,
+  #               broad.macroalgae = broad.macroalgae/broad.total.points.annotated,
+  #               broad.octocoral.black = broad.octocoral.black/broad.total.points.annotated,
+  #               broad.reef = broad.reef/broad.total.points.annotated,
+  #               broad.seagrasses = broad.seagrasses/broad.total.points.annotated,
+  #               broad.sponges = broad.sponges/broad.total.points.annotated,
+  #               broad.stony.corals = broad.stony.corals/broad.total.points.annotated,
+  #               broad.true.anemones = broad.true.anemones/broad.total.points.annotated,
+  #               broad.unconsolidated = broad.unconsolidated/broad.total.points.annotated)%>%
   dplyr::select(order(colnames(.))) %>%
   dplyr::select(campaignid,sample,everything()) %>% # re-ordering hab columns 
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
@@ -87,7 +87,7 @@ habitat <-bind_rows(habitat.2020.06, habitat.2020.10.bruv,habitat.2020.10.boss,h
 #bring in metadata to join lat longs for Kingsley
 # Metadata ----
 #bruv
-metadata.bruv <- read.csv("data/tidy/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
+metadata.bruv <- read.csv("data/staging/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::mutate(status = as.factor(status)) %>%
   dplyr::mutate(sample = as.factor(sample)) %>%
   dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
