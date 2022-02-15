@@ -15,11 +15,9 @@ name <- '2020-2021_south-west_BOSS-BRUV' # for the study
 # Libraries required
 library(GlobalArchive)
 library(tidyr)
-library(plyr)
 library(dplyr)
 library(ggplot2)
 library(stringr)
-library(plyr)
 library(ggmap)
 library(rgdal)
 library(raster)
@@ -78,53 +76,45 @@ bar<-ggplot(maxn.10, aes(x=reorder(scientific,maxn), y=maxn)) +
   theme_collapse
 bar
 
-#plot deep fish
-#load deep fish
-#1 Chromis fumea
-c.f <- readPNG("data/images/Pomacentridae-Dark.png")
-c.f <- as.raster(c.f)
+#load fish pictures
+#1 Coris auricularis
+c.a <- readPNG("data/images/Coris auricularis-3cmL.png")
+c.a <- as.raster(c.a)
 
-#2 Pentapodus porosus
-p.p <- readPNG("data/images/Pentapodus porosus-3cmL.png")
-p.p <- as.raster(p.p)
+#2 Parapricanthus elongatus - put in pempheris
+p.e <- readPNG("data/images/Pempheris klunzingeri-3cmL.png")
+p.e <- as.raster(p.e)
 
-#3 Pomacentrus coelestis
-p.c <- readPNG("data/images/Pomacentrus coelestis-3cmL.png")
-p.c <- as.raster(p.c)
+#3 Neatypus obliquus
+n.o <- readPNG("data/images/Neatypus obliquus-3cmL.png")
+n.o <- as.raster(n.o)
 
-#4 Cirrhilabrus temminckii
-c.t <- readPNG("data/images/Labridae-Dark.png")
-c.t <- as.raster(c.t)
+#4 Centroberyx sp1 (lineatus/australis) - no pic
 
-#5 Pristotis obtusirostris
-p.o <- readPNG("data/images/Pomacentridae-Dark.png")
-p.o <- as.raster(p.o)
+#5 Caesioperca spp - no pic
 
-#6 Carangoides gymnostethus 
-c.g <- readPNG("data/images/Carangoides gymnostethus 3cm.png")
-c.g <- as.raster(c.g)
+#6 Chromis klunzingeri - no pic
 
-#7 Lethrinus ravus
-l.r <- readPNG("data/images/Lethrinidae-Dark.png")
-l.r <- as.raster(l.r)
+#7 Pseudolabrus biserialis
+p.b <- readPNG("data/images/Pseudolabrus biserialis-3cm.png")
+p.b <- as.raster(p.b)
 
-#8 Leptojulis cyanopleura
-l.c <- readPNG("data/images/Labridae-Dark.png")
-l.c <- as.raster(l.c)
+#8 Ophthalmolepis lineolatus
+o.l <- readPNG("data/images/Opthalmolepis lineolatus-3cm.png")
+o.l <- as.raster(o.l)
 
-#9 Nemipterus spp
-n.spp <- readPNG("data/images/Nemipterus_bathybius_nb_GIBBONS.png")
-n.spp <- as.raster(n.spp)
+#9 Nelusetta ayraud
+n.a <- readPNG("data/images/Nelusetta ayraudi-3cm.png")
+n.a <- as.raster(n.a)
 
-#10 Alepes vari
-a.v <- readPNG("data/images/Pseudocaranx dentex-3cm.png")
-a.v <- as.raster(a.v)
+#10 Callanthias australis - no pic
+
 
 #plot final bar plot
-bar.deep.top.10<-ggplot(maxn.deep.10%>%mutate(scientific=str_replace_all(.$scientific,          
-  c("gymnostethus"="gymnostethus*","ravus"="ravus*"))), aes(x=reorder(scientific,maxn), y=maxn)) +   
+bar.top.10<-ggplot(maxn.10%>%mutate(scientific=str_replace_all(.$scientific,          
+  c("Centroberyx sp1"="Centroberyx sp1*"))), aes(x=reorder(scientific,maxn), y=maxn)) +   
   geom_bar(stat="identity",colour="black",fill="lightgrey",position=position_dodge())+
-  ylim (0, 600)+
+  ylim (0, 3700)+
   coord_flip()+
   xlab("Species")+
   ylab(expression(Overall~abundance~(Sigma~MaxN)))+
@@ -132,20 +122,20 @@ bar.deep.top.10<-ggplot(maxn.deep.10%>%mutate(scientific=str_replace_all(.$scien
   theme(axis.text.y = element_text(face="italic"))+
   theme_collapse+
   theme.larger.text+
-  annotation_raster(c.f, xmin=9.75,xmax=10.25,ymin=530, ymax=600)+              #1
-  annotation_raster(p.p, xmin=8.8,xmax=9.2,ymin=450, ymax=540)+                 #2
-  annotation_raster(p.c, xmin=7.75, xmax=8.25, ymin=410, ymax=480)+             #3
-  annotation_raster(c.t, xmin=6.775,xmax=7.275,ymin=395, ymax=520)+             #4
-  annotation_raster(p.o, xmin=5.75,xmax=6.25,ymin=340, ymax=410)+               #5
-  annotation_raster(c.g, xmin=4.7,xmax=5.3,ymin=310, ymax=420)+                 #6
-  annotation_raster(l.r, xmin=3.7,xmax=4.3,ymin=275, ymax=390)+                 #7
-  annotation_raster(l.c, xmin=2.775,xmax=3.275,ymin=230, ymax=355)+             #8
-  annotation_raster(n.spp, xmin=1.8,xmax=2.2,ymin=230, ymax=320)+               #9
-  annotation_raster(a.v, xmin=0.75,xmax=1.25,ymin=220, ymax=320)+               #10
-  ggtitle("Deep assemblage (20-65m)") +
-  theme(plot.title = element_text(hjust = 0))
-bar.deep.top.10
+  annotation_raster(c.a, xmin=9.75,xmax=10.25,ymin=3300, ymax=3850)+              #1
+  annotation_raster(p.e, xmin=8.8,xmax=9.2,ymin=3100, ymax=3400)+                 #2
+  annotation_raster(n.o, xmin=7.75, xmax=8.25, ymin=2350, ymax=2800)+             #3
+  # annotation_raster(c.t, xmin=6.775,xmax=7.275,ymin=395, ymax=520)+             #4
+  # annotation_raster(p.o, xmin=5.75,xmax=6.25,ymin=340, ymax=410)+               #5
+  # annotation_raster(c.g, xmin=4.7,xmax=5.3,ymin=310, ymax=420)+                 #6
+  annotation_raster(p.b, xmin=3.8,xmax=4.2,ymin=1700, ymax=2200)+                 #7
+  annotation_raster(o.l, xmin=2.7,xmax=3.3,ymin=1350, ymax=2100)+                 #8
+  annotation_raster(n.a, xmin=1.5,xmax=2.5,ymin=750, ymax=1800)                   #9
+  # annotation_raster(a.v, xmin=0.75,xmax=1.25,ymin=220, ymax=320)+                #10
+  # ggtitle("10 most abundant species") +
+  # theme(plot.title = element_text(hjust = 0))
+bar.top.10
 
 #save out plot
-ggsave("plots/stacked.bar.plot.deep.png",bar.deep.top.10,dpi=600,width=6.0)
+ggsave("plots/original gamms/abundant.fish.bar.png",bar.top.10,dpi=600,width=6.0)
 
