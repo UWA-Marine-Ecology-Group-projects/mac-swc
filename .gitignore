@@ -1,4 +1,8 @@
 data/tidy/Archive/
+data/
+plots/
+output/
+r/
 
 # History files
 .Rhistory
