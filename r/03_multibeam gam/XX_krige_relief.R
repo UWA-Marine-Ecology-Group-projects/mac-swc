@@ -31,8 +31,9 @@ head(habi)
 habisp <- SpatialPointsDataFrame(coords = habi[6:5], data = habi, 
                                  proj4string = wgscrs)
 habisp <- spTransform(habisp, sppcrs)
-habisp <- cbind(habisp, data.frame(extract(preds, habisp)))
+habisp <- cbind(habisp, data.frame(raster::extract(preds, habisp)))
 habi <- as.data.frame(habisp, xy = T)
+saveRDS(habi, "data/tidy/habitat_spatialcovs.rds")
 
 # plot relationships quickly
 ggplot(habi, aes(depth, mean.relief)) +     geom_point(alpha = 0.2) + geom_smooth()
@@ -40,11 +41,11 @@ ggplot(habi, aes(detrended, mean.relief)) + geom_point(alpha = 0.2) + geom_smoot
 ggplot(habi, aes(roughness, mean.relief)) + geom_point(alpha = 0.2) + geom_smooth()
 
 # Build with all data, or set aside test/train data
-# alldat <- testdat
-# OR set aside train/test data
-set.seed(42)
-testd  <- habi[sample(nrow(habi), nrow(habi)/5), ]
-traind <- habi[!habi$sample %in% testd$sample , ]
+traind <- habi
+# # OR set aside train/test data
+# set.seed(42)
+# testd  <- habi[sample(nrow(habi), nrow(habi)/5), ]
+# traind <- habi[!habi$sample %in% testd$sample , ]
 
 # build inla mesh from spatial layout of sites - the constants need some tuning
 sitecoords     <- traind[11:12]
@@ -208,6 +209,7 @@ ggplot(pcelldf, aes(x, y)) +
        fill = "p. relief") +
   theme_minimal()
 
+## if running on a k-fold subset (see lines 50-51)
 # perform quick cross-validation (single fold with 20% of data)
 testsp <- SpatialPointsDataFrame(coords = testd[11:12], data = testd)
 testd$predicted <- extract(prelief[[2]], testsp)
