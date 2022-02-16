@@ -15,7 +15,7 @@ library(mgcv)
 # library(MuMIn)
 # library(car)
 # library(doBy)
-# library(gplots)
+library(gplots)
 library(RColorBrewer)
 library(doParallel) #this can removed?
 library(doSNOW)
