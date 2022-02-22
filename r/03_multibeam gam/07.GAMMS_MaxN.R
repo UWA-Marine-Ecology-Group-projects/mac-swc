@@ -33,8 +33,13 @@ dat <- readRDS('data/tidy/dat.maxn.multibeam.rds')%>%
   glimpse()
 dat$campaignid <- as.factor(dat$campaignid)
 
+names(dat)
+test <- dat %>%
+  group_by(campaignid,sample)%>%
+  dplyr::summarise(n=n())
+
 # Set predictor variables 
-pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
+pred.vars=c("mean.relief","broad.macroalgae","broad.reef",
             "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")
 
 unique.vars=unique(as.character(dat$scientific))
@@ -82,7 +87,7 @@ for(i in 1:length(resp.vars)){
   )
   out.list=fit.model.set(model.set,
                          max.models=600,
-                         parallel=T)
+                         parallel=T, n.cores = 8)
   names(out.list)
   
   out.list$failed.models # examine the list of failed models

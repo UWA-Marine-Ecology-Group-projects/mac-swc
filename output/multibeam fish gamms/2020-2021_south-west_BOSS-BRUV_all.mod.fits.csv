@@ -1,3 +1,3 @@
-"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth.multibeam","detrended","cumsum.wi"
-"total.abundance","mean.relief+sd.relief",3171.87021724217,3504.44374052952,0.35771,NA,140.18,0,0,0,0.859,0.751,1,1,0,0,0,0,0,0,0,0.859
-"species.richness","depth.multibeam+detrended+roughness",1563.81347865466,1635.80946790648,0.63518,NA,11.66,0,0,0,1,1,0,0,0,0,0,0,1,1,1,1
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth.multibeam","detrended","cumsum.wi"
+"total.abundance","mean.relief",3334.79164887072,3664.32493582245,0.39641,NA,145.59,0,0,0,0.834,0.511,1,0,0,0,0,0,0,0,0.834
+"species.richness","mean.relief",1921.1185550852,2251.98576902991,0.80177,NA,126.1,0,0,0,0.881,0.898,1,0,0,0,0,0,0,0,0.881

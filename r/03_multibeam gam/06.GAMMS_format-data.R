@@ -216,7 +216,6 @@ plot(dat.maxn$maxn)
 pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
             "distance.to.ramp","aspect", "tpi","roughness","depth.multibeam","detrended")
 
-
 # Remove any unused columns from the dataset
 dat.maxn <- dat.maxn %>%
   dplyr::mutate(broad.macroalgae=broad.macroalgae/broad.total.points.annotated)%>%
@@ -225,6 +224,10 @@ dat.maxn <- dat.maxn %>%
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
                 "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended",method) %>%
   as.data.frame()
+
+test <- dat.maxn %>%
+  dplyr::group_by(campaignid,sample)%>%
+  dplyr::summarise(n=n())
 
 saveRDS(dat.maxn, "data/tidy/dat.maxn.multibeam.rds")
 
@@ -392,9 +395,13 @@ pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
 dat.length <- complete.length %>%
   dplyr::mutate(broad.macroalgae=broad.macroalgae/broad.total.points.annotated)%>%
   dplyr::mutate(broad.reef=broad.reef/broad.total.points.annotated)%>%
-  dplyr::select(sample, status, site, scientific, number,
+  dplyr::select(campaignid,sample, status, site, scientific, number,
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
                 "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")%>%
   as.data.frame()
+
+test <- dat.length %>%
+  dplyr::group_by(campaignid,sample)%>%
+  dplyr::summarise(n=n())
 
 saveRDS(dat.length, "data/tidy/dat.length.multibeam.rds")

@@ -1,8 +1,5 @@
-"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","sd.relief","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth.multibeam","detrended","cumsum.wi"
-"greater than legal size","detrended+mean.relief+roughness",481.917955587017,538.079989034598,0.51448,NA,21.93,0,0,0,0.889,0.853,1,0,0,0,0,0,1,0,1,0.889
-"smaller than legal size.broad.macroalgae+roughness+sd.relief","broad.macroalgae+roughness+sd.relief",382.032073123208,432.169682717247,0.15695,NA,17.57,0,0,3.37,0.103,0.06,0,1,1,0,0,0,1,0,0,0.103
-"smaller than legal size.roughness","roughness",382.034302961449,432.68723661918,0.17202,NA,17.91,0,0.002,3.888,0.102,0.046,0,0,0,0,0,0,1,0,0,0.205
-"smaller than legal size.null","null",382.358759940106,428.799475050293,0.17917,NA,16.53,0,0.327,0,0.087,0.325,0,0,0,0,0,0,0,0,0,0.292
-"smaller than legal size.distance.to.ramp+roughness+sd.relief","distance.to.ramp+roughness+sd.relief",382.846220994464,432.299724519143,0.15379,NA,16.74,0,0.814,3.5,0.068,0.056,0,1,0,0,1,0,1,0,0,0.36
-"smaller than legal size.broad.macroalgae+roughness","broad.macroalgae+roughness",383.366145457158,434.670780615711,0.16809,NA,18.35,0,1.334,5.871,0.053,0.017,0,0,1,0,0,0,1,0,0,0.413
-"smaller than legal size.broad.macroalgae","broad.macroalgae",384.01381727528,431.739375359649,0.17676,NA,17.16,0,1.982,2.94,0.038,0.075,0,0,1,0,0,0,0,0,0,0.451
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth.multibeam","detrended","cumsum.wi"
+"greater than legal size","broad.reef+detrended+tpi",177.086337949415,212.773205067377,0.54272,NA,17.5,0,0,0,0.755,0.729,0,0,1,0,1,0,0,1,0.755
+"smaller than legal size.roughness","roughness",343.351359570759,374.808624228785,0.18348,NA,13.49,0,0,0.396,0.244,0.256,0,0,0,0,0,1,0,0,0.244
+"smaller than legal size.null","null",344.413513430743,374.412381900606,0.19876,NA,12.14,0,1.062,0,0.143,0.312,0,0,0,0,0,0,0,0,0.387
+"smaller than legal size.roughness+tpi","roughness+tpi",344.64966194887,376.86644726534,0.18629,NA,14.05,0,1.298,2.454,0.127,0.091,0,0,0,0,1,1,0,0,0.514
