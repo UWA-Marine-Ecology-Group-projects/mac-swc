@@ -90,7 +90,7 @@ for(i in 1:length(resp.vars)){
   )
   out.list=fit.model.set(model.set,
                          max.models=600,
-                         parallel=T)
+                         parallel=T,n.cores = 16)
   names(out.list)
   
   out.list$failed.models # examine the list of failed models
