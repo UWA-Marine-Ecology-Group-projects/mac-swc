@@ -111,9 +111,9 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   Theme1
 gg.l
 
-# library(ggpubr)
 grid <- gg.sr/gg.l+plot_layout(guides = 'collect')
 grid
 
 #save out plot
+save_plot("plots/original gamms/control.plot.png",grid,base_height = 5,base_width = 7)
 ggsave("plots/original gamms/control.plot.png",grid,dpi=600,width=6.0)

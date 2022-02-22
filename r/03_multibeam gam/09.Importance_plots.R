@@ -68,16 +68,13 @@ legend_title<-"Importance"
 dat.taxa.label<-dat%>%
   mutate(label=NA)%>%
   mutate(resp.var=factor(resp.var, levels = c("smaller than legal size","greater than legal size","species.richness","total.abundance")))%>%
-  mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief","sd.relief",
+  mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief",
                                                 "depth.multibeam","roughness","tpi","detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="sd.relief"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="depth.multibeam"&resp.var=="species.richness","X",label))%>%
-  mutate(label=ifelse(predictor=="detrended"&resp.var=="species.richness","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="detrended"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="tpi"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
 
@@ -87,7 +84,7 @@ gg.importance.scores <- ggplot(dat.taxa.label, aes(x=predictor,y=resp.var,fill=i
   scale_fill_gradientn(legend_title,colours=c("white", re), na.value = "grey98",
                        limits = c(-1.01, 1))+
   scale_y_discrete(labels=c("Smaller than legal size","Greater than legal size","Species richness","Total abundance"))+         #Tidy Taxa names
-  scale_x_discrete(labels = c("Reef","Macroalgae","Mean relief","SD relief","Depth","Roughness","TPI","Detrended bathymetry","Distance to ramp","Status"))+   #Tidy predictor names
+  scale_x_discrete(labels = c("Reef","Macroalgae","Mean relief","Depth","Roughness","TPI","Detrended bathymetry","Distance to ramp","Status"))+   #Tidy predictor names
   xlab(NULL)+
   ylab(NULL)+
   theme_classic()+
