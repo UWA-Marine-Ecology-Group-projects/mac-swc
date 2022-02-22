@@ -1,6 +1,6 @@
 ###
 # Project: mac - South-west Corner
-# Data:    BRUVS, BOSS Habitat data
+# Data:    BRUVS, BOSS Habitat & fish data
 # Task:    Habitat-Fish modelling + Prediction
 # author:  Kingsley Griffin & Claude
 # date:    Feb 2022
@@ -30,9 +30,18 @@ coords <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv")%>%
   dplyr::select(campaignid,sample,latitude,longitude)%>%
   glimpse()
 
+coordinates(coords) <- c("longitude","latitude")
+proj4string(coords) <- CRS("+proj=longlat +datum=WGS84") 
+coords <- spTransform(coords, CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs"))
+coords <- as.data.frame(coords)
+
+
 fabund <- bind_rows(dat1,dat2) %>%                       # merged fish data used for fssgam script
   left_join(coords,by = c("campaignid","sample"))%>%
+  dplyr::mutate(latitude = as.numeric(latitude),longitude=as.numeric(longitude))%>%
+  dplyr::mutate(method = as.factor(method),site = as.factor(site))%>%
   glimpse()
+
 
 preds  <- readRDS("output/habitat_fssgam/broad_habitat_predictions.rds") # spatial and habitat covs
 
@@ -42,9 +51,9 @@ prel   <- readRDS("output/spatial/raster/predicted_relief_raster.rds")          
 predsp <- SpatialPointsDataFrame(coords = cbind(preds$x, preds$y), data = preds)
 predsp$relief <- extract(prel, predsp)
 preddf        <- as.data.frame(predsp, xy = TRUE, na.rm = TRUE) #
-preddf$reef   <- preddf$preef
-preddf$sand   <- preddf$psand
-preddf$macroalgae   <- preddf$pmacroalg
+preddf$broad.reef   <- preddf$preef
+preddf$broad.macroalgae   <- preddf$pmacroalg
+preddf$mean.relief   <- preddf$relief
 head(preddf)
 
 # reduce predictor space to fit survey area
@@ -56,24 +65,26 @@ unique(fabund$scientific)
 
 # use formula from top model from FSSGam model selection
 #total abundance
-m_totabund <- gam(number ~ s(relief, k = 3, bs = "cr")+method+s(site,k=3,bs="re"), 
+m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr"), 
                data = fabund%>%dplyr::filter(scientific%in%"total.abundance"), 
                method = "REML", family = tw())
 summary(m_totabund)
 
-m_richness <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr")+
-                    s(detrended, k = 3, bs = "cr")+status+method+s(site,k = 3, bs = "re"),
+#species richness
+m_richness <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr"),
                      data = fabund%>%dplyr::filter(scientific%in%"species.richness"), 
                      method = "REML", family = tw())
 summary(m_richness)
-# gam.check(m_targetabund)
-# vis.gam(m_targetabund)
-m_legal <- gam(number ~ s(detrended, k = 3, bs = "cr")+status,
+
+#greater than legal size
+m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
+                 s(roughness, k = 3, bs = "cr")+s(tpi, k = 3, bs = "cr"),
                   data = fabund%>%dplyr::filter(scientific%in%"greater than legal size"), 
                   method = "REML", family = tw())
 summary(m_legal)
 
-m_sublegal <- gam(number ~ s(tpi, k = 3, bs = "cr"),
+#smaller than legal size
+m_sublegal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr"),
                data = fabund%>%dplyr::filter(scientific%in%"smaller than legal size"), 
                method = "REML", family = tw())
 summary(m_sublegal)
@@ -85,7 +96,7 @@ preddf <- cbind(preddf,
                 "p_legal" = predict(m_legal, preddf, type = "response"),
                 "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
 
-prasts <- rasterFromXYZ(preddf[, c(1, 2, 28:35)], res = c(247, 277)) 
+prasts <- rasterFromXYZ(preddf[, c(1, 2, 20:23)], res = c(231, 277)) 
 plot(prasts)
 
 ###
@@ -93,16 +104,17 @@ plot(prasts)
 sprast <- mask(prasts, sbuff)
 plot(sprast)
 
-plot(sprast$p_totabund9)
-plot(sprast$p_richness9)
-plot(sprast$p_legal9)
+plot(sprast$p_totabund)
+plot(sprast$p_richness)
+plot(sprast$p_legal)
+plot(sprast$p_sublegal)
 
 # tidy and output data
 spreddf <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
 
-summary(spreddf)
+summary(spreddf) #legal targets have some outlier values
 
-saveRDS(preddf, "output/broad_fish_predictions.rds")
-saveRDS(spreddf, "output/site_fish_predictions.rds")
+saveRDS(preddf, "output/fish gamms/broad_fish_predictions.rds")
+saveRDS(spreddf, "output/fish gamms/site_fish_predictions.rds")
 
 
