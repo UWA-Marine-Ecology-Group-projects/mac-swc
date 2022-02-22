@@ -18,7 +18,6 @@ library(GlobalArchive)
 library(googlesheets4)
 library(stringr)
 library(data.table)
-library(googlesheets4)
 
 rm(list=ls())
 
@@ -90,7 +89,7 @@ for(i in 1:length(resp.vars)){
   )
   out.list=fit.model.set(model.set,
                          max.models=600,
-                         parallel=T,n.cores = 16)
+                         parallel=T,n.cores = 8)                                #change here for computer 
   names(out.list)
   
   out.list$failed.models # examine the list of failed models
