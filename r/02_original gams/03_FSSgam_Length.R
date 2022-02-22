@@ -29,9 +29,14 @@ dat <- readRDS('data/tidy/dat.length.full.rds')%>%
   dplyr::filter(scientific%in%c("greater than legal size","smaller than legal size"))%>%
   dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
   glimpse()
+
+test <- dat %>%
+  group_by(sample)%>%
+  dplyr::summarise(n=n())
+
 unique(dat$scientific)
 # Set predictor variables 
-pred.vars=c("mean.relief","sd.relief","detrended","broad.macroalgae","broad.reef",
+pred.vars=c("mean.relief","detrended","broad.macroalgae","broad.reef",
             "distance.to.ramp", "tpi","roughness","depth")
 
 unique.vars=unique(as.character(dat$scientific))
@@ -76,7 +81,7 @@ for(i in 1:length(resp.vars)){
   )
   out.list=fit.model.set(model.set,
                          max.models=600,
-                         parallel=T)
+                         parallel=T,n.cores = 8)                                #change for computer here
   names(out.list)
   
   out.list$failed.models # examine the list of failed models
