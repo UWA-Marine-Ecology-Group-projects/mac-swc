@@ -58,14 +58,13 @@ dat.length <- readRDS('data/tidy/dat.length.multibeam.rds')%>%
 # Manually make the most parsimonious GAM models for each taxa ----
 unique(dat$scientific)
 
-# MODEL Total abundance (mean.relief + sd.relief) ----
+# MODEL Total abundance (mean.relief) ----
 dat.tot <- dat %>% filter(scientific=="total.abundance")
 
-mod=gam(maxn~s(mean.relief,k=3,bs='cr') + s(sd.relief,k=3,bs='cr') + s(site,bs="re")+method, family=tw,data=dat.tot)
+mod=gam(maxn~s(mean.relief,k=3,bs='cr') + s(site,bs="re")+method, family=tw,data=dat.tot)
 
 # predict - mean relief ----
 testdata <- expand.grid(mean.relief=seq(min(dat$mean.relief),max(dat$mean.relief),length.out = 20),
-                        sd.relief=mean(mod$model$sd.relief),
                         site=(mod$model$site),
                         method=(mod$model$method))%>%
   distinct()%>%
@@ -78,20 +77,6 @@ predicts.tot.mean = testdata%>%data.frame(fits)%>%
   summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
-# predict - sd relief ----
-testdata <- expand.grid(sd.relief=seq(min(dat$sd.relief),max(dat$sd.relief),length.out = 20),
-                        mean.relief=mean(mod$model$mean.relief),
-                        site=(mod$model$site),
-                        method=(mod$model$method))%>%
-  distinct()%>%
-  glimpse()
-
-fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
-
-predicts.tot.sd = testdata%>%data.frame(fits)%>%
-  group_by(sd.relief)%>% #only change here
-  summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
-  ungroup()
 
 # PLOTS for Total abundance ----
 # mean relief ----
@@ -108,27 +93,13 @@ ggmod.total.mean <- ggplot() +
   theme(plot.title = element_text(hjust = 0))
 ggmod.total.mean
 
-# sd.relief ----
-ggmod.total.sd <- ggplot() +
-  ylab("")+
-  xlab("SD relief")+
-  geom_point(data=dat.tot,aes(x=sd.relief,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.tot.sd,aes(x=sd.relief,y=maxn),alpha=0.5)+
-  geom_line(data=predicts.tot.sd,aes(x=sd.relief,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.tot.sd,aes(x=sd.relief,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
-  theme_classic()+
-  Theme1
-ggmod.total.sd
-
-# MODEL Species richness (depth.multibeam + roughness + detrended) ----
+# MODEL Species richness (mean.relief) ----
 dat.sr <- dat %>% filter(scientific=="species.richness")
 
-mod=gam(maxn~s(depth.multibeam,k=3,bs='cr')+ s(roughness,k=3,bs='cr')+ s(detrended,k=3,bs='cr')+ s(site,bs="re")+method, family=tw,data=dat.sr)
+mod=gam(maxn~s(mean.relief,k=3,bs='cr')+ s(site,bs="re")+method, family=tw,data=dat.sr)
 
-# predict - depth ----
-testdata <- expand.grid(depth.multibeam=seq(min(dat$depth.multibeam),max(dat$depth.multibeam),length.out = 20),
-                        roughness=mean(mod$model$roughness),
-                        detrended=mean(mod$model$detrended),
+# predict - relief ----
+testdata <- expand.grid(mean.relief=seq(min(dat$mean.relief),max(dat$mean.relief),length.out = 20),
                         site=(mod$model$site),
                         method=(mod$model$method))%>%
   distinct()%>%
@@ -136,83 +107,27 @@ testdata <- expand.grid(depth.multibeam=seq(min(dat$depth.multibeam),max(dat$dep
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.sr.depth = testdata%>%data.frame(fits)%>%
-  group_by(depth.multibeam)%>% #only change here
-  summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
-  ungroup()
-
-# predict - roughness ----
-testdata <- expand.grid(roughness=seq(min(dat$roughness),max(dat$roughness),length.out = 20),
-                        depth.multibeam=mean(mod$model$depth.multibeam),
-                        detrended=mean(mod$model$detrended),
-                        site=(mod$model$site),
-                        method=(mod$model$method))%>%
-  distinct()%>%
-  glimpse()
-
-fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
-
-predicts.sr.roughness = testdata%>%data.frame(fits)%>%
-  group_by(roughness)%>% #only change here
-  summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
-  ungroup()
-
-# predict - detrended bathymetry ----
-testdata <- expand.grid(detrended=seq(min(dat$detrended),max(dat$detrended),length.out = 20),
-                        depth.multibeam=mean(mod$model$depth.multibeam),
-                        roughness=mean(mod$model$roughness),
-                        site=(mod$model$site),
-                        method=(mod$model$method))%>%
-  distinct()%>%
-  glimpse()
-
-fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
-
-predicts.sr.detrended = testdata%>%data.frame(fits)%>%
-  group_by(detrended)%>% #only change here
+predicts.sr.relief = testdata%>%data.frame(fits)%>%
+  group_by(mean.relief)%>% #only change here
   summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
 # PLOTS for Species richness ----
 # mean relief ----
-ggmod.sr.depth<- ggplot() +
+ggmod.sr.relief<- ggplot() +
   ylab("")+
-  xlab("Depth")+
-  geom_point(data=dat.sr,aes(x=depth.multibeam,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sr.depth,aes(x=depth.multibeam,y=maxn),alpha=0.5)+
-  geom_line(data=predicts.sr.depth,aes(x=depth.multibeam,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sr.depth,aes(x=depth.multibeam,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("Mean relief")+
+  geom_point(data=dat.sr,aes(x=mean.relief,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sr.relief,aes(x=mean.relief,y=maxn),alpha=0.5)+
+  geom_line(data=predicts.sr.relief,aes(x=mean.relief,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sr.relief,aes(x=mean.relief,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
   ggtitle("Species richness") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.sr.depth
+ggmod.sr.relief
 
-#roughness
-ggmod.sr.rough<- ggplot() +
-  ylab("")+
-  xlab("Roughness")+
-  geom_point(data=dat.sr,aes(x=roughness,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sr.roughness,aes(x=roughness,y=maxn),alpha=0.5)+
-  geom_line(data=predicts.sr.roughness,aes(x=roughness,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sr.roughness,aes(x=roughness,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
-  theme_classic()+
-  Theme1
-ggmod.sr.rough
-
-#detrended
-ggmod.sr.detrended<- ggplot() +
-  ylab("")+
-  xlab("Detrended bathymetry")+
-  geom_point(data=dat.sr,aes(x=detrended,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sr.detrended,aes(x=detrended,y=maxn),alpha=0.5)+
-  geom_line(data=predicts.sr.detrended,aes(x=detrended,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sr.detrended,aes(x=detrended,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
-  theme_classic()+
-  Theme1
-ggmod.sr.detrended
-
-# MODEL greater than legal size (mean.relief + roughness + detrended) ----
+# MODEL greater than legal size (broad.reef + detrended + tpi) ----
 dat.length$sample <- as.factor(dat.length$sample)
 dat.length$status <- as.factor(dat.length$status)
 dat.length$scientific <- as.factor(dat.length$scientific)
@@ -220,42 +135,27 @@ dat.length$site <- as.factor(dat.length$site)
 
 dat.leg <- dat.length %>% filter(scientific=="greater than legal size")
 
-mod=gam(number~s(mean.relief,k=3,bs='cr') + s(roughness,k=3,bs='cr')+ s(detrended,k=3,bs='cr') + s(site,bs="re"), family=tw,data=dat.leg)
+mod=gam(number~s(broad.reef,k=3,bs='cr') + s(detrended,k=3,bs='cr')+ s(tpi,k=3,bs='cr') + s(site,bs="re"), family=tw,data=dat.leg)
 
-# predict - mean relief ----
-testdata <- expand.grid(mean.relief=seq(min(dat.length$mean.relief),max(dat.length$mean.relief),length.out = 20),
-                        roughness=mean(mod$model$roughness),
+# predict - reef ----
+testdata <- expand.grid(broad.reef=seq(min(dat.length$broad.reef),max(dat.length$broad.reef),length.out = 20),
                         detrended=mean(mod$model$detrended),
+                        tpi=mean(mod$model$tpi),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.leg.relief = testdata%>%data.frame(fits)%>%
-  group_by(mean.relief)%>% #only change here
-  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
-  ungroup()
-
-# predict - roughness ----
-testdata <- expand.grid(roughness=seq(min(dat.length$roughness),max(dat.length$roughness),length.out = 20),
-                        mean.relief=mean(mod$model$mean.relief),
-                        detrended=mean(mod$model$detrended),
-                        site=(mod$model$site))%>%
-  distinct()%>%
-  glimpse()
-
-fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
-
-predicts.leg.roughness = testdata%>%data.frame(fits)%>%
-  group_by(roughness)%>% #only change here
+predicts.leg.reef = testdata%>%data.frame(fits)%>%
+  group_by(broad.reef)%>% #only change here
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
 # predict - detrended ----
 testdata <- expand.grid(detrended=seq(min(dat.length$detrended),max(dat.length$detrended),length.out = 20),
-                        mean.relief=mean(mod$model$mean.relief),
-                        roughness=mean(mod$model$roughness),
+                        broad.reef=mean(mod$model$broad.reef),
+                        tpi=mean(mod$model$tpi),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
@@ -267,20 +167,35 @@ predicts.leg.detrended = testdata%>%data.frame(fits)%>%
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
+# predict - tpi ----
+testdata <- expand.grid(tpi=seq(min(dat.length$tpi),max(dat.length$tpi),length.out = 20),
+                        broad.reef=mean(mod$model$broad.reef),
+                        detrended=mean(mod$model$detrended),
+                        site=(mod$model$site))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.leg.tpi = testdata%>%data.frame(fits)%>%
+  group_by(tpi)%>% #only change here
+  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
 # PLOTS for greater than legal size ----
-# relief ----
-ggmod.leg.relief<- ggplot() +
+# broad.reef ----
+ggmod.leg.reef<- ggplot() +
   ylab("")+
-  xlab("Mean relief")+
-  geom_point(data=dat.leg,aes(x=mean.relief,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.leg.relief,aes(x=mean.relief,y=number),alpha=0.5)+
-  geom_line(data=predicts.leg.relief,aes(x=mean.relief,y=number - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.leg.relief,aes(x=mean.relief,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("Reef")+
+  geom_point(data=dat.leg,aes(x=broad.reef,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.leg.reef,aes(x=broad.reef,y=number),alpha=0.5)+
+  geom_line(data=predicts.leg.reef,aes(x=broad.reef,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.leg.reef,aes(x=broad.reef,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
   ggtitle("Greater than legal size") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.leg.relief
+ggmod.leg.reef
 
 # detrended ----
 ggmod.leg.detrended<- ggplot() +
@@ -294,17 +209,17 @@ ggmod.leg.detrended<- ggplot() +
   Theme1
 ggmod.leg.detrended
 
-# Roughness ----
-ggmod.leg.roughness<- ggplot() +
+# tpi ----
+ggmod.leg.tpi<- ggplot() +
   ylab("")+
-  xlab("Roughness")+
-  geom_point(data=dat.leg,aes(x=roughness,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.leg.roughness,aes(x=roughness,y=number),alpha=0.5)+
-  geom_line(data=predicts.leg.roughness,aes(x=roughness,y=number - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.leg.roughness,aes(x=roughness,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("TPI")+
+  geom_point(data=dat.leg,aes(x=tpi,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.leg.tpi,aes(x=tpi,y=number),alpha=0.5)+
+  geom_line(data=predicts.leg.tpi,aes(x=tpi,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.leg.tpi,aes(x=tpi,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1
-ggmod.leg.roughness
+ggmod.leg.tpi
 
 # MODEL smaller than legal size (roughness) ----
 dat.sub <- dat.length %>% filter(scientific=="smaller than legal size")
@@ -341,9 +256,9 @@ ggmod.sub.roughness
 
 # Combine wth patchwork
 # view plots
-plot.grid <- ggmod.total.mean+ggmod.total.sd+plot_spacer()+
-  ggmod.sr.depth+ggmod.sr.rough+ggmod.sr.detrended+
-  ggmod.leg.relief+ggmod.leg.roughness+ggmod.leg.detrended+
+plot.grid <- ggmod.total.mean+plot_spacer()+plot_spacer()+
+  ggmod.sr.relief+plot_spacer()+plot_spacer()+
+  ggmod.leg.reef+ggmod.leg.detrended+ggmod.leg.tpi+
   ggmod.sub.roughness+plot_spacer()+plot_spacer()+
   plot_annotation(tag_levels = 'a') + plot_layout(ncol = 3,nrow = 4)
 plot.grid
