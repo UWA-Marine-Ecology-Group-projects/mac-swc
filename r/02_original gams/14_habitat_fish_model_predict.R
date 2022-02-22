@@ -15,31 +15,41 @@ library(viridis)
 library(raster)
 library(dplyr)
 library(stringr)
+library(sp)
+library(janitor)
 
 # read in
 dat1 <- readRDS("data/tidy/dat.maxn.full.rds")%>%
   dplyr::rename(number=maxn)%>%
   glimpse()
-dat2 <- readRDS("data/tidy/dat.length.full.rds")
-fabund <- bind_rows(dat1,dat2)                        # merged fish data used for fssgam script
-preds  <- readRDS("output/broad_habitat_predictions.rds") %>%# spatial and habitat covs
-  dplyr::mutate(status = str_replace_all(.$status,c("0"="Fished","1"="No-take")))
+dat2 <- readRDS("data/tidy/dat.length.full.rds")%>%
+  dplyr::mutate(method="BRUV")
+janitor::compare_df_cols(dat1,dat2)
 
-prel   <- readRDS("output/predicted_relief_raster.rds")                         # predicted relief from 'R/habitat/5_krige_relief.R'
+coords <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv")%>%
+  dplyr::select(campaignid,sample,latitude,longitude)%>%
+  glimpse()
+
+fabund <- bind_rows(dat1,dat2) %>%                       # merged fish data used for fssgam script
+  left_join(coords,by = c("campaignid","sample"))%>%
+  glimpse()
+
+preds  <- readRDS("output/habitat_fssgam/broad_habitat_predictions.rds") # spatial and habitat covs
+
+prel   <- readRDS("output/spatial/raster/predicted_relief_raster.rds")                         # predicted relief from 'R/habitat/5_krige_relief.R'
 
 # join habitat and relief predictions
 predsp <- SpatialPointsDataFrame(coords = cbind(preds$x, preds$y), data = preds)
 predsp$relief <- extract(prel, predsp)
-preddf        <- as.data.frame(predsp, xy = TRUE, na.rm = TRUE)
-preddf$depth  <- preddf$Z * -1
-preddf$rock   <- preddf$prock
-preddf$biog   <- preddf$pbiogenic
+preddf        <- as.data.frame(predsp, xy = TRUE, na.rm = TRUE) #
+preddf$reef   <- preddf$preef
+preddf$sand   <- preddf$psand
 preddf$macroalgae   <- preddf$pmacroalg
 head(preddf)
 
 # reduce predictor space to fit survey area
-fishsp <- SpatialPointsDataFrame(coords = cbind(fabund$longitude.1, 
-                                                fabund$latitude.1), 
+fishsp <- SpatialPointsDataFrame(coords = cbind(fabund$longitude, 
+                                                fabund$latitude), 
                                  data = fabund)
 sbuff  <- buffer(fishsp, 10000)
 unique(fabund$scientific)

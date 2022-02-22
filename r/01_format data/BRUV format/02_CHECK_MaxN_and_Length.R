@@ -379,7 +379,7 @@ ggsave(file=paste(study,"check.stereo.vs.maxn.png",sep = "_"))
 #   dplyr::glimpse()
 
 # WRITE FINAL checked data----
-setwd(tidy.dir)
+setwd(to.be.checked.dir)
 dir()
 
 write.csv(metadata, file=paste(study,"checked.metadata.csv",sep = "."), row.names=FALSE)

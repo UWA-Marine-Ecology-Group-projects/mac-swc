@@ -56,7 +56,7 @@ tidy.dir<-paste(data.dir,"tidy",sep="/")
 error.dir=paste(data.dir,"errors to check",sep="/")
 
 # Read in the data----
-setwd(tidy.dir)
+setwd(to.be.checked.dir)
 dir()
 
 # Read in metadata----
@@ -257,7 +257,7 @@ write.csv(check.mass,file=paste(study,"check.mass.csv",sep = "_"), row.names=FAL
 
 
 # WRITE FINAL complete and expanded data----
-setwd(tidy.dir)
+setwd(to.be.checked.dir)
 dir()
 
 write.csv(complete.maxn, file=paste(study,"complete.maxn.csv",sep = "."), row.names=FALSE)

@@ -11,6 +11,7 @@ rm(list=ls())
 library(dplyr)
 library(GlobalArchive)
 library(janitor)
+library(rgdal)
 
 working.dir <- getwd()
 setwd(working.dir)
@@ -43,7 +44,6 @@ names(habitat.2020.10.boss)
 names(habitat.2020.06)
 names(habitat.2021.03)
 
-library(janitor)
 janitor::compare_df_cols(habitat.2020.10.bruv,habitat.2020.10.boss,habitat.2020.06,habitat.2021.03)   #fixed missing relief for 2020-10_BOSS
 
 habitat <-bind_rows(habitat.2020.06, habitat.2020.10.bruv,habitat.2020.10.boss,habitat.2021.03) %>%
