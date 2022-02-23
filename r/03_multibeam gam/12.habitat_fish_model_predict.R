@@ -6,6 +6,12 @@
 # date:    Feb 2022
 ##
 
+test <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Habitat.csv")%>%
+  dplyr::filter(broad.seagrasses>0)%>%
+  dplyr::group_by(campaignid)%>%
+  dplyr::summarise(max.depth = max(depth))%>%
+  glimpse()
+
 rm(list=ls())
 
 library(reshape2)
