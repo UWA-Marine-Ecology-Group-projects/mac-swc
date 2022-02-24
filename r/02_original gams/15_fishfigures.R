@@ -16,6 +16,27 @@ library(patchwork)
 library(sf)
 library(cowplot)
 
+#Theme
+Theme1 <-
+  theme( # use theme_get() to see available options
+    #panel.grid.major = element_blank(),
+    #panel.grid.minor = element_blank(),
+    # legend.background = element_rect(fill="white"),
+    legend.background = element_blank(),
+    legend.key = element_blank(), # switch off the rectangle around symbols in the legend
+    legend.text = element_text(size=10),
+    #legend.title = element_blank(),
+    #legend.position = c(0.2, 0.8),
+    text=element_text(size=10),
+    strip.text.y = element_text(size = 10,angle = 0),
+    axis.title.x=element_text(vjust=0.3, size=10),
+    axis.title.y=element_text(vjust=0.6, angle=90, size=10),
+    axis.text.x=element_text(size=10),
+    axis.text.y=element_text(size=10),
+    #axis.line.x=element_line(colour="black", size=0.5,linetype='solid'),
+    #axis.line.y=element_line(colour="black", size=0.5,linetype='solid'),
+    strip.background = element_blank())
+
 # bring in spatial layers
 aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")           # all aus mpas
 sw_mpa <- aumpa[aumpa$ResName %in% c("South-west Corner"), ]                             # just Abrolhos Aus MP
@@ -38,7 +59,8 @@ p11 <- ggplot() +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Total Abundance")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  labs(x = NULL, y = NULL, fill = "Total Abundance")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  Theme1
 
 p11
 
@@ -49,7 +71,8 @@ p21 <- ggplot() +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Species Richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  labs(x = NULL, y = NULL, fill = "Species Richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  Theme1
 
 p21
 
@@ -60,7 +83,8 @@ p31 <- ggplot() +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  Theme1
 
 p31
 
@@ -71,11 +95,12 @@ p41 <- ggplot() +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  Theme1
 
 p41
 
-gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")    #, aspect.ratio=1
+gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")    
 gg.predictions.npz
 
-ggsave("plots/original gamms/site_fish_predictions.png", gg.predictions.npz,width = 10, height = 4, dpi = 160)
+ggsave("plots/original gamms/site_fish_predictions.png", gg.predictions.npz,width = 10, height = 8, dpi = 300)
