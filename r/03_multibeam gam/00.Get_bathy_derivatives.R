@@ -5,7 +5,7 @@
 # author:  Claude & Anita?
 # date:    February 2022
 ##
-#library(plyr)
+
 library(dplyr)
 library(stringr)
 library(ggplot2)
@@ -27,6 +27,12 @@ setwd(working.dir)
 # Load Multibeam ----
 b <- raster("data/spatial/rasters/SwC_Multibeam.tiff")
 plot(b)
+old.tiff <- b
+old.tiff
+
+new.tiff <- raster("data/spatial/rasters/ga-4858_south_west_corner_marine_park_cube_05m_egm2008_epsg-4326_20210327.tiff")
+plot(new.tiff)
+new.tiff
 
 # crop to extent --
 #e <- drawExtent()
