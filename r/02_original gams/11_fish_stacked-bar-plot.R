@@ -81,8 +81,8 @@ bar
 c.a <- readPNG("data/images/Coris auricularis-3cmL.png")
 c.a <- as.raster(c.a)
 
-#2 Parapricanthus elongatus - put in pempheris
-p.e <- readPNG("data/images/Pempheris klunzingeri-3cmL.png")
+#2 Parapricanthus elongatus - no pic, use pempheris multiradiata
+p.e <- readPNG("data/images/Pempheris_multiradiata_nb_TAYLOR.png")
 p.e <- as.raster(p.e)
 
 #3 Neatypus obliquus
@@ -91,9 +91,14 @@ n.o <- as.raster(n.o)
 
 #4 Centroberyx sp1 (lineatus/australis) - no pic
 
-#5 Caesioperca spp - no pic
+
+#5 Caesioperca spp - no pic, used serranidae
+c.s <- readPNG("data/images/Serranidae-Dark.png")
+c.s <- as.raster(c.s)
 
 #6 Chromis klunzingeri - no pic
+c.k <- readPNG("data/images/Pomacentridae-Dark.png")
+c.k <- as.raster(c.k)
 
 #7 Pseudolabrus biserialis
 p.b <- readPNG("data/images/Pseudolabrus biserialis-3cm.png")
