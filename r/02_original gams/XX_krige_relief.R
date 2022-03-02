@@ -32,7 +32,7 @@ habisp <- SpatialPointsDataFrame(coords = habi[6:5], data = habi,
                                  proj4string = wgscrs)
 habisp <- spTransform(habisp, sppcrs)
 habisp <- cbind(habisp, data.frame(raster::extract(preds, habisp)))
-habi <- as.data.frame(habisp, xy = T)
+habi   <- as.data.frame(habisp, xy = T)
 saveRDS(habi, "data/tidy/habitat_spatialcovs.rds")
 
 # plot relationships quickly

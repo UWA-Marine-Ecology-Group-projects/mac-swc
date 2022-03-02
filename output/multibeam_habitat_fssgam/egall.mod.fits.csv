@@ -1,0 +1,7 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mb_depth","mb_detrended","mb_tpi","mb_roughness","cumsum.wi"
+"broad.consolidated","mb_depth+mb_detrended+mb_roughness",6757.98219553876,6809.77697366331,0.12469,NA,12.14,0,0,0,1,1,1,1,0,1,1
+"broad.macroalgae","mb_depth+mb_detrended+mb_tpi",13746.0732353743,13797.9460435167,0.31363,NA,12.16,0,0,0,1,1,1,1,1,0,1
+"broad.reef","mb_depth+mb_detrended+mb_tpi",17647.1657016098,17701.0164020925,0.32188,NA,12.63,0,0,0,1,1,1,1,1,0,1
+"broad.seagrasses","mb_depth+mb_detrended+mb_roughness",5276.0433477102,5327.1484264273,0.10042,NA,11.98,0,0,0,1,1,1,1,0,1,1
+"broad.sponges","mb_depth+mb_roughness+mb_tpi",6202.50411057995,6251.74541508531,0.11739,NA,11.53,0,0,0,1,1,1,0,1,1,1
+"broad.unconsolidated","mb_depth+mb_detrended+mb_tpi",17647.1657016098,17701.0164020925,0.32188,NA,12.63,0,0,0,1,1,1,1,1,0,1
