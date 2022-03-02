@@ -1,3 +1,5 @@
+# ignore big oceanography netCDFs
+/data/spatial/oceanography/large
 
 # History files
 .Rhistory
