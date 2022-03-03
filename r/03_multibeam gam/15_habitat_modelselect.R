@@ -23,18 +23,25 @@ library(doSNOW)
 # library(gamm4)
 # library(RCurl) #needed to download data from GitHub
 library(reshape2)
+library(FSSgam)
 
 rm(list=ls())
 
 # install fssgam package----
 # devtools::install_github("beckyfisher/FSSgam_package") #run once
-library(FSSgam)
 
 # Bring in and format the data----
-habi  <- readRDS("data/tidy/dat.full.habitat.rds")                              # merged data from ??
-spcov <- readRDS("data/tidy/habitat_spatialcovs.rds")
-habi  <- merge(habi, spcov, by = "sample")
-head(habi)
+habi  <- readRDS("data/tidy/dat.full.habitat.rds")%>%                              # merged data from ??
+  dplyr::mutate(id=paste(campaignid,sample, sep = "."))%>%
+  distinct() #there is one sample with a duplicate
+
+spcov <- readRDS("data/tidy/habitat_spatialcovs.rds")%>%
+  dplyr::mutate(id=paste(campaignid,sample, sep = "."))%>%
+  distinct() #there is one sample with a duplicate
+
+habi <- habi %>%
+  dplyr::left_join(spcov, by = "id")%>%
+  glimpse()
 
 # bring in multibeam derivatives and extract at sample locations
 deriv_list <- list.files("data/spatial/rasters", "multibeam_derivatives",
@@ -43,9 +50,10 @@ mb_deriv   <- stack(deriv_list)
 names(mb_deriv) <- c("mb_depth", "mb_detrended", "mb_roughness", "mb_tpi")
 plot(mb_deriv)
 
-habisp <- SpatialPointsDataFrame(coords = habi[46:47], data = habi)
+habisp <- SpatialPointsDataFrame(coords = habi[48:49], data = habi)
 habi   <- cbind(habi, extract( mb_deriv, habisp))
 habi   <- habi[!is.na(habi$mb_depth), ]
+habi$mb_depth <- abs(habi$mb_depth)
 summary(habi)
 
 saveRDS(habi, "data/tidy/habitat_multibeam_merged.rds")
@@ -58,7 +66,7 @@ round(cor(habi[ , pred.vars]), 2)
 
 # habi <- habi[ , -c(9:49)]
 colnames(habi)
-habi <- melt(habi, measure.vars = c(5, 9, 11:14, 17))                               # collect all taxa tags for univariate stats
+habi <- melt(habi, measure.vars = c(5, 9, 11:13, 17))                               # collect all taxa tags for univariate stats
 head(habi)
 
 # rename taxa and response for the loop
@@ -110,7 +118,7 @@ for(i in 1:length(resp.vars)){
   )
   out.list <- fit.model.set(model.set,
                             max.models = 600,
-                            parallel = T)
+                            parallel = T, n.cores = 8)
   names(out.list)
   
   out.list$failed.models # examine the list of failed models
@@ -149,6 +157,3 @@ heatmap.2(all.var.imp, notecex = 0.4,  dendrogram = "none",
           trace = "none", key.title = "", keysize = 2,
           notecol = "black", key = T,
           sepcolor = "black", margins = c(20, 20), lhei = c(2, 6), Rowv = FALSE, Colv = FALSE)
-
-
-

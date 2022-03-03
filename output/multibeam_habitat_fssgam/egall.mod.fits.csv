@@ -1,7 +1,8 @@
 "","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mb_depth","mb_detrended","mb_tpi","mb_roughness","cumsum.wi"
-"broad.consolidated","mb_depth+mb_detrended+mb_roughness",6757.98219553876,6809.77697366331,0.12469,NA,12.14,0,0,0,1,1,1,1,0,1,1
-"broad.macroalgae","mb_depth+mb_detrended+mb_tpi",13746.0732353743,13797.9460435167,0.31363,NA,12.16,0,0,0,1,1,1,1,1,0,1
-"broad.reef","mb_depth+mb_detrended+mb_tpi",17647.1657016098,17701.0164020925,0.32188,NA,12.63,0,0,0,1,1,1,1,1,0,1
-"broad.seagrasses","mb_depth+mb_detrended+mb_roughness",5276.0433477102,5327.1484264273,0.10042,NA,11.98,0,0,0,1,1,1,1,0,1,1
-"broad.sponges","mb_depth+mb_roughness+mb_tpi",6202.50411057995,6251.74541508531,0.11739,NA,11.53,0,0,0,1,1,1,0,1,1,1
-"broad.unconsolidated","mb_depth+mb_detrended+mb_tpi",17647.1657016098,17701.0164020925,0.32188,NA,12.63,0,0,0,1,1,1,1,1,0,1
+"broad.consolidated.mb_depth+mb_roughness+mb_tpi","mb_depth+mb_roughness+mb_tpi",4517.74239295359,4563.73717303682,0.15695,NA,11.74,0,0,0,0.99,0.997,1,0,1,1,0.99
+"broad.consolidated.mb_depth+mb_detrended+mb_roughness","mb_depth+mb_detrended+mb_roughness",4526.86069240115,4575.64832365781,0.16508,NA,12.47,0,9.118,11.911,0.01,0.003,1,1,0,1,1
+"broad.macroalgae","mb_depth+mb_detrended+mb_roughness",6110.86401635355,6160.96354490454,0.49089,NA,12.81,0,0,0,1,1,1,1,0,1,1
+"broad.reef","mb_depth+mb_detrended+mb_roughness",8710.90871192297,8761.05384511104,0.51967,NA,12.82,0,0,0,1,1,1,1,0,1,1
+"broad.seagrasses","mb_depth+mb_detrended+mb_roughness",3258.22294469894,3298.34404837864,0.09651,NA,10.22,0,0,0,1,1,1,1,0,1,1
+"broad.sponges","mb_depth+mb_roughness+mb_tpi",3641.17335550848,3687.45541408164,0.20443,NA,11.82,0,0,0,1,1,1,0,1,1,1
+"broad.unconsolidated","mb_depth+mb_detrended+mb_roughness",8710.90871192297,8761.05384511104,0.51967,NA,12.82,0,0,0,1,1,1,1,0,1,1

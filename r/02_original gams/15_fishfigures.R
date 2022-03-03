@@ -46,9 +46,15 @@ wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # crs for sp objects
 swc_npz <- st_transform(swc_npz, sppcrs)
 
+#bring in state MPs to mask out the indjidup sanctuary
+wampa  <- st_read("data/spatial/shapefiles/test1.shp", 
+                  crs = wgscrs)%>%
+  dplyr::filter(Name%in%c("Injidup Sanctuary Zone"))
+
 # read in outputs from 'R/habitat_fish_model_predict.R'
 # preddf <- readRDS("output/broad_habitat_predictions.rds")
 spreddf <- readRDS("output/fish gamms/site_fish_predictions.rds")                       # site predictions only
+
 #spreddf$sitens <- ifelse(spreddf$y > 6940000, 1, 0)
 
 # plotting broad maps
@@ -60,8 +66,8 @@ p11 <- ggplot() +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Total Abundance")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1
-
+  Theme1+
+  geom_sf(data = wampa, fill="white", color="white")
 p11
 
 #species richness
@@ -72,7 +78,8 @@ p21 <- ggplot() +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Species Richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1
+  Theme1+
+  geom_sf(data = wampa, fill="white", color="white")
 
 p21
 
@@ -84,7 +91,8 @@ p31 <- ggplot() +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1
+  Theme1+
+  geom_sf(data = wampa, fill="white", color="white")
 
 p31
 
@@ -96,7 +104,8 @@ p41 <- ggplot() +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1
+  Theme1+
+  geom_sf(data = wampa, fill="white", color="white")
 
 p41
 

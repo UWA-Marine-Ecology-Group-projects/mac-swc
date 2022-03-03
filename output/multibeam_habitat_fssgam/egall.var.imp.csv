@@ -1,7 +1,7 @@
 "","mb_depth","mb_detrended","mb_tpi","mb_roughness"
-"broad.consolidated",1,1,0,1
-"broad.macroalgae",1,1,1,0
-"broad.reef",1,1,1,0
+"broad.consolidated",1,0.01,0.99,1
+"broad.macroalgae",1,1,0,1
+"broad.reef",1,1,0,1
 "broad.seagrasses",1,1,0,1
 "broad.sponges",1,0,1,1
-"broad.unconsolidated",1,1,1,0
+"broad.unconsolidated",1,1,0,1

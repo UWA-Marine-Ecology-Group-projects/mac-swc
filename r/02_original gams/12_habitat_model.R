@@ -25,6 +25,7 @@ habisp <- SpatialPointsDataFrame(coords = cbind(habi$longitude.1,
                                                 habi$latitude.1), data = habi)
 sbuff  <- buffer(habisp, 10000)
 
+
 # use formula from top model from '2_modelselect.R'
 m_macro <- gam(cbind(broad.macroalgae, broad.total.points.annotated - broad.macroalgae) ~ 
                  s(depth.y, k = 3, bs = "cr")  + 
@@ -96,13 +97,12 @@ preddf <- cbind(preddf,
                 "psponge" = predict(m_sponge, preddf, type = "response"))
 
 prasts <- rasterFromXYZ(preddf)
-prasts$dom_tag <- which.max(prasts[[8:13]]) #not working, have not ran bits below using dom tag
 plot(prasts)
 
 # categorise by dominant tag
-preddf$dom_tag <- apply(preddf[8:10], 1,
-                        FUN = function(x){names(which.max(x))})
-preddf$dom_tag <- sub('.', '', preddf$dom_tag)
+preddf$dom_tag <- apply(preddf[c(3,4,6,7,8)], 1,
+                           FUN = function(x){names(which.max(x))})
+preddf$dom_tag <- sub('p', '', preddf$dom_tag)
 head(preddf)
 
 # subset to 10km from sites only

@@ -132,7 +132,7 @@ preddf <- cbind(preddf,
                 "p_legal" = predict(m_legal, preddf, type = "response"),
                 "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
 
-prasts <- rasterFromXYZ(preddf[, c(1, 2, 23:26)], res = c(231, 277)) 
+prasts <- rasterFromXYZ(preddf[, c(1, 2, 25:28)], res = c(231, 277)) 
 plot(prasts)
 
 ###
@@ -152,5 +152,3 @@ summary(spreddf) #legal targets have some outlier values
 
 saveRDS(preddf, "output/fish gamms/broad_fish_predictions.rds")
 saveRDS(spreddf, "output/fish gamms/site_fish_predictions.rds")
-
-

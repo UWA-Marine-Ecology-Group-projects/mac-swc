@@ -15,7 +15,6 @@ library(raster)
 # read in
 habi   <- readRDS("data/tidy/habitat_multibeam_merged.rds")                               # merged data from 'R/1_mergedata.R'
 
-
 # bring in multibeam derivatives and extract at sample locations
 deriv_list <- list.files("data/spatial/rasters", "multibeam_derivatives",
                          full.names = TRUE)
@@ -84,7 +83,7 @@ vis.gam(m_seagrass)
 m_sponges <- gam(cbind(broad.sponges, 
                        broad.total.points.annotated - broad.sponges) ~
                    s(mb_depth,   k = 5, bs = "cr") +
-                   s(mb_detrended, k = 3, bs = "cr") +
+                   #s(mb_detrended, k = 3, bs = "cr") +
                    s(mb_roughness, k = 3, bs = "cr") + 
                    s(mb_tpi,       k = 3, bs = "cr"),
                  data = habi, method = "REML", family = binomial("logit"))
@@ -94,7 +93,7 @@ vis.gam(m_sponges)
 
 
 # predict, rasterise and plot
-p_habitat <- cbind(preddf[5:6], 
+p_habitat <- cbind(preddf[1:2], 
                    "pmacroalgae" = predict(m_macro, preddf, type = "response"),
                    "psand" = predict(m_sand, preddf, type = "response"),
                    "preef" = predict(m_reef, preddf, type = "response"),
@@ -136,7 +135,3 @@ saveRDS(phabg, "output/multibeam_habitat_fssgam/multibeam_habitat_pred_g.rds")
 saveRDS(phabh, "output/multibeam_habitat_fssgam/multibeam_habitat_pred_h.rds")
 saveRDS(phabi, "output/multibeam_habitat_fssgam/multibeam_habitat_pred_i.rds")
 saveRDS(phabj, "output/multibeam_habitat_fssgam/multibeam_habitat_pred_j.rds")
-
-
-
-
