@@ -29,8 +29,8 @@ sbuff  <- buffer(habisp, 10000)
 m_macro <- gam(cbind(broad.macroalgae, broad.total.points.annotated - broad.macroalgae) ~ 
                  s(depth.y, k = 3, bs = "cr")  + 
                  s(tpi, k = 5, bs = "cr") +
-                 s(detrended, k = 5, bs = "cr") + 
-                 s(roughness, k = 5, bs = "cr"), 
+                 s(detrended, k = 5, bs = "cr")+ 
+                 s(roughness, k = 5, bs = "cr"),
                data = habi, method = "REML", family = binomial("logit"))
 summary(m_macro)
 gam.check(m_macro)
@@ -55,25 +55,48 @@ m_sand <- gam(cbind(broad.unconsolidated, broad.total.points.annotated - broad.u
 summary(m_sand)
 gam.check(m_sand)
 vis.gam(m_sand)
-# 
-# m_rock <- gam(cbind(rock, totalpts - rock) ~ 
-#                 s(Depth, k = 5, bs = "cr") + 
-#                 s(detrended,  k = 5, bs = "cr") + 
-#                 s(tpi,    k = 5, bs = "cr"), 
-#               data = habi, method = "REML", family = binomial("logit"))
-# summary(m_rock)
-# gam.check(m_rock)
-# vis.gam(m_rock)
 
+m_rock <- gam(cbind(broad.consolidated, broad.total.points.annotated - broad.consolidated) ~ 
+                s(depth.y,     k = 5, bs = "cr") + 
+                s(roughness, k = 5, bs = "cr") +
+                # s(tpi,       k = 5, bs = "cr")+
+                s(detrended, k = 5, bs = "cr"), 
+              data = habi, method = "REML", family = binomial("logit"))
+summary(m_rock)
+gam.check(m_rock)
+vis.gam(m_rock)
+
+m_grass <- gam(cbind(broad.seagrasses, broad.total.points.annotated - broad.seagrasses) ~ 
+                s(depth.y,     k = 5, bs = "cr") + 
+                s(roughness, k = 5, bs = "cr") +
+                s(tpi,       k = 5, bs = "cr")+
+                s(detrended, k = 5, bs = "cr"),
+              data = habi, method = "REML", family = binomial("logit"))
+summary(m_grass)
+gam.check(m_grass)
+vis.gam(m_grass)
+
+m_sponge <- gam(cbind(broad.sponges, broad.total.points.annotated - broad.sponges) ~ 
+                 s(depth.y,     k = 5, bs = "cr") + 
+                 s(roughness, k = 5, bs = "cr") +
+                 s(tpi,       k = 5, bs = "cr")+
+                 s(detrended, k = 5, bs = "cr"),
+               data = habi, method = "REML", family = binomial("logit"))
+summary(m_sponge)
+gam.check(m_sponge)
+vis.gam(m_sponge)
 
 # predict, rasterise and plot
 preddf <- cbind(preddf, 
                 "pmacroalgae" = predict(m_macro, preddf, type = "response"),
                 "psand" = predict(m_sand, preddf, type = "response"),
-                "preef" = predict(m_reef, preddf, type = "response"))
+                "preef" = predict(m_reef, preddf, type = "response"),
+                "prock" = predict(m_rock, preddf, type = "response"),
+                "pseagrass" = predict(m_grass, preddf, type = "response"),
+                "psponge" = predict(m_sponge, preddf, type = "response"))
 
 prasts <- rasterFromXYZ(preddf)
-prasts$dom_tag <- which.max(prasts[[6:8]])
+prasts$dom_tag <- which.max(prasts[[8:13]])
 plot(prasts)
 
 # categorise by dominant tag

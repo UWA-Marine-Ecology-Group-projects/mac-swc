@@ -1,8 +1,8 @@
 "","depth.y","roughness","tpi","detrended"
 "broad.consolidated",1,1,0,1
-"broad.invertebrate.complex",0.999,0.612,0.797,0.589
+"broad.invertebrate.complex",1,0.649,0.351,1
 "broad.macroalgae",1,0,1,1
 "broad.reef",1,1,0,1
-"broad.seagrasses",1,0,1,1
-"broad.sponges",1,0.001,0.999,1
+"broad.seagrasses",1,0.813,0.187,1
+"broad.sponges",1,1,0,1
 "broad.unconsolidated",1,1,0,1
