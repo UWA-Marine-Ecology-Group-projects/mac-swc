@@ -117,6 +117,7 @@ saveRDS(plot_sla_year,"data/spatial/oceanography/SwC_SLA_year.rds")
 rm(list= ls()[!(ls() %in% c('working.dir','locations', 'Zone','locs','Lon_w',
                             'Lon_e','Lat_n','Lat_s'))])
 gc()
+
 ######### SST #########
 #IMOS - SRS - SST - L3S - Single Sensor - 6 day - day and night time - Australia
 nc_file_to_get_sst <- open.nc("data/spatial/oceanography/large/IMOS_aggregation_20220224T013630Z/IMOS_aggregation_20220224T013630Z.nc",write = TRUE)
@@ -156,57 +157,37 @@ lon_sst <- check_lon
 arr = array(sst_all, dim=c(length(lon_i),length(lat_i),length(time_data$dates)),
             dimnames = list(lon_sst, lat_sst,time_data$dates))
 
-#careful - running out of memory
-rm(list=setdiff(ls(), "arr"))
-gc() #free unused memory
-
 arr_long <- arr %>%
   reshape2::melt(varnames = c("Lon","Lat","Date"))
 
-#careful - running out of memory
-rm(list=setdiff(ls(), "arr_long"))
-gc() #free unused memory
-
-#split into 2 halves as to not cook the memory
-arr_long_1 <- arr_long %>%
-  slice(1:50000000)%>%
+arr_long <- arr_long %>%
   dplyr::mutate(Date = as.Date(Date))%>%
   dplyr::mutate(year = year(Date),month = month(Date))%>%
   glimpse()
-
-arr_long_2 <- arr_long %>%
-  slice(50000001:98008680)%>%
-  dplyr::mutate(Date = as.Date(Date))%>%
-  dplyr::mutate(year = year(Date),month = month(Date))%>%
-  glimpse()
-
-rm(arr_long)
-gc()
-
-arr_long <- bind_rows(arr_long_1, arr_long_2)
-
-rm(list=setdiff(ls(), "arr_long"))
-gc() #free unused memory
 
 plot_sst_winter <- arr_long %>% 
   dplyr::filter(month %in%c("7","8","9"))%>%
   group_by(year, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value, na.rm = TRUE)) %>% 
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value, na.rm = TRUE)) %>%
+  ungroup()%>%
   glimpse()
 
 plot_sst_year <- arr_long %>% 
   group_by(year, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>%
+  ungroup()%>%
   glimpse()
 
 plot_sst_month <- arr_long %>% 
   group_by(month, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>%
+  ungroup()%>%
   glimpse()
 
 plot_sst_ts <- arr_long %>% 
   group_by(year,month, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>%
+  ungroup()%>%
   glimpse()
 
 saveRDS(plot_sst_winter,"data/spatial/oceanography/SwC_SST_winter.rds")

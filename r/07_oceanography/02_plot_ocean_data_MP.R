@@ -18,6 +18,7 @@ library(ggplot2)
 library(patchwork)
 library(viridis)
 library(ggquiver)
+library(forcats)
 
 #set working directory
 working.dir <- getwd()
