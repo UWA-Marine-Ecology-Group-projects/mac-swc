@@ -96,7 +96,7 @@ preddf <- cbind(preddf,
                 "psponge" = predict(m_sponge, preddf, type = "response"))
 
 prasts <- rasterFromXYZ(preddf)
-prasts$dom_tag <- which.max(prasts[[8:13]])
+prasts$dom_tag <- which.max(prasts[[8:13]]) #not working, have not ran bits below using dom tag
 plot(prasts)
 
 # categorise by dominant tag
