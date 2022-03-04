@@ -15,6 +15,7 @@ library(raster)
 library(patchwork)
 library(sf)
 library(cowplot)
+library(purrr)
 
 # bring in spatial layers
 aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")           # all aus mpas
@@ -26,10 +27,11 @@ sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # 
 swc_npz <- st_transform(swc_npz, sppcrs)
 
 # read in outputs from 'R/habitat_fish_model_predict.R'
-# preddf <- readRDS("output/broad_habitat_predictions.rds")
-spreddf <- readRDS("output/fish gamms/site_fish_predictions.rds")                       # site predictions only
-#spreddf$sitens <- ifelse(spreddf$y > 6940000, 1, 0)
-
+file.names <- list.files(path="output/multibeam fish gamms",
+                         pattern = '*.rds',full.names = T)   #split up as too big for git
+spreddf <- file.names %>%
+  map_dfr(readRDS)
+                
 # plotting broad maps
 #total abundance
 p11 <- ggplot() +
@@ -37,10 +39,12 @@ p11 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Total Abundance")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
+  labs(x = NULL, y = NULL, fill = "Total Abundance")+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-p11
+# p11
 
 #species richness
 p21 <- ggplot() +
@@ -48,10 +52,11 @@ p21 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
+  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Species Richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-p21
+# p21
 
 # greater than legal size
 p31 <- ggplot() +
@@ -59,10 +64,11 @@ p31 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
+  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-p31
+# p31
 
 #smaller than legal size
 p41 <- ggplot() +
@@ -70,12 +76,17 @@ p41 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
+  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
-p41
+# p41
 
 gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")    #, aspect.ratio=1
-gg.predictions.npz
+# gg.predictions.npz
 
-ggsave("plots/original gamms/site_fish_predictions.png", gg.predictions.npz,width = 10, height = 4, dpi = 160)
+#clear out the memory
+rm(list= ls()[!(ls() %in% c('gg.predictions.npz'))])
+gc()
+
+ggsave("plots/multibeam gamms/site_fish_predictions.png", gg.predictions.npz,width = 10, height = 4, dpi = 160)

@@ -49,7 +49,10 @@ file.names.multi <- list.files(path="data/spatial/rasters",
                                pattern = 'multibeam_*',full.names = T)
 multi <- stack(file.names.multi)
 
+#preds as a spatial dataframe
 coordinates(preds) <- ~x+y
+#aggregate to lower res
+preds <- sp::aggregate(preds, fact = 10, fun = mean)
 
 preds <- raster::extract(multi, preds, sp = T)
 preds <- as.data.frame(preds)

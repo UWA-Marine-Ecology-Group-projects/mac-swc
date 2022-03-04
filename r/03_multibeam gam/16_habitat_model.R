@@ -102,7 +102,9 @@ p_habitat <- cbind(preddf[1:2],
                    "prock" = predict(m_rock, preddf, type = "response"))
 
 phab_rasts <- rasterFromXYZ(p_habitat)
-# phab_rasts$dom_tag <- which.max(phab_rasts[[c(1,2,4,5,6)]])
+phab_rasts <- raster::aggregate(phab_rasts, fact = 10, fun = mean)
+phab_rasts
+
 plot(phab_rasts)
 
 # categorise by dominant tag
