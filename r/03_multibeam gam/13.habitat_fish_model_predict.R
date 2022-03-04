@@ -134,5 +134,27 @@ spreddf <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
 
 summary(spreddf) #not any funky looking outliers
 
-saveRDS(preddf, "output/multibeam fish gamms/broad_fish_predictions.rds")
-saveRDS(spreddf, "output/multibeam fish gamms/site_fish_predictions.rds")
+# split and output data whole data are too large for git :'(
+nspreddf <- nrow(spreddf)/10
+
+spreddfa <- spreddf[1:nspreddf, ]
+spreddfb <- spreddf[(1 + nspreddf):(nspreddf * 2), ]
+spreddfc <- spreddf[(1 + (nspreddf * 2)):(nspreddf * 3), ]
+spreddfd <- spreddf[(1 + (nspreddf * 3)):(nspreddf * 4), ]
+spreddfe <- spreddf[(1 + (nspreddf * 4)):(nspreddf * 5), ]
+spreddff <- spreddf[(1 + (nspreddf * 5)):(nspreddf * 6), ]
+spreddfg <- spreddf[(1 + (nspreddf * 6)):(nspreddf * 7), ]
+spreddfh <- spreddf[(1 + (nspreddf * 7)):(nspreddf * 8), ]
+spreddfi <- spreddf[(1 + (nspreddf * 8)):(nspreddf * 9), ]
+spreddfj <- spreddf[(1 + (nspreddf * 9)):(nspreddf * 10), ]
+
+saveRDS(spreddfa, "output/multibeam fish gamms/site_fish_predictions_a.rds")
+saveRDS(spreddfb, "output/multibeam fish gamms/site_fish_predictions_b.rds")
+saveRDS(spreddfc, "output/multibeam fish gamms/site_fish_predictions_c.rds")
+saveRDS(spreddfd, "output/multibeam fish gamms/site_fish_predictions_d.rds")
+saveRDS(spreddfe, "output/multibeam fish gamms/site_fish_predictions_e.rds")
+saveRDS(spreddff, "output/multibeam fish gamms/site_fish_predictions_f.rds")
+saveRDS(spreddfg, "output/multibeam fish gamms/site_fish_predictions_g.rds")
+saveRDS(spreddfh, "output/multibeam fish gamms/site_fish_predictions_h.rds")
+saveRDS(spreddfi, "output/multibeam fish gamms/site_fish_predictions_i.rds")
+saveRDS(spreddfj, "output/multibeam fish gamms/site_fish_predictions_j.rds")
