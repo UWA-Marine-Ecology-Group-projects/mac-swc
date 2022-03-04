@@ -7,6 +7,7 @@
 ##
 
 rm(list=ls())
+gc()
 
 library(reshape2)
 library(mgcv)
