@@ -13,27 +13,27 @@ library(raster)
 library(patchwork)
 library(sf)
 
-# bring in spatial layers
-aumpa  <- st_read("data/spatial/shp/AustraliaNetworkMarineParks.shp")           # all aus mpas
-sw_mpa <- aumpa[aumpa$ResName %in% c("Abrolhos"), ]                             # just Abrolhos Aus MP
-ab_npz <- sw_mpa[sw_mpa$ZoneName == "National Park Zone", ]
-ab_npz$parkid <- c(1:3)                                                         # for easy subsetting later 
-wgscrs <- CRS("+proj=longlat +datum=WGS84")
-sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
-abnpza <- ab_npz
-ab_npz <- st_transform(ab_npz, sppcrs)
-jacmap <- raster("data/spatial/raster/ecosystem-types-19class-naland.tif")      # jac's aus habitat map
-cropex <- extent(112, 116, -30, -27)
-jacmap <- crop(jacmap, cropex)
-jacmap <- projectRaster(jacmap, crs = sppcrs, method = "ngb")
-habi   <- readRDS("data/tidy/merged_habitat.rds")
-habi$ns <- ifelse(habi$Latitude.1 > 6940000, 1, 0)
-habi$method <- dplyr::recode(habi$method,
-                             BOSS = "Drop Camera")
+# # bring in spatial layers
+# aumpa  <- st_read("data/spatial/shp/AustraliaNetworkMarineParks.shp")           # all aus mpas
+# sw_mpa <- aumpa[aumpa$ResName %in% c("Abrolhos"), ]                             # just Abrolhos Aus MP
+# ab_npz <- sw_mpa[sw_mpa$ZoneName == "National Park Zone", ]
+# ab_npz$parkid <- c(1:3)                                                         # for easy subsetting later 
+# wgscrs <- CRS("+proj=longlat +datum=WGS84")
+# sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
+# abnpza <- ab_npz
+# ab_npz <- st_transform(ab_npz, sppcrs)
+# jacmap <- raster("data/spatial/raster/ecosystem-types-19class-naland.tif")      # jac's aus habitat map
+# cropex <- extent(112, 116, -30, -27)
+# jacmap <- crop(jacmap, cropex)
+# jacmap <- projectRaster(jacmap, crs = sppcrs, method = "ngb")
+# habi   <- readRDS("data/tidy/merged_habitat.rds")
+# habi$ns <- ifelse(habi$Latitude.1 > 6940000, 1, 0)
+# habi$method <- dplyr::recode(habi$method,
+#                              BOSS = "Drop Camera")
 
 # read in outputs from 'R/4_habitat_model.R'
 # preddf <- readRDS("output/broad_habitat_predictions.rds")
-spreddf <- readRDS("output/site_habitat_predictions.rds")                       # site predictions only
+spreddf <- readRDS("output/multibeam_habitat_fssgam/")                       # site predictions only
 spreddf$dom_tag <- as.factor(spreddf$dom_tag)
 spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                                  pkelps = "Kelp",
