@@ -1,5 +1,5 @@
 ###
-# Project: Parks - Abrolhos Post-Survey
+# Project: MAC Hub - SWC
 # Data:    BRUVS, BOSS Habitat data
 # Task:    Habitat modelling
 # author:  Kingsley Griffin
@@ -28,61 +28,62 @@ sbuff  <- buffer(habisp, 10000)
 
 # use formula from top model from '2_modelselect.R'
 m_macro <- gam(cbind(broad.macroalgae, broad.total.points.annotated - broad.macroalgae) ~ 
-                 s(depth.y, k = 3, bs = "cr")  + 
-                 s(tpi, k = 5, bs = "cr") +
-                 s(detrended, k = 5, bs = "cr")+ 
-                 s(roughness, k = 5, bs = "cr"),
+                 s(depth.y, k = 5, bs = "cr") + 
+                 # s(roughness, k = 3, bs = "cr") +
+                 s(tpi, k = 3, bs = "cr") + 
+                 s(detrended, k = 3, bs = "cr") 
+               ,
                data = habi, method = "REML", family = binomial("logit"))
 summary(m_macro)
 gam.check(m_macro)
 vis.gam(m_macro)
 
 m_reef <- gam(cbind(broad.reef, broad.total.points.annotated - broad.reef) ~ 
-                    s(depth.y, k = 3, bs = "cr")  + 
-                    s(tpi, k = 5, bs = "cr") +
-                    s(detrended, k = 5, bs = "cr") + 
+                s(depth.y, k = 5, bs = "cr")  + 
+                s(tpi, k = 3, bs = "cr") +
+                s(detrended, k = 5, bs = "cr") + 
                 s(roughness, k = 5, bs = "cr"), 
-                  data = habi, method = "REML", family = binomial("logit"))
+              data = habi, method = "REML", family = binomial("logit"))
 summary(m_reef)
 gam.check(m_reef)
 vis.gam(m_reef)
 
 m_sand <- gam(cbind(broad.unconsolidated, broad.total.points.annotated - broad.unconsolidated) ~ 
-                s(depth.y,     k = 5, bs = "cr") + 
+                s(depth.y,   k = 3, bs = "cr") +
+                s(detrended, k = 5, bs = "cr") +
                 s(roughness, k = 5, bs = "cr") +
-                s(tpi,       k = 5, bs = "cr")+
-                s(detrended, k = 5, bs = "cr"), 
+                s(tpi,       k = 3, bs = "cr") , 
               data = habi, method = "REML", family = binomial("logit"))
 summary(m_sand)
 gam.check(m_sand)
 vis.gam(m_sand)
 
 m_rock <- gam(cbind(broad.consolidated, broad.total.points.annotated - broad.consolidated) ~ 
-                s(depth.y,     k = 5, bs = "cr") + 
+                s(depth.y,     k = 5, bs = "cr") +
                 s(roughness, k = 5, bs = "cr") +
-                # s(tpi,       k = 5, bs = "cr")+
-                s(detrended, k = 5, bs = "cr"), 
+                s(detrended, k = 3, bs = "cr"), 
               data = habi, method = "REML", family = binomial("logit"))
 summary(m_rock)
 gam.check(m_rock)
 vis.gam(m_rock)
 
 m_grass <- gam(cbind(broad.seagrasses, broad.total.points.annotated - broad.seagrasses) ~ 
-                s(depth.y,     k = 5, bs = "cr") + 
-                s(roughness, k = 5, bs = "cr") +
-                s(tpi,       k = 5, bs = "cr")+
-                s(detrended, k = 5, bs = "cr"),
+                 
+                 s(depth.y,   k = 5, bs = "cr") +
+                 s(detrended, k = 3, bs = "cr") +
+                 s(tpi,       k = 3, bs = "cr"),
+                # s(roughness, k = 3, bs = "cr") +,
               data = habi, method = "REML", family = binomial("logit"))
 summary(m_grass)
 gam.check(m_grass)
 vis.gam(m_grass)
 
 m_sponge <- gam(cbind(broad.sponges, broad.total.points.annotated - broad.sponges) ~ 
-                 s(depth.y,     k = 5, bs = "cr") + 
-                 s(roughness, k = 5, bs = "cr") +
-                 s(tpi,       k = 5, bs = "cr")+
-                 s(detrended, k = 5, bs = "cr"),
-               data = habi, method = "REML", family = binomial("logit"))
+                  s(depth.y,   k = 5, bs = "cr") + 
+                  s(roughness, k = 3, bs = "cr") +
+                  s(tpi,       k = 5, bs = "cr")+
+                  s(detrended, k = 5, bs = "cr"),
+                data = habi, method = "REML", family = binomial("logit"))
 summary(m_sponge)
 gam.check(m_sponge)
 vis.gam(m_sponge)
@@ -99,19 +100,16 @@ preddf <- cbind(preddf,
 prasts <- rasterFromXYZ(preddf)
 plot(prasts)
 
-# categorise by dominant tag
-preddf$dom_tag <- apply(preddf[c(3,4,6,7,8)], 1,
-                           FUN = function(x){names(which.max(x))})
-preddf$dom_tag <- sub('p', '', preddf$dom_tag)
-head(preddf)
-
 # subset to 10km from sites only
 sprast <- mask(prasts, sbuff)
 plot(sprast)
 
-# tidy and output data
+# tidy, categorise by dominant tag and output data
 spreddf         <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
-spreddf$dom_tag <- (names(spreddf)[8:10])[spreddf$dom_tag]
+spreddf$dom_tag <- apply(spreddf[c(8:13)], 1,
+                        FUN = function(x){names(which.max(x))})
+spreddf$dom_tag <- sub('p', '', spreddf$dom_tag)
+head(spreddf)
 
-saveRDS(preddf, "output/habitat_fssgam/broad_habitat_predictions.rds")
+saveRDS(preddf,  "output/habitat_fssgam/broad_habitat_predictions.rds")
 saveRDS(spreddf, "output/habitat_fssgam/site_habitat_predictions.rds")
