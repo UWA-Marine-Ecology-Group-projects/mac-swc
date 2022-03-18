@@ -57,6 +57,48 @@ maxn <- readRDS("data/tidy/dat.maxn.full.rds")%>%
 length <- readRDS("data/tidy/dat.length.full.rds")%>%
   glimpse()
 
+#read in SST
+sst <- readRDS("data/spatial/oceanography/Abrolhos_SST_winter.rds")%>%
+  ungroup()%>%
+  dplyr::mutate(year=as.numeric(year))%>%
+  glimpse()
+
+locations <-  read.csv("data/spatial/oceanography/network_scale_boundaries.csv", 
+                       header = TRUE) %>%
+  glimpse()
+
+sst.npz6 <- sst %>%
+  dplyr::filter(Lat <= -27.916 & Lat >= -28.238,Lon <= 113.666 & Lon >= 113.112)%>%
+  dplyr::group_by(year)%>%
+  dplyr::summarise(sst.mean=mean(sst), sd = mean(sd))%>%
+  glimpse()
+
+str(sst.npz6)
+sst.npz9 <- sst %>%
+  dplyr::filter(Lat <= -26.991 & Lat >= -27.302,Lon <= 113.402 & Lon >= 112.903)%>%
+  dplyr::group_by(year)%>%
+  dplyr::summarise(sst.mean=mean(sst), sd = mean(sd))%>%
+  glimpse()
+
+# get rls thermal niche values ----
+url <- "https://docs.google.com/spreadsheets/d/1SMLvR9t8_F-gXapR2EemQMEPSw_bUbPLcXd3lJ5g5Bo/edit?ts=5e6f36e2#gid=825736197"
+
+master<-googlesheets4::read_sheet(url)%>%
+  ga.clean.names()%>%
+  filter(grepl('Australia', global.region))%>% # Change country here
+  dplyr::select(family,genus,species,rls.thermal.niche)%>%
+  distinct()%>%
+  glimpse()
+
+cti <- full.maxn %>%
+  left_join(master)%>%
+  dplyr::filter(!is.na(rls.thermal.niche))%>%
+  dplyr::mutate(log.maxn=log1p(maxn),weightedSTI=log.maxn*rls.thermal.niche)%>%
+  dplyr::group_by(id,sample,location,status)%>%
+  dplyr::summarise(log.maxn=sum(log.maxn),w.STI = sum(weightedSTI),CTI=w.STI/log.maxn)%>%
+  dplyr::ungroup()%>%
+  glimpse()
+
 #need to make a new dataframe - year, species richness (plus SE), greater than legal (plus SE)
 year <- c("2018","2018","2019","2019","2020","2020","2021","2021","2022","2022")
 status <- c("Fished","No-take")

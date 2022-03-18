@@ -39,7 +39,7 @@ p11 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_x_continuous(breaks = c(114.7,114.8,114.9),limits = c(min(spreddf$x),max(spreddf$x)))+
   scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Total Abundance")+
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
@@ -52,7 +52,7 @@ p21 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_x_continuous(breaks = c(114.7,114.8,114.9),limits = c(min(spreddf$x),max(spreddf$x)))+
   scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Species Richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
@@ -64,7 +64,7 @@ p31 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_x_continuous(breaks = c(114.7,114.8,114.9),limits = c(min(spreddf$x),max(spreddf$x)))+
   scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
@@ -76,17 +76,17 @@ p41 <- ggplot() +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0),limits = c(min(spreddf$x),max(spreddf$x)))+
+  scale_x_continuous(breaks = c(114.7,114.8,114.9),limits = c(min(spreddf$x),max(spreddf$x)))+
   scale_y_continuous(limits = c(min(spreddf$y),max(spreddf$y)))+
   labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))
 
 # p41
 
 gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")    #, aspect.ratio=1
-# gg.predictions.npz
+gg.predictions.npz
 
 #clear out the memory
-rm(list= ls()[!(ls() %in% c('gg.predictions.npz'))])
-gc()
+# rm(list= ls()[!(ls() %in% c('gg.predictions.npz'))])
+# gc()
 
-ggsave("plots/multibeam gamms/site_fish_predictions.png", gg.predictions.npz,width = 10, height = 4, dpi = 160)
+ggsave("plots/multibeam gamms/site_fish_predictions.png", gg.predictions.npz,width = 9, height = 4, dpi = 300)

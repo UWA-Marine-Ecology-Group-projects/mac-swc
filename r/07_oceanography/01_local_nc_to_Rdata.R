@@ -1,5 +1,5 @@
 ###
-# Project: mac- swc
+# Project: Parks - Abrolhos
 # Data:    Oceanography - SST, SLA, currents & acidification
 # Task:    Load in netCDF files from local copy
 # author:  Jess Kolbusz & Claude
@@ -117,7 +117,6 @@ saveRDS(plot_sla_year,"data/spatial/oceanography/SwC_SLA_year.rds")
 rm(list= ls()[!(ls() %in% c('working.dir','locations', 'Zone','locs','Lon_w',
                             'Lon_e','Lat_n','Lat_s'))])
 gc()
-
 ######### SST #########
 #IMOS - SRS - SST - L3S - Single Sensor - 6 day - day and night time - Australia
 nc_file_to_get_sst <- open.nc("data/spatial/oceanography/large/IMOS_aggregation_20220224T013630Z/IMOS_aggregation_20220224T013630Z.nc",write = TRUE)
@@ -157,9 +156,19 @@ lon_sst <- check_lon
 arr = array(sst_all, dim=c(length(lon_i),length(lat_i),length(time_data$dates)),
             dimnames = list(lon_sst, lat_sst,time_data$dates))
 
+#careful - running out of memory
+rm(list=setdiff(ls(), "arr"))
+gc() #free unused memory
+
 arr_long <- arr %>%
   reshape2::melt(varnames = c("Lon","Lat","Date"))
+saveRDS(arr_long,"data/spatial/oceanography/SwC_SST.rds")
 
+#careful - running out of memory
+rm(list=setdiff(ls(), "arr_long"))
+gc() #free unused memory
+
+#split into 2 halves as to not cook the memory
 arr_long <- arr_long %>%
   dplyr::mutate(Date = as.Date(Date))%>%
   dplyr::mutate(year = year(Date),month = month(Date))%>%
@@ -168,32 +177,43 @@ arr_long <- arr_long %>%
 plot_sst_winter <- arr_long %>% 
   dplyr::filter(month %in%c("7","8","9"))%>%
   group_by(year, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value, na.rm = TRUE)) %>%
-  ungroup()%>%
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value, na.rm = TRUE)) %>% 
   glimpse()
 
 plot_sst_year <- arr_long %>% 
   group_by(year, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>%
-  ungroup()%>%
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
   glimpse()
 
 plot_sst_month <- arr_long %>% 
   group_by(month, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>%
-  ungroup()%>%
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
   glimpse()
 
 plot_sst_ts <- arr_long %>% 
   group_by(year,month, Lon, Lat) %>% 
-  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>%
-  ungroup()%>%
+  summarise(sst = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
   glimpse()
 
 saveRDS(plot_sst_winter,"data/spatial/oceanography/SwC_SST_winter.rds")
 saveRDS(plot_sst_year,"data/spatial/oceanography/SwC_SST_year.rds")
 saveRDS(plot_sst_month,"data/spatial/oceanography/SwC_SST_month.rds")
 saveRDS(plot_sst_ts,"data/spatial/oceanography/SwC_SST_ts.rds")
+
+#We deleted these so add back in
+## get data locations /limits that need from MPA
+locations <-   read.csv("data/spatial/oceanography/network_scale_boundaries.csv", header = TRUE) %>%
+  glimpse()
+
+#i use the "zone" column for each since it distinguishes them all spatially
+Zone <- 'SW Capes' #NW or SW
+locs <- locations[locations$Zone %in% c(Zone), ]               # just wa parks nearby
+
+#gets bounds
+Lon_w <- locs$lon_w
+Lon_e <- locs$lon_e
+Lat_n <- locs$lat_n
+Lat_s <- locs$lat_s
 
 #clear out the memory
 rm(list= ls()[!(ls() %in% c('working.dir','locations', 'Zone','locs','Lon_w',
@@ -239,13 +259,13 @@ acd_ts_monthly <- acd_ts_all %>%
   glimpse()
 
 ## save acidification, don't need to get lat and lon for acd since is only time series 
-saveRDS(acd_ts_monthly,"data/spatial/oceanography/SwC_acidification.rds")
+saveRDS(acd_ts_monthly,"data/spatial/oceanography/Abrolhos_acidification.rds")
 
 ##### -----DEGREE HEATING WEEKS ####
 #download from
 #https://coastwatch.pfeg.noaa.gov/erddap/griddap/NOAA_DHW.html
 #input bounds and times
-nc_file_to_get_dhw <- open.nc("data/spatial/oceanography/large/DHW_2021/dhw_5km_82f1_a212_461c.nc",write = TRUE)
+nc_file_to_get_dhw <- open.nc("data/spatial/oceanography/large/DHW_2021/dhw_5km_SwC_weekly_2002-2022.nc",write = TRUE)
 print.nc(nc_file_to_get_dhw) #shows you all the file details
 
 time_nc<- var.get.nc(nc_file_to_get_dhw, 'time')  #NC_CHAR time:units = "days since 1981-01-01 00:00:00" ;
@@ -300,5 +320,11 @@ plot_dhw_year <- arr_long %>%
   ungroup()%>%
   glimpse()
 
+plot_dhw_ts <- arr_long %>% 
+  group_by(year,month, Lon, Lat) %>% 
+  summarise(dhw = mean(value,na.rm = TRUE), sd = sd(value,na.rm = TRUE)) %>% 
+  glimpse()
+
 saveRDS(plot_dhw_month,"data/spatial/oceanography/SwC_DHW_month.rds")
 saveRDS(plot_dhw_year,"data/spatial/oceanography/SwC_DHW_year.rds")
+saveRDS(plot_dhw_ts,"data/spatial/oceanography/SwC_DHW_ts.rds")

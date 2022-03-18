@@ -18,46 +18,45 @@ library(ggplot2)
 library(patchwork)
 library(viridis)
 library(ggquiver)
-library(forcats)
 
 #set working directory
 working.dir <- getwd()
 setwd(working.dir)
 
-Zone = 'SW Capes'
+Zone = "Abrolhos"
 
 #lims of the spatial plots # change for each mp, bigger than you think because of arrrows #
-xxlim = c(112.8, 115) #all NW c(114, 117)#ABR c(112.8, 115) #long
-yylim = c(-29.5, -26) #all NW c(-21.5, -19) #ABR  #lat
+xxlim = c(114.353, 115.723) 
+yylim = c(-34.618, -33.479) 
 
 #all this is on git already - i don't know how to code in different for git??
 # only one I use for the plots so far is the "aus" one for the coast outline
 #setting up mapping/coastal are for spatial, taken from kingsley script X_siteplots
-aus    <- st_read("data/spatial/shp/61395_mif/australia/cstauscd_r.mif") #data/spatial/shp/cstauscd_r.mif")                            # geodata 100k coastline available: https://data.gov.au/dataset/ds-ga-a05f7892-eae3-7506-e044-00144fdd4fa6/
+aus    <- st_read("data/spatial/shapefiles/61395_mif/australia/cstauscd_r.mif") #data/spatial/shp/cstauscd_r.mif")                            # geodata 100k coastline available: https://data.gov.au/dataset/ds-ga-a05f7892-eae3-7506-e044-00144fdd4fa6/
 dirkh  <- aus[aus$ISLAND_NAME == "DIRK HARTOG ISLAND", ]                        # just dirk hartog island
 aus    <- aus[aus$FEAT_CODE == "mainland", ]
 #extra bits haven't used or loaded for these maps
-aumpa  <- st_read("data/spatial/shp/AustraliaNetworkMarineParks.shp")         # all aus mpas
-wampa  <- st_read("data/spatial/shp/WA_MPA_2018.shp")                           # all wa mpas
+aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")         # all aus mpas
+wampa  <- st_read("data/spatial/shapefiles/WA_MPA_2018.shp")                           # all wa mpas
 ab_mpa <- wampa[wampa$NAME %in% c("Montebello Islands", #"Jurien Bay", "Ningaloo",
                                   "Hamelin Pool", "Shark Bay"), ]               # just wa parks nearby
 NW_mpa <- aumpa[aumpa$NetName %in% c("South-west", "North-west"), ]             # just W nat parks
 ab_nmp <- NW_mpa[NW_mpa$ResName %in% c("Montebello", "Jurien", "Shark Bay"), ]    # just nat parks nearby
-cwatr  <- readRDS('output/coastal_waters_limit_trimmed.rds')                    # coastal waters line trimmed in 'R/GA_coast_trim.R'
-bathdf <- readRDS("output/ga_bathy_trim.rds")                                   # bathymetry trimmed in 'R/GA_coast_trim.R'
-colnames(bathdf)[3] <- "Depth"
+# cwatr  <- readRDS('output/coastal_waters_limit_trimmed.rds')                    # coastal waters line trimmed in 'R/GA_coast_trim.R'
+# bathdf <- readRDS("output/ga_bathy_trim.rds")                                   # bathymetry trimmed in 'R/GA_coast_trim.R'
+# colnames(bathdf)[3] <- "Depth"
 st_crs(aus)         <- st_crs(aumpa)
 st_crs(dirkh)       <- st_crs(aumpa) 
 
 ## get data locations /limits that need from MPA
 ## do control F replace to replace names in the script 
 ##### SLA ####
-sla.data <- readRDS("data/spatial/oceanography/Abrolhos_SLA_month.rds")%>%
+sla.data <- readRDS("data/spatial/oceanography/SwC_SLA_month.rds")%>%
   ungroup()%>%
   dplyr::mutate(month=month.name[month])%>%
   dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
-                               "June","July","August","September","October",
-                               "November","December")))%>%
+                                                     "June","July","August","September","October",
+                                                     "November","December")))%>%
   glimpse()
 
 min_sla =round(min(min(sla.data$sla,na.rm = TRUE), na.rm = TRUE),digits = 2)
@@ -77,11 +76,11 @@ p_1 <- ggplot() +
   labs(x = "Longitude", y = "Latitude", fill = title_legend) +
   coord_sf(xlim = xxlim, ylim = yylim) +
   theme_minimal()+
-  scale_x_continuous(breaks=c(113.0,114.0,115.0))+
+  scale_x_continuous(breaks=c(114.5,115.0,115.5))+
   facet_wrap(~month, nrow = 4, ncol = 3)
 p_1
 
-ggsave('plots/spatial/Abrolhos_SLA_monthly_spatial.png',p_1, dpi = 300, width = 8, height = 9)
+ggsave('plots/spatial/SwC_SLA_monthly_spatial.png',p_1, dpi = 300, width = 8, height = 9)
 dev.off()
 
 ######### SST #########
@@ -124,8 +123,15 @@ dev.off()
 
 
 ##### DEGREE HEATING WEEKS ####
-
 dhw.data <- readRDS("data/spatial/oceanography/Abrolhos_DHW_month.rds")%>%
+  ungroup()%>%
+  dplyr::mutate(month=month.name[month])%>%
+  dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
+                                                     "June","July","August","September","October",
+                                                     "November","December")))%>%
+  glimpse()
+
+dhw.heatwave <- readRDS("data/spatial/oceanography/Abrolhos_DHW_heatwave.rds")%>%
   ungroup()%>%
   dplyr::mutate(month=month.name[month])%>%
   dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
@@ -154,6 +160,23 @@ p_3 <- ggplot() +
   facet_wrap(~month, nrow = 4, ncol = 3)
 p_3
 
+p_4 <- ggplot() +
+  geom_tile(data = dhw.heatwave%>%filter(month%in%c("January","March","May","July",
+                                                    "September","November")), 
+            aes(x = Lon, y = Lat, fill = dhw))+
+  scale_fill_gradientn(colours = viridis(5),na.value = NA,
+                       breaks = seq(from = min_dhw, to = max_dhw, by = 2),
+                       limits = c(min_dhw, max_dhw)) +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa,fill = NA, color = alpha("grey",0.5))+
+  geom_sf(data = wampa,fill = NA, color = alpha("grey",0.5))+
+  labs(x = "Longitude", y = "Latitude", fill = title_legend) +
+  coord_sf(xlim = xxlim, ylim = yylim) +
+  theme_minimal()+
+  scale_x_continuous(breaks=c(113.0,114.0,115.0))+
+  facet_wrap(~month, nrow = 4, ncol = 3)
+p_4
+
 ggsave('plots/spatial/Abrolhos_DHW_monthly_spatial.png',p_3, dpi = 300, width = 8, height = 9)
 
 dev.off()
@@ -175,8 +198,8 @@ acd_mean_plot #plot with the other time series
 sla.monthly <- readRDS("data/spatial/oceanography/Abrolhos_SLA_ts.rds")%>%
   dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", 
                                    month %in% c(12,1,2) ~ "Summer", 
-                                  month %in% c(3,4,5) ~ "Autumn", 
-                                  month %in% c(9,10,11) ~ "Spring" )) %>%
+                                   month %in% c(3,4,5) ~ "Autumn", 
+                                   month %in% c(9,10,11) ~ "Spring" )) %>%
   dplyr::group_by(year, season) %>%
   dplyr::summarise(sla_mean_sea = mean(sla, na.rm = TRUE), sla_sd_sea = mean(sd, na.rm = TRUE)) %>%
   glimpse()
@@ -219,8 +242,16 @@ sst_mean_plot <- ggplot() +
   scale_fill_manual(labels = c("Summer","Winter"), values = c("#e1ad68","#256b61"))
 sst_mean_plot
 
+dhw.monthly <- readRDS("data/spatial/oceanography/Abrolhos_SLA_ts.rds")%>%
+  dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", 
+                                   month %in% c(12,1,2) ~ "Summer", 
+                                   month %in% c(3,4,5) ~ "Autumn", 
+                                   month %in% c(9,10,11) ~ "Spring" )) %>%
+  dplyr::group_by(year, season) %>%
+  dplyr::summarise(sla_mean_sea = mean(sla, na.rm = TRUE), sla_sd_sea = mean(sd, na.rm = TRUE)) %>%
+  glimpse()
+
+
 acd_mean_plot+sla_mean_plot+sst_mean_plot + plot_layout(ncol = 1, nrow = 3)
 
 ggsave('plots/spatial/Abrolhos_acd_sla_sst_ts.png', dpi = 300, width = 8, height = 9)
-
-
