@@ -7,6 +7,7 @@
 ##
 
 rm(list=ls())
+gc()
 
 library(reshape2)
 library(mgcv)
@@ -51,8 +52,6 @@ multi <- stack(file.names.multi)
 
 #preds as a spatial dataframe
 coordinates(preds) <- ~x+y
-#aggregate to lower res
-preds <- sp::aggregate(preds, fact = 10, fun = mean)
 
 preds <- raster::extract(multi, preds, sp = T)
 preds <- as.data.frame(preds)
@@ -116,10 +115,10 @@ preddf <- cbind(preddf,
                 "p_legal" = predict(m_legal, preddf, type = "response"),
                 "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
 
-p_totabund <- rasterFromXYZ(preddf[, c(1, 2, 19)], res = c(4, 4)) 
-p_richness <- rasterFromXYZ(preddf[, c(1, 2, 20)], res = c(4, 4))
-p_legal <- rasterFromXYZ(preddf[, c(1, 2, 21)], res = c(4, 4))
-p_sublegal <- rasterFromXYZ(preddf[, c(1, 2, 22)], res = c(4, 4))
+p_totabund <- rasterFromXYZ(preddf[, c(1, 2, 19)], res = c(40, 40)) 
+p_richness <- rasterFromXYZ(preddf[, c(1, 2, 20)], res = c(40, 40))
+p_legal <- rasterFromXYZ(preddf[, c(1, 2, 21)], res = c(40, 40))
+p_sublegal <- rasterFromXYZ(preddf[, c(1, 2, 22)], res = c(40, 40))
 prasts <- stack(p_totabund,p_richness,p_legal,p_sublegal)
 
 ###

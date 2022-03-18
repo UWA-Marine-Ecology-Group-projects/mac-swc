@@ -101,31 +101,39 @@ p_habitat <- cbind(preddf[1:2],
                    "psponges" = predict(m_sponges, preddf, type = "response"),
                    "prock" = predict(m_rock, preddf, type = "response"))
 
-phab_rasts <- rasterFromXYZ(p_habitat)
+pmacroalgae <- rasterFromXYZ(p_habitat[, c(1, 2, 3)], res = c(4, 4))
+psand <- rasterFromXYZ(p_habitat[, c(1, 2, 4)], res = c(4, 4))
+preef <- rasterFromXYZ(p_habitat[, c(1, 2, 5)], res = c(4, 4))
+pseagrass <- rasterFromXYZ(p_habitat[, c(1, 2, 6)], res = c(4, 4))
+psponges <- rasterFromXYZ(p_habitat[, c(1, 2, 7)], res = c(4, 4))
+prock <- rasterFromXYZ(p_habitat[, c(1, 2, 8)], res = c(4, 4))
+phab_rasts <- stack(pmacroalgae,psand,preef,pseagrass,psponges,prock)
+# phab_rasts <- raster::rasterFromXYZ(p_habitat)
 phab_rasts <- raster::aggregate(phab_rasts, fact = 10, fun = mean)
 phab_rasts
 
 plot(phab_rasts)
+phab_rasts <- as.data.frame(phab_rasts, xy = TRUE, na.rm = TRUE)
 
 # categorise by dominant tag
-p_habitat$dom_tag <- apply(p_habitat[c(3,4,6,7,8)], 1,
+phab_rasts$dom_tag <- apply(phab_rasts[c(3,4,6,7,8)], 1,
                         FUN = function(x){names(which.max(x))})
-p_habitat$dom_tag <- sub('p', '', p_habitat$dom_tag)
-head(p_habitat)
+phab_rasts$dom_tag <- sub('p', '', phab_rasts$dom_tag)
+head(phab_rasts)
 
 # split and output data (whole data are too large for git agh)
-nphab <- nrow(p_habitat)/10
+nphab <- nrow(phab_rasts)/10
 
-phaba <- p_habitat[1:nphab, ]
-phabb <- p_habitat[(1 + nphab):(nphab * 2), ]
-phabc <- p_habitat[(1 + (nphab * 2)):(nphab * 3), ]
-phabd <- p_habitat[(1 + (nphab * 3)):(nphab * 4), ]
-phabe <- p_habitat[(1 + (nphab * 4)):(nphab * 5), ]
-phabf <- p_habitat[(1 + (nphab * 5)):(nphab * 6), ]
-phabg <- p_habitat[(1 + (nphab * 6)):(nphab * 7), ]
-phabh <- p_habitat[(1 + (nphab * 7)):(nphab * 8), ]
-phabi <- p_habitat[(1 + (nphab * 8)):(nphab * 9), ]
-phabj <- p_habitat[(1 + (nphab * 9)):(nphab * 10), ]
+phaba <- phab_rasts[1:nphab, ]
+phabb <- phab_rasts[(1 + nphab):(nphab * 2), ]
+phabc <- phab_rasts[(1 + (nphab * 2)):(nphab * 3), ]
+phabd <- phab_rasts[(1 + (nphab * 3)):(nphab * 4), ]
+phabe <- phab_rasts[(1 + (nphab * 4)):(nphab * 5), ]
+phabf <- phab_rasts[(1 + (nphab * 5)):(nphab * 6), ]
+phabg <- phab_rasts[(1 + (nphab * 6)):(nphab * 7), ]
+phabh <- phab_rasts[(1 + (nphab * 7)):(nphab * 8), ]
+phabi <- phab_rasts[(1 + (nphab * 8)):(nphab * 9), ]
+phabj <- phab_rasts[(1 + (nphab * 9)):(nphab * 10), ]
 
 saveRDS(phaba, "output/multibeam_habitat_fssgam/multibeam_habitat_pred_a.rds")
 saveRDS(phabb, "output/multibeam_habitat_fssgam/multibeam_habitat_pred_b.rds")
