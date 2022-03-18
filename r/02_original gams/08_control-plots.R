@@ -57,13 +57,31 @@ length <- readRDS("data/tidy/dat.length.full.rds")%>%
   glimpse()
 
 bruv <- read.csv("data/staging/2020_south-west_stereo-BRUVs.complete.maxn.csv")%>%
+  dplyr::select(-status)%>%
   glimpse()
 
 boss <- read.csv("data/staging/2020-2021_south-west_BOSS.complete.maxn.csv")%>%
+  dplyr::select(-status)%>%
   glimpse()
 
 full.maxn <- bind_rows(bruv, boss)%>%
-  dplyr::filter(maxn>0,!is.na(status)) #fix this properly
+  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3")))%>%
+  dplyr::mutate(id = paste(campaignid, sample, sep = "."))
+
+metadata <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv") %>%    #from 01_format data/BRUV format/01-03
+  dplyr::mutate(status = as.factor(status)) %>%
+  dplyr::mutate(sample = as.factor(sample)) %>%
+  dplyr::mutate(planned.or.exploratory = as.factor(planned.or.exploratory)) %>%
+  dplyr::mutate(site = as.factor(site)) %>%
+  dplyr::filter(successful.count%in%c("Yes")) %>%
+  dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
+  dplyr::select(id,status)%>%
+  dplyr::glimpse()
+
+full.maxn <- full.maxn %>%
+  dplyr::left_join(metadata)%>%
+  glimpse()
 
 #read in SST
 sst <- readRDS("data/spatial/oceanography/SwC_SST_winter.rds")%>%
@@ -96,8 +114,9 @@ cti <- full.maxn %>%
   dplyr::filter(!is.na(rls.thermal.niche))%>%
   dplyr::mutate(log.maxn=log1p(maxn),weightedSTI=log.maxn*rls.thermal.niche)%>%
   dplyr::group_by(id,sample,status)%>%
-  dplyr::summarise(log.maxn=sum(log.maxn),w.STI = sum(weightedSTI),CTI=w.STI/log.maxn)%>%
+  dplyr::summarise(log.maxn=sum(log.maxn),w.STI = sum(weightedSTI),CTI=(w.STI/log.maxn))%>%
   dplyr::ungroup()%>%
+  dplyr::filter(!is.na(CTI))%>%
   glimpse()
 
 #need to make a new dataframe - year, species richness (plus SE), greater than legal (plus SE)
