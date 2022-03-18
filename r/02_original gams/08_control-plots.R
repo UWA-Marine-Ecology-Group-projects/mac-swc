@@ -45,7 +45,6 @@ Theme1 <-
     axis.line.y=element_line(colour="black", size=0.5,linetype='solid'),
     strip.background = element_blank())
 
-
 ## Set your working directory ----
 working.dir <- getwd()
 setwd(working.dir)
@@ -57,8 +56,17 @@ maxn <- readRDS("data/tidy/dat.maxn.full.rds")%>%
 length <- readRDS("data/tidy/dat.length.full.rds")%>%
   glimpse()
 
+bruv <- read.csv("data/staging/2020_south-west_stereo-BRUVs.complete.maxn.csv")%>%
+  glimpse()
+
+boss <- read.csv("data/staging/2020-2021_south-west_BOSS.complete.maxn.csv")%>%
+  glimpse()
+
+full.maxn <- bind_rows(bruv, boss)%>%
+  dplyr::filter(maxn>0,!is.na(status)) #fix this properly
+
 #read in SST
-sst <- readRDS("data/spatial/oceanography/Abrolhos_SST_winter.rds")%>%
+sst <- readRDS("data/spatial/oceanography/SwC_SST_winter.rds")%>%
   ungroup()%>%
   dplyr::mutate(year=as.numeric(year))%>%
   glimpse()
@@ -67,17 +75,10 @@ locations <-  read.csv("data/spatial/oceanography/network_scale_boundaries.csv",
                        header = TRUE) %>%
   glimpse()
 
-sst.npz6 <- sst %>%
-  dplyr::filter(Lat <= -27.916 & Lat >= -28.238,Lon <= 113.666 & Lon >= 113.112)%>%
+sst <- sst %>%
+  dplyr::filter(Lat <= -33.479 & Lat >= -34.618,Lon <= 115.723 & Lon >= 114.353)%>% #work out how to automate
   dplyr::group_by(year)%>%
-  dplyr::summarise(sst.mean=mean(sst), sd = mean(sd))%>%
-  glimpse()
-
-str(sst.npz6)
-sst.npz9 <- sst %>%
-  dplyr::filter(Lat <= -26.991 & Lat >= -27.302,Lon <= 113.402 & Lon >= 112.903)%>%
-  dplyr::group_by(year)%>%
-  dplyr::summarise(sst.mean=mean(sst), sd = mean(sd))%>%
+  dplyr::summarise(sst.mean=mean(sst,na.rm = T), sd = mean(sd, na.rm = T))%>%
   glimpse()
 
 # get rls thermal niche values ----
@@ -94,32 +95,45 @@ cti <- full.maxn %>%
   left_join(master)%>%
   dplyr::filter(!is.na(rls.thermal.niche))%>%
   dplyr::mutate(log.maxn=log1p(maxn),weightedSTI=log.maxn*rls.thermal.niche)%>%
-  dplyr::group_by(id,sample,location,status)%>%
+  dplyr::group_by(id,sample,status)%>%
   dplyr::summarise(log.maxn=sum(log.maxn),w.STI = sum(weightedSTI),CTI=w.STI/log.maxn)%>%
   dplyr::ungroup()%>%
   glimpse()
 
 #need to make a new dataframe - year, species richness (plus SE), greater than legal (plus SE)
-year <- c("2018","2018","2019","2019","2020","2020","2021","2021","2022","2022")
+year <- c("2017","2017","2018","2018","2019","2019","2020","2020","2021","2021","2022","2022")
 status <- c("Fished","No-take")
 dat <- data.frame(year,status)
+dat$year <- as.numeric(dat$year)
 
 #data=
 spr.sr <- maxn %>%
   dplyr::filter(scientific%in%"species.richness")%>%
   dplyr::group_by(status)%>%
   summarise(species.richness = mean(maxn),species.richness.se=se(maxn))%>%
-  dplyr::mutate(year="2020")
+  dplyr::mutate(year=as.numeric("2020"))%>%
+  glimpse()
 
 spr.l <- length %>%
   dplyr::filter(scientific%in%"greater than legal size")%>%
   dplyr::group_by(status)%>%
   summarise(legal = mean(number),legal.se=se(number))%>%
-  dplyr::mutate(year="2020")
+  dplyr::mutate(year=as.numeric("2020"))%>%
+  glimpse()
+
+spr.cti <- cti %>%
+  dplyr::group_by(status)%>%
+  summarise(cti = mean(CTI),cti.se=se(CTI))%>%
+  dplyr::mutate(year=as.numeric("2020"))%>%
+  glimpse()
 
 dat.cp <- dat %>%
   left_join(spr.sr)%>%
-  left_join(spr.l)
+  left_join(spr.l)%>%
+  left_join(spr.cti)%>%
+  left_join(sst)%>%
+  dplyr::filter(!year=="2022")%>%
+  glimpse()
 
 # plot year by species richness - plus a line for MPA gazetting time ---
 gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status))+
@@ -127,7 +141,7 @@ gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status
   geom_point(shape = 21,size = 2,position=position_dodge(width=0.3),stroke = 1, color = "black")+ 
   theme_classic()+
   scale_y_continuous(limits = c(5,15))+
-  geom_vline(xintercept = 1, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Species richness")+
   xlab("Year")+
   scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
@@ -146,16 +160,39 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,5))+
-  geom_vline(xintercept = 1, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Greater than legal size")+
   xlab("Year")+
   guides(fill=guide_legend(title = "Marine Park Zone"))+
   Theme1
 gg.l
 
-grid <- gg.sr/gg.l+plot_layout(guides = 'collect')
+#CTI
+gg.cti <- ggplot()+ 
+  geom_line(data = dat.cp,aes(group = 1, x = year, y = sst.mean))+
+  geom_ribbon(data = dat.cp,aes(group = 1, x = year, y = sst.mean, 
+                              ymin = sst.mean - sd, ymax = sst.mean+sd), 
+              alpha = 0.2)+
+  geom_errorbar(data = dat.cp,aes(x = year, y = cti,ymin=cti-cti.se,
+                                ymax= cti+cti.se, fill = status), 
+                width = 0.2, position = position_dodge(width = 0.1))+
+  geom_point(data = dat.cp, aes(x = year, y = cti, fill = status),shape = 21,size = 2,
+             stroke = 1, color = "black", position = position_dodge(width = 0.1))+
+  theme_classic()+
+  scale_y_continuous(limits = c(17,20))+
+  scale_x_continuous(limits = c(2017,2021.5))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", 
+             size=0.5,alpha = 0.5)+
+  ylab(expression(paste("Temperature (",degree~C,")")))+
+  xlab("Year")+
+  scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),
+                    values=c("#6daff4", "#7bbc63"))+
+  guides(fill=guide_legend(title = "Marine Park Zone"))+
+  Theme1
+gg.cti
+
+grid <- gg.sr/gg.l/gg.cti+plot_layout(guides = 'collect')
 grid
 
 #save out plot
-save_plot("plots/original gamms/control.plot.png",grid,base_height = 5,base_width = 7)
-ggsave("plots/original gamms/control.plot.png",grid,dpi=600,width=6.0)
+save_plot("plots/original gamms/control.plot.png",grid,base_height = 6,base_width = 7.5)

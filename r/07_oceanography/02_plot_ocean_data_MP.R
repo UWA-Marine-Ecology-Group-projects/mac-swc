@@ -80,12 +80,12 @@ p_1 <- ggplot() +
   facet_wrap(~month, nrow = 4, ncol = 3)
 p_1
 
-ggsave('plots/spatial/SwC_SLA_monthly_spatial.png',p_1, dpi = 300, width = 8, height = 9)
+ggsave('plots/spatial/SwC_SLA_monthly_spatial.png',p_1, dpi = 300, width = 6, height = 4.5)
 dev.off()
 
 ######### SST #########
 
-sst.data <- readRDS("data/spatial/oceanography/Abrolhos_SST_month.rds")%>%
+sst.data <- readRDS("data/spatial/oceanography/SwC_SST_month.rds")%>%
   ungroup()%>%
   dplyr::mutate(month=month.name[month])%>%
   dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
@@ -102,7 +102,7 @@ p_2 <- ggplot() +
                                                 "September","November")), 
             aes(x = Lon, y = Lat, fill = sst))+#, interpolate = TRUE) + 
   scale_fill_gradientn(colours = viridis(5),na.value = NA,
-                       breaks = seq(from = min_sst, to = max_sst, by = 0.5),
+                       breaks = seq(from = min_sst, to = max_sst, by = 1),
                        limits = c(min_sst, max_sst)) +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   # geom_quiver(data = curr_month, aes(x=long,y=lat,u=uu,v=vv), 
@@ -113,76 +113,47 @@ p_2 <- ggplot() +
   coord_sf(xlim = xxlim, ylim = yylim) +
   theme_minimal()+
   # ggtitle(month.name[[i]])+
-  scale_x_continuous(breaks=c(113.0,114.0,115.0))+
+  scale_x_continuous(breaks=c(114.5,115.0,115.5))+
   facet_wrap(~month, nrow = 4, ncol = 3)
 p_2
 
-ggsave('plots/spatial/Abrolhos_SST_monthly_spatial.png',p_2, dpi = 300, width = 8, height = 9)
+ggsave('plots/spatial/SwC_SST_monthly_spatial.png',p_2, dpi = 300, width = 6, height = 4.5)
 
 dev.off()
 
-
 ##### DEGREE HEATING WEEKS ####
-dhw.data <- readRDS("data/spatial/oceanography/Abrolhos_DHW_month.rds")%>%
+dhw.heatwave <- readRDS("data/spatial/oceanography/SwC_DHW_heatwave.rds")%>%
   ungroup()%>%
-  dplyr::mutate(month=month.name[month])%>%
-  dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
-                                                     "June","July","August","September","October",
-                                                     "November","December")))%>%
+  dplyr::mutate(title=ifelse(year=='2011',"2011 May",year))%>%
+  dplyr::mutate(title=ifelse(title=='2021',"2021 May",title))%>%
   glimpse()
 
-dhw.heatwave <- readRDS("data/spatial/oceanography/Abrolhos_DHW_heatwave.rds")%>%
-  ungroup()%>%
-  dplyr::mutate(month=month.name[month])%>%
-  dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
-                                                     "June","July","August","September","October",
-                                                     "November","December")))%>%
-  glimpse()
-
-min_dhw = round(min(min(dhw.data$dhw,na.rm = TRUE), na.rm = TRUE))
-max_dhw = round(max(max(dhw.data$dhw,na.rm = TRUE), na.rm = TRUE))
+min_dhw = round(min(min(dhw.heatwave$dhw,na.rm = TRUE), na.rm = TRUE))
+max_dhw = round(max(max(dhw.heatwave$dhw,na.rm = TRUE), na.rm = TRUE))
 
 title_legend <- "DHW"
 p_3 <- ggplot() +
-  geom_tile(data = dhw.data%>%filter(month%in%c("January","March","May","July",
-                                                "September","November")), 
+  geom_tile(data = dhw.heatwave, 
             aes(x = Lon, y = Lat, fill = dhw))+
   scale_fill_gradientn(colours = viridis(5),na.value = NA,
-                       breaks = seq(from = min_dhw, to = max_dhw, by = 2),
-                       limits = c(min_dhw, max_dhw)) +
+                       breaks = seq(from = 0, to = max_dhw, by = 5),
+                       limits = c(0, max_dhw)) +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   geom_sf(data = aumpa,fill = NA, color = alpha("grey",0.5))+
   geom_sf(data = wampa,fill = NA, color = alpha("grey",0.5))+
   labs(x = "Longitude", y = "Latitude", fill = title_legend) +
   coord_sf(xlim = xxlim, ylim = yylim) +
   theme_minimal()+
-  scale_x_continuous(breaks=c(113.0,114.0,115.0))+
-  facet_wrap(~month, nrow = 4, ncol = 3)
+  scale_x_continuous(breaks=c(114.5,115.0,115.5))+
+  facet_wrap(~title)
 p_3
 
-p_4 <- ggplot() +
-  geom_tile(data = dhw.heatwave%>%filter(month%in%c("January","March","May","July",
-                                                    "September","November")), 
-            aes(x = Lon, y = Lat, fill = dhw))+
-  scale_fill_gradientn(colours = viridis(5),na.value = NA,
-                       breaks = seq(from = min_dhw, to = max_dhw, by = 2),
-                       limits = c(min_dhw, max_dhw)) +
-  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
-  geom_sf(data = aumpa,fill = NA, color = alpha("grey",0.5))+
-  geom_sf(data = wampa,fill = NA, color = alpha("grey",0.5))+
-  labs(x = "Longitude", y = "Latitude", fill = title_legend) +
-  coord_sf(xlim = xxlim, ylim = yylim) +
-  theme_minimal()+
-  scale_x_continuous(breaks=c(113.0,114.0,115.0))+
-  facet_wrap(~month, nrow = 4, ncol = 3)
-p_4
-
-ggsave('plots/spatial/Abrolhos_DHW_monthly_spatial.png',p_3, dpi = 300, width = 8, height = 9)
+ggsave('plots/spatial/SwC_DHW_monthly_spatial.png',p_3, dpi = 300, width = 6, height = 3.5)
 
 dev.off()
 
 ##### ACIDIFICATION #####
-acd_ts_monthly <- readRDS("data/spatial/oceanography/Abrolhos_acidification.rds")%>%
+acd_ts_monthly <- readRDS("data/spatial/oceanography/SwC_acidification.rds")%>%
   glimpse()
 
 legend_title = "Season"
@@ -195,7 +166,7 @@ acd_mean_plot #plot with the other time series
 
 ##### Average plots - time series ####
 #plot for sla, summer and winter mean
-sla.monthly <- readRDS("data/spatial/oceanography/Abrolhos_SLA_ts.rds")%>%
+sla.monthly <- readRDS("data/spatial/oceanography/SwC_SLA_ts.rds")%>%
   dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", 
                                    month %in% c(12,1,2) ~ "Summer", 
                                    month %in% c(3,4,5) ~ "Autumn", 
@@ -218,9 +189,8 @@ sla_mean_plot <- ggplot() +
   scale_fill_manual(labels = c("Summer","Winter"), values = c("#e1ad68","#256b61"))
 sla_mean_plot
 
-
 #plot for sst summer and winter mean
-sst_tss <- readRDS("data/spatial/oceanography/Abrolhos_SST_ts.rds")%>%
+sst_tss <- readRDS("data/spatial/oceanography/SwC_SST_ts.rds")%>%
   dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", month %in% c(12,1,2) ~ "Summer", 
                                    month %in% c(3,4,5) ~ "Autumn", month %in% c(9,10,11) ~ "Spring" )) %>%
   group_by(year, season) %>%
@@ -242,16 +212,25 @@ sst_mean_plot <- ggplot() +
   scale_fill_manual(labels = c("Summer","Winter"), values = c("#e1ad68","#256b61"))
 sst_mean_plot
 
-dhw.monthly <- readRDS("data/spatial/oceanography/Abrolhos_SLA_ts.rds")%>%
-  dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", 
-                                   month %in% c(12,1,2) ~ "Summer", 
-                                   month %in% c(3,4,5) ~ "Autumn", 
-                                   month %in% c(9,10,11) ~ "Spring" )) %>%
-  dplyr::group_by(year, season) %>%
-  dplyr::summarise(sla_mean_sea = mean(sla, na.rm = TRUE), sla_sd_sea = mean(sd, na.rm = TRUE)) %>%
+#plot for dhw data 
+dhw_plot <- readRDS("data/spatial/oceanography/SwC_DHW_ts.rds")%>%
+  group_by(year) %>%
+  summarise(dhw_mean = mean(dhw, na.rm = TRUE),sd_dhw = mean(sd, na.rm = TRUE)) %>%
   glimpse()
 
+dhw_mean_plot <- ggplot() + 
+  geom_vline(xintercept = 2011, color = "red", linetype = 5, alpha = 0.5)+
+  geom_vline(xintercept = 2021, color = "red", linetype = 5, alpha = 0.5)+
+  geom_line(data = dhw_plot, aes(x = year, y = dhw_mean)) + 
+  geom_ribbon(data = dhw_plot,aes(x = year, y = dhw_mean,
+                                  ymin = dhw_mean-sd_dhw, 
+                                  ymax = dhw_mean+sd_dhw), 
+              alpha = 0.2, show.legend = F) +
+  theme_classic() +
+  scale_x_continuous(limits = c(1993,2022))+
+  labs(x = "Year", y = "DHW")
+dhw_mean_plot
 
-acd_mean_plot+sla_mean_plot+sst_mean_plot + plot_layout(ncol = 1, nrow = 3)
+acd_mean_plot+sla_mean_plot+sst_mean_plot + dhw_mean_plot+plot_layout(ncol = 1, nrow = 4)
 
-ggsave('plots/spatial/Abrolhos_acd_sla_sst_ts.png', dpi = 300, width = 8, height = 9)
+ggsave('plots/spatial/Abrolhos_acd_sla_sst_ts.png', dpi = 300, width = 6, height = 6.75)
