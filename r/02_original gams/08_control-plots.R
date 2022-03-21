@@ -156,7 +156,8 @@ dat.cp <- dat %>%
 
 # plot year by species richness - plus a line for MPA gazetting time ---
 gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status))+
-  geom_errorbar(data = dat.cp,aes(ymin=species.richness-species.richness.se,ymax= species.richness+species.richness.se), width = 0.2,position=position_dodge(width=0.3))+
+  geom_errorbar(data = dat.cp,aes(ymin=species.richness-species.richness.se,ymax= species.richness+species.richness.se), 
+                width = 0.4,position=position_dodge(width=0.3))+
   geom_point(shape = 21,size = 2,position=position_dodge(width=0.3),stroke = 1, color = "black")+ 
   theme_classic()+
   scale_y_continuous(limits = c(5,15))+
@@ -175,7 +176,7 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 1.5, ymax = 2),fill = "#c7d6ff")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 2, ymax = Inf),fill = "#caffc7")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 0.25),fill = "#ffc7c7")+
-  geom_errorbar(data = dat.cp,aes(ymin=legal-legal.se,ymax= legal+legal.se), width = 0.2,position=position_dodge(width=0.3))+
+  geom_errorbar(data = dat.cp,aes(ymin=legal-legal.se,ymax= legal+legal.se), width = 0.4,position=position_dodge(width=0.3))+
   geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,5))+
@@ -194,7 +195,7 @@ gg.cti <- ggplot()+
               alpha = 0.2)+
   geom_errorbar(data = dat.cp,aes(x = year, y = cti,ymin=cti-cti.se,
                                 ymax= cti+cti.se, fill = status), 
-                width = 0.2, position = position_dodge(width = 0.1))+
+                width = 0.4, position = position_dodge(width = 0.1))+
   geom_point(data = dat.cp, aes(x = year, y = cti, fill = status),shape = 21,size = 2,
              stroke = 1, color = "black", position = position_dodge(width = 0.1))+
   theme_classic()+
