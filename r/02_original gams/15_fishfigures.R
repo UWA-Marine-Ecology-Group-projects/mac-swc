@@ -44,69 +44,111 @@ swc_npz <- sw_mpa[sw_mpa$ZoneName == "National Park Zone", ]
 swc_npz$parkid <- c(1:7)
 wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # crs for sp objects
-swc_npz <- st_transform(swc_npz, sppcrs)
+# swc_npz <- st_transform(swc_npz, sppcrs)
 
 #bring in state MPs to mask out the indjidup sanctuary
 wampa  <- st_read("data/spatial/shapefiles/test1.shp", 
                   crs = wgscrs)%>%
-  dplyr::filter(Name%in%c("Injidup Sanctuary Zone"))
+  dplyr::filter(Name%in%c("Injidup Sanctuary Zone","Kilcarnup Sanctuary Zone",
+                          "Cape Freycinet Sanctuary Zone"))
 
 # read in outputs from 'R/habitat_fish_model_predict.R'
-# preddf <- readRDS("output/broad_habitat_predictions.rds")
-spreddf <- readRDS("output/fish gamms/site_fish_predictions.rds")                       # site predictions only
+#mask them by the state sanctuary zones
+#who knows wtf this does
+wampa <- st_zm(wampa)
 
-#spreddf$sitens <- ifelse(spreddf$y > 6940000, 1, 0)
+#total abundance
+p_totabund <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
+  dplyr::select(x,y,p_totabund)
+#rasterise
+p_totabund <- rasterFromXYZ(p_totabund, crs = sppcrs)
+#reproject
+p_totabund <- projectRaster(p_totabund,crs = wgscrs)
+#mask
+p_totabund <- raster::mask(p_totabund,wampa, inverse = T)
+#convert to dataframe
+p_totabund <- as.data.frame(p_totabund, xy = T, na.rm = T)
+
+#species richness
+p_richness <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
+  dplyr::select(x,y,p_richness)
+#rasterise
+p_richness <- rasterFromXYZ(p_richness, crs = sppcrs)
+#reproject
+p_richness <- projectRaster(p_richness,crs = wgscrs)
+#mask
+p_richness <- raster::mask(p_richness,wampa, inverse = T)
+#convert to dataframe
+p_richness <- as.data.frame(p_richness, xy = T, na.rm = T)
+
+#legal
+p_legal <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
+  dplyr::filter(p_legal<5)%>%
+  dplyr::select(x,y,p_legal)
+#rasterise
+p_legal <- rasterFromXYZ(p_legal, crs = sppcrs)
+#reproject
+p_legal <- projectRaster(p_legal,crs = wgscrs)
+#mask
+p_legal <- raster::mask(p_legal,wampa, inverse = T)
+#convert to dataframe
+p_legal <- as.data.frame(p_legal, xy = T, na.rm = T)
+
+#sublegal
+p_sublegal <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
+  dplyr::select(x,y,p_sublegal)
+#rasterise
+p_sublegal <- rasterFromXYZ(p_sublegal, crs = sppcrs)
+#reproject
+p_sublegal <- projectRaster(p_sublegal,crs = wgscrs)
+#mask
+p_sublegal <- raster::mask(p_sublegal,wampa, inverse = T)
+#convert to dataframe
+p_sublegal <- as.data.frame(p_sublegal, xy = T, na.rm = T)
 
 # plotting broad maps
 #total abundance
 p11 <- ggplot() +
-  geom_tile(data = spreddf, aes(x, y, fill = p_totabund)) +
+  geom_tile(data = p_totabund, aes(x, y, fill = p_totabund)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Total Abundance")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1+
-  geom_sf(data = wampa, fill="white", color="white")
+  Theme1
 p11
 
 #species richness
 p21 <- ggplot() +
-  geom_raster(data = spreddf, aes(x, y, fill = p_richness)) +
+  geom_tile(data = p_richness, aes(x, y, fill = p_richness)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Species Richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1+
-  geom_sf(data = wampa, fill="white", color="white")
-
+  labs(x = NULL, y = NULL, fill = "Species richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  Theme1
 p21
 
 # greater than legal size
 p31 <- ggplot() +
-  geom_tile(data = spreddf%>%filter(p_legal<5), aes(x, y, fill = p_legal)) +
+  geom_tile(data = p_legal, aes(x, y, fill = p_legal)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1+
-  geom_sf(data = wampa, fill="white", color="white")
-
+  Theme1
 p31
 
 #smaller than legal size
 p41 <- ggplot() +
-  geom_tile(data = spreddf, aes(x, y, fill = p_sublegal)) +
+  geom_tile(data = p_sublegal, aes(x, y, fill = p_sublegal)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
-  Theme1+
-  geom_sf(data = wampa, fill="white", color="white")
-
+  Theme1
 p41
 
 gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")    
