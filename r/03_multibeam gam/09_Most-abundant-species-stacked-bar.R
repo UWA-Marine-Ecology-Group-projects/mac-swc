@@ -154,3 +154,114 @@ bar.top.10
 #save out plot
 ggsave("plots/multibeam gamms/abundant.fish.bar.png",bar.top.10,dpi=600,width=6.0)
 
+#targeted species top 10 abundance
+# Read in life history
+url <- "https://docs.google.com/spreadsheets/d/1SMLvR9t8_F-gXapR2EemQMEPSw_bUbPLcXd3lJ5g5Bo/edit?ts=5e6f36e2#gid=825736197"
+
+master <- googlesheets4::read_sheet(url)%>%
+  ga.clean.names()%>%
+  filter(grepl('Australia', global.region))%>%
+  filter(grepl('SW', marine.region))%>%
+  dplyr::select(family,genus,species,iucn.ranking,fishing.mortality,fishing.type,australian.common.name,minlegal.wa)%>% 
+  distinct()%>%
+  glimpse()
+
+fished.species <- maxn %>%
+  dplyr::left_join(master) %>%
+  dplyr::mutate(fishing.type = ifelse(scientific %in%c("Carangidae Pseudocaranx spp",
+                                                       "Carangidae Unknown spp",
+                                                       "Platycephalidae Platycephalus spp",
+                                                       "Scombridae Sarda spp",
+                                                       "Scombridae Unknown spp",
+                                                       "Sillaginidae Sillago spp",
+                                                       "Berycidae Centroberyx sp1"),"R",fishing.type))%>%
+  dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R","C","B/C"))%>%
+  dplyr::filter(!species%in%c("nigricans","lineolatus","cirratus"))%>% # Brooke removed dusky morwong, maori wrasse, common saw shark
+  dplyr::filter(!family%in%c("Monacanthidae", "Scorpididae", "Mullidae")) %>% # Brooke removed leatherjackets, sea sweeps and goat fish
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Carangidae Pseudocaranx spp"),250,minlegal.wa))%>%
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Platycephalus spp"),300,minlegal.wa))%>%
+  # dplyr::select(status,scientific,fishing.type,australian.common.name)%>%
+  glimpse()
+
+# workout total maxn for each species ---
+maxn.fished.10<-fished.species %>%
+  mutate(scientific=paste(genus,species,sep=" "))%>%
+  group_by(scientific)%>%
+  dplyr::summarise(maxn=sum(maxn))%>%
+  ungroup()%>%
+  top_n(11)%>%
+  dplyr::filter(!scientific%in%c("Centroberyx australis","Centroberyx lineatus"))%>%
+  glimpse()
+
+#have a look
+bar<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +   
+  geom_bar(stat="identity",position=position_dodge())+
+  coord_flip()+
+  xlab("Species")+
+  ylab(expression(Overall~abundance~(Sigma~MaxN)))+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  theme_collapse
+bar
+
+#1 - Chrysophrys auratus
+c.a <- as.raster(readPNG("data/images/Chrysophrys auratus 3cm.png"))
+
+#2 - Pseudocaranx spp
+p.spp <- as.raster(readPNG("data/images/Pseudocaranx dentex-3cm.png"))
+
+#3 - Nemadactylus valenciennesi
+n.v <- as.raster(readPNG("data/images/Nemadactylus valenciennesi-3cm.png"))
+
+#4 - Epinephelides armatus
+e.a <- as.raster(readPNG("data/images/Epinephelides armatus-3cmL.png"))
+
+#5 - Seriola lalandi
+s.l <- as.raster(readPNG("data/images/seriola_dumerili_nb.png"))
+
+#5 - Seriola hippos
+s.h <- as.raster(readPNG("data/images/Seriola_hippos_nb_HQ_TAYLOR.png"))
+
+#6 - Centroberyx sp1
+#nothing yet and need to add on lineatus
+
+#7 - Glaucosoma hebriacum
+g.h <- as.raster(readPNG("data/images/Glaucosoma hebraicum 3cm.png"))
+
+#8 - Furgaleus mackie
+f.m <- as.raster(readPNG("data/images/Mustelus antarcticus-3cm.png"))
+
+#9 - Bodianus frenchii
+b.f <- as.raster(readPNG("data/images/Bodianus frenchii-3cm.png"))
+
+#10 - Platycephalus spp
+p.s <- as.raster(readPNG("data/images/Platycephalus speculator-3cm.png"))
+
+#plot final bar plot
+bar.fished.10<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +   
+  geom_bar(stat="identity",colour="black",fill="lightgrey",position=position_dodge())+
+  ylim (0, 200)+
+  coord_flip()+
+  xlab("Species")+
+  ylab(expression(Overall~abundance~(Sigma~MaxN)))+
+  theme_bw()+
+  theme(axis.text.y = element_text(face="italic"))+
+  theme_collapse+
+  theme.larger.text+
+  annotation_raster(c.a, xmin=9.6,xmax=10.4,ymin=165, ymax=210)+          #1
+  annotation_raster(p.spp, xmin=8.8,xmax=9.2,ymin=156, ymax=180)+               #2
+  annotation_raster(n.v, xmin=7.65, xmax=8.35, ymin=90, ymax=130)+         #3
+  annotation_raster(e.a, xmin=6.65,xmax=7.35,ymin=67, ymax=100)+               #4
+  annotation_raster(s.l, xmin=5.5,xmax=6.5,ymin=60, ymax=130)+                #5
+  # annotation_raster(n.v, xmin=4.6,xmax=5.4,ymin=180, ymax=800)+                 #6
+  annotation_raster(g.h, xmin=3.55,xmax=4.45,ymin=38, ymax=90)+                 #7
+  annotation_raster(f.m, xmin=2.55,xmax=3.45,ymin=35, ymax=120)+              #8
+  annotation_raster(b.f, xmin=1.75,xmax=2.25,ymin=33, ymax=70)+                #9
+  annotation_raster(p.s, xmin=0.7,xmax=1.3,ymin=31, ymax=70)                 #10
+# ggtitle("10 most abundant species") +
+# theme(plot.title = element_text(hjust = 0))
+# bar.fished.10
+
+#save out plot
+ggsave("plots/multibeam gamms/abundant.targets.bar.png",bar.fished.10,dpi=600,width=6.0, height = 6.0)
+

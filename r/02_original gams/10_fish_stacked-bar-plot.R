@@ -241,15 +241,15 @@ bar.fished.10<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +
   theme_collapse+
   theme.larger.text+
   # annotation_raster(c.a, xmin=9.75,xmax=10.25,ymin=3820, ymax=4400)+          #1
-  annotation_raster(p.spp, xmin=8.8,xmax=9.2,ymin=500, ymax=800)+               #2
+  annotation_raster(p.spp, xmin=8.8,xmax=9.2,ymin=475, ymax=800)+               #2
   # annotation_raster(n.o, xmin=7.75, xmax=8.25, ymin=2750, ymax=3200)+         #3
-  annotation_raster(c.a, xmin=6.8,xmax=7.2,ymin=400, ymax=700)+                 #4
-  annotation_raster(s.h, xmin=5.75,xmax=6.25,ymin=250, ymax=1000)+              #5
-  annotation_raster(n.v, xmin=4.6,xmax=5.4,ymin=200, ymax=800)+                 #6
-  annotation_raster(e.a, xmin=3.8,xmax=4.2,ymin=180, ymax=750)+                 #7
-  annotation_raster(s.l, xmin=2.7,xmax=3.3,ymin=150, ymax=1000)+                #8
-  annotation_raster(p.s, xmin=1.5,xmax=2.5,ymin=100, ymax=600)+                 #9
-  annotation_raster(g.h, xmin=0.75,xmax=1.25,ymin=70, ymax=800)                 #10
+  annotation_raster(c.a, xmin=6.55,xmax=7.45,ymin=350, ymax=900)+               #4
+  annotation_raster(s.h, xmin=5.6,xmax=6.3,ymin=230, ymax=1000)+                #5
+  annotation_raster(n.v, xmin=4.6,xmax=5.4,ymin=180, ymax=800)+                 #6
+  annotation_raster(e.a, xmin=3.7,xmax=4.3,ymin=130, ymax=600)+                 #7
+  annotation_raster(s.l, xmin=2.55,xmax=3.45,ymin=130, ymax=1000)+              #8
+  annotation_raster(p.s, xmin=1.75,xmax=2.25,ymin=75, ymax=620)+                #9
+  annotation_raster(g.h, xmin=0.55,xmax=1.45,ymin=75, ymax=800)                 #10
 # ggtitle("10 most abundant species") +
 # theme(plot.title = element_text(hjust = 0))
 bar.fished.10
