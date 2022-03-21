@@ -312,28 +312,31 @@ ggmod.leg.tpi<- ggplot() +
   Theme1
 ggmod.leg.tpi
 
-# MODEL smaller than legal size (mean.relief + roughness) ----
+# MODEL smaller than legal size (depth + roughness + tpi) ----
 dat.sub <- dat.length %>% filter(scientific=="smaller than legal size")
 
-mod=gam(number~s(mean.relief,k=3,bs='cr')+ s(roughness,k=3,bs='cr')+ s(site,bs="re"), family=tw,data=dat.sub)
+mod=gam(number~s(depth,k=3,bs='cr')+ s(roughness,k=3,bs='cr')+ s(tpi,k=3,bs='cr')+ 
+          s(site,bs="re"), family=tw,data=dat.sub)
 
-# predict - broad.reef ----
-testdata <- expand.grid(mean.relief=seq(min(dat.length$mean.relief),max(dat.length$mean.relief),length.out = 20),
+# predict - depth ----
+testdata <- expand.grid(depth=seq(min(dat.length$depth),max(dat.length$depth),length.out = 20),
                         roughness=mean(mod$model$roughness),
+                        tpi=mean(mod$model$tpi),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.sub.relief = testdata%>%data.frame(fits)%>%
-  group_by(mean.relief)%>% #only change here
+predicts.sub.depth = testdata%>%data.frame(fits)%>%
+  group_by(depth)%>% #only change here
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
 # predict - roughness ----
 testdata <- expand.grid(roughness=seq(min(dat.length$roughness),max(dat.length$roughness),length.out = 20),
-                        mean.relief=mean(mod$model$mean.relief),
+                        depth=mean(mod$model$depth),
+                        tpi=mean(mod$model$tpi),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
@@ -345,20 +348,35 @@ predicts.sub.roughness = testdata%>%data.frame(fits)%>%
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
+# predict - tpi ----
+testdata <- expand.grid(tpi=seq(min(dat.length$tpi),max(dat.length$tpi),length.out = 20),
+                        depth=mean(mod$model$depth),
+                        roughness=mean(mod$model$roughness),
+                        site=(mod$model$site))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.sub.tpi = testdata%>%data.frame(fits)%>%
+  group_by(tpi)%>% #only change here
+  summarise(number=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
 # PLOTS for Smaller than legal size ----
-# relief ----
-ggmod.sub.relief<- ggplot() +
+# depth ----
+ggmod.sub.depth<- ggplot() +
   ylab("")+
-  xlab("Mean relief")+
-  geom_point(data=dat.sub,aes(x=mean.relief,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sub.relief,aes(x=mean.relief,y=number),alpha=0.5)+
-  geom_line(data=predicts.sub.relief,aes(x=mean.relief,y=number - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sub.relief,aes(x=mean.relief,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("Depth")+
+  geom_point(data=dat.sub,aes(x=depth,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sub.depth,aes(x=depth,y=number),alpha=0.5)+
+  geom_line(data=predicts.sub.depth,aes(x=depth,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sub.depth,aes(x=depth,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
   ggtitle("Smaller than legal size") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.sub.relief
+ggmod.sub.depth
 
 # roughness ----
 ggmod.sub.rough<- ggplot() +
@@ -372,15 +390,27 @@ ggmod.sub.rough<- ggplot() +
   Theme1
 ggmod.sub.rough
 
+# tpi ----
+ggmod.sub.tpi<- ggplot() +
+  ylab("")+
+  xlab("TPI")+
+  geom_point(data=dat.sub,aes(x=tpi,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sub.tpi,aes(x=tpi,y=number),alpha=0.5)+
+  geom_line(data=predicts.sub.tpi,aes(x=tpi,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sub.tpi,aes(x=tpi,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  theme_classic()+
+  Theme1
+ggmod.sub.tpi
+
 # Combine wth patchwork
 library(patchwork)
 library(cowplot)
 
 # view plots
 plot.grid <- ggmod.total.relief+ggmod.tot.status+plot_spacer()+
-             ggmod.sr.macro+plot_spacer()+plot_spacer()+
+             ggmod.sr.reef+ggmod.sr.detrended+ggmod.sr.status+
              ggmod.leg.mean+ggmod.leg.roughness+ggmod.leg.tpi+
-             ggmod.sub.relief+ggmod.sub.rough+plot_spacer()+
+             ggmod.sub.depth+ggmod.sub.rough+ggmod.sub.tpi+
              plot_annotation(tag_levels = 'a') + plot_layout(ncol = 3,nrow = 4)
 plot.grid
 
