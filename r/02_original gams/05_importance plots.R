@@ -29,7 +29,7 @@ dat1 <-read.csv("output/fish gamms/2020-2021_south-west_BOSS-BRUV_all.var.imp.cs
   glimpse()
 
 dat2 <-read.csv("output/fish gamms/2020_south-west_stereo-BRUVs_length_all.var.imp.csv")%>% #from local copy
-  rename(resp.var=X)%>%
+  dplyr::rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
 
@@ -72,12 +72,15 @@ dat.taxa.label<-dat%>%
                                                 "depth","roughness","tpi","detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
   mutate(label=ifelse(predictor=="status"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.macroalgae"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="status"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="tpi"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="men.relief"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="smaller than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="tpi"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
 
 # Plot gg.importance.scores ----
@@ -116,8 +119,8 @@ save_plot("plots/original gamms/swc_fish-importance-full.png", gg.importance.sco
 # str(dat2)
 # 
 # dat.tot <- dat1 %>% filter(scientific=="total.abundance")
-# dat.sub <- dat2 %>% filter(scientific=="smaller than legal size")
+# dat.leg <- dat2 %>% filter(scientific=="greater than legal size")
 # 
-# mod=gam(number~ status + s(site,bs="re"), family=tw, data=dat.sub) #s(mean.relief,k=3,bs = "cr")
+# mod=gam(maxn~ detrended + s(site,bs="re"), family=tw, data=dat.tot) #s(mean.relief,k=3,bs = "cr")
 # plot(mod,pages=1,all.terms = T)
 

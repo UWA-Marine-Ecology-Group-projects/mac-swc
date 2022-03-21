@@ -29,7 +29,7 @@ dat1 <-read.csv("output/multibeam fish gamms/2020-2021_south-west_BOSS-BRUV_all.
   glimpse()
 
 dat2 <-read.csv("output/multibeam fish gamms/2020_south-west_stereo-BRUVs_length_all.var.imp.csv")%>% #from local copy
-  rename(resp.var=X)%>%
+  dplyr::rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
 
@@ -75,7 +75,7 @@ dat.taxa.label<-dat%>%
   mutate(label=ifelse(predictor=="broad.reef"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="detrended"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="tpi"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="depth.multibeam"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
 
 # Plot gg.importance.scores ----
@@ -115,5 +115,6 @@ save_plot("plots/multibeam gamms/swc_fish-importance-full.png", gg.importance.sc
 # dat.leg <- dat2 %>% filter(scientific=="greater than legal size")
 # dat.sub <- dat2 %>% filter(scientific=="smaller than legal size")
 # 
-# mod=gam(number ~ s(distance.to.ramp,k=3,bs = "cr") + s(site,bs="re"), family=tw, data=dat.sub) #s(mean.relief,k=3,bs = "cr")
+# mod=gam(number ~ s(tpi,k=3,bs = "cr") + s(site,bs="re"), 
+#         family=tw, data=dat.sub) #s(mean.relief,k=3,bs = "cr")
 # plot(mod,pages=1,all.terms = T)

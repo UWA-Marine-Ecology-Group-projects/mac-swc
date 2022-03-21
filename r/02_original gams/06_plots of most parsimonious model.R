@@ -127,13 +127,16 @@ ggmod.tot.status<- ggplot(aes(x=status,y=maxn,fill=status,colour=status), data=p
   theme(legend.position = "none")
 ggmod.tot.status
 
-# MODEL Species richness (broad.macroalgae) ----
+# MODEL Species richness (broad.reef + detrended + status) ----
 dat.sr <- dat %>% filter(scientific=="species.richness")
 
-mod=gam(maxn~s(broad.macroalgae,k=3,bs='cr')+ s(site,bs="re")+ method, family=tw,data=dat.sr)
+mod=gam(maxn~s(broad.reef,k=3,bs='cr')+ s(detrended,k=3,bs='cr')+status+
+          s(site,bs="re")+ method, family=tw,data=dat.sr)
 
-# predict - macroalgae ----
-testdata <- expand.grid(broad.macroalgae=seq(min(dat$broad.macroalgae),max(dat$broad.macroalgae),length.out = 20),
+# predict - broad.reef ----
+testdata <- expand.grid(broad.reef=seq(min(dat$broad.reef),max(dat$broad.reef),length.out = 20),
+                        detrended=mean(mod$model$detrended),
+                        status=c('No-take','Fished'),
                         site=(mod$model$site),
                         method=(mod$model$method))%>%
   distinct()%>%
@@ -141,25 +144,84 @@ testdata <- expand.grid(broad.macroalgae=seq(min(dat$broad.macroalgae),max(dat$b
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.sr.macro = testdata%>%data.frame(fits)%>%
-  group_by(broad.macroalgae)%>% #only change here
+predicts.sr.reef = testdata%>%data.frame(fits)%>%
+  group_by(broad.reef)%>% #only change here
+  summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
+# predict - detrended ----
+testdata <- expand.grid(detrended=seq(min(dat$detrended),max(dat$detrended),length.out = 20),
+                        broad.reef=mean(mod$model$broad.reef),
+                        status=c('No-take','Fished'),
+                        site=(mod$model$site),
+                        method=(mod$model$method))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.sr.detrended = testdata%>%data.frame(fits)%>%
+  group_by(detrended)%>% #only change here
+  summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
+  ungroup()
+
+# predict - status ----
+testdata <- expand.grid(detrended=mean(mod$model$detrended),
+                        broad.reef=mean(mod$model$broad.reef),
+                        status=c('No-take','Fished'),
+                        site=(mod$model$site),
+                        method=(mod$model$method))%>%
+  distinct()%>%
+  glimpse()
+
+fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
+
+predicts.sr.status = testdata%>%data.frame(fits)%>%
+  group_by(status)%>% #only change here
   summarise(maxn=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
 # PLOTS for Total abundance ----
-# macroalgae ----
-ggmod.sr.macro<- ggplot() +
+# reef ----
+ggmod.sr.reef<- ggplot() +
   ylab("")+
-  xlab("Macroalgae")+
-  geom_point(data=dat.sr,aes(x=broad.macroalgae,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sr.macro,aes(x=broad.macroalgae,y=maxn),alpha=0.5)+
-  geom_line(data=predicts.sr.macro,aes(x=broad.macroalgae,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sr.macro,aes(x=broad.macroalgae,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("Reef")+
+  geom_point(data=dat.sr,aes(x=broad.reef,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sr.reef,aes(x=broad.reef,y=maxn),alpha=0.5)+
+  geom_line(data=predicts.sr.reef,aes(x=broad.reef,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sr.reef,aes(x=broad.reef,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
   ggtitle("Species richness") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.sr.macro
+ggmod.sr.reef
+
+# detrended ----
+ggmod.sr.detrended<- ggplot() +
+  ylab("")+
+  xlab("Detrended bathymetry")+
+  geom_point(data=dat.sr,aes(x=detrended,y=maxn),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sr.detrended,aes(x=detrended,y=maxn),alpha=0.5)+
+  geom_line(data=predicts.sr.detrended,aes(x=detrended,y=maxn - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sr.detrended,aes(x=detrended,y=maxn + se.fit),linetype="dashed",alpha=0.5)+
+  theme_classic()+
+  Theme1
+ggmod.sr.detrended
+
+#status
+ggmod.sr.status<- ggplot(aes(x=status,y=maxn,fill=status,colour=status), data=predicts.sr.status) +
+  ylab("")+
+  xlab('Status')+
+  scale_fill_manual(labels = c("No-take","Fished"),values=c("#7bbc63","#b9e6fb"))+
+  scale_colour_manual(labels = c("No-take","Fished"),values=c("black", "black"))+
+  scale_x_discrete(limits = rev(levels(predicts.sr.status$status)))+
+  geom_bar(stat = "identity", alpha=0.8)+
+  geom_errorbar(aes(ymin = maxn-se.fit,ymax = maxn+se.fit),width = 0.5) +
+  theme_classic()+
+  Theme1+
+  ylim(0,max(predicts.sr.status$se.fit)+max(predicts.sr.status$maxn))+
+  theme(legend.position = "none")
+ggmod.sr.status
 
 # MODEL greater than legal size (mean.relief + roughness + tpi) ----
 dat.leg <- dat.length %>% filter(scientific=="greater than legal size")

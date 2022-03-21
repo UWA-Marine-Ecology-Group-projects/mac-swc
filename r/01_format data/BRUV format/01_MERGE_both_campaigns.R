@@ -106,7 +106,9 @@ points<-as.data.frame(points.files)%>%
   as_vector(.)%>% # remove all empty files
   purrr::map_df(~ga.read.files_txt(.))%>%
   dplyr::mutate(campaignid=str_replace_all(.$project,c("_Points.txt"="")))%>%
-  dplyr::select(-c(project))
+  dplyr::select(-c(project))%>%
+  dplyr::mutate(species = ifelse(genus%in%"Centroberyx"&species%in%c("australis","lineatus"),
+                                 "sp1",species)) #somewhat dodgy but have no other choice
 
 maxn<-points%>%
   dplyr::select(-c(time)) %>%
@@ -147,6 +149,8 @@ length3dpoints<-ga.create.em.length3dpoints()%>%
   dplyr::filter(successful.length%in%"Yes")%>%
   replace_na(list(family="Unknown",genus="Unknown",species="spp"))%>% # remove any NAs in taxa name
   dplyr::filter(!family%in%c("Unknown"))%>%
+  dplyr::mutate(species = ifelse(genus%in%"Centroberyx"&species%in%c("australis","lineatus"),
+                                 "sp1",species)) %>% #somewhat dodgy but have no other choice
   glimpse()
 
 length(unique(length3dpoints$sample)) # 277 - have checked - CS
