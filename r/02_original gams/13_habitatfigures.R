@@ -11,6 +11,7 @@ library(ggplot2)
 library(viridis)
 library(raster)
 library(patchwork)
+library(ggnewscale)
 library(sf)
 
 # bring in spatial layers
@@ -22,22 +23,12 @@ nb_npz <- nb_npz[2, ]
 
 wampa  <- st_read("data/spatial/shapefiles/WA_MPA_2018.shp")                    # all wa mpas
 nb_mp  <- wampa[wampa$NAME %in% c("Ngari Capes"), ]                             # just wa parks nearby
-
 wanew  <- st_read("data/spatial/shapefiles/test1.shp")                          # zones in ngari capes
 
-# nb_npz <- sw_mpa[sw_mpa$ZoneName %in% c("South-west Corner", "Geographe"), ]
-# ab_npz$parkid <- c(1:3)                                                         # for easy subsetting later 
 wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
-
 nb_npz <- st_transform(nb_npz, sppcrs)
 
-# abnpza <- ab_npz
-# ab_npz <- st_transform(a_npz, sppcrs)
-# jacmap <- raster("data/spatial/raster/ecosystem-types-19class-naland.tif")      # jac's aus habitat map
-# cropex <- extent(112, 116, -30, -27)
-# jacmap <- crop(jacmap, cropex)
-# jacmap <- projectRaster(jacmap, crs = sppcrs, method = "ngb")
 habi    <- readRDS('data/tidy/habitat_merged.rds')
 # habi$ns <- ifelse(habi$Latitude.1 > 6940000, 1, 0)
 habi$method <- dplyr::recode(habi$method,
@@ -53,13 +44,14 @@ unique(spreddf$dom_tag)
 spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                           macroalgae = "Macroalgae",
                           sand = "Sand",
-                          reef = "Biogenic Reef")
+                          reef = "Biogenic Reef",
+                          rock = "Rock")
   
 # fig 1: categorical habitat maps
 # assign mpa colours
 hab_cols <- scale_fill_manual(values = c("Macroalgae" = "darkgoldenrod4",
                                          # "Seagrass" = "forestgreen",
-                                         # "Rock" = "grey40",
+                                         "Rock" = "grey40",
                                          "Sand" = "wheat",
                                          "Biogenic Reef" = "plum"))
 
@@ -69,7 +61,7 @@ p4 <- ggplot() +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_point(data = habi,
   aes(longitude.1, latitude.1, colour = method),
-  shape = 10, size = 1, alpha = 3/5) +
+  shape = 10, size = 1, alpha = 1/5) +
   scale_colour_manual(values = c("BRUV" = "indianred4",
                                  "Drop Camera" = "navyblue")) +
   labs(fill = "Habitat", colour = "Sample", x = NULL, y = NULL) +
@@ -82,7 +74,7 @@ ggsave("plots/original gamms/fullarea_dominant_habitat.png",
 
 # fig 2: habitat multiplot
 # melt classes for faceting
-widehabit <- melt(spreddf, measure.vars = c(8:13))
+widehabit <- melt(spreddf, measure.vars = c(8:12))
 widehabit$variable <- dplyr::recode(widehabit$variable,
                                     psponge = "Sponge",
                                     pmacroalgae = "Macroalgae",
@@ -206,58 +198,4 @@ p5
 
 ggsave("plots/original gamms/site_relief_spatialeffect.png", 
        width = 10, height = 6, dpi = 160)
-# 
-# # jac's map, eh
-# # sort out the classes
-# jlevs <- ratify(jacmap)
-# jclass <- levels(jlevs)[[1]]
-# jclass[["class"]] <- c("shelf.unvegetated.soft.sediments",
-#                        "Upper.slope.unvegetated.soft.sediments", 
-#                        "Mid.slope.sediments",
-#                        "Lower.slope.reef.and.sediments",
-#                        "Abyssal.reef.and.sediments", 
-#                        "Seamount.soft.sediments", 
-#                        "Shelf.vegetated.sediments", 
-#                        "Shallow.coral.reefs.less.than.30.m.depth", 
-#                        "Mesophotic.coral.reefs", 
-#                        "Rariophotic.shelf.reefs", 
-#                        "Upper.slope.rocky.reefs.shelf.break.to.700.m.depth", 
-#                        "Mid.slope.reef", 
-#                        "Artificial.reefs.pipelines.and.cables") # the class names
-# levels(jacmap) <- jclass
-# jmap_df <- as.data.frame(jacmap, xy = TRUE)
-# colnames(jmap_df)[3] <- "class"
-# 
-# # set up dfs
-# jmap_nth <- jmap_df[(jmap_df$y > 6985000 & jmap_df$y < 7000000) & 
-#                       (jmap_df$x > 100000 & jmap_df$x < 140000), ]
-# 
-# jmap_sth <- jmap_df[(jmap_df$y > 6880000 & jmap_df$y < 6900000) & 
-#                       (jmap_df$x > 125000 & jmap_df$x < 170000), ]
-# 
-# # plot
-# 
-# jcls_cols <- scale_fill_manual(values = c("Upper.slope.unvegetated.soft.sediments" = "wheat4", 
-#                                           "shelf.unvegetated.soft.sediments" = "wheat2",
-#                                           "Shallow.coral.reefs.less.than.30.m.depth" = "coral2", 
-#                                           "Mesophotic.coral.reefs" = "darkorange3",
-#                                           "Rariophotic.shelf.reefs" = "steelblue2"))
-# 
-# p6 <- ggplot() + 
-#   geom_tile(data = jmap_nth, aes(x, y, fill = class)) +
-#   jcls_cols +
-#   geom_sf(data = ab_npz[ab_npz$parkid == 3, ], fill = NA, colour = "#7bbc63") +
-#   labs(x= NULL, y = NULL, fill = NULL) +
-#   guides(fill = "none") +
-#   theme_minimal()
-# 
-# p62 <- ggplot() + 
-#   geom_tile(data = jmap_sth, aes(x, y, fill = class)) +
-#   jcls_cols +
-#   geom_sf(data = ab_npz[ab_npz$parkid == 2, ], fill = NA, colour = "#7bbc63") +
-#   labs(x= NULL, y = NULL, fill = NULL) +
-#   theme_minimal()
-# 
-# p6 + p62 + plot_layout(widths = c(0.5, 0.44))
-# ggsave("plots/site_jmonk_natmap.png", 
-#        width = 10, height = 6, dpi = 160)
+

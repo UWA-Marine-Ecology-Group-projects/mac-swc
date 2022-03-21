@@ -30,7 +30,7 @@ sbuff  <- buffer(habisp, 10000)
 m_macro <- gam(cbind(broad.macroalgae, broad.total.points.annotated - broad.macroalgae) ~ 
                  s(depth.y, k = 5, bs = "cr") + 
                  # s(roughness, k = 3, bs = "cr") +
-                 s(tpi, k = 3, bs = "cr") + 
+                 s(tpi, k = 3, bs = "cr") +
                  s(detrended, k = 3, bs = "cr") 
                ,
                data = habi, method = "REML", family = binomial("logit"))
@@ -38,11 +38,10 @@ summary(m_macro)
 gam.check(m_macro)
 vis.gam(m_macro)
 
-m_reef <- gam(cbind(broad.reef, broad.total.points.annotated - broad.reef) ~ 
-                s(depth.y, k = 5, bs = "cr")  + 
-                s(tpi, k = 3, bs = "cr") +
-                s(detrended, k = 5, bs = "cr") + 
-                s(roughness, k = 5, bs = "cr"), 
+m_reef <- gam(cbind(biogenic_reef, broad.total.points.annotated - biogenic_reef) ~ 
+                s(depth.y, k = 3, bs = "cr") +
+                 s(detrended, k = 3, bs = "cr")  + 
+                s(roughness, k = 5, bs = "cr") , 
               data = habi, method = "REML", family = binomial("logit"))
 summary(m_reef)
 gam.check(m_reef)
@@ -60,7 +59,7 @@ vis.gam(m_sand)
 
 m_rock <- gam(cbind(broad.consolidated, broad.total.points.annotated - broad.consolidated) ~ 
                 s(depth.y,     k = 5, bs = "cr") +
-                s(roughness, k = 5, bs = "cr") +
+                s(roughness, k = 3, bs = "cr") +
                 s(detrended, k = 3, bs = "cr"), 
               data = habi, method = "REML", family = binomial("logit"))
 summary(m_rock)
@@ -80,8 +79,8 @@ vis.gam(m_grass)
 
 m_sponge <- gam(cbind(broad.sponges, broad.total.points.annotated - broad.sponges) ~ 
                   s(depth.y,   k = 5, bs = "cr") + 
-                  s(roughness, k = 3, bs = "cr") +
-                  s(tpi,       k = 5, bs = "cr")+
+                  s(roughness, k = 5, bs = "cr") +
+                  # s(tpi,       k = 5, bs = "cr")+
                   s(detrended, k = 5, bs = "cr"),
                 data = habi, method = "REML", family = binomial("logit"))
 summary(m_sponge)

@@ -27,11 +27,14 @@ wampa  <- st_read("data/spatial/shapefiles/WA_MPA_2018.shp")                    
 nb_mp  <- wampa[wampa$NAME %in% c("Ngari Capes"), ]                             # just wa parks nearby
 rg_nmp <- aumpa[aumpa$NetName %in% c("South-west", "North-west"), ]             # regional nat parks networks
 nb_nmp <- rg_nmp[rg_nmp$ResName %in% c("South-west Corner", "Geographe"), ]     # just nat parks nearby
+nb_npz <- nb_nmp[nb_nmp$ZoneName == "National Park Zone", ]
 wanew  <- st_read("data/spatial/shapefiles/test1.shp")                          # zones in ngari capes
-# sf::sf_use_s2(FALSE)
-# test  <- st_difference(nb_mp, wanew)
 terrnp <- st_read(
   "data/spatial/shapefiles/Legislated_Lands_and_Waters_DBCA_011.shp")           # terrestrial reserves
+jacmap <- raster("data/spatial/rasters/ecosystem-types-19class-naland.tif")     # jac's aus habitat map
+cropex <- extent(112, 116, -35, -32)
+jacmap <- crop(jacmap, cropex)
+# jacmap <- projectRaster(jacmap, crs = sppcrs, method = "ngb")
 cwatr  <- st_read("data/spatial/shapefiles/amb_coastal_waters_limit.shp")       # coastal waters line
 cwatr <- st_crop(cwatr, c(xmin = 114, xmax = 116, ymin = -36, ymax = -33))      # crop down coastal waters line to general project area
 bath_r <- raster("data/spatial/rasters/archive/GB-SW_250mBathy.tif")            # bathymetry trimmed to project area
@@ -60,7 +63,7 @@ nb_mp$waname <- dplyr::recode(nb_mp$waname,
                                # "Recreation Area" = "Recreation Zone",
                                # "Conservation Area" = "Sanctuary Zone",
                                "Special Purpose Zone (Shore Based Activities)" = 
-                                 "Special Purpose Zone\n(Shore Based Activities)")
+                                "Special Purpose Zone\n(Shore Based Activities)")
 
 # fix up new zones within Ngari Capes
 wanew$waname <- word(wanew$Name, start = -2, end = -1)
@@ -72,7 +75,7 @@ plot(terrnp["leg_catego"])
 
 # assign commonwealth zone colours
 nmpa_cols <- scale_fill_manual(values = c("National Park Zone" = "#7bbc63",
-                                          "Habitat Protection Zone" = "#fff8a3",# Commonwealth MPA colours
+                                          "Habitat Protection Zone" = "#fff8a3",
                                           "Multiple Use Zone" = "#b9e6fb",
                                           "Special Purpose Zone\n(Mining Exclusion)" = "#368ac1"))
 
@@ -195,74 +198,70 @@ p3
 
 ggsave("plots/site_overview_map.png", dpi = 200, width = 10, height = 6)
 
-# ## single site zoom plots
-# snmpa_cols <- scale_colour_manual(values = c("National Park Zone" = "#7bbc63"))
-# 
-# nsitebathy <- sitebathy[sitebathy$Depth > -160, ]                               # trim to reduce legend
-# nsitebathy <- nsitebathy[nsitebathy$x > 113 & nsitebathy$x < 113.3, ]
-# nsitebathy <- nsitebathy[nsitebathy$y > -27.2 & nsitebathy$y < -27.05, ]
-# 
-# 
-# p4 <- ggplot() +
-#   geom_raster(data = nsitebathy, aes(x, y, fill = Depth), alpha = 4/5) +
-#   scale_fill_gradient(low = "black", high = "grey70", guide = "none") +
-#   geom_contour(data = nsitebathy, aes(x = x, y = y, z = Depth), 
-#                binwidth = 10, colour = "white", alpha = 1, size = 0.1) +
-#   geom_text_contour(data = nsitebathy, aes(x = x, y = y, z = Depth), 
-#                     binwidth = 10, size = 2.5,
-#                     label.placer = label_placer_n(1)) +
-#   geom_sf(data = ab_nmp, aes(colour = ZoneName), alpha = 4/5, fill = NA) +
-#   snmpa_cols + 
-#   labs(x = NULL, y = NULL, colour = NULL) +
-#   new_scale_colour() +
-#   geom_point(data = bruvd, aes(Longitude, Latitude, colour = "BRUV"), 
-#              alpha = 3/5, shape = 10) +
-#   geom_point(data = bossd, aes(Longitude, Latitude, colour = "Drop Camera"), 
-#              alpha = 3/5, shape = 10) +
-#   scale_colour_manual(values = c("BRUV" = "indianred4",
-#                                  "Drop Camera" = "navyblue")) +
-#   coord_sf(xlim = c(113.02, 113.28), ylim = c(-27.18, -27.08)) +
-#   labs(colour = NULL, x = NULL, y = NULL) +
-#   theme_minimal()
-# p4
-# ggsave("plots/nthsite.png", dpi = 200, width = 7, height = 4)
-# 
-# 
-# snmpa_cols <- scale_colour_manual(values = c("National Park Zone" = "#7bbc63"
-#                                           #  "Multiple Use Zone" = "#b9e6fb",
-#                                           # "Special Purpose Zone" = "#6daff4"
-# ))
-# sab_nmp <- ab_nmp[ab_nmp$ZoneName == "National Park Zone", ]
-# 
-# ssitebathy <- sitebathy[sitebathy$Depth < -10 & sitebathy$Depth > -380, ]                               # trim to reduce legend
-# ssitebathy <- ssitebathy[ssitebathy$x > 113.23 & ssitebathy$x < 113.6, ]
-# ssitebathy <- ssitebathy[ssitebathy$y > -28.15 & ssitebathy$y < -28, ]
-# 
-# p5 <- ggplot() +
-#   geom_raster(data = ssitebathy, aes(x, y, fill = Depth), alpha = 4/5) +
-#   scale_fill_gradient(low = "black", high = "grey70", guide = "none") +
-#   geom_contour(data = ssitebathy, aes(x = x, y = y, z = Depth), 
-#                binwidth = 20, colour = "white", alpha = 4/5, size = 0.1) +
-#   geom_text_contour(data = ssitebathy, aes(x = x, y = y, z = Depth), 
-#                     binwidth = 20, size = 2.5, label.placer = label_placer_n(1)) +
-#   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
-#   geom_sf(data = sab_nmp, aes(colour = ZoneName), alpha = 1, fill = NA) +
-#   snmpa_cols + 
-#   labs(x = NULL, y = NULL, colour = NULL) +
-#   new_scale_colour() +
-#   geom_point(data = bruvd, aes(Longitude, Latitude, colour = "BRUV"), 
-#              alpha = 3/5, shape = 10) +
-#   geom_point(data = bossd, aes(Longitude, Latitude, colour = "Drop Camera"), 
-#              alpha = 3/5, shape = 10) +
-#   scale_colour_manual(values = c("BRUV" = "indianred4",
-#                                  "Drop Camera" = "navyblue")) +
-#   coord_sf(xlim = c(113.24, 113.58), ylim = c(-28.125, -28.03)) +
-#   labs(colour = NULL, x = NULL, y = NULL) +
-#   theme_minimal()
-# p5
-# 
-# ggsave("plots/sthsite.png", dpi = 200, width = 7, height = 4)
-# 
+# jac's map, eh
+# sort out the classes
+jlevs  <- ratify(jacmap)
+jclass <- levels(jlevs)[[1]]
+jclass[["class"]] <- c("shelf.unvegetated.soft.sediments",
+                       "Upper.slope.unvegetated.soft.sediments",
+                       "Mid.slope.sediments",
+                       "Lower.slope.reef.and.sediments",
+                       "Abyssal.reef.and.sediments",
+                       "Seamount.soft.sediments",
+                       "Shelf.incising.and.other.canyons",
+                       "Shelf.vegetated.sediments",
+                       "Shallow.coral.reefs.less.than.30.m.depth",
+                       "Shallow.rocky.reefs.less.than.30.m.depth",
+                       "Mesophotic.coral.reefs",
+                       "Mesophotic.rocky.reefs",
+                       "Rariophotic.shelf.reefs",
+                       "Upper.slope.rocky.reefs.shelf.break.to.700.m.depth",
+                       "Mid.slope.reef",
+                       "Artificial.reefs.pipelines.and.cables")                 # the class names rather than number
+levels(jacmap) <- jclass
+jmap_df <- as.data.frame(jacmap, xy = TRUE, na.rm = TRUE)
+colnames(jmap_df)[3] <- "classname"
+jmap_df$classname <- gsub("\\.", " ", jmap_df$classname)                        # replace . with space in names
+
+
+# plot
+waterr_cols <- scale_fill_manual(values = c("National Park" = "#c4cea6",
+                                            "Nature Reserve" = "#e4d0bb"),
+                                 guide = "none")
+
+jmap_df$classname <- recode(jmap_df$classname, "shelf unvegetated soft sediments" =
+                              "Shelf unvegetated soft sediments")
+
+jcls_cols <- scale_fill_manual(values = c(
+  # "Shallow coral reefs less than 30 m depth" = "coral2", 
+  "Shallow rocky reefs less than 30 m depth" = "darkgoldenrod1", 
+  "Mesophotic rocky reefs" = "khaki4",
+  "Shelf vegetated sediments" = "seagreen3",
+  "Shelf unvegetated soft sediments" = "cornsilk1",
+  "Rariophotic shelf reefs" = "steelblue3",
+  "Upper slope rocky reefs shelf break to 700 m depth" = "indianred3",
+  "Upper slope unvegetated soft sediments" = "wheat4", 
+  "Mid slope sediments" = "navajowhite2"))
+
+p6 <- ggplot() +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
+  waterr_cols +
+  new_scale_fill() + 
+  geom_tile(data = jmap_df, aes(x, y, fill = classname)) +
+  jcls_cols +
+  geom_sf(data = nb_npz, colour = "#7bbc63", alpha = 3/5, fill = NA) +
+  labs(x = NULL, y = NULL, fill = "Habitat classification") +
+  theme_minimal() +
+  coord_sf(xlim = c(114.4, 115.1), ylim = c(-34.15, -33.65))
+p6
+
+ggsave("plots/overall_jmonk_natmap.png",
+       width = 10, height = 6, dpi = 160)
+
+
+
+
 
 # # saving for later
 # # assign commonwealth zone colours

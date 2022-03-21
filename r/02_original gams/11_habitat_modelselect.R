@@ -45,15 +45,23 @@ habi <- habi %>%
   glimpse()
 
 head(habi)
-saveRDS(habi, "data/tidy/habitat_merged.rds")
 
-habi <- habi %>%
-  dplyr::select(id,campaignid.x,sample.x,broad.consolidated,broad.invertebrate.complex,
-                broad.macroalgae,broad.reef,broad.seagrasses,broad.sponges,broad.unconsolidated,
-                broad.total.points.annotated,depth.y,tpi,
-                roughness,detrended,longitude.1,latitude.1)%>%
+habi <- habi %>% 
+  mutate(biogenic_reef = broad.ascidians + broad.bryozoa +
+           broad.crinoids + broad.hydroids +
+           broad.invertebrate.complex +
+           broad.octocoral.black + broad.sponges +
+           broad.stony.corals + broad.true.anemones) %>%
+  dplyr::select(id, campaignid.x, sample.x, biogenic_reef,
+                broad.consolidated, broad.invertebrate.complex, broad.macroalgae, 
+                broad.seagrasses, broad.sponges, broad.unconsolidated,
+                broad.total.points.annotated, depth.y, tpi,
+                roughness, detrended, longitude.1, latitude.1, method) %>%
   glimpse()
 colnames(habi)
+
+saveRDS(habi, "data/tidy/habitat_merged.rds")
+
 habi <- melt(habi, measure.vars = c(4:10))                               # collect all taxa tags for univariate stats
 head(habi)
 
