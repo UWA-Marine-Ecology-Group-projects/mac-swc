@@ -1,8 +1,8 @@
 ###
-# Project: Parks - Abrolhos Post-Survey
+# Project: mac swc
 # Data:    BRUVS, BOSS Habitat data
 # Task:    Model selection 
-# author:  Kingsley Griffin from @beckyfisher/FSSgam
+# author:  Kingsley Griffin & Claude from @beckyfisher/FSSgam
 # date:    Feb 2022
 
 # Part 1-FSS modeling----
@@ -40,6 +40,11 @@ spcov <- readRDS("data/tidy/habitat_spatialcovs.rds")%>%
   distinct() #there is one sample with a duplicate
 
 habi <- habi %>%
+  mutate(biogenic_reef = broad.ascidians + broad.bryozoa +
+           broad.crinoids + broad.hydroids +
+           broad.invertebrate.complex +
+           broad.octocoral.black + broad.sponges +
+           broad.stony.corals + broad.true.anemones)%>%
   dplyr::left_join(spcov, by = "id")%>%
   glimpse()
 
@@ -50,7 +55,7 @@ mb_deriv   <- stack(deriv_list)
 names(mb_deriv) <- c("mb_depth", "mb_detrended", "mb_roughness", "mb_tpi")
 plot(mb_deriv)
 
-habisp <- SpatialPointsDataFrame(coords = habi[48:49], data = habi)
+habisp <- SpatialPointsDataFrame(coords = habi[49:50], data = habi)
 habi   <- cbind(habi, extract( mb_deriv, habisp))
 habi   <- habi[!is.na(habi$mb_depth), ]
 habi$mb_depth <- abs(habi$mb_depth)
@@ -66,7 +71,7 @@ round(cor(habi[ , pred.vars]), 2)
 
 # habi <- habi[ , -c(9:49)]
 colnames(habi)
-habi <- melt(habi, measure.vars = c(5, 9, 11:13, 17))                               # collect all taxa tags for univariate stats
+habi <- melt(habi, measure.vars = c(38,5, 9, 12:13, 17))             # collect all taxa tags for univariate stats
 head(habi)
 
 # rename taxa and response for the loop
@@ -94,7 +99,7 @@ use.dat   <- habi[habi$Taxa %in% c(unique.vars.use), ]
 # factor.vars <- c("Status")# Status as a Factor with two levels
 out.all <- list()
 var.imp <- list()
-name <- "eg"
+name <- "multibeam_habitat"
 
 # Loop through the FSS function for each Taxa----
 for(i in 1:length(resp.vars)){

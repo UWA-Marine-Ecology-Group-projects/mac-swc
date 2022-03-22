@@ -152,7 +152,7 @@ bar.top.10<-ggplot(maxn.10%>%mutate(scientific=str_replace_all(.$scientific,
 bar.top.10
 
 #save out plot
-ggsave("plots/multibeam gamms/abundant.fish.bar.png",bar.top.10,dpi=600,width=6.0)
+ggsave("plots/multibeam gamms/abundant.fish.bar.png",bar.top.10,dpi=600,width=6.0,height = 6.0)
 
 #targeted species top 10 abundance
 # Read in life history
@@ -189,7 +189,7 @@ maxn.fished.10<-fished.species %>%
   group_by(scientific)%>%
   dplyr::summarise(maxn=sum(maxn))%>%
   ungroup()%>%
-  top_n(11)%>%
+  top_n(10)%>%
   dplyr::filter(!scientific%in%c("Centroberyx australis","Centroberyx lineatus"))%>%
   glimpse()
 
@@ -223,7 +223,7 @@ s.l <- as.raster(readPNG("data/images/seriola_dumerili_nb.png"))
 s.h <- as.raster(readPNG("data/images/Seriola_hippos_nb_HQ_TAYLOR.png"))
 
 #6 - Centroberyx sp1
-#nothing yet and need to add on lineatus
+c.spp <- as.raster(readPNG("data/images/Glaucosoma buergeri 5cmL.png"))
 
 #7 - Glaucosoma hebriacum
 g.h <- as.raster(readPNG("data/images/Glaucosoma hebraicum 3cm.png"))
@@ -248,19 +248,19 @@ bar.fished.10<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +
   theme(axis.text.y = element_text(face="italic"))+
   theme_collapse+
   theme.larger.text+
-  annotation_raster(c.a, xmin=9.6,xmax=10.4,ymin=165, ymax=210)+          #1
+  annotation_raster(c.a, xmin=9.6,xmax=10.4,ymin=165, ymax=210)+                #1
   annotation_raster(p.spp, xmin=8.8,xmax=9.2,ymin=156, ymax=180)+               #2
-  annotation_raster(n.v, xmin=7.65, xmax=8.35, ymin=90, ymax=130)+         #3
-  annotation_raster(e.a, xmin=6.65,xmax=7.35,ymin=67, ymax=100)+               #4
-  annotation_raster(s.l, xmin=5.5,xmax=6.5,ymin=60, ymax=130)+                #5
-  # annotation_raster(n.v, xmin=4.6,xmax=5.4,ymin=180, ymax=800)+                 #6
+  annotation_raster(c.spp, xmin=7.75, xmax=8.25, ymin=140, ymax=170)+              #3
+  annotation_raster(n.v, xmin=6.65,xmax=7.35,ymin=90, ymax=130)+                #4
+  annotation_raster(e.a, xmin=5.7,xmax=6.3,ymin=67, ymax=100)+                  #5
+  annotation_raster(s.l, xmin=4.5,xmax=5.5,ymin=60, ymax=140)+                #6
   annotation_raster(g.h, xmin=3.55,xmax=4.45,ymin=38, ymax=90)+                 #7
-  annotation_raster(f.m, xmin=2.55,xmax=3.45,ymin=35, ymax=120)+              #8
-  annotation_raster(b.f, xmin=1.75,xmax=2.25,ymin=33, ymax=70)+                #9
-  annotation_raster(p.s, xmin=0.7,xmax=1.3,ymin=31, ymax=70)                 #10
+  annotation_raster(f.m, xmin=2.55,xmax=3.45,ymin=35, ymax=120)+                #8
+  annotation_raster(b.f, xmin=1.75,xmax=2.25,ymin=33, ymax=70)+                 #9
+  annotation_raster(p.s, xmin=0.7,xmax=1.3,ymin=31, ymax=70)                    #10
 # ggtitle("10 most abundant species") +
 # theme(plot.title = element_text(hjust = 0))
-# bar.fished.10
+bar.fished.10
 
 #save out plot
 ggsave("plots/multibeam gamms/abundant.targets.bar.png",bar.fished.10,dpi=600,width=6.0, height = 6.0)
