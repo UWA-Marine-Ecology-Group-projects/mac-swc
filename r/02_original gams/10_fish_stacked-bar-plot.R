@@ -181,7 +181,7 @@ maxn.fished.10<-fished.species %>%
   group_by(scientific)%>%
   dplyr::summarise(maxn=sum(maxn))%>%
   ungroup()%>%
-  top_n(12)%>%
+  top_n(10)%>%
   dplyr::filter(!scientific%in%c("Centroberyx australis","Centroberyx lineatus"))%>%
   glimpse()
 
@@ -197,16 +197,13 @@ bar<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +
 bar
 
 #1 - Centroberyx sp1
-# c.spp <- readPNG("data/images/.png")
-# c.spp <- as.raster(c.spp)
-
-#nothing yet
+# already loaded
 
 #2 - Pseudocaranx spp
 p.spp <- as.raster(readPNG("data/images/Pseudocaranx dentex-3cm.png"))
 
 #3 - Centroberyx gerrardi
-#nothing yet
+# use same as centroberyx sp1
 
 #4 - Chrysophrys auratus
 c.a <- as.raster(readPNG("data/images/Chrysophrys auratus 3cm.png"))
@@ -232,7 +229,7 @@ g.h <- as.raster(readPNG("data/images/Glaucosoma hebraicum 3cm.png"))
 #plot final bar plot
 bar.fished.10<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +   
   geom_bar(stat="identity",colour="black",fill="lightgrey",position=position_dodge())+
-  ylim (0, 2500)+
+  ylim (0, 2700)+
   coord_flip()+
   xlab("Species")+
   ylab(expression(Overall~abundance~(Sigma~MaxN)))+
@@ -240,10 +237,10 @@ bar.fished.10<-ggplot(maxn.fished.10, aes(x=reorder(scientific,maxn), y=maxn)) +
   theme(axis.text.y = element_text(face="italic"))+
   theme_collapse+
   theme.larger.text+
-  # annotation_raster(c.a, xmin=9.75,xmax=10.25,ymin=3820, ymax=4400)+          #1
+  annotation_raster(c.spp, xmin=9.8,xmax=10.2,ymin=2450, ymax=2750)+          #1
   annotation_raster(p.spp, xmin=8.8,xmax=9.2,ymin=475, ymax=800)+               #2
-  # annotation_raster(n.o, xmin=7.75, xmax=8.25, ymin=2750, ymax=3200)+         #3
-  annotation_raster(c.a, xmin=6.55,xmax=7.45,ymin=350, ymax=900)+               #4
+  annotation_raster(c.spp, xmin=7.75, xmax=8.25, ymin=375, ymax=800)+         #3
+  annotation_raster(c.a, xmin=6.55,xmax=7.45,ymin=350, ymax=1000)+               #4
   annotation_raster(s.h, xmin=5.6,xmax=6.3,ymin=230, ymax=1000)+                #5
   annotation_raster(n.v, xmin=4.6,xmax=5.4,ymin=180, ymax=800)+                 #6
   annotation_raster(e.a, xmin=3.7,xmax=4.3,ymin=130, ymax=600)+                 #7

@@ -221,45 +221,45 @@ ggmod.leg.tpi<- ggplot() +
   Theme1
 ggmod.leg.tpi
 
-# MODEL smaller than legal size (roughness) ----
+# MODEL smaller than legal size (depth) ----
 dat.sub <- dat.length %>% filter(scientific=="smaller than legal size")
 
-mod=gam(number~s(roughness,k=3,bs='cr')+ s(site,bs="re"), family=tw,data=dat.sub)
+mod=gam(number~s(depth.multibeam,k=3,bs='cr')+ s(site,bs="re"), family=tw,data=dat.sub)
 
-# predict - roughness ----
-testdata <- expand.grid(roughness=seq(min(dat.length$roughness),max(dat.length$roughness),length.out = 20),
+# predict - depth ----
+testdata <- expand.grid(depth.multibeam=seq(min(dat.length$depth.multibeam),max(dat.length$depth.multibeam),length.out = 20),
                         site=(mod$model$site))%>%
   distinct()%>%
   glimpse()
 
 fits <- predict.gam(mod, newdata=testdata, type='response', se.fit=T)
 
-predicts.sub.roughness = testdata%>%data.frame(fits)%>%
-  group_by(roughness)%>% #only change here
+predicts.sub.depth = testdata%>%data.frame(fits)%>%
+  group_by(depth.multibeam)%>% #only change here
   summarise(number=mean(fit),se.fit=mean(se.fit))%>%
   ungroup()
 
 # PLOTS for Smaller than legal size ----
-# roughness ----
-ggmod.sub.roughness<- ggplot() +
+# depth ----
+ggmod.sub.depth<- ggplot() +
   ylab("")+
-  xlab("Roughness")+
-  geom_point(data=dat.sub,aes(x=roughness,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
-  geom_line(data=predicts.sub.roughness,aes(x=roughness,y=number),alpha=0.5)+
-  geom_line(data=predicts.sub.roughness,aes(x=roughness,y=number - se.fit),linetype="dashed",alpha=0.5)+
-  geom_line(data=predicts.sub.roughness,aes(x=roughness,y=number + se.fit),linetype="dashed",alpha=0.5)+
+  xlab("Depth")+
+  geom_point(data=dat.sub,aes(x=depth.multibeam,y=number),  alpha=0.2, size=1,show.legend=FALSE)+
+  geom_line(data=predicts.sub.depth,aes(x=depth.multibeam,y=number),alpha=0.5)+
+  geom_line(data=predicts.sub.depth,aes(x=depth.multibeam,y=number - se.fit),linetype="dashed",alpha=0.5)+
+  geom_line(data=predicts.sub.depth,aes(x=depth.multibeam,y=number + se.fit),linetype="dashed",alpha=0.5)+
   theme_classic()+
   Theme1+
   ggtitle("Smaller than legal size") +
   theme(plot.title = element_text(hjust = 0))
-ggmod.sub.roughness
+ggmod.sub.depth
 
 # Combine wth patchwork
 # view plots
 plot.grid <- ggmod.total.mean+plot_spacer()+plot_spacer()+
   ggmod.sr.relief+plot_spacer()+plot_spacer()+
   ggmod.leg.reef+ggmod.leg.detrended+ggmod.leg.tpi+
-  ggmod.sub.roughness+plot_spacer()+plot_spacer()+
+  ggmod.sub.depth+plot_spacer()+plot_spacer()+
   plot_annotation(tag_levels = 'a') + plot_layout(ncol = 3,nrow = 4)
 plot.grid
 

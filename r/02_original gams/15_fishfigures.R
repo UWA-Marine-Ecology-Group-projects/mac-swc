@@ -96,6 +96,7 @@ p_legal <- as.data.frame(p_legal, xy = T, na.rm = T)
 
 #sublegal
 p_sublegal <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
+  dplyr::filter(p_sublegal<5)%>%
   dplyr::select(x,y,p_sublegal)
 #rasterise
 p_sublegal <- rasterFromXYZ(p_sublegal, crs = sppcrs)

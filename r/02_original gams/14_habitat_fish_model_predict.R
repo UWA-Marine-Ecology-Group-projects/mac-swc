@@ -59,10 +59,6 @@ commonwealth.marineparks <- readOGR(dsn="data/spatial/shapefiles/AustraliaNetwor
 proj4string(commonwealth.marineparks)
 commonwealth.marineparks <- spTransform(commonwealth.marineparks, CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs"))
 
-wa.marineparks <- readOGR(dsn="data/spatial/shapefiles/WA_MPA_2018.shp")
-proj4string(wa.marineparks)
-wa.marineparks <- spTransform(wa.marineparks, CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs"))
-
 preddf.raw <- preddf
 
 coordinates(preddf) <- c('x', 'y')
@@ -73,18 +69,11 @@ metadata.commonwealth.marineparks <- over(preddf, commonwealth.marineparks) %>%
 
 unique(metadata.commonwealth.marineparks$ZoneName)
 
-metadata.state.marineparks <- over(preddf, wa.marineparks) %>%
-  dplyr::select(ZONE_TYPE)
-
-unique(metadata.state.marineparks$ZONE_TYPE)  #no state sanctuary zones, I have filtered them out
-
 names(metadata.commonwealth.marineparks)
 
 preddf<-bind_cols(preddf.raw,metadata.commonwealth.marineparks)%>%
-  bind_cols(.,metadata.state.marineparks)%>%
-  dplyr::rename(Commonwealth.zone=ZoneName, State.zone=ZONE_TYPE)%>%
-  mutate(Status = if_else((Commonwealth.zone%in%c("National Park Zone")|
-                             State.zone%in%c("Sanctuary Zone (IUCN IA)")),"No-take","Fished"))%>%
+  dplyr::rename(Commonwealth.zone=ZoneName,depth=depth.y)%>%
+  mutate(Status = if_else((Commonwealth.zone%in%c("National Park Zone")),"No-take","Fished"))%>%
   ga.clean.names()
 
 #change CRS to UTM
@@ -108,7 +97,8 @@ m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+status,
 summary(m_totabund)
 
 #species richness
-m_richness <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr"),
+m_richness <- gam(number ~ s(broad.reef, k = 3, bs = "cr")+s(detrended, k = 3, bs = "cr")+
+                    status,
                      data = fabund%>%dplyr::filter(scientific%in%"species.richness"), 
                      method = "REML", family = tw())
 summary(m_richness)
@@ -121,7 +111,8 @@ m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
 summary(m_legal)
 
 #smaller than legal size
-m_sublegal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr"),
+m_sublegal <- gam(number ~ s(depth, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr")+
+                    s(tpi, k = 3, bs = "cr"),
                data = fabund%>%dplyr::filter(scientific%in%"smaller than legal size"), 
                method = "REML", family = tw())
 summary(m_sublegal)
@@ -133,7 +124,7 @@ preddf <- cbind(preddf,
                 "p_legal" = predict(m_legal, preddf, type = "response"),
                 "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
 
-prasts <- rasterFromXYZ(preddf[, c(1, 2, 25:28)], res = c(231, 277)) 
+prasts <- rasterFromXYZ(preddf[, c(1, 2, 24:27)], res = c(231, 277)) 
 plot(prasts)
 
 ###
@@ -149,7 +140,7 @@ plot(sprast$p_sublegal)
 # tidy and output data
 spreddf <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
 
-summary(spreddf) #legal targets have some outlier values
+summary(spreddf) #legal and sublegal targets have some outlier values
 
 saveRDS(preddf, "output/fish gamms/broad_fish_predictions.rds")
 saveRDS(spreddf, "output/fish gamms/site_fish_predictions.rds")
