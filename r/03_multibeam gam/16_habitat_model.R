@@ -5,7 +5,9 @@
 # author:  Kingsley Griffin & Claude
 # date:    Feb 2022
 ##
+
 rm(list=ls())
+gc()
 
 library(reshape2)
 library(mgcv)
