@@ -32,32 +32,36 @@ wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
 nb_npz <- st_transform(nb_npz, sppcrs)
 
-habi    <- readRDS('data/tidy/habitat_merged.rds')
+habi    <- readRDS("data/tidy/habitat_multibeam_merged.rds")
 # habi$ns <- ifelse(habi$Latitude.1 > 6940000, 1, 0)
 habi$method <- dplyr::recode(habi$method,
                              BOSS = "Drop Camera")
 
 # read in outputs from 'R/03_multibeam gam/16_habitat_model.R'
-# preddf <- readRDS("output/broad_habitat_predictions.rds")
-file.names <- list.files(path="output/multibeam_habitat_fssgam",
-                         pattern = '*.rds',full.names = T)   #split up as too big for git
-spreddf <- file.names %>%
-  map_dfr(readRDS)                      # site predictions only
-head(spreddf)
+rastnames  <- list.files("output/multibeam_habitat_fssgam", '*.tif', 
+                         full.names = TRUE)                                     #split up as too big for git
+phab_rasts <- stack(rastnames[-3])                                              # not reef
 
+# convert to data frame
+spreddf <- as.data.frame(phab_rasts, xy = TRUE, na.rm = TRUE)
+
+# categorise by dominant tag
+spreddf$dom_tag <- apply(spreddf[c(3:8)], 1,
+                        FUN = function(x){names(which.max(x))})
+spreddf$dom_tag <- gsub("layer_p", "", spreddf$dom_tag)                          # tidy tag labels
 spreddf$dom_tag <- as.factor(spreddf$dom_tag)
 unique(spreddf$dom_tag)
 spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                                  macroalgae = "Macroalgae",
                                  sand = "Sand",
-                                 reef = "Biogenic Reef",
-                                 rock = "Rock",
-                                 seagrass = "Seagrass")
+                                 biogenic = "Biogenic Reef",
+                                 seagrass = "Seagrass",
+                                 rock = "Rock")
 
 # fig 1: categorical habitat maps
 # assign mpa colours
 hab_cols <- scale_fill_manual(values = c("Macroalgae" = "darkgoldenrod4",
-                                         "Seagrass" = "forestgreen",
+                                         # "Seagrass" = "forestgreen",
                                          "Rock" = "grey40",
                                          "Sand" = "wheat",
                                          "Biogenic Reef" = "plum"))
@@ -68,7 +72,7 @@ p4 <- ggplot() +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_point(data = habi,
              aes(longitude.1, latitude.1, colour = method),
-             shape = 10, size = 1, alpha = 1/5) +
+             shape = 10, size = 1, alpha = 2/5) +
   scale_colour_manual(values = c("BRUV" = "indianred4",
                                  "Drop Camera" = "navyblue")) +
   labs(fill = "Habitat", colour = "Sample", x = NULL, y = NULL) +
@@ -83,23 +87,25 @@ ggsave("plots/multibeam gamms/multibeam_dominant_habitat.png",
 
 # fig 2: habitat multiplot
 # melt classes for faceting
-widehabit <- melt(spreddf, measure.vars = c(3:9))
+widehabit <- melt(spreddf, measure.vars = c(3:8))
+widehabit$variable <- gsub("layer_p", "", widehabit$variable)
 widehabit$variable <- dplyr::recode(widehabit$variable,
-                                    psponge = "Sponge",
-                                    pmacroalgae = "Macroalgae",
-                                    prock = "Rock",
-                                    psand = "Sand",
-                                    pbiogenic = "Biogenic Reef",
-                                    pseagrass = "Seagrass")
+                                    sponges = "Sponge",
+                                    macroalgae = "Macroalgae",
+                                    rock = "Rock",
+                                    sand = "Sand",
+                                    biogenic = "Biogenic Reef",
+                                    seagrass = "Seagrass")
 
 p2 <- ggplot() +
-  geom_tile(data = widehabit%>%dplyr::filter(!variable%in%c("preef","psponges")), 
+  geom_tile(data = widehabit%>%dplyr::filter(!variable%in%c("Sponge")), 
             aes(x, y, fill = value)) +
   scale_fill_viridis(direction = -1, limits = c(0, max(widehabit$value))) +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   labs(x = NULL, y = NULL, fill = "Occurrence (p)") +
   theme_minimal() +
-  scale_x_continuous(breaks = c(114.7,114.8,114.9),limits = c(min(widehabit$x),max(widehabit$x)))+
+  scale_x_continuous(breaks = c(114.7,114.8,114.9),
+                     limits = c(min(widehabit$x),max(widehabit$x)))+
   scale_y_continuous(limits = c(min(widehabit$y),max(widehabit$y)))+
   facet_wrap(~variable)
 p2
