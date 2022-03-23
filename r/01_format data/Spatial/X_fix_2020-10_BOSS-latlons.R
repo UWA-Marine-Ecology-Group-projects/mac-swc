@@ -1,6 +1,8 @@
 ##### Fixing metadata lat long issue
 #Claude
 
+rm(list=ls())
+
 library(dplyr)
 library(argosfilter)
 
@@ -16,13 +18,21 @@ test.locations <- habi %>%
 mbh <- read.csv("data/raw/2020-10_BOSS_MBH.csv")%>%
   dplyr::rename(sample=BRUVid, latitude.mbh = y2, longitude.mbh = x2)%>%
   dplyr::mutate(sample=as.character(sample))%>%
+  dplyr::select(sample, latitude.mbh, longitude.mbh)%>%
+  glimpse()
+
+fh <- read.csv("data/raw/fishing_hwy_locations.csv")%>%
+  dplyr::rename(sample=Sample, latitude.mbh = Latitude, longitude.mbh = Longitude)%>%
+  dplyr::select(sample, latitude.mbh, longitude.mbh)%>%
+  glimpse()
+
+mbh <- bind_rows(mbh, fh)%>%
   glimpse()
 
 # mbh <- read.csv("data/raw/in_and_out_locations.csv")%>%
 #   dplyr::rename(sample=Sample, latitude.mbh = Latitude, longitude.mbh = Longitude)%>%
 #   dplyr::mutate(sample=as.character(sample))%>%
 #   glimpse()
-
 
 locs <- test.locations %>%
   dplyr::left_join(mbh)%>%
