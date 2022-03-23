@@ -48,6 +48,9 @@ habi <- habi %>%
   dplyr::left_join(spcov, by = "id")%>%
   glimpse()
 
+test <- ggplot(data = habi, aes(x = depth.x, y = depth.y))+
+  geom_point()
+test
 # bring in multibeam derivatives and extract at sample locations
 deriv_list <- list.files("data/spatial/rasters", "multibeam_derivatives",
                          full.names = TRUE)
@@ -60,6 +63,14 @@ habi   <- cbind(habi, extract( mb_deriv, habisp))
 habi   <- habi[!is.na(habi$mb_depth), ]
 habi$mb_depth <- abs(habi$mb_depth)
 summary(habi)
+
+test <- ggplot(data = habi%>%filter(id%in%c("2020-10_south-west_BOSS.4","2020-10_south-west_BOSS.5",
+                                            "2020-10_south-west_BOSS.1")), aes(x = longitude.1, y = latitude.1, label = sample.x))+
+  scale_x_continuous(limits = c(min(habi$longitude.1),max(habi$longitude.1)))+
+  scale_y_continuous(limits = c(min(habi$latitude.1),max(habi$latitude.1)))+
+  geom_text()+
+  geom_point()
+test
 
 saveRDS(habi, "data/tidy/habitat_multibeam_merged.rds")
 
