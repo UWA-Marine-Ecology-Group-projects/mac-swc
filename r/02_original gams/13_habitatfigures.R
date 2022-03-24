@@ -71,33 +71,35 @@ p4 <- ggplot() +
   coord_sf() +
   theme_minimal()
 p4
-a
+
 ggsave("plots/original gamms/fullarea_dominant_habitat.png", 
-       width = 12, height = 8, dpi = 160)
+       width = 8, height = 6, dpi = 160)
 
 # fig 2: habitat multiplot
 # melt classes for faceting
-widehabit <- melt(spreddf, measure.vars = c(8:12))
+widehabit <- melt(spreddf, measure.vars = c(3:9))
 widehabit$variable <- dplyr::recode(widehabit$variable,
                                     psponge = "Sponge",
                                     pmacroalgae = "Macroalgae",
                                     prock = "Rock",
                                     psand = "Sand",
-                                    preef = "Biogenic Reef",
+                                    pbiogenic = "Biogenic Reef",
                                     pseagrass = "Seagrass")
 
 p2 <- ggplot() +
-  geom_tile(data = widehabit, 
+  geom_tile(data = widehabit%>%dplyr::filter(!variable%in%"preef"), 
             aes(x, y, fill = value)) +
   scale_fill_viridis(direction = -1, limits = c(0, max(widehabit$value))) +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   labs(x = NULL, y = NULL, fill = "Occurrence (p)") +
   theme_minimal() +
+  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   facet_wrap(~variable)
+
 p2
 
 ggsave("plots/original gamms/fullarea_habitat_predicted.png", 
-       width = 12, height = 14, dpi = 160)
+       width = 8, height = 7, dpi = 160)
 
 # # fig 3: biogenic reef
 # p3 <- ggplot(spreddf[widehabit$sitens == 1, ], aes(x, y)) +
