@@ -6,6 +6,8 @@
 # date:    Mar 2022
 ##
 
+rm(list=ls())
+
 library(reshape2)
 library(ggplot2)
 library(viridis)
@@ -44,13 +46,14 @@ unique(spreddf$dom_tag)
 spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                           macroalgae = "Macroalgae",
                           sand = "Sand",
-                          reef = "Biogenic Reef",
-                          rock = "Rock")
+                          biogenic = "Biogenic Reef",
+                          rock = "Rock",
+                          sponge = "Sponge")
   
 # fig 1: categorical habitat maps
 # assign mpa colours
 hab_cols <- scale_fill_manual(values = c("Macroalgae" = "darkgoldenrod4",
-                                         # "Seagrass" = "forestgreen",
+                                         "Sponge" = "darkorange1",
                                          "Rock" = "grey40",
                                          "Sand" = "wheat",
                                          "Biogenic Reef" = "plum"))
@@ -68,7 +71,7 @@ p4 <- ggplot() +
   coord_sf() +
   theme_minimal()
 p4
-
+a
 ggsave("plots/original gamms/fullarea_dominant_habitat.png", 
        width = 12, height = 8, dpi = 160)
 

@@ -28,7 +28,7 @@ dat1 <-read.csv("output/fish gamms/2020-2021_south-west_BOSS-BRUV_all.var.imp.cs
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
 
-dat2 <-read.csv("output/fish gamms/2020_south-west_stereo-BRUVs_length_all.var.imp.csv")%>% #from local copy
+dat2 <-read.csv("output/fish gamms/2020-2021_south-west_BOSS-BRUV_length_all.var.imp.csv")%>% #from local copy
   dplyr::rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
@@ -71,8 +71,7 @@ dat.taxa.label<-dat%>%
   mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief",
                                                 "depth","roughness","tpi","detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="status"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.macroalgae"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="detrended"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="status"&resp.var=="species.richness","X",label))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="greater than legal size","X",label))%>%

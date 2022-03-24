@@ -74,25 +74,19 @@ metadata%>%
   ggplot()+
   geom_point(aes(x=longitude,y=latitude))+theme_classic()
 
-seacube <- metadata %>%
-  filter(between(longitude,114.6,114.68))%>%
-  filter(between(latitude,-34.104,-34.101))
-#need to yeet all those in state water sanctuary zones
 
 # Bathymetry derivatives ----
 bathy <- read.csv('data/tidy/2020-2021_south-west_BOSS-BRUV.bathy.derivatives.csv') %>%      #from r/02-original gams/X_Get_bathy-derivatives.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  distinct()%>%                                                                 #there are some duplicates here, need to fix in original
-  dplyr::select(campaignid,sample,ga.depth,tri,tpi,roughness,
-                slope,aspect,detrended,lineartrend,id)%>%
+  dplyr::select(ga.depth,tpi,roughness,detrended,id)%>%
   dplyr::glimpse()
 
 # Distance to boat ramp ----
-ramps <- read.csv('data/tidy/2020-2021_south-west_BOSS-BRUV.distance.to.ramp.csv') %>%  #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
+ramps <- read.csv('data/tidy/2020-2021_south-west_BRUVs-BOSS.distance.to.ramp.csv') %>%  #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  distinct()%>%
+  dplyr::select(id, distance.to.ramp)%>%
   dplyr::glimpse()
 
 #habitat
@@ -100,7 +94,7 @@ habitat <- readRDS("data/tidy/dat.full.habitat.rds")%>%                         
   dplyr::select(1:23)%>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  distinct()%>%                                                                 #there are some duplicates here, need to fix in original
+  dplyr::select(-c(campaignid, sample, method))%>%
   glimpse()
 
 # Create total abundance and species richness ----
@@ -132,26 +126,22 @@ master <- googlesheets4::read_sheet(url) %>%
   dplyr::glimpse()
 
 ## Combine all the maxn data to be modeled into a single data frame
-combined.maxn <- bind_rows(ta.sr)%>%                                            #removed all other taxa
+combined.maxn <- ta.sr %>%                                                        #removed all other taxa
   left_join(metadata) %>%                                                       #joins by id sample & method
   left_join(bathy) %>%                                                          #joins by id sample method & campaignid
   left_join(ramps) %>%                                                          #joins by id sample method & campaignid
   left_join(habitat) %>%                                                        #joins by id sample method & campaignid
-  distinct()%>%
+  # distinct()%>%
   glimpse()
 
 test <- combined.maxn %>%
   group_by(id)%>%
-  dplyr::summarise(n=n())                                                              #all good
- 
-#1180 observations
-1180/2  #590 samples
-279+311 #590 - we good
+  dplyr::summarise(n=n())   
 
 unique(combined.maxn$scientific)
 
 # Set predictor variables---
-pred.vars=c("depth", "slope", "detrended","aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
+pred.vars=c("depth", "detrended","roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
             "broad.consolidated", "broad.hydroids", "broad.macroalgae", "broad.octocoral.black", 
             "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated")
 
@@ -169,16 +159,6 @@ ggplot()+
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
-
-# remove samples with maxn >400? Prob an outlier and driving a lot of relationships
-# outlier <- combined.maxn %>%
-#   filter(maxn>400)%>%
-#   glimpse()
-#  
-# combined.maxn <- combined.maxn %>%
-#   filter(maxn <400)%>%
-#   glimpse()
-
 
 # Plot of likely transformations
 par(mfrow=c(3,2))
@@ -227,7 +207,7 @@ dat.maxn <- combined.maxn %>%
   dplyr::select(campaignid,sample, method,status, site, planned.or.exploratory, scientific, maxn,
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
                 "distance.to.ramp", "tpi","roughness","depth","detrended") %>%
-  dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
+  dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343","IO267")) #sea cubes and weird TPI point
   as.data.frame()
 
 test <- combined.maxn %>%
@@ -246,22 +226,8 @@ length <-read.csv("data/staging/2020_south-west_stereo-BRUVs.complete.length.csv
 metadata.bruv <- read.csv("data/staging/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::filter(successful.length%in%"Yes")%>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(id=paste(campaignid, sample, sep = "."))%>%
   glimpse()
-
-length(unique(length$sample)) #277
-
-# total.no.pinkies <- length %>%
-#   dplyr::filter(species=="auratus") %>%
-#   filter(number>0)
-# 
-# sum(total.no.pinkies$number) # 225
-# test <- total.no.pinkies %>%
-#   filter(length>0)
-# sum(test$number) # 188 measured
-
-188/225*100 # 84% measured
-
-unique(master$fishing.type)
 
 spp.species<-length%>%
   filter(species=="spp")%>%
@@ -276,7 +242,8 @@ fished.species <- length %>%
                                                        "Scombridae Sarda spp",
                                                        "Scombridae Unknown spp",
                                                        "Sillaginidae Sillago spp",
-                                                       "Lethrinidae Gymnocranius spp"),"R",fishing.type))%>%
+                                                       "Lethrinidae Gymnocranius spp",
+                                                       "Berycidae Centroberyx sp1"),"R",fishing.type))%>%
   dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R","C","B/C"))%>%
   dplyr::filter(!species%in%c("nigricans","tephraeops","lineolatus","cirratus",
                            "purpurissatus","lewini","nigroruber"))%>%
@@ -338,10 +305,10 @@ dat.length <- complete.length%>%
   dplyr::filter(is.na(state.zone))%>%
   dplyr::mutate(broad.macroalgae=broad.macroalgae/broad.total.points.annotated)%>%
   dplyr::mutate(broad.reef=broad.reef/broad.total.points.annotated)%>%
-  dplyr::select(campaignid,sample, status, site, planned.or.exploratory, scientific, number,
+  dplyr::select(id,campaignid,sample, status, site, planned.or.exploratory, scientific, number,
                 "mean.relief","sd.relief","broad.macroalgae","broad.reef",
                 "distance.to.ramp", "tpi","roughness","depth","detrended") %>%
-  dplyr::filter(!sample%in%c("IO267"))%>%   #remove one weird TPI value (-11) come back to try and check on it
+  dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343","IO267")) %>%#sea cubes and weird TPI point
   as.data.frame()
 
 ggplot()+
@@ -350,7 +317,6 @@ ggplot()+
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
-#a few potential outliers, leave them in for now
 
 saveRDS(dat.length, "data/tidy/dat.length.full.rds")
 

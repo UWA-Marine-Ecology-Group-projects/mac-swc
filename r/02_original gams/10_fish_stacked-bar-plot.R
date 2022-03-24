@@ -121,7 +121,7 @@ c.aus <- as.raster(c.aus)
 bar.top.10<-ggplot(maxn.10%>%mutate(scientific=str_replace_all(.$scientific,          
   c("Centroberyx sp1"="Centroberyx sp1*"))), aes(x=reorder(scientific,maxn), y=maxn)) +   
   geom_bar(stat="identity",colour="black",fill="lightgrey",position=position_dodge())+
-  ylim (0, 4200)+
+  ylim (0, 4000)+
   coord_flip()+
   xlab("Species")+
   ylab(expression(Overall~abundance~(Sigma~MaxN)))+
@@ -129,14 +129,14 @@ bar.top.10<-ggplot(maxn.10%>%mutate(scientific=str_replace_all(.$scientific,
   theme(axis.text.y = element_text(face="italic"))+
   theme_collapse+
   theme.larger.text+
-  annotation_raster(c.a, xmin=9.75,xmax=10.25,ymin=3820, ymax=4400)+            #1
-  annotation_raster(p.e, xmin=8.8,xmax=9.2,ymin=3250, ymax=3500)+               #2
-  annotation_raster(n.o, xmin=7.75, xmax=8.25, ymin=2750, ymax=3200)+           #3
-  annotation_raster(c.k, xmin=6.8,xmax=7.2,ymin=2300, ymax=2500)+               #4
-  annotation_raster(c.s, xmin=5.75,xmax=6.25,ymin=2300, ymax=2700)+             #5
-  annotation_raster(c.spp, xmin=4.6,xmax=5.4,ymin=2300, ymax=2800)+             #6
-  annotation_raster(p.b, xmin=3.8,xmax=4.2,ymin=1900, ymax=2400)+               #7
-  annotation_raster(o.l, xmin=2.7,xmax=3.3,ymin=1450, ymax=2100)+               #8
+  annotation_raster(c.a, xmin=9.75,xmax=10.25,ymin=3300, ymax=4000)+            #1
+  annotation_raster(p.e, xmin=8.8,xmax=9.2,ymin=3100, ymax=3400)+               #2
+  annotation_raster(c.spp, xmin=7.75, xmax=8.25, ymin=2500, ymax=2900)+         #3
+  annotation_raster(n.o, xmin=6.8,xmax=7.2,ymin=2350, ymax=2700)+               #4
+  annotation_raster(c.s, xmin=5.75,xmax=6.25,ymin=2150, ymax=2450)+             #5
+  annotation_raster(c.k, xmin=4.8,xmax=5.2,ymin=1950, ymax=2200)+               #6
+  annotation_raster(p.b, xmin=3.8,xmax=4.2,ymin=1700, ymax=2100)+               #7
+  annotation_raster(o.l, xmin=2.75,xmax=3.25,ymin=1350, ymax=1900)+               #8
   annotation_raster(n.a, xmin=1.5,xmax=2.5,ymin=750, ymax=1800)+                #9
   annotation_raster(c.aus, xmin=0.75,xmax=1.25,ymin=650, ymax=1100)             #10
   # ggtitle("10 most abundant species") +

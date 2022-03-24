@@ -27,7 +27,8 @@ raw.dir <- paste(data.dir,"raw",sep="/")
 tidy.dir <- paste(data.dir,"tidy",sep="/")
 tm.export.dir <- paste(raw.dir,"tm export",sep="/") 
 em.export.dir <- paste(raw.dir, "em export", sep = "/")
-error.dir <- paste(data.dir,"errors to check",sep="/") 
+error.dir <- paste(data.dir,"errors to check",sep="/")
+staging.dir <- paste(data.dir,"staging",sep = "/")
 
 # Read in the metadata----
 setwd(em.export.dir)
@@ -353,7 +354,7 @@ relief.grid<-habitat.grid%>%
 
 
 # Write final habitat data----
-setwd(tidy.dir)
+setwd(staging.dir)
 dir()
 
 habitat.broad.percent <- metadata%>%

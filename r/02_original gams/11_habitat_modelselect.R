@@ -34,14 +34,14 @@ rm(list=ls())
 # Bring in and format the data----
 habi  <- readRDS("data/tidy/dat.full.habitat.rds")%>%                              # merged data from ??
   dplyr::mutate(id=paste(campaignid,sample, sep = "."))%>%
-  distinct() #there is one sample with a duplicate
+  dplyr::select(-depth)
 
 spcov <- readRDS("data/tidy/habitat_spatialcovs.rds")%>%
   dplyr::mutate(id=paste(campaignid,sample, sep = "."))%>%
-  distinct() #there is one sample with a duplicate
+  dplyr::select(id, depth,tpi, roughness, detrended, longitude.1, latitude.1)
 
 habi <- habi %>%
-  dplyr::left_join(spcov, by = "id")%>%
+  dplyr::left_join(spcov)%>%
   glimpse()
 
 head(habi)
@@ -52,10 +52,10 @@ habi <- habi %>%
            broad.invertebrate.complex +
            broad.octocoral.black + broad.sponges +
            broad.stony.corals + broad.true.anemones) %>%
-  dplyr::select(id, campaignid.x, sample.x, biogenic_reef,
+  dplyr::select(id, campaignid, sample, broad.reef,biogenic_reef,
                 broad.consolidated, broad.invertebrate.complex, broad.macroalgae, 
                 broad.seagrasses, broad.sponges, broad.unconsolidated,
-                broad.total.points.annotated, depth.y, tpi,
+                broad.total.points.annotated, depth, tpi,
                 roughness, detrended, longitude.1, latitude.1, method) %>%
   glimpse()
 colnames(habi)
@@ -66,7 +66,7 @@ habi <- melt(habi, measure.vars = c(4:10))                               # colle
 head(habi)
 
 # Set predictor variables---
-pred.vars <- c("depth.y", "tpi", "roughness", "detrended") 
+pred.vars <- c("depth", "tpi", "roughness", "detrended") 
 
 # Check for correlation of predictor variables- remove anything highly correlated (>0.95)---
 round(cor(habi[ , pred.vars]), 2)
@@ -92,7 +92,7 @@ habi <- habi %>%
   rename(response = value)
 
 # # Re-set the predictors for modeling----
-pred.vars <- c("depth.y","roughness", "tpi", "detrended") 
+pred.vars <- c("depth","roughness", "tpi", "detrended") 
 
 # Check to make sure Response vector has not more than 80% zeros----
 unique.vars     <- unique(as.character(habi$Taxa))
@@ -114,7 +114,7 @@ use.dat   <- habi[habi$Taxa %in% c(unique.vars.use), ]
 # factor.vars <- c("Status")# Status as a Factor with two levels
 out.all <- list()
 var.imp <- list()
-name <- "eg"
+name <- "south-west_full_habitat_"
 
 # Loop through the FSS function for each Taxa----
 for(i in 1:length(resp.vars)){
@@ -123,7 +123,7 @@ for(i in 1:length(resp.vars)){
                          use.dat$response < 0), ] # added to fix weird point
   # use.dat$Site <- as.factor(use.dat$Site)
   Model1  <- gam(cbind(response, (broad.total.points.annotated - response)) ~ 
-                   s(depth.y, bs = 'cr'),
+                   s(depth, bs = 'cr'),
                  family = binomial("logit"),  data = use.dat)
   
   model.set <- generate.model.set(use.dat = use.dat,

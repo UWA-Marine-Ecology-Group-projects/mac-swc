@@ -101,9 +101,9 @@ metadata.bruv$date <- as.character(metadata.bruv$date)
 metadata.boss.10 <- read.csv("data/raw/em export/2020-10_south-west_BOSS_Metadata.csv") %>%
   ga.clean.names()%>%
   dplyr::mutate(campaignid="2020-10_south-west_BOSS")%>%
-  dplyr::select("campaignid","sample","latitude",              
-                "longitude","date","time.bottom","location","status",                
-                 "site","depth","observer","successful.count","successful.length",     
+  dplyr::select("campaignid","sample","latitude",
+                "longitude","date","time.bottom","location","status",
+                 "site","depth","observer","successful.count","successful.length",
                 "raw.hdd.number","con.hdd.number")%>%
   dplyr::mutate(status = as.factor(status)) %>%
   dplyr::mutate(sample = as.factor(sample)) %>%
@@ -114,15 +114,15 @@ metadata.boss.10 <- read.csv("data/raw/em export/2020-10_south-west_BOSS_Metadat
   dplyr::mutate(site=seq(1:263))%>%
   dplyr::mutate(site=paste(method,site,sep = ""))%>%
   dplyr::rename(time=time.bottom)%>%
-  #dplyr::select(-id)%>%
+  dplyr::filter(!sample%in%"287")%>%
   dplyr::glimpse()
 
 metadata.boss.03 <- read.csv("data/raw/em export/2021-03_West-Coast_BOSS_Metadata.csv") %>%
   ga.clean.names()%>%
   dplyr::mutate(campaignid="2021-03_West-Coast_BOSS")%>%
-  dplyr::select("campaignid","sample","latitude",              
-                "longitude","date","time.bottom","location","status",                
-                "site","depth","observer","successful.count","successful.length",     
+  dplyr::select("campaignid","sample","latitude",
+                "longitude","date","time.bottom","location","status",
+                "site","depth","observer","successful.count","successful.length",
                 "raw.hdd.number","con.hdd.number")%>%
   dplyr::mutate(status = as.factor(status)) %>%
   dplyr::mutate(sample = as.factor(sample)) %>%
@@ -142,10 +142,15 @@ janitor::compare_df_cols(metadata.boss.10,metadata.boss.03)
 
 metadata.boss <- bind_rows(metadata.boss.10,metadata.boss.03)
 
+
 #compare column names
 janitor::compare_df_cols(metadata.bruv,metadata.boss)
 metadata <- bind_rows(metadata.bruv,metadata.boss)
 raw.metadata <- metadata
+
+test <- metadata %>%
+  group_by(campaignid, sample)%>%
+  dplyr::summarise(n=n())  
 
 #join in state/commonwealth zone and fishing status to all metadata columns
 #we already have this for 2021-03 but will just add again for all
@@ -198,9 +203,14 @@ joined.habitat <- habitat %>%
   dplyr::filter(!sample%in%"19"|!campaignid%in%"2020-06_south-west_stereo-BRUVs")%>%     #more failed samples
   dplyr::filter(!sample%in%"FH36"|!campaignid%in%"2020-10_south-west_stereo-BRUVs")%>%   #and more
   dplyr::mutate(location="South-west")%>%
+  distinct()%>%
   glimpse()
 
 names(joined.habitat)
+
+test <- joined.habitat %>%
+  group_by(campaignid, sample)%>%
+  dplyr::summarise(n=n())  
 
 #save RDS
 saveRDS(joined.habitat,'data/tidy/dat.full.habitat.rds')      

@@ -35,52 +35,33 @@ str(df)
 dfs <- df
 coordinates(dfs) <- ~longitude+latitude 
 
-plot(dfs$depth)
-
-# Get bathy and detrended derivatives ----
-b <- raster("data/spatial/rasters/Multibeam_derivatives.tif") #HS did not run for new bathy
-
-# plot bathy and points
-plot(b) 
-plot(dfs, pch = 20, cex = 1, add=T) 
+#transform to UTM
+crs(dfs) <- "+proj=longlat +datum=WGS84"
+sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
+dfs <- spTransform(dfs, sppcrs)
 
 # Load  derivatives ----
-bds <- stack("data/spatial/rasters/Multibeam_derivatives.tif") #changed to "Multibeam_derivatives.tif"
+d <- raster("data/spatial/rasters/multibeam_derivatives_depth.tif") #depth
+x <- raster("data/spatial/rasters/multibeam_derivatives_detrended.tif") #detrended
+r <- raster("data/spatial/rasters/multibeam_derivatives_roughness.tif") #roughness
+t <- raster("data/spatial/rasters/multibeam_derivatives_tpi.tif") #tpi
+bds <- stack(d,x, r, t) #changed to "Multibeam_derivatives.tif"
 names(bds)
-names2 <- read.csv("data/spatial/rasters/names.bathy.ders.csv")
-names(bds) <- names2$x
-names(bds)
-plot(bds)
+# names2 <- read.csv("data/spatial/rasters/names.bathy.ders.csv")
+# names(bds) <- names2$x
+# names(bds)
+plot(bds$multibeam_derivatives_depth)
+plot(dfs, pch = 20, cex = 1, add=T) 
 
 # Extract bathy derivatives from data points --
 dfs <- raster::extract(bds, dfs, sp = T)
-str(dfs)
 head(dfs)
 
 dfs <- as.data.frame(dfs) %>%
-  dplyr::filter(!tpi=="NA")%>%
-  dplyr::rename(depth.multibeam = depth.1)%>%
-  dplyr::mutate(depth.multibeam = abs(depth.multibeam))%>%
+  dplyr::filter(!is.na(multibeam_derivatives_tpi))%>%
+  dplyr::mutate(multibeam_derivatives_depth = abs(multibeam_derivatives_depth))%>%
   glimpse()
 
 # save covariates ----
 write.csv(dfs, "data/tidy/2020-2021_south-west_BOSS-BRUV.multibeam-derivatives.csv",row.names = F)           #Claude changed name
 
-# ###       ###       ###       ###
-# 
-# 
-# # Get SST covariates ----
-# t1 <- raster(paste(r.dir, "SSTmean_SSTARRS.tif", sep='/'))
-# t2 <- raster(paste(r.dir, "SSTsterr_SSTARRS.tif", sep='/'))
-# t3 <- raster(paste(r.dir, "SSTtrend_SSTARRS.tif", sep='/'))
-# 
-# ts <- stack(t1, t2, t3)
-# plot(ts)
-# plot(ts$SSTmean_SSTARRS)
-# 
-# dfs <- raster::extract(ts, dfs, sp=T)
-# head(dfs)
-# 
-# 
-# #### save mxn with bathy ders and temp ----
-# write.csv(dfs, paste(dt.dir, "2020_sw_maxn.env-cov.csv", sep='/'))

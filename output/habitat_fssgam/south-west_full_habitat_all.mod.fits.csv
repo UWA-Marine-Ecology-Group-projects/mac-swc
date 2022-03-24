@@ -1,0 +1,10 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","depth","roughness","tpi","detrended","cumsum.wi"
+"biogenic_reef","depth+detrended+roughness",8363.59707282734,8419.667211412,0.25685,NA,12.32,0,0,0,1,1,1,1,0,1,1
+"broad.consolidated","depth+detrended+roughness",6490.64501262635,6549.23506338809,0.27903,NA,12.88,0,0,0,1,1,1,1,0,1,1
+"broad.invertebrate.complex.depth+detrended+tpi","depth+detrended+tpi",2646.06308037417,2703.99685398126,0.21144,NA,12.73,0,0,9.276,0.56,0.01,1,0,1,1,0.56
+"broad.invertebrate.complex.depth+detrended+roughness","depth+detrended+roughness",2646.54467325002,2694.72116656113,0.21087,NA,10.57,0,0.482,0,0.44,0.99,1,1,0,1,1
+"broad.macroalgae","depth+detrended+tpi",9880.93034417522,9935.33840670865,0.39868,NA,11.95,0,0,0,1,1,1,0,1,1,1
+"broad.seagrasses.depth+detrended+tpi","depth+detrended+tpi",5159.72596596536,5210.45296255156,0.09874,NA,11.14,0,0,0,0.62,0.85,1,0,1,1,0.62
+"broad.seagrasses.depth+detrended+roughness","depth+detrended+roughness",5160.70208529797,5217.54707477202,0.08956,NA,12.49,0,0.976,7.094,0.38,0.024,1,1,0,1,1
+"broad.sponges","depth+detrended+roughness",6000.11420464962,6055.00723095877,0.19089,NA,12.06,0,0,0,1,1,1,1,0,1,1
+"broad.unconsolidated","depth+detrended+roughness",15172.3189368791,15231.080509133,0.61221,NA,12.91,0,0,0,1,1,1,1,0,1,1

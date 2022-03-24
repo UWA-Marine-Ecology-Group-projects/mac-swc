@@ -66,7 +66,7 @@ metadata <- ga.list.files("_Metadata.csv") %>% # list all files ending in "_Meta
   dplyr::mutate(planned.or.exploratory = str_replace_all(.$planned.or.exploratory,c("Deans"="Legacy",
                                                                                     "Captains pick"="Legacy"))) %>%
   dplyr::mutate(sample=as.character(sample)) %>%
-  dplyr::filter(successful.count%in%c("Yes"))%>%
+  dplyr::filter(successful.count%in%c("Yes"),campaignid%in%c("2020-06_south-west_stereo-BRUVs","2020-10_south-west_stereo-BRUVs"))%>%
   glimpse()
 
 unique(metadata$successful.count)

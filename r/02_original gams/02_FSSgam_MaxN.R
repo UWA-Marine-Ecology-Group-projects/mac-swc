@@ -31,9 +31,12 @@ setwd(working.dir)
 # Bring in the data----
 dat <- readRDS('data/tidy/dat.maxn.full.rds')%>%
   dplyr::filter(scientific%in%c("total.abundance","species.richness"))%>%
-  dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
-  # dplyr::filter(method%in%"BOSS")%>%
   glimpse()
+
+test <- dat %>%
+  group_by(campaignid, sample)%>%
+  dplyr::summarise(n=n())   
+
 str(dat)
 dat$campaignid <- as.factor(dat$campaignid)
 dat$scientific <- as.factor(dat$scientific)

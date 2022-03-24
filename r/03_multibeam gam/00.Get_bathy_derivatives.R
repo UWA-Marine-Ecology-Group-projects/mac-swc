@@ -28,14 +28,6 @@ setwd(working.dir)
 b <- raster("data/spatial/rasters/SwC_Multibeam.tiff")
 plot(b)
 
-#not sure what this was for..?
-# old.tiff <- b
-# old.tiff
-# 
-# new.tiff <- raster("data/spatial/rasters/ga-4858_south_west_corner_marine_park_cube_05m_egm2008_epsg-4326_20210327.tiff")
-# plot(new.tiff)
-# new.tiff
-
 # crop to extent --
 #e <- drawExtent()
 e <- extent(288664.7 , 311265.2 , 6220416 , 6234275 )

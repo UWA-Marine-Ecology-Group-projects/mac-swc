@@ -16,7 +16,6 @@
 
 # Please email tim.langlois@uwa.edu.au & brooke.gibbons@uwa.edu.au if you would like the life.history or synonyms googlesheets shared with you or to have your local species information added.
 
-
 # Clear memory ----
 rm(list=ls())
 
