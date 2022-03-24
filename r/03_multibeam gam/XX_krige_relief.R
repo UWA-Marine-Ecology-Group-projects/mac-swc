@@ -13,44 +13,51 @@ library(ggnewscale)
 library(ggplot2)
 library(viridis)
 
-# bring in data
-habi  <- readRDS("data/tidy/dat.full.habitat.rds")                                # merged data from 'R/1_mergedata.R'
-preds <- readRDS("data/spatial/250m_spatialcovariates_utm.rds")                   # spatial covs from 'R/1_mergedata.R'
+# bring in multibeam derivatives and extract at sample locations
+deriv_list <- list.files("data/spatial/rasters", "multibeam_derivatives",
+                         full.names = TRUE)
+mb_deriv   <- stack(deriv_list)
+names(mb_deriv) <- c("mb_depth", "mb_detrended", "mb_roughness", "mb_tpi")
+preds <- mb_deriv
+plot(preds)
+preds$mb_depth <- preds$mb_depth * -1
+
+# preds <- readRDS("data/spatial/250m_spatialcovariates_utm.rds")                   # spatial covs from 'R/1_mergedata.R'
 
 # spatial setup
 wgscrs  <- CRS("+proj=longlat +datum=WGS84")
 sppcrs  <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # crs for sp objects
-plot(preds)
-names(preds)[1] <- "depth"
+# plot(preds)
 
-# trim predictor data cols
-habi <- habi[ , c(1, 2, 21, 23, 25:26)]
+# bring in and tidy habitat data
+habi <- readRDS("data/tidy/habitat_multibeam_merged.rds")                      # merged data from 'R/1_mergedata.R'
+habi <- habi[ , c(1, 2, 21, 49:50, 52:55)]
 head(habi)
 
 # transform habitat coordinates, extract from covariates
-habisp <- SpatialPointsDataFrame(coords = habi[6:5], data = habi, 
-                                 proj4string = wgscrs)
-habisp <- spTransform(habisp, sppcrs)
-habisp <- cbind(habisp, data.frame(raster::extract(preds, habisp)))
-habi   <- as.data.frame(habisp, xy = T)
-saveRDS(habi, "data/tidy/habitat_spatialcovs.rds")
+habisp <- SpatialPointsDataFrame(coords = habi[4:5], data = habi,
+                                 proj4string = sppcrs)
+# habisp <- spTransform(habisp, sppcrs)
+# habisp <- cbind(habisp, data.frame(raster::extract(preds, habisp)))
+# habi   <- as.data.frame(habisp, xy = T)
+# saveRDS(habi, "data/tidy/habitat_spatialcovs.rds")
 
 # plot relationships quickly
-ggplot(habi, aes(depth, mean.relief)) +     geom_point(alpha = 0.2) + geom_smooth()
-ggplot(habi, aes(detrended, mean.relief)) + geom_point(alpha = 0.2) + geom_smooth()
-ggplot(habi, aes(roughness, mean.relief)) + geom_point(alpha = 0.2) + geom_smooth()
+ggplot(habi, aes(mb_depth, mean.relief.x))     + geom_point(alpha = 0.2) + geom_smooth()
+ggplot(habi, aes(mb_detrended, mean.relief.x)) + geom_point(alpha = 0.2) + geom_smooth()
+ggplot(habi, aes(mb_roughness, mean.relief.x)) + geom_point(alpha = 0.2) + geom_smooth()
 
 # Build with all data, or set aside test/train data
-traind <- habi
+# traind <- habi
 # # OR set aside train/test data
-# set.seed(42)
-# testd  <- habi[sample(nrow(habi), nrow(habi)/5), ]
-# traind <- habi[!habi$sample %in% testd$sample , ]
+set.seed(42)
+testd  <- habi[sample(nrow(habi), nrow(habi)/5), ]
+traind <- habi[!habi$sample %in% testd$sample , ]
 
 # build inla mesh from spatial layout of sites - the constants need some tuning
-sitecoords     <- traind[11:12]
+sitecoords     <- traind[4:5]
 sitelocs       <- as.matrix(sitecoords)
-max.edgelength <- c(1000, 12000)
+max.edgelength <- c(1100, 6000)
 mesha          <- inla.mesh.2d(loc = sitelocs, max.edge = max.edgelength,
                                offset = c(500, 2000), cutoff = 300)
 plot(mesha)
@@ -60,19 +67,19 @@ plot(habisp, add = T, col = "red")
 meshadata      <- inla.spde.make.A(mesha, sitelocs)
 spde           <- inla.spde2.matern(mesha, alpha = 2)
 datn           <- nrow(traind)
-preddf         <- traind[, colnames(traind) %in% c("depth", "roughness", 
-                                                   "tpi", "detrended")]
+preddf         <- traind[, colnames(traind) %in% c("mb_depth", "mb_roughness", 
+                                                   "mb_tpi", "mb_detrended")]
 
-relief_stack   <- inla.stack(data = list(y = traind$mean.relief),
+relief_stack   <- inla.stack(data = list(y = traind$mean.relief.x),
                              A = list(meshadata, 1),
                              effects = list(c(sp = list(1:mesha$n)),
-                                            list(depth = preddf$depth,
-                                                 rough = preddf$roughness,
-                                                 # tpi   = preddf$tpi,
-                                                 dtren = preddf$detrended)),
+                                            list(depth = preddf$mb_depth,
+                                                 rough = preddf$mb_roughness,
+                                                 # tpi   = preddf$mb_tpi,
+                                                 dtren = preddf$mb_detrended)),
                              remove.unused = TRUE)
 
-modform <- y ~ 1 + depth + rough + dtren  + f(sp, model = spde)
+modform <- y ~ 1 + depth + rough + dtren + f(sp, model = spde)
 
 # fit model
 m1 <- inla(modform, 
@@ -104,7 +111,7 @@ p1 <- ggplot(avgs[avgs$covariate != "(Intercept)", ],
   theme_bw()
 p1
 
-ggsave("plots/relief_model/reliefmodel_ci.png", width = 5, height = 4, dpi = 160)
+ggsave("plots/relief_model/multibeam_reliefmodel_ci.png", width = 5, height = 4, dpi = 160)
 
 # evaluate fit and tuning
 rf <- inla.spde.result(inla = m1, name = "sp", spde = spde, do.transf = TRUE)
@@ -128,29 +135,19 @@ dev.off()
 
 # predict spatial random effect back onto mesh from spde model fit
 ypred <- m1$summary.random$s$mean
-# xlim  <- c(extent(preds)[1], extent(preds)[2])
-# ylim  <- c(extent(preds)[3], extent(preds)[4])
-# xlim  <- c(-102500 , 258000)
-# ylim  <- c(6775500, 7123250)
-# xdims <- (xlim[2] - xlim[1]) / 250
-# ydims <- (ylim[2] - ylim[1]) / 250
-
 xlim  <- c(extent(preds)[1], extent(preds)[2])
 ylim  <- c(extent(preds)[3], extent(preds)[4])
 xdims <- (xlim[2] - xlim[1]) / res(preds)[1]
 ydims <- (ylim[2] - ylim[1]) / res(preds)[2]
 
-
 proj       <- inla.mesh.projector(mesha, xlim = xlim, ylim = ylim, 
                                   dims = c(xdims, ydims))
 field.proj <- inla.mesh.project(proj, ypred)
 
-datpred <- data.frame(x = rep(proj$x, ydims), 
-                      y = rep(proj$y, each = xdims), 
-                      pred = as.numeric(field.proj))
-
-datpred <- na.omit(datpred)
-
+datpred  <- data.frame(x = rep(proj$x, ydims), 
+                       y = rep(proj$y, each = xdims), 
+                       pred = as.numeric(field.proj))
+datpred  <- na.omit(datpred)
 predrast <- rasterize(x = cbind(datpred$x, datpred$y), 
                       y = preds, field = datpred$pred)
 
@@ -158,9 +155,9 @@ predrast <- rasterize(x = cbind(datpred$x, datpred$y),
 modout  <- m1$summary.fixed
 hypout  <- m1$summary.hyperpar
 pmask   <- predrast / predrast
-pcells  <- preds[[c(1, 3, 4)]] * pmask
+pcells  <- preds[[c(1:3)]] * pmask
 pcells  <- stack(pcells, predrast)
-names(pcells) <- c("depth", "rough", "dtren", "p_sp")
+names(pcells) <- c("depth", "dtren", "rough", "p_sp")
 pcelldf <- as.data.frame(pcells, na.rm = TRUE, xy = TRUE)
 head(pcelldf)
 
@@ -175,16 +172,20 @@ pcelldf$prelief[pcelldf$prelief < 0] <- 0                                       
 
 prelief <- rasterFromXYZ(cbind(pcelldf[c(1:2, 6:7)]))
 plot(prelief[[2]])
-saveRDS(prelief[[2]], "output/spatial/raster/predicted_relief_raster.rds")
 
-sitebuf <- buffer(habisp, 10000)
-prelief <- mask(prelief, sitebuf)
-prelief <- crop(prelief, extent(sitebuf))
-plot(prelief)
-# plot(habisp, add = TRUE, col = "red")
-pcelldf <- as.data.frame(prelief, xy = TRUE, na.rm = TRUE)
+writeRaster(prelief, "output/spatial/raster/predicted_relief_multibeam.tif", 
+            bylayer=TRUE, suffix = names(prelief))
+# saveRDS(prelief[[2]], "output/spatial/raster/predicted_relief_multibeam_raster.rds") # file too large for git
 
-saveRDS(pcelldf, 'output/spatial/raster/predicted_relief_site.rds')
+# 
+# sitebuf <- buffer(habisp, 10000)
+# prelief <- mask(prelief, sitebuf)
+# prelief <- crop(prelief, extent(sitebuf))
+# plot(prelief)
+# # plot(habisp, add = TRUE, col = "red")
+# pcelldf <- as.data.frame(prelief, xy = TRUE, na.rm = TRUE)
+# 
+# saveRDS(pcelldf, 'output/spatial/raster/predicted_relief_multibeam_site.rds')
 
 ggplot(pcelldf, aes(x, y)) +
   geom_tile(aes(fill = prelief)) +
@@ -211,9 +212,9 @@ ggplot(pcelldf, aes(x, y)) +
 
 ## if running on a k-fold subset (see lines 50-51)
 # perform quick cross-validation (single fold with 20% of data)
-testsp <- SpatialPointsDataFrame(coords = testd[11:12], data = testd)
+testsp <- SpatialPointsDataFrame(coords = testd[4:5], data = testd)
 testd$predicted <- extract(prelief[[2]], testsp)
-testd$pdiff     <- testd$predicted - testd$mean.relief
+testd$pdiff     <- testd$predicted - testd$mean.relief.x
 testsp$pdiff    <- testd$pdiff
 testd <- na.omit(testd) # there is an NA - there are some gaps in the rasters, that may be why
 
@@ -223,7 +224,7 @@ testd <- na.omit(testd) # there is an NA - there are some gaps in the rasters, t
 r2    <- var(testd$predicted) / (var(testd$predicted) + var(testd$pdiff))
 r2lab <- paste("r^2 == ", round(r2, 3))
 
-ggplot(testd, aes(mean.relief, predicted)) + 
+ggplot(testd, aes(mean.relief.x, predicted)) + 
   geom_abline(intercept = 0, lty = 3) +
   geom_point(alpha = 4/5, size = 1) + 
   geom_smooth(method = "gam", colour = "grey60", size = 0.2, fill = "grey80") +
@@ -232,7 +233,7 @@ ggplot(testd, aes(mean.relief, predicted)) +
   theme_minimal() + 
   labs(x = "observed")
 
-ggsave("plots/relief_model/relief_prediction_accuracy.png", width = 5, height = 4, dpi = 160)
+ggsave("plots/relief_model/relief_prediction_accuracy_multibeam.png", width = 5, height = 4, dpi = 160)
 
 # # plot difference across sites? i.e. way to view spatial prediction success?
 # 
