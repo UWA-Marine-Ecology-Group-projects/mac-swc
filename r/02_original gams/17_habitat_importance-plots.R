@@ -17,11 +17,29 @@ working.dir <- getwd()
 setwd(working.dir)
 #OR Set manually once
 
-dat.taxa <-read.csv("output/multibeam_habitat_fssgam/egall.var.imp.csv")%>% #from local copy
+dat.taxa <-read.csv("output/habitat_fssgam/south-west_full_habitat_all.var.imp.csv")%>% #from local copy
   rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   mutate(label=NA)%>%
-  mutate(label=ifelse(predictor=="Depth"&resp.var=="kelps","X",label))%>%
+  dplyr::filter(!resp.var%in%"broad.invertebrate.complex")%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="biogenic_reef","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="biogenic_reef","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="biogenic_reef","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="broad.consolidated","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="broad.consolidated","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="broad.consolidated","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="broad.macroalgae","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="broad.macroalgae","X",label))%>%
+  mutate(label=ifelse(predictor=="tpi"&resp.var=="broad.macroalgae","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="broad.seagrasses","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="broad.seagrasses","X",label))%>%
+  mutate(label=ifelse(predictor=="tpi"&resp.var=="broad.seagrasses","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="broad.sponges","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="broad.sponges","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="broad.sponges","X",label))%>%
+  mutate(label=ifelse(predictor=="depth"&resp.var=="broad.unconsolidated","X",label))%>%
+  mutate(label=ifelse(predictor=="detrended"&resp.var=="broad.unconsolidated","X",label))%>%
+  mutate(label=ifelse(predictor=="roughness"&resp.var=="broad.unconsolidated","X",label))%>%
   glimpse()
 
 # Theme-
@@ -56,7 +74,8 @@ gg.importance.scores <- ggplot(dat.taxa, aes(x=predictor,y=resp.var,fill=importa
    geom_tile(show.legend=T) +
    scale_fill_gradientn(legend_title, colours=c(re), na.value = "grey98",
                          limits = c(-1, 1))+
-      scale_y_discrete( labels=c("Biogenic","Kelp", "Macroalgae", "Rock", "Sand"))+
+      scale_y_discrete( labels=c("Biogenic reef","Consolidated (rock)", "Macroalgae", "Seagrasses", "Sponges",
+                                 "Unconsolidated (sand)"))+
    scale_x_discrete(labels = c("Depth","Detrended","Roughness", "TPI"))+
    xlab(NULL)+
    ylab(NULL)+
@@ -66,4 +85,4 @@ gg.importance.scores <- ggplot(dat.taxa, aes(x=predictor,y=resp.var,fill=importa
 gg.importance.scores
 
 #save plots
-save_plot("plots/abrolhos.habitat.importance.scores.png", gg.importance.scores,base_height = 4.5,base_width = 4.25)
+save_plot("plots/original gamms/full.habitat.importance.scores.png", gg.importance.scores,base_height = 6,base_width = 8.75)

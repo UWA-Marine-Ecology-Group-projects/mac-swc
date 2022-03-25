@@ -77,9 +77,8 @@ dat.taxa.label<-dat%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="greater than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="tpi"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="depth"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="smaller than legal size","X",label))%>%
   mutate(label=ifelse(predictor=="roughness"&resp.var=="smaller than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="tpi"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
 
 # Plot gg.importance.scores ----

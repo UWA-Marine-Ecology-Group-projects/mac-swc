@@ -53,14 +53,16 @@ boss <- read.csv("data/staging/2020-2021_south-west_BOSS.complete.maxn.csv")%>%
   mutate(method="BOSS")%>%
   glimpse()
 
-maxn <- bind_rows(bruv,boss)
-
 multibeam <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.multibeam-derivatives.csv")%>%
+  dplyr::mutate(id=paste(campaignid, sample, sep = "."))%>%
+  select(id, multibeam_derivatives_tpi)%>%
   glimpse()
 
-maxn <- maxn %>%
+maxn <- bind_rows(bruv,boss) %>%
+  dplyr::mutate(id=paste(campaignid, sample, sep = "."))%>%
+  dplyr::select(-depth)%>%
   left_join(multibeam)%>%
-  dplyr::filter(!is.na(tpi))%>%                                                 #remove non-multibeam samples
+  dplyr::filter(!is.na(multibeam_derivatives_tpi))%>%                           #remove non-multibeam samples
   glimpse()
 
 # workout total maxn for each species ---
@@ -125,6 +127,9 @@ p.k <- as.raster(p.k)
 a.m <- readPNG("data/images/Austrolabrus maculatus-3cm.png")
 a.m <- as.raster(a.m)
 
+c.spp <- readPNG("data/images/Glaucosoma buergeri 5cmL.png")
+c.spp <- as.raster(c.spp)
+
 #plot final bar plot
 bar.top.10<-ggplot(maxn.10%>%mutate(scientific=str_replace_all(.$scientific,          
                                                                c("Centroberyx sp1"="Centroberyx sp1*"))), aes(x=reorder(scientific,maxn), y=maxn)) +   
@@ -139,14 +144,14 @@ bar.top.10<-ggplot(maxn.10%>%mutate(scientific=str_replace_all(.$scientific,
   theme.larger.text+
   annotation_raster(p.e, xmin=9.8,xmax=10.2,ymin=2850, ymax=3200)+              #1
   annotation_raster(c.a, xmin=8.7,xmax=9.3,ymin=2350, ymax=3150)+               #2
-  annotation_raster(c.k, xmin=7.8, xmax=8.2, ymin=1800, ymax=2100)+             #3
-  annotation_raster(c.s, xmin=6.775,xmax=7.275,ymin=1750, ymax=2100)+           #4
-  annotation_raster(n.o, xmin=5.75,xmax=6.25,ymin=1800, ymax=2300)+             #5
+  annotation_raster(c.s, xmin=7.8, xmax=8.2, ymin=1800, ymax=2100)+             #3
+  annotation_raster(n.o, xmin=6.775,xmax=7.275,ymin=1750, ymax=2100)+           #4
+  annotation_raster(c.k, xmin=5.75,xmax=6.25,ymin=1800, ymax=2300)+             #5
   annotation_raster(p.b, xmin=4.75,xmax=5.25,ymin=1300, ymax=1900)+             #6
   annotation_raster(o.l, xmin=3.7,xmax=4.3,ymin=800, ymax=1600)+                #7
-  annotation_raster(n.a, xmin=2.5,xmax=3.5,ymin=250, ymax=1500)+                #8
-  annotation_raster(p.k, xmin=1.75,xmax=2.25,ymin=230, ymax=700)+               #9
-  annotation_raster(a.m, xmin=0.85,xmax=1.15,ymin=220, ymax=700)                #10
+  annotation_raster(c.spp, xmin=2.5,xmax=3.5,ymin=250, ymax=1500)+                #8
+  annotation_raster(n.a, xmin=1.75,xmax=2.25,ymin=230, ymax=700)+               #9
+  annotation_raster(p.k, xmin=0.85,xmax=1.15,ymin=220, ymax=700)                #10
 # ggtitle("10 most abundant species") +
 # theme(plot.title = element_text(hjust = 0))
 bar.top.10

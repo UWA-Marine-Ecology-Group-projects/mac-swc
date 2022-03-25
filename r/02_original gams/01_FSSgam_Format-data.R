@@ -127,11 +127,10 @@ master <- googlesheets4::read_sheet(url) %>%
 
 ## Combine all the maxn data to be modeled into a single data frame
 combined.maxn <- ta.sr %>%                                                        #removed all other taxa
-  left_join(metadata) %>%                                                       #joins by id sample & method
-  left_join(bathy) %>%                                                          #joins by id sample method & campaignid
-  left_join(ramps) %>%                                                          #joins by id sample method & campaignid
-  left_join(habitat) %>%                                                        #joins by id sample method & campaignid
-  # distinct()%>%
+  left_join(metadata) %>%                                                       #joins by id 
+  left_join(bathy) %>%                                                          #joins by id 
+  left_join(ramps) %>%                                                          #joins by id 
+  left_join(habitat) %>%                                                        #joins by id 
   glimpse()
 
 test <- combined.maxn %>%
@@ -250,7 +249,8 @@ fished.species <- length %>%
   dplyr::filter(!family%in%c("Monacanthidae", "Scorpididae", "Mullidae")) %>% # Brooke removed leatherjackets, sea sweeps and goat fish
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Carangidae Pseudocaranx spp"),250,minlegal.wa))%>%
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Platycephalus spp"),300,minlegal.wa))%>%
-  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Leviprora spp"),300,minlegal.wa))
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Leviprora spp"),300,minlegal.wa))%>%
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Berycidae Centroberyx sp1"),300,minlegal.wa))
 
 without.min.length <- fished.species %>%
   filter(is.na(minlegal.wa))%>%

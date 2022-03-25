@@ -33,24 +33,32 @@ rm(list=ls())
 # Bring in and format the data----
 habi  <- readRDS("data/tidy/dat.full.habitat.rds")%>%                              # merged data from ??
   dplyr::mutate(id=paste(campaignid,sample, sep = "."))%>%
-  distinct() #there is one sample with a duplicate
+  dplyr::select(-depth)
 
 spcov <- readRDS("data/tidy/habitat_spatialcovs.rds")%>%
   dplyr::mutate(id=paste(campaignid,sample, sep = "."))%>%
-  distinct() #there is one sample with a duplicate
+  dplyr::select(id, depth,tpi, roughness, detrended, longitude.1, latitude.1)
 
 habi <- habi %>%
+  dplyr::left_join(spcov)%>%
+  glimpse()
+
+head(habi)
+
+habi <- habi %>% 
   mutate(biogenic_reef = broad.ascidians + broad.bryozoa +
            broad.crinoids + broad.hydroids +
            broad.invertebrate.complex +
            broad.octocoral.black + broad.sponges +
-           broad.stony.corals + broad.true.anemones)%>%
-  dplyr::left_join(spcov, by = "id")%>%
+           broad.stony.corals + broad.true.anemones) %>%
+  dplyr::select(id, campaignid, sample, broad.reef,biogenic_reef,
+                broad.consolidated, broad.invertebrate.complex, broad.macroalgae, 
+                broad.seagrasses, broad.sponges, broad.unconsolidated,
+                broad.total.points.annotated, depth, tpi,
+                roughness, detrended, longitude.1, latitude.1, method) %>%
   glimpse()
+colnames(habi)
 
-test <- ggplot(data = habi, aes(x = depth.x, y = depth.y))+
-  geom_point()
-test
 # bring in multibeam derivatives and extract at sample locations
 deriv_list <- list.files("data/spatial/rasters", "multibeam_derivatives",
                          full.names = TRUE)
@@ -58,19 +66,11 @@ mb_deriv   <- stack(deriv_list)
 names(mb_deriv) <- c("mb_depth", "mb_detrended", "mb_roughness", "mb_tpi")
 plot(mb_deriv)
 
-habisp <- SpatialPointsDataFrame(coords = habi[49:50], data = habi)
-habi   <- cbind(habi, extract( mb_deriv, habisp))
+habisp <- SpatialPointsDataFrame(coords = habi[17:18], data = habi)
+habi   <- cbind(habi, raster::extract(mb_deriv, habisp))
 habi   <- habi[!is.na(habi$mb_depth), ]
 habi$mb_depth <- abs(habi$mb_depth)
 summary(habi)
-
-test <- ggplot(data = habi%>%filter(id%in%c("2020-10_south-west_BOSS.4","2020-10_south-west_BOSS.5",
-                                            "2020-10_south-west_BOSS.1")), aes(x = longitude.1, y = latitude.1, label = sample.x))+
-  scale_x_continuous(limits = c(min(habi$longitude.1),max(habi$longitude.1)))+
-  scale_y_continuous(limits = c(min(habi$latitude.1),max(habi$latitude.1)))+
-  geom_text()+
-  geom_point()
-test
 
 saveRDS(habi, "data/tidy/habitat_multibeam_merged.rds")
 
@@ -80,10 +80,10 @@ pred.vars <- c("mb_depth", "mb_detrended", "mb_tpi", "mb_roughness")
 # Check for correlation of predictor variables- remove anything highly correlated (>0.95)---
 round(cor(habi[ , pred.vars]), 2)
 
-# habi <- habi[ , -c(9:49)]
 colnames(habi)
-habi <- melt(habi, measure.vars = c(38,5, 9, 12:13, 17))             # collect all taxa tags for univariate stats
+habi <- reshape2::melt(habi, measure.vars = c(4:11))             # collect all taxa tags for univariate stats
 head(habi)
+unique(habi$variable)
 
 # rename taxa and response for the loop
 habi <- habi %>%
@@ -119,7 +119,7 @@ for(i in 1:length(resp.vars)){
                          use.dat$response < 0), ] # added to fix weird point
   # use.dat$Site <- as.factor(use.dat$Site)
   Model1  <- gam(cbind(response, (broad.total.points.annotated - response)) ~ 
-                   s(depth.y, bs = 'cr'),
+                   s(mb_depth, bs = 'cr'),
                  family = binomial("logit"),  data = use.dat)
   
   model.set <- generate.model.set(use.dat = use.dat,

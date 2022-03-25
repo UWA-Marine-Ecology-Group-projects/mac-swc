@@ -55,7 +55,7 @@ spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                                  macroalgae = "Macroalgae",
                                  sand = "Sand",
                                  biogenic = "Biogenic Reef",
-                                 seagrass = "Seagrass",
+                                 # seagrass = "Seagrass",
                                  rock = "Rock")
 
 # fig 1: categorical habitat maps
@@ -87,7 +87,7 @@ ggsave("plots/multibeam gamms/multibeam_dominant_habitat.png",
 
 # fig 2: habitat multiplot
 # melt classes for faceting
-widehabit <- melt(spreddf, measure.vars = c(3:8))
+widehabit <- reshape2::melt(spreddf, measure.vars = c(3:8))
 widehabit$variable <- gsub("layer_p", "", widehabit$variable)
 widehabit$variable <- dplyr::recode(widehabit$variable,
                                     sponges = "Sponge",

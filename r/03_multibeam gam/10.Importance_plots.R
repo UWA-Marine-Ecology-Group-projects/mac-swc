@@ -28,7 +28,7 @@ dat1 <-read.csv("output/multibeam fish gamms/2020-2021_south-west_BOSS-BRUV_all.
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
 
-dat2 <-read.csv("output/multibeam fish gamms/2020_south-west_stereo-BRUVs_length_all.var.imp.csv")%>% #from local copy
+dat2 <-read.csv("output/multibeam fish gamms/2020-2021_south-west_BOSS-BRUV_length_all.var.imp.csv")%>% #from local copy
   dplyr::rename(resp.var=X)%>%
   gather(key=predictor,value=importance,2:ncol(.))%>%
   glimpse()
@@ -69,13 +69,13 @@ dat.taxa.label<-dat%>%
   mutate(label=NA)%>%
   mutate(resp.var=factor(resp.var, levels = c("smaller than legal size","greater than legal size","species.richness","total.abundance")))%>%
   mutate(predictor=factor(predictor, levels = c("broad.reef","broad.macroalgae","mean.relief",
-                                                "depth.multibeam","roughness","tpi","detrended","distance.to.ramp","status")))%>%
+                                                "multibeam_derivatives_depth","multibeam_derivatives_roughness","multibeam_derivatives_tpi","multibeam_derivatives_detrended","distance.to.ramp","status")))%>%
   mutate(label=ifelse(predictor=="mean.relief"&resp.var=="total.abundance","X",label))%>%
-  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="species.richness","X",label))%>%
-  mutate(label=ifelse(predictor=="broad.reef"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="detrended"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="tpi"&resp.var=="greater than legal size","X",label))%>%
-  mutate(label=ifelse(predictor=="depth.multibeam"&resp.var=="smaller than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="multibeam_derivatives_depth"&resp.var=="species.richness","X",label))%>%
+  mutate(label=ifelse(predictor=="mean.relief"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="multibeam_derivatives_detrended"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="multibeam_derivatives_roughness"&resp.var=="greater than legal size","X",label))%>%
+  mutate(label=ifelse(predictor=="broad.macroalgae"&resp.var=="smaller than legal size","X",label))%>%
   glimpse()
 
 # Plot gg.importance.scores ----

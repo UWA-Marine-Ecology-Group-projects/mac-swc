@@ -23,11 +23,12 @@ library(GlobalArchive)
 library(purrr)
 
 # read in
-dat1 <- readRDS("data/tidy/dat.maxn.full.rds")%>%
+dat1 <- readRDS("data/tidy/dat.maxn.multibeam.rds")%>%
   dplyr::rename(number=maxn)%>%
   glimpse()
-dat2 <- readRDS("data/tidy/dat.length.full.rds")%>%
-  dplyr::mutate(method="BRUV")
+dat2 <- readRDS("data/tidy/dat.length.multibeam.rds")%>%
+  dplyr::mutate(method="BRUV")%>%
+  glimpse()
 janitor::compare_df_cols(dat1,dat2)
 
 coords <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv")%>%
@@ -40,10 +41,10 @@ fabund <- bind_rows(dat1,dat2) %>%                       # merged fish data used
   dplyr::mutate(method = as.factor(method),site = as.factor(site))%>%
   glimpse()
 
-file.names <- list.files(path="output/multibeam_habitat_fssgam",
-                         pattern = '*.rds',full.names = T)   #split up as too big for git
-preds <- file.names %>%
-  map_dfr(readRDS)
+file.names <- list.files("output/multibeam_habitat_fssgam", '*.tif', 
+                         full.names = TRUE)                                     #split up as too big for git
+preds <- raster::stack(file.names) 
+preds <- as.data.frame(preds, xy = T, na.rm = T)
 
 #read in multibeam data to join to predicted habitat
 file.names.multi <- list.files(path="data/spatial/rasters",
@@ -58,15 +59,13 @@ preds <- as.data.frame(preds)
 preds$multibeam_derivatives_depth <- abs(preds$multibeam_derivatives_depth)
 
 #read in relief data
-prel   <- readRDS("output/spatial/raster/predicted_relief_raster.rds")                         # predicted relief from 'R/habitat/5_krige_relief.R'
+prel   <- raster("output/spatial/raster/predicted_relief_multibeam_prelief.tif")      # predicted relief from 'R/habitat/5_krige_relief.R'
 
 # join habitat and relief predictions
 predsp <- SpatialPointsDataFrame(coords = cbind(preds$x, preds$y), data = preds)
-predsp$relief <- extract(prel, predsp)
+predsp$relief <- raster::extract(prel, predsp)
 preddf        <- as.data.frame(predsp, xy = TRUE, na.rm = TRUE) %>%
-  dplyr::rename(broad.reef=preef,mean.relief=relief,depth=multibeam_derivatives_depth,
-                tpi=multibeam_derivatives_tpi,roughness=multibeam_derivatives_roughness,
-                detrended=multibeam_derivatives_detrended)%>%
+  dplyr::rename(broad.reef=layer_preef,mean.relief=relief,broad.macroalgae=layer_pmacroalgae)%>%
   glimpse()
 
 #change CRS of fish predictions to UTM
@@ -90,20 +89,21 @@ m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr"),
 summary(m_totabund)
 
 #species richness
-m_richness <- gam(number ~ s(mean.relief, k = 3, bs = "cr"),
+m_richness <- gam(number ~ s(multibeam_derivatives_depth, k = 3, bs = "cr"),
                   data = fabund%>%dplyr::filter(scientific%in%"species.richness"), 
                   method = "REML", family = tw())
 summary(m_richness)
 
 #greater than legal size
-m_legal <- gam(number ~ s(broad.reef, k = 3, bs = "cr")+
-                 s(detrended, k = 3, bs = "cr")+s(tpi, k = 3, bs = "cr"),
+m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
+                 s(multibeam_derivatives_detrended, k = 3, bs = "cr")+
+                 s(multibeam_derivatives_roughness, k = 3, bs = "cr"),
                data = fabund%>%dplyr::filter(scientific%in%"greater than legal size"), 
                method = "REML", family = tw())
 summary(m_legal)
 
 #smaller than legal size
-m_sublegal <- gam(number ~ s(roughness, k = 3, bs = "cr"),
+m_sublegal <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr"),
                   data = fabund%>%dplyr::filter(scientific%in%"smaller than legal size"), 
                   method = "REML", family = tw())
 summary(m_sublegal)

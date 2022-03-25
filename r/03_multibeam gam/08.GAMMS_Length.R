@@ -19,7 +19,7 @@ library(googlesheets4)
 rm(list=ls())
 
 # Set the study name
-name <- '2020_south-west_stereo-BRUVs_length' # for the study
+name <- '2020-2021_south-west_BOSS-BRUV_length' # for the study
 
 ## Set working directory----
 working.dir <- getwd()
@@ -33,9 +33,10 @@ test <- dat %>%
   dplyr::group_by(campaignid,sample)%>%
   dplyr::summarise(n=n())
 
-#set predictor variables
-pred.vars=c("mean.relief","broad.macroalgae","broad.reef",
-            "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")
+# Set predictor variables 
+pred.vars=c("mean.relief","broad.macroalgae","broad.reef","distance.to.ramp", 
+            "multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth",
+            "multibeam_derivatives_detrended")
 
 unique.vars=unique(as.character(dat$scientific))
 
@@ -49,7 +50,6 @@ for(i in 1:length(unique.vars)){
 unique.vars.use 
 
 resp.vars <- unique.vars.use
-#factor.vars <- c("status")
 
 out.all <- list()
 var.imp <- list()
@@ -67,7 +67,7 @@ str(use.dat)
 for(i in 1:length(resp.vars)){
   use.dat=as.data.frame(dat[which(dat$scientific==resp.vars[i]),])
   use.dat$site <- as.factor(use.dat$site)
-  Model1=gam(number~s(depth.multibeam,k=3,bs='cr')+s(site,bs='re'),
+  Model1=gam(number~s(multibeam_derivatives_depth,k=3,bs='cr')+s(site,bs='re'),
              family=tw(),  data=use.dat)
   
   model.set=generate.model.set(use.dat=use.dat,
@@ -89,7 +89,7 @@ for(i in 1:length(resp.vars)){
   mod.table=out.list$mod.data.out  # look at the model selection table
   mod.table=mod.table[order(mod.table$AICc),]
   mod.table$cumsum.wi=cumsum(mod.table$wi.AICc)
-  out.i=mod.table[which(mod.table$delta.AICc<=2),]
+  out.i=mod.table[which(mod.table$delta.AICc<=5),]
   out.all=c(out.all,list(out.i))
   # var.imp=c(var.imp,list(out.list$variable.importance$aic$variable.weights.raw)) #Either raw importance score
   var.imp=c(var.imp,list(out.list$variable.importance$aic$variable.weights.raw)) #Or importance score weighted by r2

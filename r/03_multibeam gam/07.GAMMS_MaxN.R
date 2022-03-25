@@ -39,8 +39,9 @@ test <- dat %>%
   dplyr::summarise(n=n())
 
 # Set predictor variables 
-pred.vars=c("mean.relief","broad.macroalgae","broad.reef",
-            "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")
+pred.vars=c("mean.relief","broad.macroalgae","broad.reef","distance.to.ramp", 
+            "multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth",
+            "multibeam_derivatives_detrended")
 
 unique.vars=unique(as.character(dat$scientific))
 
@@ -71,7 +72,7 @@ for(i in 1:length(resp.vars)){
   use.dat$site <- as.factor(use.dat$site)
   use.dat$method <- as.factor(use.dat$method)
   use.dat$scientific <- as.factor(use.dat$scientific)
-  Model1=gam(maxn~s(depth.multibeam,k=3,bs='cr') + 
+  Model1=gam(maxn~s(multibeam_derivatives_depth,k=3,bs='cr') + 
                s(site,bs='re')+method,
              family=tw(),  data=use.dat)
   

@@ -65,18 +65,19 @@ metadata <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv") %>
 # Bathymetry derivatives ---- # Em change this so read in Anita's file, filter out NAs 
 bathy <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.multibeam-derivatives.csv") %>%    #from r/03_multibeam gam/01.prepare_covariates.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
-  dplyr::filter(!flowdir=="NA")%>%
-  dplyr::select(-depth)%>%
-  unique()%>%
+  dplyr::mutate(id = paste(campaignid, sample, sep = "."))%>%
+  dplyr::filter(!multibeam_derivatives_tpi=="NA")%>%
+  dplyr::select(-c(depth, campaignid, sample))%>%
+  dplyr::rename(longitude.utm = "longitude", latitude.utm = "latitude")%>%
   dplyr::glimpse()
 
-length(unique(bathy$sample))
+length(unique(bathy$id))
 
 # Distance to boat ramp ----
-ramps <- read.csv('data/tidy/2020-2021_south-west_BOSS-BRUV.distance.to.ramp.csv') %>%  #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
+ramps <- read.csv('data/tidy/2020-2021_south-west_BRUVs-BOSS.distance.to.ramp.csv') %>%  #from r/01_format data/Spatial/06_Get_distance_from_boat_ramps.R
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  distinct()%>%
+  dplyr::select(id, distance.to.ramp)%>%
   dplyr::glimpse()
 
 #habitat
@@ -84,7 +85,7 @@ habitat <- readRDS("data/tidy/dat.full.habitat.rds")%>%                         
   dplyr::select(1:23)%>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
   dplyr::mutate(id=paste(campaignid,sample,sep = "."))%>%
-  distinct()%>%                                                                 #there are some duplicates here, need to fix in original
+  dplyr::select(-c(campaignid, sample, method))%>%
   glimpse()
 
 # Create total abundance and species richness ----
@@ -123,23 +124,17 @@ combined.maxn <- bind_rows(ta.sr)%>%
   left_join(bathy) %>%
   left_join(ramps) %>%
   left_join(habitat) %>%
-  filter(!tpi=="NA")%>%           #should crop to extent of multibeam
-  distinct()%>%
+  filter(!is.na(multibeam_derivatives_tpi))%>%           #should crop to extent of multibeam
   glimpse()
 
-testboss <- combined.maxn %>%
-  dplyr::filter(method%in%"BOSS")
-testbruv <- combined.maxn %>%
-  dplyr::filter(method%in%"BRUV")
-
-length(unique(testboss$id))   #208
-length(unique(testbruv$id))   #129
-(208+129)*2   #674 - all good
+test <- combined.maxn %>%
+  group_by(id)%>%
+  dplyr::summarise(n=n())   
 
 # Set predictor variables---
-pred.vars=c("depth", "depth.multibeam","slope", "aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
+pred.vars=c("depth", "multibeam_derivatives_depth", "multibeam_derivatives_roughness", "multibeam_derivatives_tpi", "distance.to.ramp", "broad.bryozoa",
             "broad.consolidated", "broad.hydroids", "broad.macroalgae", "broad.octocoral.black", 
-            "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated", "detrended")
+            "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated", "multibeam_derivatives_detrended")
 
 dat.maxn <- combined.maxn
 
@@ -148,8 +143,6 @@ correlate(combined.maxn[,pred.vars], use = "complete.obs") %>%
   gather(-term, key = "colname", value = "cor") %>% 
   dplyr::filter(abs(cor) > 0.8) %>%
   dplyr::filter(row_number() %% 2 == 1)      #remove every second row, they are just duplicates
-# reef and sand correlated
-#slope and roughness - just use roughness
 #depth and multibeam depth - using multibeam depth
 
 # Plot of likely transformations
@@ -174,18 +167,6 @@ ggplot()+
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
 
-#some pretty suspect points here in total abundance, but will leave in for now
-
-# # remove sample with maxn >600? Prob an outlier and driving a lot of relationships
-# outlier <- dat.maxn %>%
-#   filter(maxn>600)%>%
-#   glimpse()
-# 
-# # Max N = 745!! 
-# dat.maxn <- dat.maxn %>%
-#   filter(maxn <600)%>%
-#   glimpse()
-
 plot(dat.maxn$maxn)
 ##### USE 
 # sd.relief - use non-transformed
@@ -200,7 +181,6 @@ plot(dat.maxn$maxn)
 #detrended bathymetry - use non-transformed
 
 ##### REMOVE
-#in this dataset relief and reef are pretty highly correlated (0.92) could be an issue but leave for now
 #depth and multibeam depth highly correlated - this is good i guess
 # sand - correlated with reef and mean relief
 # slope - correlated with roughness
@@ -213,16 +193,18 @@ plot(dat.maxn$maxn)
 # sponges - too few
 
 # Set predictor variables 
-pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
-            "distance.to.ramp","aspect", "tpi","roughness","depth.multibeam","detrended")
+pred.vars=c("mean.relief","broad.macroalgae","broad.reef","distance.to.ramp", 
+            "multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth",
+            "multibeam_derivatives_detrended")
 
 # Remove any unused columns from the dataset
 dat.maxn <- dat.maxn %>%
   dplyr::mutate(broad.macroalgae=broad.macroalgae/broad.total.points.annotated)%>%
   dplyr::mutate(broad.reef=broad.reef/broad.total.points.annotated)%>%
   dplyr::select(campaignid,sample, method,status, site, scientific, maxn,
-                "mean.relief","sd.relief","broad.macroalgae","broad.reef",
-                "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended",method) %>%
+                "mean.relief","broad.macroalgae","broad.reef","distance.to.ramp", 
+                "multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth",
+                "multibeam_derivatives_detrended",method) %>%
   as.data.frame()
 
 test <- dat.maxn %>%
@@ -234,21 +216,17 @@ saveRDS(dat.maxn, "data/tidy/dat.maxn.multibeam.rds")
 ########## LENGTHS ###############
 #bring in and format data
 # Length ----
-length <-read.csv('data/staging/2020_south-west_stereo-BRUVs.complete.length.csv') %>%
+length <-read.csv("data/staging/2020_south-west_stereo-BRUVs.complete.length.csv") %>%
   dplyr::select(campaignid, sample, length, number, family, genus, species) %>%
   dplyr::mutate(scientific=paste(family,genus,species,sep=" ")) %>%
+  dplyr::mutate(id=paste(campaignid, sample, sep = "."))%>%
   dplyr::glimpse()
 
 metadata.bruv <- read.csv("data/staging/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::filter(successful.length%in%"Yes")%>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
+  dplyr::mutate(id=paste(campaignid, sample, sep = "."))%>%
   glimpse()
-
-length(unique(length$sample)) #277
-
-test <- length %>%
-  filter(number>0)%>%
-  distinct(sample)
 
 spp.species<-length%>%
   filter(species=="spp")%>%
@@ -263,14 +241,16 @@ fished.species <- length %>%
                                                        "Scombridae Sarda spp",
                                                        "Scombridae Unknown spp",
                                                        "Sillaginidae Sillago spp",
-                                                       "Lethrinidae Gymnocranius spp"),"R",fishing.type))%>%
+                                                       "Lethrinidae Gymnocranius spp",
+                                                       "Berycidae Centroberyx sp1"),"R",fishing.type))%>%
   dplyr::filter(fishing.type %in% c("B/R","B/C/R","R","C/R","C","B/C"))%>%
   dplyr::filter(!species%in%c("nigricans","tephraeops","lineolatus","cirratus",
                               "purpurissatus","lewini","nigroruber"))%>%
   dplyr::filter(!family%in%c("Monacanthidae", "Scorpididae", "Mullidae")) %>% # Brooke removed leatherjackets, sea sweeps and goat fish
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Carangidae Pseudocaranx spp"),250,minlegal.wa))%>%
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Platycephalus spp"),300,minlegal.wa))%>%
-  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Leviprora spp"),300,minlegal.wa))
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Leviprora spp"),300,minlegal.wa))%>%
+  dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Berycidae Centroberyx sp1"),300,minlegal.wa))
 
 without.min.length <- fished.species %>%
   filter(is.na(minlegal.wa))%>%
@@ -279,14 +259,14 @@ without.min.length <- fished.species %>%
 # Come back to maybe getting rid of some of these, but for now we continue on
 legal <- fished.species %>%
   dplyr::filter(length>minlegal.wa) %>%
-  dplyr::group_by(sample) %>%
+  dplyr::group_by(id) %>%
   dplyr::summarise(number = sum(number)) %>%
   dplyr::mutate(scientific = "greater than legal size") %>%
   dplyr::glimpse()
 
 sublegal <- fished.species %>%
   dplyr::filter(length<minlegal.wa) %>%
-  dplyr::group_by(sample) %>%
+  dplyr::group_by(id) %>%
   dplyr::summarise(number = sum(number)) %>%
   dplyr::mutate(scientific = "smaller than legal size") %>%
   dplyr::glimpse()
@@ -297,8 +277,8 @@ combined.length <- bind_rows(legal, sublegal) # taken out all individual species
 unique(combined.length$scientific)
 
 complete.length <- combined.length %>%
-  dplyr::select(sample,scientific,number) %>%
-  tidyr::complete(nesting(sample), scientific) %>%
+  dplyr::select(id,scientific,number) %>%
+  tidyr::complete(nesting(id), scientific) %>%
   replace_na(list(number = 0)) %>% #we add in zeros - in case we want to calculate abundance of species based on a length rule (e.g. greater than legal size)
   dplyr::ungroup()%>%
   dplyr::filter(!is.na(scientific)) %>% # this should not do anything
@@ -308,17 +288,17 @@ complete.length <- combined.length %>%
   dplyr::left_join(.,habitat) %>%
   dplyr::filter(successful.length%in%c("Yes")) %>%
   dplyr::mutate(scientific=as.character(scientific)) %>%
-  dplyr::filter(!tpi=="NA")%>%
+  dplyr::filter(!multibeam_derivatives_tpi=="NA")%>%                            #filter to multibeam
   dplyr::glimpse()
 
 test <- complete.length %>%
   dplyr::group_by(sample)%>%
   dplyr::summarise(n=n())
 
-#set predictor variables
-pred.vars=c("depth", "depth.multibeam","slope", "aspect", "roughness", "tpi", "distance.to.ramp", "broad.bryozoa",
+# Set predictor variables---
+pred.vars=c("depth", "multibeam_derivatives_depth", "multibeam_derivatives_roughness", "multibeam_derivatives_tpi", "distance.to.ramp", "broad.bryozoa",
             "broad.consolidated", "broad.hydroids", "broad.macroalgae", "broad.octocoral.black", 
-            "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "sd.relief", "broad.unconsolidated")
+            "broad.reef", "broad.seagrasses", "broad.sponges", "broad.stony.corals", "mean.relief", "broad.unconsolidated", "multibeam_derivatives_detrended")
 
 dat.length <- complete.length
 
@@ -338,16 +318,6 @@ ggplot()+
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
 
-#one outlier in smaller than legal size
-# Tim says keep it in for now
-# outlier <- dat.length %>%
-#   filter(number>40)%>%
-#   glimpse()
-# 
-# #filter out this outlier, its a big school of swallowtail nannys
-# dat.length <- dat.length %>%
-#   filter(number <600)%>%
-#   glimpse()
 
 # Plot of likely transformations
 par(mfrow=c(3,2))
@@ -388,16 +358,18 @@ for (i in pred.vars) {
 # sponges - too few
 
 # Re set predictor variables 
-pred.vars=c("mean.relief","sd.relief","broad.macroalgae","broad.reef",
-            "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")
+pred.vars=c("mean.relief","broad.macroalgae","broad.reef","distance.to.ramp", 
+            "multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth",
+            "multibeam_derivatives_detrended")
 
 # Remove any unused columns from the dataset 
 dat.length <- complete.length %>%
   dplyr::mutate(broad.macroalgae=broad.macroalgae/broad.total.points.annotated)%>%
   dplyr::mutate(broad.reef=broad.reef/broad.total.points.annotated)%>%
-  dplyr::select(campaignid,sample, status, site, scientific, number,
-                "mean.relief","sd.relief","broad.macroalgae","broad.reef",
-                "distance.to.ramp", "tpi","roughness","depth.multibeam","detrended")%>%
+  dplyr::select(campaignid,sample,status, site, scientific, number,
+                "mean.relief","broad.macroalgae","broad.reef","distance.to.ramp", 
+                "multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth",
+                "multibeam_derivatives_detrended") %>%
   as.data.frame()
 
 test <- dat.length %>%

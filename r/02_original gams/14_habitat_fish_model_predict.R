@@ -45,7 +45,7 @@ prel   <- readRDS("output/spatial/raster/predicted_relief_raster.rds")          
 
 # join habitat and relief predictions
 predsp <- SpatialPointsDataFrame(coords = cbind(preds$x, preds$y), data = preds)
-predsp$relief <- extract(prel, predsp)
+predsp$relief <- raster::extract(prel, predsp)
 preddf        <- as.data.frame(predsp, xy = TRUE, na.rm = TRUE) #
 preddf$broad.reef   <- preddf$preef
 preddf$broad.macroalgae   <- preddf$pmacroalg
@@ -72,7 +72,7 @@ unique(metadata.commonwealth.marineparks$ZoneName)
 names(metadata.commonwealth.marineparks)
 
 preddf<-bind_cols(preddf.raw,metadata.commonwealth.marineparks)%>%
-  dplyr::rename(Commonwealth.zone=ZoneName,depth=depth.y)%>%
+  dplyr::rename(Commonwealth.zone=ZoneName)%>%
   mutate(Status = if_else((Commonwealth.zone%in%c("National Park Zone")),"No-take","Fished"))%>%
   ga.clean.names()
 
@@ -91,13 +91,13 @@ unique(fabund$scientific)
 
 # use formula from top model from FSSGam model selection
 #total abundance
-m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+status, 
+m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr"), 
                data = fabund%>%dplyr::filter(scientific%in%"total.abundance"), 
                method = "REML", family = tw())
 summary(m_totabund)
 
 #species richness
-m_richness <- gam(number ~ s(broad.reef, k = 3, bs = "cr")+s(detrended, k = 3, bs = "cr")+
+m_richness <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr")+s(detrended, k = 3, bs = "cr")+
                     status,
                      data = fabund%>%dplyr::filter(scientific%in%"species.richness"), 
                      method = "REML", family = tw())
@@ -111,8 +111,7 @@ m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
 summary(m_legal)
 
 #smaller than legal size
-m_sublegal <- gam(number ~ s(depth, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr")+
-                    s(tpi, k = 3, bs = "cr"),
+m_sublegal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr"),
                data = fabund%>%dplyr::filter(scientific%in%"smaller than legal size"), 
                method = "REML", family = tw())
 summary(m_sublegal)
@@ -124,7 +123,7 @@ preddf <- cbind(preddf,
                 "p_legal" = predict(m_legal, preddf, type = "response"),
                 "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
 
-prasts <- rasterFromXYZ(preddf[, c(1, 2, 24:27)], res = c(231, 277)) 
+prasts <- rasterFromXYZ(preddf[, c(1, 2, 25:28)], res = c(231, 277)) 
 plot(prasts)
 
 ###
@@ -140,7 +139,7 @@ plot(sprast$p_sublegal)
 # tidy and output data
 spreddf <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
 
-summary(spreddf) #legal and sublegal targets have some outlier values
+summary(spreddf) #less outliers now
 
 saveRDS(preddf, "output/fish gamms/broad_fish_predictions.rds")
 saveRDS(spreddf, "output/fish gamms/site_fish_predictions.rds")

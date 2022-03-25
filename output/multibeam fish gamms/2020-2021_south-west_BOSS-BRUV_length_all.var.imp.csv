@@ -1,0 +1,3 @@
+"","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth","multibeam_derivatives_detrended"
+"greater than legal size",1,0,0,0,0,1,0,1
+"smaller than legal size",0.003,0.136,0.104,0.126,0.173,0.027,0.095,0.163

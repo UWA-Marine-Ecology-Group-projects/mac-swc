@@ -1,8 +1,8 @@
-"","depth","roughness","tpi","detrended"
-"biogenic_reef",1,1,0,1
-"broad.consolidated",1,1,0,1
-"broad.invertebrate.complex",1,0.44,0.56,1
-"broad.macroalgae",1,0,1,1
-"broad.seagrasses",1,0.38,0.62,1
-"broad.sponges",1,1,0,1
-"broad.unconsolidated",1,1,0,1
+,depth,roughness,tpi,detrended
+biogenic_reef,-1,1,0,-1
+broad.consolidated,-1,1,0,-1
+broad.invertebrate.complex,1,0.44,0.56,1
+broad.macroalgae,-1,0,1,1
+broad.seagrasses,-1,0.38,0.62,-1
+broad.sponges,-1,1,0,-1
+broad.unconsolidated,1,1,0,-1

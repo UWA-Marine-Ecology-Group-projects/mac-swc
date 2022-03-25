@@ -1,0 +1,9 @@
+"","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth","multibeam_derivatives_detrended","cumsum.wi"
+"greater than legal size","mean.relief+multibeam_derivatives_detrended+multibeam_derivatives_roughness",249.636405094445,282.132187878511,0.45248,NA,12.56,0,0,0,1,1,1,0,0,0,0,1,0,1,1
+"smaller than legal size.null","null",344.413513430743,374.412381900606,0.19876,NA,12.14,0,0,0,0.339,0.555,0,0,0,0,0,0,0,0,0.339
+"smaller than legal size.broad.macroalgae","broad.macroalgae",347.103479209394,378.249188534858,0.20175,NA,12.95,0,2.69,3.837,0.088,0.082,0,1,0,0,0,0,0,0,0.427
+"smaller than legal size.multibeam_derivatives_tpi","multibeam_derivatives_tpi",347.206899783301,378.382005901631,0.2,NA,13.06,0,2.793,3.97,0.084,0.076,0,0,0,0,1,0,0,0,0.511
+"smaller than legal size.distance.to.ramp","distance.to.ramp",347.31085887767,378.634505712657,0.2005,NA,13,0,2.897,4.222,0.08,0.067,0,0,0,1,0,0,0,0,0.591
+"smaller than legal size.multibeam_derivatives_detrended","multibeam_derivatives_detrended",347.367081233685,379.196655952708,0.19385,NA,13.54,0,2.954,4.784,0.077,0.051,0,0,0,0,0,0,0,1,0.668
+"smaller than legal size.broad.reef","broad.reef",347.66944600767,379.30762762958,0.19754,NA,13.29,0,3.256,4.895,0.067,0.048,0,0,1,0,0,0,0,0,0.735
+"smaller than legal size.multibeam_derivatives_depth","multibeam_derivatives_depth",347.829658711282,379.344573179076,0.20088,NA,13.03,0,3.416,4.932,0.061,0.047,0,0,0,0,0,0,1,0,0.796
