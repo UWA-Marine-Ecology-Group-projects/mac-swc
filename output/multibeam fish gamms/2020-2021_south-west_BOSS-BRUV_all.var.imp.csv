@@ -1,3 +1,3 @@
-"","mean.relief","broad.macroalgae","broad.reef","distance.to.ramp","multibeam_derivatives_tpi","multibeam_derivatives_roughness","multibeam_derivatives_depth","multibeam_derivatives_detrended"
-"total.abundance",1,0,0,0,0,0,0,0.221
-"species.richness",0,0,0,0,0,0,1,0
+,mean.relief,broad.macroalgae,broad.reef,distance.to.ramp,multibeam_derivatives_tpi,multibeam_derivatives_roughness,multibeam_derivatives_depth,multibeam_derivatives_detrended
+total.abundance,1,0,0,0,0,0,0,0.221
+species.richness,0,0,0,0,0,0,-1,0

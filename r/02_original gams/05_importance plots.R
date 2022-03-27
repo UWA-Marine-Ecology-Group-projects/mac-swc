@@ -100,7 +100,7 @@ gg.importance.scores
 #save output - changed dimensions for larger text in report
 save_plot("plots/original gamms/swc_fish-importance-full.png", gg.importance.scores,base_height = 5,base_width = 7)
 
-# #testing relationship direction
+#testing relationship direction
 # library(mgcv)
 # dat1 <- readRDS('data/tidy/dat.maxn.full.rds')%>%
 #   dplyr::filter(scientific%in%c("total.abundance","species.richness"))%>%
@@ -118,7 +118,8 @@ save_plot("plots/original gamms/swc_fish-importance-full.png", gg.importance.sco
 # 
 # dat.tot <- dat1 %>% filter(scientific=="total.abundance")
 # dat.leg <- dat2 %>% filter(scientific=="greater than legal size")
+# dat.sub <- dat2 %>% filter(scientific=="smaller than legal size")
 # 
-# mod=gam(maxn~ detrended + s(site,bs="re"), family=tw, data=dat.tot) #s(mean.relief,k=3,bs = "cr")
+# mod=gam(number~ status + s(site,bs="re"), family=tw, data=dat.sub) #s(mean.relief,k=3,bs = "cr")
 # plot(mod,pages=1,all.terms = T)
 

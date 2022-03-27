@@ -96,7 +96,8 @@ gg.importance.scores
 #save output - changed dimensions for larger text in report
 save_plot("plots/multibeam gamms/swc_fish-importance-full.png", gg.importance.scores,base_height = 5,base_width = 7)
 
-# library(mgcv)
+#testing relationship direction
+library(mgcv)
 # dat1 <- readRDS('data/tidy/dat.maxn.multibeam.rds')%>%
 #   dplyr::filter(scientific%in%c("total.abundance","species.richness"))%>%
 #   dplyr::filter(!sample%in%c("S1","S2","S3","343","IO343"))%>%
@@ -112,9 +113,11 @@ save_plot("plots/multibeam gamms/swc_fish-importance-full.png", gg.importance.sc
 # str(dat2)
 # 
 # dat.tot <- dat1 %>% filter(scientific=="total.abundance")
+# dat.sr <- dat1 %>% filter(scientific=="species.richness")
 # dat.leg <- dat2 %>% filter(scientific=="greater than legal size")
 # dat.sub <- dat2 %>% filter(scientific=="smaller than legal size")
 # 
-# mod=gam(number ~ s(tpi,k=3,bs = "cr") + s(site,bs="re"), 
+# mod=gam(number ~ s(distance.to.ramp, bs = "cr", k = 3) + 
+#           s(site,bs="re"),
 #         family=tw, data=dat.sub) #s(mean.relief,k=3,bs = "cr")
 # plot(mod,pages=1,all.terms = T)
