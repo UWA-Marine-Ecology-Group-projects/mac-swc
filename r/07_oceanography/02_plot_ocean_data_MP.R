@@ -62,7 +62,7 @@ sla.data <- readRDS("data/spatial/oceanography/SwC_SLA_month.rds")%>%
 min_sla =round(min(min(sla.data$sla,na.rm = TRUE), na.rm = TRUE),digits = 2)
 max_sla= round(max(max(sla.data$sla,na.rm = TRUE), na.rm = TRUE), digits = 2)
 
-title_legend <- "SLA"
+title_legend <- "SLA (m)"
 p_1 <- ggplot() +
   geom_tile(data = sla.data%>%filter(month%in%c("January","March","May","July",
                                                 "September","November")), 
@@ -96,7 +96,7 @@ sst.data <- readRDS("data/spatial/oceanography/SwC_SST_month.rds")%>%
 min_sst =round(min(min(sst.data$sst,na.rm = TRUE), na.rm = TRUE))
 max_sst= round(max(max(sst.data$sst,na.rm = TRUE), na.rm = TRUE))
 
-title_legend <- "SST"
+title_legend <- expression(paste("SST (",degree~C,")"))
 p_2 <- ggplot() +
   geom_tile(data = sst.data%>%filter(month%in%c("January","March","May","July",
                                                 "September","November")), 

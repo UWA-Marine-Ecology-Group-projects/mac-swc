@@ -164,6 +164,7 @@ gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status
   geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Species richness")+
   xlab("Year")+
+  labs(title = "a)")+
   scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
   guides(fill=guide_legend(title = "Marine Park Zone"))+
   Theme1
@@ -183,6 +184,7 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Greater than legal size")+
   xlab("Year")+
+  labs(title = "b)")+
   guides(fill=guide_legend(title = "Marine Park Zone"))+
   Theme1
 gg.l
@@ -205,6 +207,7 @@ gg.cti <- ggplot()+
              size=0.5,alpha = 0.5)+
   ylab(expression(paste("Temperature (",degree~C,")")))+
   xlab("Year")+
+  labs(title = "c)")+
   scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),
                     values=c("#6daff4", "#7bbc63"))+
   guides(fill=guide_legend(title = "Marine Park Zone"))+
