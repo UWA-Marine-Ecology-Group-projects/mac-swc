@@ -74,6 +74,7 @@ names(metadata.commonwealth.marineparks)
 preddf<-bind_cols(preddf.raw,metadata.commonwealth.marineparks)%>%
   dplyr::rename(Commonwealth.zone=ZoneName)%>%
   mutate(Status = if_else((Commonwealth.zone%in%c("National Park Zone")),"No-take","Fished"))%>%
+  dplyr::filter(!is.na(mean.relief))%>%
   ga.clean.names()
 
 #change CRS to UTM
@@ -91,39 +92,42 @@ unique(fabund$scientific)
 
 # use formula from top model from FSSGam model selection
 #total abundance
-m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr"), 
+m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(site,bs = "re")+method, 
                data = fabund%>%dplyr::filter(scientific%in%"total.abundance"), 
                method = "REML", family = tw())
 summary(m_totabund)
 
 #species richness
 m_richness <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr")+s(detrended, k = 3, bs = "cr")+
-                    status,
+                    status+s(site,bs = "re")+method,
                      data = fabund%>%dplyr::filter(scientific%in%"species.richness"), 
                      method = "REML", family = tw())
 summary(m_richness)
 
 #greater than legal size
 m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
-                 s(roughness, k = 3, bs = "cr")+s(tpi, k = 3, bs = "cr"),
+                 s(roughness, k = 3, bs = "cr")+s(tpi, k = 3, bs = "cr")+s(site,bs = "re"),
                   data = fabund%>%dplyr::filter(scientific%in%"greater than legal size"), 
                   method = "REML", family = tw())
 summary(m_legal)
 
 #smaller than legal size
-m_sublegal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr"),
+m_sublegal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(roughness, k = 3, bs = "cr"), #+s(site,bs = "re")
                data = fabund%>%dplyr::filter(scientific%in%"smaller than legal size"), 
                method = "REML", family = tw())
 summary(m_sublegal)
 
 # predict, rasterise and plot
-preddf <- cbind(preddf, 
-                "p_totabund" = predict(m_totabund, preddf, type = "response"),
-                "p_richness" = predict(m_richness, preddf, type = "response"),
-                "p_legal" = predict(m_legal, preddf, type = "response"),
-                "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
+preddf$method <- "BRUV"
+# preddf <- na.omit(preddf)
 
-prasts <- rasterFromXYZ(preddf[, c(1, 2, 25:28)], res = c(231, 277)) 
+preddf <- cbind(preddf, 
+                "p_totabund" = predict(m_totabund, preddf, type = "response",exclude = "s(site)",newdata.guaranteed=TRUE),
+                "p_richness" = predict(m_richness, preddf, type = "response",exclude = "s(site)",newdata.guaranteed=TRUE),
+                "p_legal" = predict(m_legal, preddf, type = "response",exclude = "s(site)",newdata.guaranteed=TRUE),
+                "p_sublegal" = predict(m_sublegal, preddf, type = "response")) #,exclude = "s(site)",newdata.guaranteed=TRUE
+
+prasts <- rasterFromXYZ(preddf[, c(1, 2, 26:29)], res = c(231, 277)) 
 plot(prasts)
 
 ###

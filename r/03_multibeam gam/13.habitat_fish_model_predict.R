@@ -60,12 +60,17 @@ preds$multibeam_derivatives_depth <- abs(preds$multibeam_derivatives_depth)
 
 #read in relief data
 prel   <- raster("output/spatial/raster/predicted_relief_multibeam_prelief.tif")      # predicted relief from 'R/habitat/5_krige_relief.R'
-
+test <- as.data.frame(prel, xy = T, na.rm = T)
+test <- test[test$predicted_relief_multibeam_prelief > 3, ]
+test <- SpatialPointsDataFrame(test, coords = cbind(test[, c(1,2)]))
+plot(prel)
+plot(test, add = T)
 # join habitat and relief predictions
 predsp <- SpatialPointsDataFrame(coords = cbind(preds$x, preds$y), data = preds)
 predsp$relief <- raster::extract(prel, predsp)
 preddf        <- as.data.frame(predsp, xy = TRUE, na.rm = TRUE) %>%
   dplyr::rename(broad.reef=layer_preef,mean.relief=relief,broad.macroalgae=layer_pmacroalgae)%>%
+  dplyr::filter(!is.na(mean.relief))%>%
   glimpse()
 
 #change CRS of fish predictions to UTM
@@ -83,19 +88,19 @@ unique(fabund$scientific)
 
 # use formula from top model from FSSGam model selection
 #total abundance
-m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr"), 
+m_totabund <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(site,bs = "re")+method, 
                   data = fabund%>%dplyr::filter(scientific%in%"total.abundance"), 
                   method = "REML", family = tw())
 summary(m_totabund)
 
 #species richness
-m_richness <- gam(number ~ s(multibeam_derivatives_depth, k = 3, bs = "cr"),
+m_richness <- gam(number ~ s(multibeam_derivatives_depth, k = 3, bs = "cr")+s(site,bs = "re")+method,
                   data = fabund%>%dplyr::filter(scientific%in%"species.richness"), 
                   method = "REML", family = tw())
 summary(m_richness)
 
 #greater than legal size
-m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
+m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+s(site,bs = "re")+
                  s(multibeam_derivatives_detrended, k = 3, bs = "cr")+
                  s(multibeam_derivatives_roughness, k = 3, bs = "cr"),
                data = fabund%>%dplyr::filter(scientific%in%"greater than legal size"), 
@@ -103,24 +108,26 @@ m_legal <- gam(number ~ s(mean.relief, k = 3, bs = "cr")+
 summary(m_legal)
 
 #smaller than legal size
-m_sublegal <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr"),
+m_sublegal <- gam(number ~ s(broad.macroalgae, k = 3, bs = "cr")+s(site,bs = "re"),
                   data = fabund%>%dplyr::filter(scientific%in%"smaller than legal size"), 
                   method = "REML", family = tw())
 summary(m_sublegal)
 
 # predict, rasterise and plot
+preddf$method <- "BRUV"
 preddf <- cbind(preddf, 
-                "p_totabund" = predict(m_totabund, preddf, type = "response"),
-                "p_richness" = predict(m_richness, preddf, type = "response"),
-                "p_legal" = predict(m_legal, preddf, type = "response"),
-                "p_sublegal" = predict(m_sublegal, preddf, type = "response"))
+                "p_totabund" = predict(m_totabund, preddf, type = "response", exclude = "s(site)",newdata.guaranteed=TRUE),
+                "p_richness" = predict(m_richness, preddf, type = "response", exclude = "s(site)",newdata.guaranteed=TRUE),
+                "p_legal" = predict(m_legal, preddf, type = "response", exclude = "s(site)",newdata.guaranteed=TRUE),
+                "p_sublegal" = predict(m_sublegal, preddf, type = "response", exclude = "s(site)",newdata.guaranteed=TRUE))
 
-p_totabund <- rasterFromXYZ(preddf[, c(1, 2, 19)], res = c(40, 40)) 
-p_richness <- rasterFromXYZ(preddf[, c(1, 2, 20)], res = c(40, 40))
-p_legal <- rasterFromXYZ(preddf[, c(1, 2, 21)], res = c(40, 40))
-p_sublegal <- rasterFromXYZ(preddf[, c(1, 2, 22)], res = c(40, 40))
+p_totabund <- rasterFromXYZ(preddf[, c(1, 2, 20)], res = c(40, 40)) 
+p_richness <- rasterFromXYZ(preddf[, c(1, 2, 21)], res = c(40, 40))
+p_legal <- rasterFromXYZ(preddf[, c(1, 2, 22)], res = c(40, 40))
+p_sublegal <- rasterFromXYZ(preddf[, c(1, 2, 23)], res = c(40, 40))
 prasts <- stack(p_totabund,p_richness,p_legal,p_sublegal)
 
+plot(prasts)
 ###
 # subset to 10km from sites only
 sprast <- mask(prasts, sbuff)
