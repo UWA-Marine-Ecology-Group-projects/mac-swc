@@ -48,12 +48,12 @@ spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                           sand = "Sand",
                           biogenic = "Biogenic Reef",
                           rock = "Rock",
-                          sponge = "Sponge")
+                          sponge = "Biogenic Reef")  # recoding to make sponge biogenic, as biogenic includes sponge
   
 # fig 1: categorical habitat maps
 # assign mpa colours
 hab_cols <- scale_fill_manual(values = c("Macroalgae" = "darkgoldenrod4",
-                                         "Sponge" = "darkorange1",
+                                         # "Sponge" = "darkorange1",
                                          "Rock" = "grey40",
                                          "Sand" = "wheat",
                                          "Biogenic Reef" = "plum"))
@@ -67,6 +67,8 @@ p4 <- ggplot() +
   shape = 10, size = 1, alpha = 1/5) +
   scale_colour_manual(values = c("BRUV" = "indianred4",
                                  "Drop Camera" = "navyblue")) +
+  annotate("rect", xmin = 288666, xmax = 311266, ymin = 6220394, ymax = 6234274,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   labs(fill = "Habitat", colour = "Sample", x = NULL, y = NULL) +
   coord_sf() +
   theme_minimal()
@@ -87,7 +89,7 @@ widehabit$variable <- dplyr::recode(widehabit$variable,
                                     pseagrass = "Seagrass")
 
 p2 <- ggplot() +
-  geom_tile(data = widehabit%>%dplyr::filter(!variable%in%"preef"), 
+  geom_tile(data = widehabit%>%dplyr::filter(!variable %in% c("preef", "Sponge")), 
             aes(x, y, fill = value)) +
   scale_fill_viridis(direction = -1, limits = c(0, max(widehabit$value))) +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
@@ -95,7 +97,6 @@ p2 <- ggplot() +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
   facet_wrap(~variable)
-
 p2
 
 ggsave("plots/original gamms/fullarea_habitat_predicted.png", 

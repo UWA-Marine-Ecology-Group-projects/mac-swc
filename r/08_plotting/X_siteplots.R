@@ -43,7 +43,7 @@ colnames(bathdf)[3] <- "Depth"
 st_crs(aus)         <- st_crs(aumpa)
 st_crs(wanew)       <- st_crs(nb_mp)
 
-habitat <- readRDS('data/tidy/habitat_merged.rds')                              # get sampling data
+habitat <- readRDS('data/tidy/habitat_merged_allcols.rds')                              # get sampling data
 habitat$method <- dplyr::recode(habitat$method,
                                 "BOSS" = "Drop Camera")
 
@@ -184,14 +184,14 @@ p3 <- ggplot() +
                binwidth = 50, colour = "white", alpha = 4/5, size = 0.1) +
   geom_text_contour(data = sitebathy, aes(x = x, y = y, z = Depth), 
                     binwidth = 50, size = 2.5, label.placer = label_placer_n(1)) +
-  geom_point(data = habitat, aes(longitude.x, latitude.x, colour = method), 
+  geom_point(data = habitat, aes(longitude, latitude, colour = method), 
              alpha = 3/5, shape = 10) +
   scale_colour_manual(values = c("BRUV" = "indianred4",
                                  "Drop Camera" = "seagreen4")) +
   labs(x = NULL, y = NULL, fill = "Australian Marine Parks", colour = "Sample") +
   guides(fill = guide_legend(order = 1)) +
-  # annotate("rect", xmin = 112.5, xmax = 114.5, ymin = -28.3, ymax = -27, 
-  #          colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
+  annotate("rect", xmin = 114.7, xmax = 114.95, ymin = -34.14, ymax = -34.01,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   coord_sf(xlim = c(114.4, 115.1), ylim = c(-34.15, -33.65)) +
   theme_minimal()
 p3
@@ -240,8 +240,8 @@ jcls_cols <- scale_fill_manual(values = c(
   "Shelf unvegetated soft sediments" = "cornsilk1",
   "Rariophotic shelf reefs" = "steelblue3",
   "Upper slope rocky reefs shelf break to 700 m depth" = "indianred3",
-  "Upper slope unvegetated soft sediments" = "wheat4", 
-  "Mid slope sediments" = "navajowhite2"))
+  "Upper slope unvegetated soft sediments" = "wheat1", 
+  "Mid slope sediments" = "navajowhite1"))
 
 p6 <- ggplot() +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
@@ -251,6 +251,7 @@ p6 <- ggplot() +
   geom_tile(data = jmap_df, aes(x, y, fill = classname)) +
   jcls_cols +
   geom_sf(data = nb_npz, colour = "#7bbc63", alpha = 3/5, fill = NA) +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
   labs(x = NULL, y = NULL, fill = "Habitat classification") +
   theme_minimal() +
   coord_sf(xlim = c(114.4, 115.1), ylim = c(-34.15, -33.65))

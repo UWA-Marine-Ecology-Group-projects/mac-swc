@@ -46,6 +46,8 @@ habi <- habi %>%
 
 head(habi)
 
+saveRDS(habi, "data/tidy/habitat_merged_allcols.rds")
+
 habi <- habi %>% 
   mutate(biogenic_reef = broad.ascidians + broad.bryozoa +
            broad.crinoids + broad.hydroids +
