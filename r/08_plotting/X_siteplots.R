@@ -71,7 +71,7 @@ wanew$waname <- word(wanew$Name, start = -2, end = -1)
 # reduce terrestrial parks
 terrnp <- terrnp[terrnp$leg_catego %in% c("Nature Reserve", "National Park"), ] # exclude state forests etc
 terrnp <- st_crop(terrnp, xmin = 113, ymin = -36, xmax = 116, ymax = -33)       # just swc
-plot(terrnp["leg_catego"])
+# plot(terrnp["leg_catego"])
 
 # assign commonwealth zone colours
 nmpa_cols <- scale_fill_manual(values = c("National Park Zone" = "#7bbc63",
@@ -106,7 +106,7 @@ p1 <- ggplot() +
   labs(fill = "State Marine Parks") +
   new_scale_fill() +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
-  labs(fill = "State Managed Areas") +
+  labs(fill = "Terrestrial Managed Areas") +
   waterr_cols +
   new_scale_fill() +
   geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 4/5, colour = NA) +
@@ -165,7 +165,7 @@ p3 <- ggplot() +
   # # geom_raster(data = bathdf, aes(x, y, fill = Depth), alpha = 0.9) +
   # geom_contour_filled(data = bathdf, aes(x = x, y = y, z = Depth), 
   #              binwidth = 50, colour = "white", alpha = 4/5, size = 0.1) +
-  scale_fill_gradient(low = "black", high = "grey70", guide = "none") +
+  # scale_fill_gradient(low = "black", high = "grey70", guide = "none") +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   new_scale_fill() +
   geom_sf(data = nb_mp, aes(fill = waname), alpha = 3/5, colour = NA) +
@@ -174,8 +174,8 @@ p3 <- ggplot() +
   labs(fill = "State Marine Parks") +
   new_scale_fill() +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 3/5, colour = NA) +
-  labs(fill = "State Managed Areas") +
   waterr_cols +
+  labs(fill = "Terrestrial Managed Areas") +
   new_scale_fill() +
   geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 3/5, colour = NA) +
   s_nmpa_cols + 
@@ -229,7 +229,7 @@ waterr_cols <- scale_fill_manual(values = c("National Park" = "#c4cea6",
                                             "Nature Reserve" = "#e4d0bb"),
                                  guide = "none")
 
-jmap_df$classname <- recode(jmap_df$classname, "shelf unvegetated soft sediments" =
+jmap_df$classname <- dplyr::recode(jmap_df$classname, "shelf unvegetated soft sediments" =
                               "Shelf unvegetated soft sediments")
 
 jcls_cols <- scale_fill_manual(values = c(
@@ -243,6 +243,8 @@ jcls_cols <- scale_fill_manual(values = c(
   "Upper slope unvegetated soft sediments" = "wheat1", 
   "Mid slope sediments" = "navajowhite1"))
 
+nb_wasz <- wanew[wanew$waname == "Sanctuary Zone", ]
+
 p6 <- ggplot() +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
@@ -251,6 +253,7 @@ p6 <- ggplot() +
   geom_tile(data = jmap_df, aes(x, y, fill = classname)) +
   jcls_cols +
   geom_sf(data = nb_npz, colour = "#7bbc63", alpha = 3/5, fill = NA) +
+  geom_sf(data = nb_wasz, colour = "#7bbc63", alpha = 3/5, fill = NA) +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
   labs(x = NULL, y = NULL, fill = "Habitat classification") +
   theme_minimal() +
