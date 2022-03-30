@@ -39,7 +39,7 @@ aus    <- st_read("data/spatial/shapefiles/cstauscd_r.mif")                     
 aus    <- aus[aus$FEAT_CODE == "mainland", ]
 st_crs(aus)         <- st_crs(aumpa)
                                           
-dat <- st_read("data/spatial/shapefiles/Capes_rec-use.shp")%>%
+dat <- st_read("data/spatial/shapefiles/Capes_rec-use.shp")#%>%
   dplyr::mutate(Perc_trips = ifelse(is.na(Perc_trips),0,Perc_trips))
 
 #bring in bathy for contour lines

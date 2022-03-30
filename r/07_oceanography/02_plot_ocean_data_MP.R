@@ -17,41 +17,32 @@ library(dplyr)
 library(ggplot2)
 library(patchwork)
 library(viridis)
-library(ggquiver)
+# detach("package:cowplot", unload=TRUE)
 
 #set working directory
 working.dir <- getwd()
 setwd(working.dir)
 
-Zone = "Abrolhos"
+#set name to load and export data
+Zone = "SwC"
 
 #lims of the spatial plots # change for each mp, bigger than you think because of arrrows #
 xxlim = c(114.353, 115.723) 
 yylim = c(-34.618, -33.479) 
 
-#all this is on git already - i don't know how to code in different for git??
-# only one I use for the plots so far is the "aus" one for the coast outline
-#setting up mapping/coastal are for spatial, taken from kingsley script X_siteplots
-aus    <- st_read("data/spatial/shapefiles/61395_mif/australia/cstauscd_r.mif") #data/spatial/shp/cstauscd_r.mif")                            # geodata 100k coastline available: https://data.gov.au/dataset/ds-ga-a05f7892-eae3-7506-e044-00144fdd4fa6/
-dirkh  <- aus[aus$ISLAND_NAME == "DIRK HARTOG ISLAND", ]                        # just dirk hartog island
-aus    <- aus[aus$FEAT_CODE == "mainland", ]
-#extra bits haven't used or loaded for these maps
-aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")         # all aus mpas
-wampa  <- st_read("data/spatial/shapefiles/WA_MPA_2018.shp")                           # all wa mpas
-ab_mpa <- wampa[wampa$NAME %in% c("Montebello Islands", #"Jurien Bay", "Ningaloo",
-                                  "Hamelin Pool", "Shark Bay"), ]               # just wa parks nearby
-NW_mpa <- aumpa[aumpa$NetName %in% c("South-west", "North-west"), ]             # just W nat parks
-ab_nmp <- NW_mpa[NW_mpa$ResName %in% c("Montebello", "Jurien", "Shark Bay"), ]    # just nat parks nearby
-# cwatr  <- readRDS('output/coastal_waters_limit_trimmed.rds')                    # coastal waters line trimmed in 'R/GA_coast_trim.R'
-# bathdf <- readRDS("output/ga_bathy_trim.rds")                                   # bathymetry trimmed in 'R/GA_coast_trim.R'
-# colnames(bathdf)[3] <- "Depth"
-st_crs(aus)         <- st_crs(aumpa)
-st_crs(dirkh)       <- st_crs(aumpa) 
+#set crs
+wgscrs <- CRS("+proj=longlat +datum=WGS84")
 
-## get data locations /limits that need from MPA
-## do control F replace to replace names in the script 
+#load australian outline
+aus    <- st_read("data/spatial/shapefiles/61395_mif/australia/cstauscd_r.mif") #data/spatial/shp/cstauscd_r.mif")                            # geodata 100k coastline available: https://data.gov.au/dataset/ds-ga-a05f7892-eae3-7506-e044-00144fdd4fa6/
+aus    <- aus[aus$FEAT_CODE == "mainland", ]
+#load marine park boundaries, state and commonwealth
+aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")         # all aus mpas
+wampa  <- st_read("data/spatial/shapefiles/test1.shp", crs = wgscrs)                           # all wa mpas
+st_crs(aus)         <- st_crs(aumpa)
+
 ##### SLA ####
-sla.data <- readRDS("data/spatial/oceanography/SwC_SLA_month.rds")%>%
+sla.data <- readRDS(paste0("data/spatial/oceanography/",Zone,"_SLA_month.rds"))%>%
   ungroup()%>%
   dplyr::mutate(month=month.name[month])%>%
   dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
@@ -66,26 +57,29 @@ title_legend <- "SLA (m)"
 p_1 <- ggplot() +
   geom_tile(data = sla.data%>%filter(month%in%c("January","March","May","July",
                                                 "September","November")), 
-            aes(x = Lon, y = Lat, fill = sla))+#, interpolate = TRUE) + 
+            aes(x = Lon, y = Lat, fill = sla, color = sla))+
   scale_fill_gradientn(colours = viridis(5),na.value = NA,
+                       breaks = seq(from = min_sla, to = max_sla, by = 0.02),
+                       limits = c(min_sla, max_sla)) +
+  scale_color_gradientn(colours = viridis(5),na.value = NA,
                        breaks = seq(from = min_sla, to = max_sla, by = 0.02),
                        limits = c(min_sla, max_sla)) +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   geom_sf(data = aumpa,fill = NA, color = alpha("grey",0.5))+
   geom_sf(data = wampa,fill = NA, color = alpha("grey",0.5))+
-  labs(x = "Longitude", y = "Latitude", fill = title_legend) +
+  labs(x = "Longitude", y = "Latitude", fill = title_legend, color = title_legend) +
   coord_sf(xlim = xxlim, ylim = yylim) +
   theme_minimal()+
   scale_x_continuous(breaks=c(114.5,115.0,115.5))+
   facet_wrap(~month, nrow = 4, ncol = 3)
 p_1
 
-ggsave('plots/spatial/SwC_SLA_monthly_spatial.png',p_1, dpi = 300, width = 6, height = 4.5)
+ggsave(paste0('plots/spatial/',Zone,'_SLA_monthly_spatial.png'),p_1, dpi = 300, width = 6, height = 4.5)
 dev.off()
 
 ######### SST #########
 
-sst.data <- readRDS("data/spatial/oceanography/SwC_SST_month.rds")%>%
+sst.data <- readRDS(paste0("data/spatial/oceanography/",Zone,"_SST_month.rds"))%>%
   ungroup()%>%
   dplyr::mutate(month=month.name[month])%>%
   dplyr::mutate(month = forcats::fct_relevel(month,c("January","February","March","April","May",
@@ -100,8 +94,11 @@ title_legend <- expression(paste("SST (",degree~C,")"))
 p_2 <- ggplot() +
   geom_tile(data = sst.data%>%filter(month%in%c("January","March","May","July",
                                                 "September","November")), 
-            aes(x = Lon, y = Lat, fill = sst))+#, interpolate = TRUE) + 
+            aes(x = Lon, y = Lat, fill = sst, color = sst))+#, interpolate = TRUE) + 
   scale_fill_gradientn(colours = viridis(5),na.value = NA,
+                       breaks = seq(from = min_sst, to = max_sst, by = 1),
+                       limits = c(min_sst, max_sst)) +
+  scale_color_gradientn(colours = viridis(5),na.value = NA,
                        breaks = seq(from = min_sst, to = max_sst, by = 1),
                        limits = c(min_sst, max_sst)) +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
@@ -109,7 +106,7 @@ p_2 <- ggplot() +
   #             vecsize=arrow_size, color = "white")+
   geom_sf(data = aumpa,fill = NA, color = alpha("grey",0.5))+
   geom_sf(data = wampa,fill = NA, color = alpha("grey",0.5))+
-  labs(x = "Longitude", y = "Latitude", fill = title_legend) +
+  labs(x = "Longitude", y = "Latitude", fill = title_legend,color = title_legend) +
   coord_sf(xlim = xxlim, ylim = yylim) +
   theme_minimal()+
   # ggtitle(month.name[[i]])+
@@ -117,12 +114,12 @@ p_2 <- ggplot() +
   facet_wrap(~month, nrow = 4, ncol = 3)
 p_2
 
-ggsave('plots/spatial/SwC_SST_monthly_spatial.png',p_2, dpi = 300, width = 6, height = 4.5)
+ggsave(paste0('plots/spatial/',Zone,'_SST_monthly_spatial.png'),p_2, dpi = 300, width = 6, height = 4.5)
 
 dev.off()
 
 ##### DEGREE HEATING WEEKS ####
-dhw.heatwave <- readRDS("data/spatial/oceanography/SwC_DHW_heatwave.rds")%>%
+dhw.heatwave <- readRDS(paste0("data/spatial/oceanography/",Zone,"_DHW_heatwave.rds"))%>%
   ungroup()%>%
   dplyr::mutate(title=ifelse(year=='2011',"2011 May",year))%>%
   dplyr::mutate(title=ifelse(title=='2021',"2021 May",title))%>%
@@ -134,26 +131,29 @@ max_dhw = round(max(max(dhw.heatwave$dhw,na.rm = TRUE), na.rm = TRUE))
 title_legend <- "DHW"
 p_3 <- ggplot() +
   geom_tile(data = dhw.heatwave, 
-            aes(x = Lon, y = Lat, fill = dhw))+
+            aes(x = Lon, y = Lat, fill = dhw, color = dhw))+
   scale_fill_gradientn(colours = viridis(5),na.value = NA,
+                       breaks = seq(from = 0, to = max_dhw, by = 5),
+                       limits = c(0, max_dhw)) +
+  scale_color_gradientn(colours = viridis(5),na.value = NA,
                        breaks = seq(from = 0, to = max_dhw, by = 5),
                        limits = c(0, max_dhw)) +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   geom_sf(data = aumpa,fill = NA, color = alpha("grey",0.5))+
   geom_sf(data = wampa,fill = NA, color = alpha("grey",0.5))+
-  labs(x = "Longitude", y = "Latitude", fill = title_legend) +
+  labs(x = "Longitude", y = "Latitude", fill = title_legend, color = title_legend) +
   coord_sf(xlim = xxlim, ylim = yylim) +
   theme_minimal()+
   scale_x_continuous(breaks=c(114.5,115.0,115.5))+
   facet_wrap(~title)
 p_3
 
-ggsave('plots/spatial/SwC_DHW_monthly_spatial.png',p_3, dpi = 300, width = 6, height = 3.5)
+ggsave(paste0('plots/spatial/',Zone,'_DHW_monthly_spatial.png'),p_3, dpi = 300, width = 6, height = 3.5)
 
 dev.off()
 
 ##### ACIDIFICATION #####
-acd_ts_monthly <- readRDS("data/spatial/oceanography/SwC_acidification.rds")%>%
+acd_ts_monthly <- readRDS(paste0("data/spatial/oceanography/",Zone,"_acidification.rds"))%>%
   glimpse()
 
 legend_title = "Season"
@@ -166,7 +166,7 @@ acd_mean_plot #plot with the other time series
 
 ##### Average plots - time series ####
 #plot for sla, summer and winter mean
-sla.monthly <- readRDS("data/spatial/oceanography/SwC_SLA_ts.rds")%>%
+sla.monthly <- readRDS(paste0("data/spatial/oceanography/",Zone,"_SLA_ts.rds"))%>%
   dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", 
                                    month %in% c(12,1,2) ~ "Summer", 
                                    month %in% c(3,4,5) ~ "Autumn", 
@@ -190,7 +190,7 @@ sla_mean_plot <- ggplot() +
 sla_mean_plot
 
 #plot for sst summer and winter mean
-sst_tss <- readRDS("data/spatial/oceanography/SwC_SST_ts.rds")%>%
+sst_tss <- readRDS(paste0("data/spatial/oceanography/",Zone,"_SST_ts.rds"))%>%
   dplyr::mutate(season = case_when(month %in% c(6,7,8) ~ "Winter", month %in% c(12,1,2) ~ "Summer", 
                                    month %in% c(3,4,5) ~ "Autumn", month %in% c(9,10,11) ~ "Spring" )) %>%
   group_by(year, season) %>%
@@ -213,7 +213,7 @@ sst_mean_plot <- ggplot() +
 sst_mean_plot
 
 #plot for dhw data 
-dhw_plot <- readRDS("data/spatial/oceanography/SwC_DHW_ts.rds")%>%
+dhw_plot <- readRDS(paste0("data/spatial/oceanography/",Zone,"_DHW_ts.rds"))%>%
   group_by(year) %>%
   summarise(dhw_mean = mean(dhw, na.rm = TRUE),sd_dhw = mean(sd, na.rm = TRUE)) %>%
   glimpse()
@@ -233,4 +233,4 @@ dhw_mean_plot
 
 acd_mean_plot+sla_mean_plot+sst_mean_plot + dhw_mean_plot+plot_layout(ncol = 1, nrow = 4)
 
-ggsave('plots/spatial/Abrolhos_acd_sla_sst_ts.png', dpi = 300, width = 6, height = 6.75)
+ggsave(paste0('plots/spatial/',Zone,'_acd_sla_sst_ts.png'), dpi = 300, width = 6, height = 6.75)
