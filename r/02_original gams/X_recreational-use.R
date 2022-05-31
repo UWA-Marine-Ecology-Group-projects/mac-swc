@@ -2,8 +2,8 @@
 ###
 # Project: MAC HUB South-west Corner
 # Data:    BRUVS, BOSS
-# Task:    Overview maps
-# author:  Kingsley Griffin
+# Task:    Recreational use map
+# author:  Claude Spencer
 # date:    Mar 2022
 ##
 
@@ -28,7 +28,7 @@ sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # 
 
 # bring in marine parks
 aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")%>%           # all aus mpas
-  dplyr::filter(ResName%in%"South-west Corner",ZoneIUCN%in%"II")
+  dplyr::filter(ResName%in%c("South-west Corner","Geographe"),ZoneIUCN%in%"II")
 #bring in state MP
 wampa  <- st_read("data/spatial/shapefiles/test1.shp", 
                   crs = wgscrs)%>%
@@ -39,7 +39,7 @@ aus    <- st_read("data/spatial/shapefiles/cstauscd_r.mif")                     
 aus    <- aus[aus$FEAT_CODE == "mainland", ]
 st_crs(aus)         <- st_crs(aumpa)
                                           
-dat <- st_read("data/spatial/shapefiles/Capes_rec-use.shp")#%>%
+dat <- st_read("data/spatial/shapefiles/Capes_rec-use.shp")%>%
   dplyr::mutate(Perc_trips = ifelse(is.na(Perc_trips),0,Perc_trips))
 
 #bring in bathy for contour lines

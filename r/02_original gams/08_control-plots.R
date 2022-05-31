@@ -191,7 +191,7 @@ socec.1 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in 
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   # ylab("Greater than legal size")+
   xlab("Year")+
   labs(title = "Awareness of an AMP in area")+
@@ -210,7 +210,7 @@ socec.2 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   # ylab("Greater than legal size")+
   xlab("Year")+
   labs(title = "Correctly name an AMP")+
@@ -229,7 +229,7 @@ socec.3 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   # ylab("Greater than legal size")+
   xlab("Year")+
   labs(title = "Supportive of AMP NPZ")+
@@ -248,7 +248,7 @@ socec.4 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit enviro
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   # ylab("Greater than legal size")+
   xlab("Year")+
   labs(title = "AMP NPZ benefit environment")+
@@ -267,7 +267,7 @@ socec.5 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively eff
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   # ylab("Greater than legal size")+
   xlab("Year")+
   labs(title = "AMP NPZ negatively effect my fishing")+

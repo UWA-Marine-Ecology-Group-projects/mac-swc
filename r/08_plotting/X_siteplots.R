@@ -36,7 +36,7 @@ cropex <- extent(112, 116, -35, -32)
 jacmap <- crop(jacmap, cropex)
 # jacmap <- projectRaster(jacmap, crs = sppcrs, method = "ngb")
 cwatr  <- st_read("data/spatial/shapefiles/amb_coastal_waters_limit.shp")       # coastal waters line
-cwatr <- st_crop(cwatr, c(xmin = 114, xmax = 116, ymin = -36, ymax = -33))      # crop down coastal waters line to general project area
+cwatr <- st_crop(cwatr, c(xmin = 110, xmax = 123, ymin = -39, ymax = -33.3))    # crop down coastal waters line to general project area
 bath_r <- raster("data/spatial/rasters/archive/GB-SW_250mBathy.tif")            # bathymetry trimmed to project area
 bathdf <- as.data.frame(bath_r, na.rm = TRUE, xy = TRUE)
 colnames(bathdf)[3] <- "Depth"
@@ -70,14 +70,15 @@ wanew$waname <- word(wanew$Name, start = -2, end = -1)
 
 # reduce terrestrial parks
 terrnp <- terrnp[terrnp$leg_catego %in% c("Nature Reserve", "National Park"), ] # exclude state forests etc
-terrnp <- st_crop(terrnp, xmin = 113, ymin = -36, xmax = 116, ymax = -33)       # just swc
+terrnp <- st_crop(terrnp, xmin = 110, xmax = 123, ymin = -39, ymax = -33.3)       # just swc
 # plot(terrnp["leg_catego"])
 
 # assign commonwealth zone colours
 nmpa_cols <- scale_fill_manual(values = c("National Park Zone" = "#7bbc63",
                                           "Habitat Protection Zone" = "#fff8a3",
                                           "Multiple Use Zone" = "#b9e6fb",
-                                          "Special Purpose Zone\n(Mining Exclusion)" = "#368ac1"))
+                                          "Special Purpose Zone\n(Mining Exclusion)" = "#368ac1",
+                                          "Special Purpose Zone" = "#368ac1"))
 
 # state colours
 wampa_cols <- scale_fill_manual(values = c("Sanctuary Zone" = "#bfd054",
@@ -94,7 +95,7 @@ p1 <- ggplot() +
   # scale_fill_gradient(low = "black", high = "grey70") +
   geom_contour_filled(data = bathdf, aes(x = x, y = y, z = Depth,
                                          fill = after_stat(level)),
-                      breaks = c(0, -40, -70, -120, -7000)) +
+                      breaks = c(0, -30, -70, -200, -700, -2000, -4000)) +
   # geom_contour(data = bathdf, aes(x = x, y = y, z = Depth),
   # binwidth = 250, colour = "white", alpha = 3/5, size = 0.1) +
   scale_fill_grey(start = 1, end = 0.5, guide = "none") +
@@ -113,13 +114,14 @@ p1 <- ggplot() +
   nmpa_cols + 
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
-               breaks = c(0, -40, -70, -120), colour = "white", 
+               breaks = c(0, -30, -70, -200, -700, -2000, -4000), colour = "white", 
                alpha = 1, size = 0.1) +
   labs(x = NULL, y = NULL, fill = "Australian Marine Parks") +
   guides(fill = guide_legend(order = 1)) +
   annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
            colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
-  coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
+  coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
+  # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
   theme_minimal()
 p1
 
@@ -128,8 +130,8 @@ p2 <- ggplot(data = aus) +
   geom_sf(fill = "seashell1", colour = "grey90", size = 0.05, alpha = 4/5) +
   geom_sf(data = rg_nmp, alpha = 5/6, colour = "grey85", size = 0.02) +
   # geom_sf(data = ab_mpa, alpha = 4/5, colour = "grey85") +
-  coord_sf(xlim = c(108, 125), ylim = c(-37, -13)) +
-  annotate("rect", xmin = 114.3, xmax = 115.8, ymin = -34.5, ymax = -33.2,
+  coord_sf(xlim = c(108, 125), ylim = c(-40, -13)) +
+  annotate("rect", xmin = 110, xmax = 122.1, ymin = -39, ymax = -33.3,
            colour = "grey25", fill = "white", alpha = 1/5, size = 0.2) +
   theme_bw() +
   theme(axis.text = element_blank(), 
