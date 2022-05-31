@@ -1,0 +1,6 @@
+metric,network,group,location,year,lower quartile,median ,upper quartile,comments
+Awarenes of a state MP in area,State,boat.ramp.recfishing,national,2020,82.5,92.7,95.3,"These are quantiles across the sampled locations (locations are replicates - limited numbers e.g., 8-10)"
+Correctly name a State MP,State,boat.ramp.recfishing,national,2020,58,73.8,80,"These are quantiles across the sampled locations (locations are replicates - limited numbers e.g., 8-10)"
+Supportive of a State MP NTR,State,boat.ramp.recfishing,national,2020,76,84.2,90,"These are quantiles across the sampled locations (locations are replicates - limited numbers e.g., 8-10)"
+State NTR benefit environment,State,boat.ramp.recfishing,national,2020,76.4,85,88.5,"These are quantiles across the sampled locations (locations are replicates - limited numbers e.g., 8-10)"
+State NTR negatively effect my fishing,State,boat.ramp.recfishing,national,2020,4.23,5.43,6.53,"These are quantiles across the sampled locations (locations are replicates - limited numbers e.g., 8-10)"

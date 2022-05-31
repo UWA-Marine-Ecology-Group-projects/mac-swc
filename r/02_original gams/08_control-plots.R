@@ -119,13 +119,26 @@ cti <- full.maxn %>%
   dplyr::filter(!is.na(CTI))%>%
   glimpse()
 
+#read in socio economic data
+bench <- read.csv("data/tidy/socio-economic_benchmark.csv")%>%
+  dplyr::select(metric, year, lower.quartile, median, upper.quartile)%>%
+  dplyr::mutate(year = as.numeric(year)) %>%
+  # reshape(idvar = "year", timevar = "metric", direction = "wide")%>%
+  glimpse()
+  
+monitor <- read.csv("data/tidy/socio-economic_monitoring.csv")%>%
+  dplyr::select(metric, year, Lower.ci, Mean, Upper.ci)%>%
+  dplyr::mutate(year = as.numeric(year)) %>%
+  # reshape(idvar = "year", timevar = "metric", direction = "wide")%>%
+  glimpse()
+
 #need to make a new dataframe - year, species richness (plus SE), greater than legal (plus SE)
 year <- c("2017","2017","2018","2018","2019","2019","2020","2020","2021","2021","2022","2022")
 status <- c("Fished","No-take")
 dat <- data.frame(year,status)
 dat$year <- as.numeric(dat$year)
 
-#data=
+#data
 spr.sr <- maxn %>%
   dplyr::filter(scientific%in%"species.richness")%>%
   dplyr::group_by(status)%>%
@@ -146,6 +159,7 @@ spr.cti <- cti %>%
   dplyr::mutate(year=as.numeric("2020"))%>%
   glimpse()
 
+#join together for plotting
 dat.cp <- dat %>%
   left_join(spr.sr)%>%
   left_join(spr.l)%>%
@@ -153,6 +167,112 @@ dat.cp <- dat %>%
   left_join(sst)%>%
   dplyr::filter(!year=="2022")%>%
   glimpse()
+
+#do socio economic ones separately - too many columns!
+socec <- dat %>%
+  filter(status%in%"Fished") %>%
+  dplyr::select(-status) %>%
+  # left_join(bench) %>%
+  left_join(monitor) %>%
+  mutate(year = as.factor(year)) %>%
+  complete(metric, year) %>%
+  glimpse()
+
+#Plot socio economic stuff, we need 5 plots I think?
+#1. awareness of MP
+socec.1 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"), 
+                  aes(x = year, y = Mean))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 82.50),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 82.50, ymax = 92.70),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 92.70, ymax = 95.30),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 95.30, ymax = Inf),fill = "#caffc7")+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"),
+                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.4)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  # ylab("Greater than legal size")+
+  xlab("Year")+
+  labs(title = "Awareness of an AMP in area")+
+  Theme1
+socec.1
+
+#2. correctly name MP
+socec.2 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"), 
+                  aes(x = year, y = Mean))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 58.00),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 58.00, ymax = 73.80),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 73.80, ymax = 80.00),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 80.00, ymax = Inf),fill = "#caffc7")+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"),
+                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.4)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  # ylab("Greater than legal size")+
+  xlab("Year")+
+  labs(title = "Correctly name an AMP")+
+  Theme1
+socec.2
+
+#3. supportive of MP
+socec.3 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"), 
+                  aes(x = year, y = Mean))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 76.00),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 76.00, ymax = 84.20),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 84.20, ymax = 90.00),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 90.00, ymax = Inf),fill = "#caffc7")+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"),
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.4)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  # ylab("Greater than legal size")+
+  xlab("Year")+
+  labs(title = "Supportive of AMP NPZ")+
+  Theme1
+socec.3
+
+#4. NTR benefit environment
+socec.4 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"), 
+                  aes(x = year, y = Mean))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 76.40),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 76.40, ymax = 85.00),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 85.00, ymax = 88.50),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 88.50, ymax = Inf),fill = "#caffc7")+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"),
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.4)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  # ylab("Greater than legal size")+
+  xlab("Year")+
+  labs(title = "AMP NPZ benefit environment")+
+  Theme1
+socec.4
+
+#5. NTR negatively affect my fishing
+socec.5 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"), 
+                  aes(x = year, y = Mean))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 4.23),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 4.23, ymax = 5.43),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 5.43, ymax = 6.53),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 6.53, ymax = Inf),fill = "#caffc7")+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"),
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.4)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  # ylab("Greater than legal size")+
+  xlab("Year")+
+  labs(title = "AMP NPZ negatively effect my fishing")+
+  Theme1
+socec.5
 
 # plot year by species richness - plus a line for MPA gazetting time ---
 gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status))+
@@ -173,10 +293,10 @@ gg.sr
 #greater than legal
 gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 1.5),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 1.5, ymax = 2),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 2, ymax = Inf),fill = "#caffc7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 0.25),fill = "#ffc7c7")+
+  # geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 1.5),fill = "#ffeec7")+
+  # geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 1.5, ymax = 2),fill = "#c7d6ff")+
+  # geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 2, ymax = Inf),fill = "#caffc7")+
+  # geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 0.25),fill = "#ffc7c7")+
   geom_errorbar(data = dat.cp,aes(ymin=legal-legal.se,ymax= legal+legal.se), width = 0.4,position=position_dodge(width=0.3))+
   geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
   theme_classic()+
@@ -188,6 +308,26 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   guides(fill=guide_legend(title = "Marine Park Zone"))+
   Theme1
 gg.l
+
+
+#make for Tim for the discussion section
+gg.disc <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
+  scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 1.5),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 1.5, ymax = 2),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 2, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 0.25),fill = "#ffc7c7")+
+  geom_errorbar(data = dat.cp,aes(ymin=legal-legal.se,ymax= legal+legal.se), width = 0.4,position=position_dodge(width=0.3))+
+  geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,5))+
+  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  ylab("Greater than legal size")+
+  xlab("Year")+
+  # labs(title = "b)")+
+  guides(fill=guide_legend(title = "Marine Park Zone"))+
+  Theme1
+gg.disc
 
 #CTI
 gg.cti <- ggplot()+ 
@@ -217,5 +357,10 @@ gg.cti
 grid <- gg.sr/gg.l/gg.cti+plot_layout(guides = 'collect')
 grid
 
+socgrid <- socec.1 / socec.2 / socec.3 / socec.4 / socec.5
+socgrid
+
 #save out plot
 save_plot("plots/original gamms/control.plot.png",grid,base_height = 6,base_width = 7.5)
+save_plot("plots/original gamms/socio-economic.control.plots.png",socgrid,base_height = 10,base_width = 7.5)
+save_plot("plots/original gamms/control.plot.with.bands.png",gg.disc,base_height = 2,base_width = 7.5)

@@ -1,0 +1,7 @@
+metric,survey.group,benchmark.to.compare.with,network,location,year,Mean,Lower.ci,Upper.ci
+Awarenes of an AMP in area,boat.ramp.recfishing,yes,AMP,capes,2020,12.4,6.83,21
+Correctly name an AMP,boat.ramp.recfishing,yes,AMP,capes,2020,0,0,30.1
+Supportive of AMP NPZ,boat.ramp.recfishing,yes,AMP,capes,2020,69.1,58.8,77.9
+AMP NPZ benefit environment,boat.ramp.recfishing,yes,AMP,capes,2020,84.5,75.5,90.8
+AMP NPZ negatively effect my fishing,boat.ramp.recfishing,yes,AMP,capes,2020,4.12,1.33,10.8
+Awarenes of AMPs nationally amongst South-west network residents,public,no,AMP,national,2020,37.4,34,40.9
