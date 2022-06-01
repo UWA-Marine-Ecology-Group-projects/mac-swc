@@ -187,14 +187,12 @@ socec.1 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in 
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 92.70, ymax = 95.30),fill = "#c7d6ff")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 95.30, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"),
-                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.4)+
+                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
   geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
-  # ylab("Greater than legal size")+
-  xlab("Year")+
-  labs(title = "Awareness of an AMP in area")+
+  labs(title = "Awareness of the SwC or GMP", x = "Year", y = "% of participants")+
   Theme1
 socec.1
 
@@ -206,14 +204,12 @@ socec.2 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 73.80, ymax = 80.00),fill = "#c7d6ff")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 80.00, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"),
-                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.4)+
+                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
   geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
-  # ylab("Greater than legal size")+
-  xlab("Year")+
-  labs(title = "Correctly name an AMP")+
+  labs(title = "Correctly name the SwC or GMP", x = "Year", y = "% of participants")+
   Theme1
 socec.2
 
@@ -225,14 +221,12 @@ socec.3 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 84.20, ymax = 90.00),fill = "#c7d6ff")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 90.00, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"),
-                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.4)+
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
   geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
-  # ylab("Greater than legal size")+
-  xlab("Year")+
-  labs(title = "Supportive of AMP NPZ")+
+  labs(title = "Supportive of the NPZs in the SwC and GMP",x = "Year", y = "% of participants")+
   Theme1
 socec.3
 
@@ -244,33 +238,29 @@ socec.4 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit enviro
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 85.00, ymax = 88.50),fill = "#c7d6ff")+
   geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 88.50, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"),
-                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.4)+
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
   geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
-  # ylab("Greater than legal size")+
-  xlab("Year")+
-  labs(title = "AMP NPZ benefit environment")+
+  labs(title = "Perception that NPZs in the SwC and GMP benefit the marine environment",x = "Year", y = "% of participants")+
   Theme1
 socec.4
 
 #5. NTR negatively affect my fishing
 socec.5 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"), 
                   aes(x = year, y = Mean))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 4.23),fill = "#ffc7c7")+ #how to do this automatically?
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 4.23, ymax = 5.43),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 5.43, ymax = 6.53),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 6.53, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 4.23),fill = "#caffc7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 4.23, ymax = 5.43),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 5.43, ymax = 6.53),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 6.53, ymax = Inf),fill = "#ffc7c7")+ 
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"),
-                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.4)+
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
-  scale_y_continuous(limits = c(0,100))+
+  scale_y_reverse(limits = c(100,0))+
   geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
-  # ylab("Greater than legal size")+
-  xlab("Year")+
-  labs(title = "AMP NPZ negatively effect my fishing")+
+  labs(title = "Perception that NPZs in the SwC and GMP negatively impact recreational fishing", x = "Year", y = "% of participants")+
   Theme1
 socec.5
 
