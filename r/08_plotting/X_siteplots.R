@@ -50,7 +50,17 @@ colnames(bath_newdf)[3] <- "Depth"
 kef <- st_read("data/spatial/shapefiles/AU_DOEE_KEF_2015.shp")
 sf_use_s2(FALSE)                                                                #errors otherwise, not sure what it does...
 kef <- st_crop(kef, c(xmin = 110, xmax = 123, ymin = -39, ymax = -30))  
-# kef <- kef[kef$REGION == "South-west", ]
+kef$NAME <- dplyr::recode(kef$NAME,"Perth Canyon and adjacent shelf break, and other west coast canyons" = "Perth Canyon",                 
+                "Commonwealth marine environment within and adjacent to the west coast inshore lagoons" = "West coast lagoons",
+                "Commonwealth marine environment within and adjacent to Geographe Bay" = "Geographe Bay",                 
+                "Cape Mentelle upwelling" = "Cape Mentelle",                                                              
+                "Naturaliste Plateau" = "Naturaliste Plateau",                                                                  
+                "Diamantina Fracture Zone" = "Diamantina Fracture Zone",                                                             
+                "Albany Canyons group and adjacent shelf break" = "Albany Canyons",                                        
+                "Commonwealth marine environment surrounding the Recherche Archipelago" = "Recherche Archipelago",                
+                "Ancient coastline at 90-120m depth" = "Ancient coastline",                                                   
+                "Western demersal slope and associated fish communities" = "Western demersal fish",                               
+                "Western rock lobster" = "Western rock lobster")
 
 st_crs(aus)         <- st_crs(aumpa)
 st_crs(wanew)       <- st_crs(nb_mp)
@@ -109,34 +119,46 @@ waterr_cols <- scale_fill_manual(values = c("National Park" = "#c4cea6",
 
 # Key Ecological Features colours
 unique(kef$NAME)
-kef_cols <- scale_fill_manual(values = c("Perth Canyon and adjacent shelf break, and other west coast canyons" = "#009292",                 
-                                         "Commonwealth marine environment within and adjacent to the west coast inshore lagoons" = "#009292",
-                                         "Commonwealth marine environment within and adjacent to Geographe Bay" = "#004949",                 
-                                         "Cape Mentelle upwelling" = "#920000",                                                              
+# kef_cols <- scale_fill_manual(values = c("Perth Canyon and adjacent shelf break, and other west coast canyons" = "#009292",                 
+#                                          "Commonwealth marine environment within and adjacent to the west coast inshore lagoons" = "#009292",
+#                                          "Commonwealth marine environment within and adjacent to Geographe Bay" = "#004949",                 
+#                                          "Cape Mentelle upwelling" = "#920000",                                                              
+#                                          "Naturaliste Plateau" = "#ffff6d",                                                                  
+#                                          "Diamantina Fracture Zone" = "#490092",                                                             
+#                                          "Albany Canyons group and adjacent shelf break" = "#004949",                                        
+#                                          "Commonwealth marine environment surrounding the Recherche Archipelago" = "#24ff24",                
+#                                          "Ancient coastline at 90-120m depth" = "#ff6db6",                                                   
+#                                          "Western demersal slope and associated fish communities" = "#006ddb",                               
+#                                          "Western rock lobster" = "#6db6ff"))
+
+kef_cols <- scale_fill_manual(values = c("Perth Canyon" = "#009292",                 
+                                         "West coast lagoons" = "#009292",
+                                         "Geographe Bay" = "#004949",                 
+                                         "Cape Mentelle" = "#920000",                                                              
                                          "Naturaliste Plateau" = "#ffff6d",                                                                  
                                          "Diamantina Fracture Zone" = "#490092",                                                             
-                                         "Albany Canyons group and adjacent shelf break" = "#004949",                                        
-                                         "Commonwealth marine environment surrounding the Recherche Archipelago" = "#24ff24",                
-                                         "Ancient coastline at 90-120m depth" = "#ff6db6",                                                   
-                                         "Western demersal slope and associated fish communities" = "#006ddb",                               
+                                         "Albany Canyons" = "#004949",                                        
+                                         "Recherche Archipelago" = "#24ff24",                
+                                         "Ancient coastline" = "#ff6db6",                                                   
+                                         "Western demersal fish" = "#006ddb",                               
                                          "Western rock lobster" = "#6db6ff"))
 
 # build basic plot elements
 p1 <- ggplot() +
   # geom_raster(data = bathdf, aes(x, y, fill = Depth), alpha = 0.9) +
   # scale_fill_gradient(low = "black", high = "grey70") +
-  # geom_contour_filled(data = bath_newdf, aes(x = x, y = y, z = Depth,
-  #                                        fill = after_stat(level)),
-  #                     breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000)) +
-  # geom_contour(data = bathdf, aes(x = x, y = y, z = Depth),
-  # binwidth = 250, colour = "white", alpha = 3/5, size = 0.1) +
-  # scale_fill_grey(start = 1, end = 0.5, guide = "none") +
+  geom_contour_filled(data = bath_newdf, aes(x = x, y = y, z = Depth,
+                                         fill = after_stat(level)),
+                      breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000)) +
+  geom_contour(data = bathdf, aes(x = x, y = y, z = Depth),
+  binwidth = 250, colour = "white", alpha = 3/5, size = 0.1) +
+  scale_fill_grey(start = 1, end = 0.5, guide = "none") +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   new_scale_fill() +
   geom_sf(data = nb_mp, aes(fill = waname), alpha = 2/5, colour = NA) +
   geom_sf(data = wanew, aes(fill = waname), alpha = 2/5, colour = NA) +
   wampa_cols +
-  labs(fill = "State Marine Parks            ") +
+  labs(fill = "State Marine Parks") +
   new_scale_fill() +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
   labs(fill = "Terrestrial Managed Areas") +
@@ -144,19 +166,19 @@ p1 <- ggplot() +
   new_scale_fill() +
   geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 4/5, colour = NA) +
   nmpa_cols + 
-  # geom_contour(data = bath_newdf, aes(x, y, z = Depth),
-  #              breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "white", 
-  #              alpha = 1, size = 0.1) +
-  labs(x = NULL, y = NULL, fill = "Australian Marine Parks     ", title = "b)") +
+  geom_contour(data = bath_newdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "white",
+               alpha = 1, size = 0.1) +
+  labs(x = NULL, y = NULL, fill = "Australian Marine Parks", title = "b)") +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
-  guides(fill = guide_legend(order = 1, nrow = 2, byrow = T)) +
+  guides(fill = guide_legend(order = 1)) +
   annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
            colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
   coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
   # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
-  theme_minimal()+
-  theme(legend.position = "bottom", legend.box = "vertical", legend.margin = margin(), 
-        legend.box.just = "left")
+  theme_minimal()#+
+  # theme(legend.position = "bottom", legend.box = "vertical", legend.margin = margin(), 
+  #       legend.box.just = "left")
 p1
 
 # inset map
@@ -210,14 +232,13 @@ p7 <- ggplot() +
   geom_sf(data = kef, aes(fill = NAME), alpha = 0.7, color = NA) +
   kef_cols+
   labs(x = NULL, y = NULL,  fill = "Key Ecological Features") +
-  guides(fill = guide_legend(order = 1, nrow = 6, byrow = T)) +
+  guides(fill = guide_legend(order = 1)) +
   # annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
   #          colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
   coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
   # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
   theme_minimal()+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),legend.position = "bottom", legend.box = "vertical", legend.margin = margin(), 
-        legend.box.just = "left")
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 p7
 
 ggsave("plots/spatial/key-ecological-features.png", dpi = 200, width = 10, height = 4)
