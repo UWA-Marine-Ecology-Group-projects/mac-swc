@@ -38,7 +38,10 @@ wampa  <- st_read("data/spatial/shapefiles/test1.shp",
 aus    <- st_read("data/spatial/shapefiles/cstauscd_r.mif")                     # geodata 100k coastline available: https://data.gov.au/dataset/ds-ga-a05f7892-eae3-7506-e044-00144fdd4fa6/
 aus    <- aus[aus$FEAT_CODE == "mainland", ]
 st_crs(aus)         <- st_crs(aumpa)
-                                          
+                                        
+cwatr  <- st_read("data/spatial/shapefiles/amb_coastal_waters_limit.shp")       # coastal waters line
+cwatr <- st_crop(cwatr, c(xmin = 110, xmax = 123, ymin = -39, ymax = -30))      # crop down coastal waters line to general project area
+
 dat <- readRDS("data/tidy/dat.full.habitat.rds")%>%
   dplyr::select(26, 25, 3:17)%>%
   dplyr::mutate(biogenic_reef = broad.ascidians + broad.bryozoa +
@@ -47,7 +50,7 @@ dat <- readRDS("data/tidy/dat.full.habitat.rds")%>%
                   broad.octocoral.black + broad.sponges +
                   broad.stony.corals + broad.true.anemones)%>%
   dplyr::mutate(grouping = factor(1:727))%>%
-  dplyr::rename("Biogenic reef" = biogenic_reef,
+  dplyr::rename("Sessile invertebrate communities" = biogenic_reef,
                 "Rock" = broad.consolidated,
                 "Macroalgae" = broad.macroalgae,
                 "Seagrasses" = broad.seagrasses,
@@ -72,7 +75,7 @@ wampa_cols <- scale_fill_manual(values = c("Sanctuary Zone" = "#bfd054",
 
 #class colours 
 hab_cols <- scale_fill_manual(values = c("Rock" = "grey40",
-                              "Biogenic reef" = "plum",
+                              "Sessile invertebrate communities" = "plum",
                               "Macroalgae" = "darkgoldenrod4",
                               "Seagrasses" = "forestgreen",
                               "Sand" = "wheat"))
@@ -97,9 +100,10 @@ gg.scatterpie <- ggplot() +
   geom_sf(data = aumpa, fill = "#7bbc63",alpha = 2/5, color = NA) +
   labs(fill = "Australian Marine Parks")+
   nmpa_cols+
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.3) +
   new_scale_fill()+
   geom_scatterpie(aes(x=longitude, y=latitude, group=grouping), data=dat,
-                  cols = c("Rock","Biogenic reef","Macroalgae",
+                  cols = c("Rock","Sessile invertebrate communities","Macroalgae",
                            "Seagrasses", "Sand"),
                   pie_scale = 0.45, color = NA) +
   labs(fill = "Habitat",x = 'Longitude', y = 'Latitude')+

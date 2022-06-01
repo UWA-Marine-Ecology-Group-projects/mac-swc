@@ -7,6 +7,8 @@
 # date:    Mar 2022
 ##
 
+rm(list=ls())
+
 library(sf)
 library(rgeos)
 library(rnaturalearth)
@@ -123,18 +125,18 @@ kef_cols <- scale_fill_manual(values = c("Perth Canyon and adjacent shelf break,
 p1 <- ggplot() +
   # geom_raster(data = bathdf, aes(x, y, fill = Depth), alpha = 0.9) +
   # scale_fill_gradient(low = "black", high = "grey70") +
-  geom_contour_filled(data = bath_newdf, aes(x = x, y = y, z = Depth,
-                                         fill = after_stat(level)),
-                      breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000)) +
+  # geom_contour_filled(data = bath_newdf, aes(x = x, y = y, z = Depth,
+  #                                        fill = after_stat(level)),
+  #                     breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000)) +
   # geom_contour(data = bathdf, aes(x = x, y = y, z = Depth),
   # binwidth = 250, colour = "white", alpha = 3/5, size = 0.1) +
-  scale_fill_grey(start = 1, end = 0.5, guide = "none") +
+  # scale_fill_grey(start = 1, end = 0.5, guide = "none") +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   new_scale_fill() +
   geom_sf(data = nb_mp, aes(fill = waname), alpha = 2/5, colour = NA) +
   geom_sf(data = wanew, aes(fill = waname), alpha = 2/5, colour = NA) +
   wampa_cols +
-  labs(fill = "State Marine Parks") +
+  labs(fill = "State Marine Parks            ") +
   new_scale_fill() +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
   labs(fill = "Terrestrial Managed Areas") +
@@ -142,17 +144,19 @@ p1 <- ggplot() +
   new_scale_fill() +
   geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 4/5, colour = NA) +
   nmpa_cols + 
+  # geom_contour(data = bath_newdf, aes(x, y, z = Depth),
+  #              breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "white", 
+  #              alpha = 1, size = 0.1) +
+  labs(x = NULL, y = NULL, fill = "Australian Marine Parks     ", title = "b)") +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
-  geom_contour(data = bath_newdf, aes(x, y, z = Depth),
-               breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "white", 
-               alpha = 1, size = 0.1) +
-  labs(x = NULL, y = NULL, fill = "Australian Marine Parks", title = "b)") +
-  guides(fill = guide_legend(order = 1)) +
+  guides(fill = guide_legend(order = 1, nrow = 2, byrow = T)) +
   annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
            colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
   coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
   # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
-  theme_minimal()
+  theme_minimal()+
+  theme(legend.position = "bottom", legend.box = "vertical", legend.margin = margin(), 
+        legend.box.just = "left")
 p1
 
 # inset map
@@ -175,9 +179,7 @@ p2 <- ggplot(data = aus) +
 p2 + p1 + plot_layout(widths = c(0.8, 2.2))
 
 # ggsave("plots/overview_map.png", dpi = 200, width = 10, height = 6)
-ggsave("plots/overview_map.png", dpi = 200, width = 10, height = 4.5)
-
-
+ggsave("plots/spatial/overview_map.png", dpi = 200, width = 10, height = 6) #4.5
 
 #Key Ecological Features map
 # build basic plot elements
@@ -188,12 +190,12 @@ p7 <- ggplot() +
   # scale_fill_grey(start = 1, end = 0.5, guide = "none") +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   new_scale_fill() +
-  geom_sf(data = nb_mp, aes(fill = waname), alpha = 2/5, colour = NA) +
-  geom_sf(data = wanew, aes(fill = waname), alpha = 2/5, colour = NA) +
+  geom_sf(data = nb_mp, aes(fill = waname), alpha = 2/5, colour = NA, show.legend = F) +
+  geom_sf(data = wanew, aes(fill = waname), alpha = 2/5, colour = NA, show.legend = F) +
   wampa_cols +
   labs(fill = "State Marine Parks") +
   new_scale_fill() +
-  geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
+  geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA, show.legend = F) +
   labs(fill = "Terrestrial Managed Areas") +
   waterr_cols +
   new_scale_fill() +
@@ -201,23 +203,24 @@ p7 <- ggplot() +
   # geom_contour(data = bath_newdf, aes(x, y, z = Depth),
   #              breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "white",
   #              alpha = 1, size = 0.1) +
-  geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 2/5, color = NA) +
+  geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 2/5, color = NA, show.legend = F) +
   nmpa_cols + 
   labs(fill = "Australian Marine Parks")+
   new_scale_fill()+
   geom_sf(data = kef, aes(fill = NAME), alpha = 0.7, color = NA) +
   kef_cols+
   labs(x = NULL, y = NULL,  fill = "Key Ecological Features") +
-  guides(fill = guide_legend(order = 1)) +
+  guides(fill = guide_legend(order = 1, nrow = 6, byrow = T)) +
   # annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
   #          colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
   coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
   # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
   theme_minimal()+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),legend.position = "bottom", legend.box = "vertical", legend.margin = margin(), 
+        legend.box.just = "left")
 p7
 
-ggsave("plots/spatial/key-ecological-features.png", dpi = 200, width = 10, height = 8)
+ggsave("plots/spatial/key-ecological-features.png", dpi = 200, width = 10, height = 4)
 
 # site zoom plots
 # reduce zone levels for these plots
@@ -271,7 +274,7 @@ p3 <- ggplot() +
   theme_minimal()
 p3
 
-ggsave("plots/site_overview_map.png", dpi = 200, width = 10, height = 6)
+ggsave("plots/spatial/site_overview_map.png", dpi = 200, width = 10, height = 6)
 
 # jac's map, eh
 # sort out the classes
@@ -330,12 +333,16 @@ p6 <- ggplot() +
   geom_sf(data = nb_npz, colour = "#7bbc63", alpha = 3/5, fill = NA) +
   geom_sf(data = nb_wasz, colour = "#7bbc63", alpha = 3/5, fill = NA) +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
+  geom_contour(data = bathdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "black",
+               alpha = 1, size = 0.1) +
   labs(x = NULL, y = NULL, fill = "Habitat classification") +
   theme_minimal() +
+  annotate("text", x = c(114.40,114.467,114.72,114.945), y = -33.85, label = c("700m","200m","70m","30m"), size = 2)+
   coord_sf(xlim = c(114.4, 115.1), ylim = c(-34.15, -33.65))
 p6
 
-ggsave("plots/overall_jmonk_natmap.png",
+ggsave("plots/spatial/overall_jmonk_natmap.png",
        width = 10, height = 6, dpi = 160)
 
 

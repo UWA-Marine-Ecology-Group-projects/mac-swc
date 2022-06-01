@@ -26,6 +26,8 @@ nb_npz <- nb_npz[2, ]
 wampa  <- st_read("data/spatial/shapefiles/WA_MPA_2018.shp")                    # all wa mpas
 nb_mp  <- wampa[wampa$NAME %in% c("Ngari Capes"), ]                             # just wa parks nearby
 wanew  <- st_read("data/spatial/shapefiles/test1.shp")                          # zones in ngari capes
+wanew <- wanew[wanew$Name != c("Cosy Corner Sanctuary Zone","Hamelin Island Sanctuary Zone","Hamelin Bay Recreation Zone"),]
+st_crs(wanew) <- crs(wampa)
 
 wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
@@ -46,9 +48,9 @@ unique(spreddf$dom_tag)
 spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                           macroalgae = "Macroalgae",
                           sand = "Sand",
-                          biogenic = "Biogenic Reef",
+                          biogenic = "Sessile invertebrate communities",
                           rock = "Rock",
-                          sponge = "Biogenic Reef")  # recoding to make sponge biogenic, as biogenic includes sponge
+                          sponge = "Sessile invertebrate communities")  # recoding to make sponge biogenic, as biogenic includes sponge
   
 # fig 1: categorical habitat maps
 # assign mpa colours
@@ -56,12 +58,14 @@ hab_cols <- scale_fill_manual(values = c("Macroalgae" = "darkgoldenrod4",
                                          # "Sponge" = "darkorange1",
                                          "Rock" = "grey40",
                                          "Sand" = "wheat",
-                                         "Biogenic Reef" = "plum"))
+                                         "Sessile invertebrate communities" = "plum"))
 
 p4 <- ggplot() +
   geom_tile(data = spreddf, aes(x, y, fill = dom_tag)) +
   hab_cols +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
+  # geom_sf(data = wampa, fill = NA, colour = "#7bbc63") +
+  geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
   geom_point(data = habi,
   aes(longitude.1, latitude.1, colour = method),
   shape = 10, size = 1, alpha = 1/5) +
@@ -70,7 +74,7 @@ p4 <- ggplot() +
   annotate("rect", xmin = 288666, xmax = 311266, ymin = 6220394, ymax = 6234274,
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   labs(fill = "Habitat", colour = "Sample", x = NULL, y = NULL) +
-  coord_sf() +
+  coord_sf(xlim = c(262908.3, 318579.3), ylim = c(6208685, 6282921)) +
   theme_minimal()
 p4
 
