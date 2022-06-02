@@ -44,7 +44,25 @@ swc_npz <- sw_mpa[sw_mpa$ZoneName == "National Park Zone", ]
 swc_npz$parkid <- c(1:7)
 wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # crs for sp objects
-# swc_npz <- st_transform(swc_npz, sppcrs)
+
+wanew  <- st_read("data/spatial/shapefiles/test1.shp")                          # zones in ngari capes
+# wanew <- wanew[wanew$Name != c("Cosy Corner Sanctuary Zone","Hamelin Island Sanctuary Zone","Hamelin Bay Recreation Zone"),]
+st_crs(wanew) <- crs(wampa)
+#remove state sanctuary zones outside of the prediction area
+wanew <- st_crop(wanew, c(xmin = 114.8, xmax = 115.2, ymin = -34.2, ymax = -33.6))
+
+cwatr  <- st_read("data/spatial/shapefiles/amb_coastal_waters_limit.shp")       # coastal waters line
+cwatr <- st_crop(cwatr, c(xmin = 110, xmax = 123, ymin = -39, ymax = -30))      # crop down coastal waters line to general project area
+
+#bring in bathy for contour lines
+bath_r <- raster("data/spatial/rasters/archive/GB-SW_250mBathy.tif")            # bathymetry trimmed to project area
+# bath_t <- projectRaster(bath_r, crs = sppcrs)                                   # transform before convert to dataframe
+bathdf <- as.data.frame(bath_r, na.rm = TRUE, xy = TRUE)
+colnames(bathdf)[3] <- "Depth"
+
+multi <- raster("data/spatial/rasters/multibeam_derivatives_depth.tif")
+multi <- projectRaster(multi, crs = wgscrs)
+multi
 
 #bring in state MPs to mask out the indjidup sanctuary
 wampa  <- st_read("data/spatial/shapefiles/test1.shp", 
@@ -113,9 +131,18 @@ p11 <- ggplot() +
   geom_tile(data = p_totabund, aes(x, y, fill = p_totabund)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
+  geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
+  geom_contour(data = bathdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200), colour = "grey54",
+               alpha = 1, size = 0.5) +
+  annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Total Abundance")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  labs(x = NULL, y = NULL, fill = "Total Abundance")+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  coord_sf(xlim = c(min(p_totabund$x), max(p_totabund$x)), ylim = c(min(p_totabund$y), max(p_totabund$y)))+
   Theme1
 p11
 
@@ -124,9 +151,18 @@ p21 <- ggplot() +
   geom_tile(data = p_richness, aes(x, y, fill = p_richness)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
+  geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
+  geom_contour(data = bathdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200), colour = "grey54",
+               alpha = 1, size = 0.5) +
+  annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Species richness")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  labs(x = NULL, y = NULL, fill = "Species richness")+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  coord_sf(xlim = c(min(p_richness$x), max(p_richness$x)), ylim = c(min(p_richness$y), max(p_richness$y)))+
   Theme1
 p21
 
@@ -135,9 +171,18 @@ p31 <- ggplot() +
   geom_tile(data = p_legal, aes(x, y, fill = p_legal)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
+  geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
+  geom_contour(data = bathdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200), colour = "grey54",
+               alpha = 1, size = 0.5) +
+  annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Legal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  labs(x = NULL, y = NULL, fill = "Legal")+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  coord_sf(xlim = c(min(p_legal$x), max(p_legal$x)), ylim = c(min(p_legal$y), max(p_legal$y)))+
   Theme1
 p31
 
@@ -146,13 +191,25 @@ p41 <- ggplot() +
   geom_tile(data = p_sublegal, aes(x, y, fill = p_sublegal)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
+  geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
+  geom_contour(data = bathdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200), colour = "grey54",
+               alpha = 1, size = 0.5) +
+  annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Sublegal")+theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  labs(x = NULL, y = NULL, fill = "Sublegal")+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  coord_sf(xlim = c(min(p_sublegal$x), max(p_sublegal$x)), ylim = c(min(p_sublegal$y), max(p_sublegal$y)))+
   Theme1
 p41
 
-gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")    
+gg.predictions.npz <- p11+p21+p31+p41 & theme(legend.justification = "left")  
+
+png(file="plots/original gamms/site_fish_predictions.png",
+    width=10, height=8, units = "in", res = 300)
 gg.predictions.npz
 
-ggsave("plots/original gamms/site_fish_predictions.png", gg.predictions.npz,width = 10, height = 8, dpi = 300)
+dev.off()

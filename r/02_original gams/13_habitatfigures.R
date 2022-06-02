@@ -31,6 +31,9 @@ st_crs(wanew) <- crs(wampa)
 #remove state sanctuary zones outside of the prediction area
 wanew <- st_crop(wanew, c(xmin = 114.8, xmax = 115.2, ymin = -34.2, ymax = -33.6)) 
 
+cwatr  <- st_read("data/spatial/shapefiles/amb_coastal_waters_limit.shp")       # coastal waters line
+cwatr <- st_crop(cwatr, c(xmin = 110, xmax = 123, ymin = -39, ymax = -30))      # crop down coastal waters line to general project area
+
 wgscrs <- CRS("+proj=longlat +datum=WGS84")
 sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")       # crs for sp objects
 nb_npz <- st_transform(nb_npz, sppcrs)
@@ -74,6 +77,7 @@ p4 <- ggplot() +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   # geom_sf(data = wampa, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
   geom_point(data = habi,aes(longitude.1, latitude.1, colour = method),shape = 10, size = 1, alpha = 1/5) +
   scale_colour_manual(values = c("BRUV" = "indianred4",
                                  "Drop Camera" = "navyblue")) +
@@ -114,6 +118,7 @@ p2 <- ggplot() +
   scale_fill_viridis(direction = -1, limits = c(0, max(widehabit$value))) +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
                alpha = 1, size = 0.1) +
