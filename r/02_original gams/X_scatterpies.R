@@ -50,7 +50,7 @@ dat <- readRDS("data/tidy/dat.full.habitat.rds")%>%
                   broad.octocoral.black + broad.sponges +
                   broad.stony.corals + broad.true.anemones)%>%
   dplyr::mutate(grouping = factor(1:727))%>%
-  dplyr::rename("Sessile invertebrate communities" = biogenic_reef,
+  dplyr::rename("Sessile invertebrates" = biogenic_reef,
                 "Rock" = broad.consolidated,
                 "Macroalgae" = broad.macroalgae,
                 "Seagrasses" = broad.seagrasses,
@@ -75,7 +75,7 @@ wampa_cols <- scale_fill_manual(values = c("Sanctuary Zone" = "#bfd054",
 
 #class colours 
 hab_cols <- scale_fill_manual(values = c("Rock" = "grey40",
-                              "Sessile invertebrate communities" = "plum",
+                              "Sessile invertebrates" = "plum",
                               "Macroalgae" = "darkgoldenrod4",
                               "Seagrasses" = "forestgreen",
                               "Sand" = "wheat"))
@@ -103,7 +103,7 @@ gg.scatterpie <- ggplot() +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.3) +
   new_scale_fill()+
   geom_scatterpie(aes(x=longitude, y=latitude, group=grouping), data=dat,
-                  cols = c("Rock","Sessile invertebrate communities","Macroalgae",
+                  cols = c("Rock","Sessile invertebrates","Macroalgae",
                            "Seagrasses", "Sand"),
                   pie_scale = 0.45, color = NA) +
   labs(fill = "Habitat",x = 'Longitude', y = 'Latitude')+
