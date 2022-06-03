@@ -77,7 +77,7 @@ p4 <- ggplot() +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   # geom_sf(data = wampa, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
-  geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
   geom_point(data = habi,aes(longitude.1, latitude.1, colour = method),shape = 10, size = 1, alpha = 1/5) +
   scale_colour_manual(values = c("BRUV" = "indianred4",
                                  "Drop Camera" = "navyblue")) +
@@ -85,7 +85,7 @@ p4 <- ggplot() +
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
-               alpha = 1, size = 0.1) +
+               alpha = 1, size = 0.5) +
   annotate("text", x = c(265000,290000,310000), y = 6240000, label = c("200m","70m","30m"), size = 2, colour = "grey54")+
   labs(fill = "Habitat", colour = "Sample", x = NULL, y = NULL) +
   coord_sf(xlim = c(262908.3, 318579.3), ylim = c(6208685, 6282921)) +
@@ -110,7 +110,7 @@ widehabit$variable <- dplyr::recode(widehabit$variable,
                                     pseagrass = "Seagrass")
 
 
-dep_ann <- data.frame(x = c(264500,290000, 309000), y = c(6240000,6240000,6240000), label = c("200m", "70m", "30m"))
+dep_ann <- data.frame(x = c(264200,289500, 309000), y = c(6240000,6240000,6240000), label = c("200m", "70m", "30m"))
 
 p2 <- ggplot() +
   geom_tile(data = widehabit%>%dplyr::filter(!variable %in% c("preef", "Sponge")), 
@@ -118,10 +118,12 @@ p2 <- ggplot() +
   scale_fill_viridis(direction = -1, limits = c(0, max(widehabit$value))) +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
-  geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
+  annotate("rect", xmin = 288666, xmax = 311266, ymin = 6220394, ymax = 6234274,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
-               alpha = 1, size = 0.1) +
+               alpha = 1, size = 0.5) +
   labs(x = NULL, y = NULL, fill = "Occurrence (p)") +
   theme_minimal() +
   theme(legend.position = c(0.85, 0.25))+

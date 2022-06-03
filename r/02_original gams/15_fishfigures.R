@@ -136,6 +136,8 @@ p11 <- ggplot() +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
                alpha = 1, size = 0.5) +
+  annotate("text", x = c(114.455,114.729,114.94), y = -33.97, label = c("200m","70m","30m"), 
+           size = 1.8, colour = "grey54")+
   annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
@@ -156,6 +158,8 @@ p21 <- ggplot() +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
                alpha = 1, size = 0.5) +
+  annotate("text", x = c(114.455,114.729,114.94), y = -33.97, label = c("200m","70m","30m"), 
+           size = 1.8, colour = "grey54")+
   annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
@@ -176,6 +180,8 @@ p31 <- ggplot() +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
                alpha = 1, size = 0.5) +
+  annotate("text", x = c(114.455,114.729,114.94), y = -33.97, label = c("200m","70m","30m"), 
+           size = 1.8, colour = "grey54")+
   annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
@@ -196,6 +202,8 @@ p41 <- ggplot() +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
                alpha = 1, size = 0.5) +
+  annotate("text", x = c(114.455,114.729,114.94), y = -33.97, label = c("200m","70m","30m"), 
+           size = 1.8, colour = "grey54")+
   annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +

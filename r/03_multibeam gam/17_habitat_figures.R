@@ -82,7 +82,7 @@ p4 <- ggplot() +
   hab_cols +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
-  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.4) +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.6) +
   geom_point(data = habi,
              aes(longitude.1, latitude.1, colour = method),
              shape = 10, size = 1, alpha = 2/5) +
@@ -90,7 +90,7 @@ p4 <- ggplot() +
                                  "Drop Camera" = "navyblue")) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
-               alpha = 1, size = 0.4) +
+               alpha = 1, size = 0.7) +
   annotate("text", x = 294000, y = 6227000, label = "70m", size = 2.5, colour = "grey54")+
   labs(fill = "Habitat", colour = "Sample", x = NULL, y = NULL) +
   coord_sf(xlim = c(min(spreddf$x),max(spreddf$x)), ylim = c(min(spreddf$y),max(spreddf$y))) +
@@ -120,10 +120,10 @@ p2 <- ggplot() +
   scale_fill_viridis(direction = -1, limits = c(0, max(widehabit$value))) +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
-  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.2) +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
-               alpha = 1, size = 0.1) +
+               alpha = 1, size = 0.5) +
   annotate("text", x = 293700, y = 6227000, label = "70m", size = 2, colour = "grey54")+
   labs(x = NULL, y = NULL, fill = "Occurrence (p)") +
   theme_minimal() +

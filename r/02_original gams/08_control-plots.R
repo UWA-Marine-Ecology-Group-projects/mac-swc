@@ -182,10 +182,10 @@ socec <- dat %>%
 #1. awareness of MP
 socec.1 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"), 
                   aes(x = year, y = Mean))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 82.50),fill = "#ffc7c7")+ #how to do this automatically?
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 82.50, ymax = 92.70),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 92.70, ymax = 95.30),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 95.30, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 41.25),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 41.25, ymax = 82.50),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 82.50, ymax = 92.70),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 92.70, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"),
                 aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
@@ -199,10 +199,10 @@ socec.1
 #2. correctly name MP
 socec.2 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"), 
                   aes(x = year, y = Mean))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 58.00),fill = "#ffc7c7")+ #how to do this automatically?
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 58.00, ymax = 73.80),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 73.80, ymax = 80.00),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 80.00, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 29),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 29, ymax = 58.00),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 58.00, ymax = 73.80),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 73.80, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"),
                 aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
@@ -216,10 +216,10 @@ socec.2
 #3. supportive of MP
 socec.3 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"), 
                   aes(x = year, y = Mean))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 76.00),fill = "#ffc7c7")+ #how to do this automatically?
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 76.00, ymax = 84.20),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 84.20, ymax = 90.00),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 90.00, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 38),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 38, ymax = 76.00),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 76.00, ymax = 84.20),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 84.20, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"),
                 aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
@@ -233,10 +233,10 @@ socec.3
 #4. NTR benefit environment
 socec.4 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"), 
                   aes(x = year, y = Mean))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 76.40),fill = "#ffc7c7")+ #how to do this automatically?
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 76.40, ymax = 85.00),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 85.00, ymax = 88.50),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 88.50, ymax = Inf),fill = "#caffc7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 38.2),fill = "#ffc7c7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 38.2, ymax = 76.40),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 76.40, ymax = 85.00),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 85.00, ymax = Inf),fill = "#caffc7")+
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"),
                 aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
@@ -250,10 +250,10 @@ socec.4
 #5. NTR negatively affect my fishing
 socec.5 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"), 
                   aes(x = year, y = Mean))+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 4.23),fill = "#caffc7")+ #how to do this automatically?
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 4.23, ymax = 5.43),fill = "#c7d6ff")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 5.43, ymax = 6.53),fill = "#ffeec7")+
-  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 6.53, ymax = Inf),fill = "#ffc7c7")+ 
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 0, ymax = 5.43),fill = "#caffc7")+ #how to do this automatically?
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 5.43, ymax = 6.53),fill = "#c7d6ff")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 6.53, ymax = 13.06),fill = "#ffeec7")+
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = 13.06, ymax = Inf),fill = "#ffc7c7")+ 
   geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"),
                 aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
   geom_point(shape = 21,size = 2, fill = "black")+
