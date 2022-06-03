@@ -47,7 +47,7 @@ sppcrs <- CRS("+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")     # 
 
 wanew  <- st_read("data/spatial/shapefiles/test1.shp")                          # zones in ngari capes
 # wanew <- wanew[wanew$Name != c("Cosy Corner Sanctuary Zone","Hamelin Island Sanctuary Zone","Hamelin Bay Recreation Zone"),]
-st_crs(wanew) <- crs(wampa)
+st_crs(wanew) <- crs(wgscrs)
 #remove state sanctuary zones outside of the prediction area
 wanew <- st_crop(wanew, c(xmin = 114.8, xmax = 115.2, ymin = -34.2, ymax = -33.6))
 
@@ -64,16 +64,10 @@ multi <- raster("data/spatial/rasters/multibeam_derivatives_depth.tif")
 multi <- projectRaster(multi, crs = wgscrs)
 multi
 
-#bring in state MPs to mask out the indjidup sanctuary
-wampa  <- st_read("data/spatial/shapefiles/test1.shp", 
-                  crs = wgscrs)%>%
-  dplyr::filter(Name%in%c("Injidup Sanctuary Zone","Kilcarnup Sanctuary Zone",
-                          "Cape Freycinet Sanctuary Zone"))
-
 # read in outputs from 'R/habitat_fish_model_predict.R'
 #mask them by the state sanctuary zones
 #who knows wtf this does
-wampa <- st_zm(wampa)
+wanew <- st_zm(wanew)
 
 #total abundance
 p_totabund <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
@@ -83,7 +77,7 @@ p_totabund <- rasterFromXYZ(p_totabund, crs = sppcrs)
 #reproject
 p_totabund <- projectRaster(p_totabund,crs = wgscrs)
 #mask
-p_totabund <- raster::mask(p_totabund,wampa, inverse = T)
+p_totabund <- raster::mask(p_totabund,wanew, inverse = T)
 #convert to dataframe
 p_totabund <- as.data.frame(p_totabund, xy = T, na.rm = T)
 
@@ -95,7 +89,7 @@ p_richness <- rasterFromXYZ(p_richness, crs = sppcrs)
 #reproject
 p_richness <- projectRaster(p_richness,crs = wgscrs)
 #mask
-p_richness <- raster::mask(p_richness,wampa, inverse = T)
+p_richness <- raster::mask(p_richness,wanew, inverse = T)
 #convert to dataframe
 p_richness <- as.data.frame(p_richness, xy = T, na.rm = T)
 
@@ -108,7 +102,7 @@ p_legal <- rasterFromXYZ(p_legal, crs = sppcrs)
 #reproject
 p_legal <- projectRaster(p_legal,crs = wgscrs)
 #mask
-p_legal <- raster::mask(p_legal,wampa, inverse = T)
+p_legal <- raster::mask(p_legal,wanew, inverse = T)
 #convert to dataframe
 p_legal <- as.data.frame(p_legal, xy = T, na.rm = T)
 
@@ -121,7 +115,7 @@ p_sublegal <- rasterFromXYZ(p_sublegal, crs = sppcrs)
 #reproject
 p_sublegal <- projectRaster(p_sublegal,crs = wgscrs)
 #mask
-p_sublegal <- raster::mask(p_sublegal,wampa, inverse = T)
+p_sublegal <- raster::mask(p_sublegal,wanew, inverse = T)
 #convert to dataframe
 p_sublegal <- as.data.frame(p_sublegal, xy = T, na.rm = T)
 
