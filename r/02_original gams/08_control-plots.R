@@ -21,6 +21,7 @@ library(raster)
 library(png)
 library(cowplot)
 library(patchwork)
+library(grid)
 
 #standard error
 se <- function(x) sd(x)/sqrt(length(x))
@@ -178,6 +179,7 @@ socec <- dat %>%
   complete(metric, year) %>%
   glimpse()
 
+
 #Plot socio economic stuff, we need 5 plots I think?
 #1. awareness of MP
 socec.1 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"), 
@@ -191,10 +193,21 @@ socec.1 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in 
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   labs(title = "Awareness of the SwC or GMP", x = "Year", y = "% of participants")+
   Theme1
 socec.1
+
+socec.1x <- ggplot(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"), 
+                  aes(x = year, y = Mean))+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Awarenes of an AMP in area"),
+                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.2)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  labs(title = "Awareness of the SwC or GMP", x = "Year", y = "% of participants")+
+  Theme1
 
 #2. correctly name MP
 socec.2 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"), 
@@ -208,10 +221,21 @@ socec.2 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   labs(title = "Correctly name the SwC or GMP", x = "Year", y = "% of participants")+
   Theme1
 socec.2
+
+socec.2x <- ggplot(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"), 
+                  aes(x = year, y = Mean))+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Correctly name an AMP"),
+                aes(ymin=Lower.ci, ymax= Upper.ci), width = 0.2)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  labs(title = "Correctly name the SwC or GMP", x = "Year", y = "% of participants")+
+  Theme1
 
 #3. supportive of MP
 socec.3 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"), 
@@ -225,10 +249,21 @@ socec.3 <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   labs(title = "Supportive of the NPZs in the SwC and GMP",x = "Year", y = "% of participants")+
   Theme1
 socec.3
+
+socec.3x <- ggplot(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"), 
+                  aes(x = year, y = Mean))+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"Supportive of AMP NPZ"),
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  labs(title = "Supportive of the NPZs in the SwC and GMP",x = "Year", y = "% of participants")+
+  Theme1
 
 #4. NTR benefit environment
 socec.4 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"), 
@@ -242,10 +277,21 @@ socec.4 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit enviro
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,100))+
-  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   labs(title = "Perception that NPZs in the SwC and GMP benefit the marine environment",x = "Year", y = "% of participants")+
   Theme1
 socec.4
+
+socec.4x <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"), 
+                  aes(x = year, y = Mean))+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ benefit environment"),
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_continuous(limits = c(0,100))+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  labs(title = "Perception that NPZs in the SwC and GMP benefit the marine environment",x = "Year", y = "% of participants")+
+  Theme1
 
 #5. NTR negatively affect my fishing
 socec.5 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"), 
@@ -259,10 +305,21 @@ socec.5 <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively eff
   geom_point(shape = 21,size = 2, fill = "black")+
   theme_classic()+
   scale_y_reverse(limits = c(100,0))+
-  geom_vline(xintercept = 2, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   labs(title = "Perception that NPZs in the SwC and GMP negatively impact recreational fishing", x = "Year", y = "% of participants")+
   Theme1
 socec.5
+
+socec.5x <- ggplot(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"), 
+                  aes(x = year, y = Mean))+
+  geom_errorbar(data = socec%>%dplyr::filter(metric%in%"AMP NPZ negatively effect my fishing"),
+                aes(ymin=Lower.ci, ymax = Upper.ci), width = 0.2)+
+  geom_point(shape = 21,size = 2, fill = "black")+
+  theme_classic()+
+  scale_y_reverse(limits = c(100,0))+
+  geom_vline(xintercept = 2.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  labs(title = "Perception that NPZs in the SwC and GMP negatively impact recreational fishing", x = "Year", y = "% of participants")+
+  Theme1
 
 # plot year by species richness - plus a line for MPA gazetting time ---
 gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status))+
@@ -271,7 +328,7 @@ gg.sr <- ggplot(data = dat.cp, aes(x = year, y = species.richness, fill = status
   geom_point(shape = 21,size = 2,position=position_dodge(width=0.3),stroke = 1, color = "black")+ 
   theme_classic()+
   scale_y_continuous(limits = c(5,15))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Species richness")+
   xlab("Year")+
   labs(title = "a)")+
@@ -291,7 +348,7 @@ gg.l <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,5))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Greater than legal size")+
   xlab("Year")+
   labs(title = "b)")+
@@ -311,12 +368,14 @@ gg.disc <- ggplot(data = dat.cp, aes(x = year, y = legal, fill = status))+
   geom_point(shape = 21,size = 2, position=position_dodge(width=0.3),stroke = 1, color = "black")+
   theme_classic()+
   scale_y_continuous(limits = c(0,5))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Greater than legal size")+
   xlab("Year")+
   # labs(title = "b)")+
   guides(fill=guide_legend(title = "Marine Park Zone"))+
   Theme1
+gg.disc <- ggdraw(gg.disc) +
+  draw_label("DRAFT ONLY", color = "#C0A0A0", size = 40, angle = 30, alpha = 0.2)
 gg.disc
 
 #CTI
@@ -333,7 +392,7 @@ gg.cti <- ggplot()+
   theme_classic()+
   scale_y_continuous(limits = c(17,20))+
   scale_x_continuous(limits = c(2017,2021.5))+
-  geom_vline(xintercept = 2018, linetype="dashed",color = "black", 
+  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", 
              size=0.5,alpha = 0.5)+
   ylab(expression(paste("Temperature (",degree~C,")")))+
   xlab("Year")+
@@ -348,9 +407,15 @@ grid <- gg.sr/gg.l/gg.cti+plot_layout(guides = 'collect')
 grid
 
 socgrid <- socec.1 / socec.2 / socec.3 / socec.4 / socec.5
-socgrid
+
+socgrid.wtr <- ggdraw(socgrid) +
+  draw_label("DRAFT ONLY", color = "#C0A0A0", size = 80, angle = 45, alpha = 0.2)
+socgrid.wtr
+
+socgrid.noband <- socec.1x / socec.2x / socec.3x / socec.4x / socec.5x
 
 #save out plot
 save_plot("plots/original gamms/control.plot.png",grid,base_height = 6,base_width = 7.5)
-save_plot("plots/original gamms/socio-economic.control.plots.png",socgrid,base_height = 10,base_width = 7.5)
+save_plot("plots/original gamms/socio-economic.control.plots.bands.png",socgrid.wtr,base_height = 10,base_width = 7.5)
+save_plot("plots/original gamms/socio-economic.control.plots.png",socgrid.noband,base_height = 10,base_width = 7.5)
 save_plot("plots/original gamms/control.plot.with.bands.png",gg.disc,base_height = 2,base_width = 7.5)
