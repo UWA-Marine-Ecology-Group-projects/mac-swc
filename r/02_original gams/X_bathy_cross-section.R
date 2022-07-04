@@ -1,8 +1,7 @@
-library(sp)
 library(raster)
 library(sf)
-library(stars)
-library(starsExtra)
+# library(stars)
+# library(starsExtra)
 library(dplyr)
 library(ggplot2)
 library(patchwork)
@@ -30,13 +29,13 @@ plot(bath_t)
 bath_df <- as.data.frame(bath_t, xy = T)
 
 # Find the closest value to the middle of the NPZ
-bath_df[which.min(abs(6223483.39-bath_df$y)),]
+bath_df[which.min(abs(6222000-bath_df$y)),] #6221918 
 
 bath_cross <- bath_df %>%
   # dplyr::filter(y %in% -34.05875) %>%
   dplyr::mutate(y = round(y, digits = 0)) %>%
   # dplyr::mutate(y = as.character(y)) %>%
-  dplyr::filter(y %in% 6223580)
+  dplyr::filter(y %in% 6221918)
 
 bath_cross[which.min(abs(0-bath_cross$Z)),] # Closest to 0m sea level - ie coastline
 
@@ -54,11 +53,11 @@ multi <- raster("data/spatial/rasters/multibeam_derivatives_depth.tif")
 plot(multi)
 multi_df <- as.data.frame(multi, xy = T, na.rm = T)
 
-multi_df[which.min(abs(6223483.39-multi_df$y)),] #6223484
+multi_df[which.min(abs(6222000-multi_df$y)),] #6222000
 
 multi_cross <- multi_df %>%
   dplyr::mutate(y = round(y, digits = 0)) %>%
-  dplyr::filter(y %in% 6223484)
+  dplyr::filter(y %in% 6222000)
 
 multi_plot <- multi_cross %>%
   dplyr::mutate(distance.from.coast = (x - 315484)/1000) %>% # 0 sea level is coastline - from broad dataset, multibeam doesnt go to coastline
