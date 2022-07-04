@@ -1,0 +1,1 @@
+Period	ImagePtPair	FilenameLeft	FrameLeft	FilenameRight	FrameRight	Time	OpCode	PeriodTime	X	Y	Z	sX	sY	sZ	RMS	Range	Direction	Family	Genus	Species	Code	Number	Stage	Activity	Comment	Attribute9	Attribute10

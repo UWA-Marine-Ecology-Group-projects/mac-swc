@@ -15,6 +15,8 @@ library(raster)
 library(patchwork)
 library(ggnewscale)
 library(sf)
+library(dplyr)
+library(rgdal)
 
 # bring in spatial layers
 aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")    # all aus mpas
@@ -62,7 +64,31 @@ spreddf$dom_tag <- dplyr::recode(spreddf$dom_tag,
                           biogenic = "Sessile invertebrates",
                           rock = "Rock",
                           sponge = "Sessile invertebrates")  # recoding to make sponge biogenic, as biogenic includes sponge
-  
+
+# Export this as a raster and shapefile for IMAS
+# As a raster
+unique(spreddf$dom_tag)
+
+dom.hab <- spreddf %>%
+  dplyr::select(x, y, dom_tag) %>%
+  dplyr::mutate(dom_tag = recode(dom_tag,
+                "Macroalgae" = 0,
+                "Sand" = 1,
+                "Sessile invertebrates" = 2,
+                "Rock" = 3)) %>%
+  glimpse()
+
+dom.habr <- rasterFromXYZ(dom.hab)
+plot(dom.habr)
+
+writeRaster(dom.habr, "data/tidy/2020-2021_south-west_BOSS-BRUV_domhab-broad.tif")
+
+# As a shapefile
+dom.habs <- rasterToPolygons(dom.habr, dissolve = T)
+
+writeOGR(dom.habs, "data/tidy/2020-2021_south-west_BOSS-BRUV_domhab-broad.shp", 
+         layer = "dom_tag", driver = "ESRI Shapefile")
+
 # fig 1: categorical habitat maps
 # assign mpa colours
 hab_cols <- scale_fill_manual(values = c("Macroalgae" = "darkgoldenrod4",
