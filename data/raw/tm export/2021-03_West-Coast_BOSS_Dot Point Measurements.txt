@@ -1,6 +1,6 @@
 Dot Point Measurements
 
-Generated: Friday 01 October 2021 13:04:02
+Generated: Thursday 07 July 2022 09:17:18
 
 Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	Latitude	Longitude	Rugosity	Depth	Collector	Fishing status	Spare	Spare	BROAD	MORPHOLOGY	TYPE	FieldOfView	Relief	CODE			Radius %
 1.jpg	      0		945	408													Macroalgae	Erect course branching	Brown	Open		80300904			73.7
@@ -5097,7 +5097,7 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 20.jpg	      0		1848	1253													Sponges	Hollow forms		Open		10000909			39.6
 20.jpg	      0		1941	1181													Sponges	Small mixed		Open		10000000			45.3
 20.jpg	      0		1697	510													Sponges	Massive forms		Open		10000903			69.8
-20.jpg	      0		2075	270													Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	Open		63600903			87.4
+20.jpg	      0		2075	270													Macroalgae	Erect fine branching	Green	Open		80300909			87.4
 20.jpg	      0		1761	731													Consolidated	Rock	Turf mat	Open		82001002			60.2
 20.jpg	      0		1710	560													Sponges	Massive forms		Open		10000903			67.5
 20.jpg	      0		1819	293													Consolidated	Rock	Turf mat	Open		82001002			81.8
@@ -8348,7 +8348,7 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 58.jpg	      0		958	3807													Sponges	Massive forms		Open		10000903			93.8
 58.jpg	      0		974	2748													Sponges	Massive forms		Open		10000903			44.3
 58.jpg	      0		707	3526													Consolidated	Rock	Turf mat	Open		82001002			84.3
-58.jpg	      0		1075	3053													Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	Open		63600903			56.6
+58.jpg	      0		1075	3053													Macroalgae	Erect fine branching	Green	Open		80300909			56.6
 58.jpg	      0		1060	2871													Consolidated	Rock	Turf mat	Open		82001002			48.3
 58.jpg	      0		980	3398													Consolidated	Rock	Turf mat	Open		82001002			74.1
 58.jpg	      0		704	2786													Consolidated	Rock	Turf mat	Open		82001002			52.9
@@ -8359,8 +8359,8 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 58.jpg	      0		630	3417													Consolidated	Rock	Turf mat	Open		82001002			81.0
 58.jpg	      0		663	2886													Consolidated	Rock	Turf mat	Open		82001002			58.0
 58.jpg	      0		736	3242													Sponges	Massive forms		Open		10000903			71.1
-58.jpg	      0		1050	3393													Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	Open		63600903			73.0
-58.jpg	      0		931	3241													Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	Open		63600903			67.4
+58.jpg	      0		1050	3393													Macroalgae	Erect fine branching	Green	Open		80300909			73.0
+58.jpg	      0		931	3241													Macroalgae	Erect fine branching	Green	Open		80300909			67.4
 58.jpg	      0		551	1924													Sponges	Small mixed		Open		10000000			40.0
 58.jpg	      0		794	3691													Sponges	Massive forms		Open		10000903			90.4
 58.jpg	      0		798	2167													Sponges	Massive forms		Open		10000903			30.2
@@ -8376,7 +8376,7 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 58.jpg	      0		1765	821													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			57.8
 58.jpg	      0		2054	538													Invertebrate Complex	Complex 1		Open					76.1
 58.jpg	      0		2156	1058													Sponges	Small mixed		Open		10000000			57.6
-58.jpg	      0		2100	353													Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	Open		63600903			85.2
+58.jpg	      0		2100	353													Macroalgae	Erect fine branching	Green	Open		80300909			85.2
 58.jpg	      0		1993	1831													Unconsolidated	Sand	mud (coarse sand)	Open		82001014			30.9
 58.jpg	      0		1734	1397													Consolidated	Rock	Turf mat	Open		82001002			31.8
 58.jpg	      0		1956	1095													Sponges	Small mixed		Open		10000000			50.1
@@ -8399,7 +8399,7 @@ Filename	Frame	Time (mins)	Image row	Image col	Date	Location	Site #	Transect #	L
 58.jpg	      0		1784	3513													Sponges	Small mixed		Open		10000000			79.9
 58.jpg	      0		2155	2881													Consolidated	Rock	Turf mat	Open		82001002			60.2
 58.jpg	      0		1801	3740													Consolidated	Rock	Turf mat	Open		82001002			90.8
-58.jpg	      0		1997	2296													Seagrasses	Strap-like leaves	Thalassodendrum sp. with epiphytes algae	Open		63600903			35.5
+58.jpg	      0		1997	2296													Macroalgae	Erect fine branching	Green	Open		80300909			35.5
 58.jpg	      0		1745	3788													Consolidated	Rock	Turf mat	Open		82001002			92.6
 58.jpg	      0		2017	2520													Consolidated	Rock	Turf mat	Open		82001002			42.7
 58.jpg	      0		1921	2407													Sponges	Massive forms		Open		10000903			35.5

@@ -31,7 +31,7 @@ study <- "2021-03_West-Coast_BOSS"
 study2 <- "2021-03_West-Coast_BOSS_relief"
 
 # Read in metadata----
-setwd(tidy.dir)
+setwd(staging.dir)
 dir()
 metadata <- read_csv("2021-03_West-Coast_BOSS.checked.metadata.csv") %>% # read in the file
   ga.clean.names() %>% # tidy the column names using GlobalArchive function 
@@ -165,7 +165,7 @@ detailed<-habitat%>%
   glimpse()
 
 # Write habitat data----
-setwd(tidy.dir)
+setwd(staging.dir)
 dir()
 
 habitat.broad <- metadata%>%
