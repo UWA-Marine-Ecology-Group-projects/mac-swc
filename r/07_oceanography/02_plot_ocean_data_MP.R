@@ -154,6 +154,7 @@ dev.off()
 
 ##### ACIDIFICATION #####
 acd_ts_monthly <- readRDS(paste0("data/spatial/oceanography/",Zone,"_acidification.rds"))%>%
+  dplyr::filter(!year %in% c("1870", "2013")) %>% # These 2 years have inaccurate averages as they are only on 6 months
   glimpse()
 
 legend_title = "Season"

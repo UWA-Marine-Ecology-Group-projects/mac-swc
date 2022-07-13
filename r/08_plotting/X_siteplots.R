@@ -49,7 +49,7 @@ colnames(bath_newdf)[3] <- "Depth"
 
 kef <- st_read("data/spatial/shapefiles/AU_DOEE_KEF_2015.shp")
 sf_use_s2(FALSE)                                                                #errors otherwise, not sure what it does...
-kef <- st_crop(kef, c(xmin = 110, xmax = 123, ymin = -39, ymax = -30))  
+kef <- st_crop(kef, c(xmin = 110, xmax = 122.1, ymin = -39, ymax = -33.3))  #coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
 kef$NAME <- dplyr::recode(kef$NAME,"Perth Canyon and adjacent shelf break, and other west coast canyons" = "Perth Canyon",                 
                 "Commonwealth marine environment within and adjacent to the west coast inshore lagoons" = "West coast lagoons",
                 "Commonwealth marine environment within and adjacent to Geographe Bay" = "Geographe Bay",                 
@@ -131,16 +131,13 @@ unique(kef$NAME)
 #                                          "Western demersal slope and associated fish communities" = "#006ddb",                               
 #                                          "Western rock lobster" = "#6db6ff"))
 
-kef_cols <- scale_fill_manual(values = c("Perth Canyon" = "#009292",                 
-                                         "West coast lagoons" = "#009292",
-                                         "Geographe Bay" = "#004949",                 
+kef_cols <- scale_fill_manual(values = c("Geographe Bay" = "#004949",                 
                                          "Cape Mentelle" = "#920000",                                                              
                                          "Naturaliste Plateau" = "#ffff6d",                                                                  
                                          "Diamantina Fracture Zone" = "#490092",                                                             
                                          "Albany Canyons" = "#004949",                                        
                                          "Recherche Archipelago" = "#24ff24",                
-                                         "Ancient coastline" = "#ff6db6",                                                   
-                                         "Western demersal fish" = "#006ddb",                               
+                                         "Ancient coastline" = "#ff6db6",                             
                                          "Western rock lobster" = "#6db6ff"))
 
 # build basic plot elements
@@ -150,8 +147,8 @@ p1 <- ggplot() +
   geom_contour_filled(data = bath_newdf, aes(x = x, y = y, z = Depth,
                                          fill = after_stat(level)),
                       breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000)) +
-  geom_contour(data = bathdf, aes(x = x, y = y, z = Depth),
-  binwidth = 250, colour = "white", alpha = 3/5, size = 0.1) +
+  # geom_contour(data = bathdf, aes(x = x, y = y, z = Depth),
+  # binwidth = 250, colour = "white", alpha = 3/5, size = 0.1) +
   scale_fill_grey(start = 1, end = 0.5, guide = "none") +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   new_scale_fill() +
@@ -173,13 +170,13 @@ p1 <- ggplot() +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
   guides(fill = guide_legend(order = 1)) +
   annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
-           colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
-  coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
+           colour = "goldenrod1", fill = "white", alpha = 0.2, size = 0.6) +
+  coord_sf(xlim = c(111, 122.1), ylim = c(-38.5, -33.3)) +
   # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
   theme_minimal()#+
   # theme(legend.position = "bottom", legend.box = "vertical", legend.margin = margin(), 
   #       legend.box.just = "left")
-p1
+# p1
 
 # inset map
 p2 <- ggplot(data = aus) +
@@ -201,7 +198,7 @@ p2 <- ggplot(data = aus) +
 p2 + p1 + plot_layout(widths = c(0.8, 2.2))
 
 # ggsave("plots/overview_map.png", dpi = 200, width = 10, height = 6)
-ggsave("plots/spatial/overview_map.png", dpi = 200, width = 10, height = 6) #4.5
+ggsave("plots/spatial/overview_map.png", dpi = 200, width = 10, height = 4.5) #6
 
 #Key Ecological Features map
 # build basic plot elements
@@ -253,7 +250,6 @@ s_nmpa_cols <- scale_fill_manual(values = c("National Park Zone" = "#7bbc63",
 s_wampa_cols <- scale_fill_manual(values = c("Sanctuary Zone" = "#bfd054",
                                              "General Use Zone" = "#bddde1"))
 
-
 # make closer plot
 # trim down bathy for nicer contour labels
 sitebathy <- bathdf[bathdf$Depth > -500, ]                               # trim to reduce legend
@@ -292,6 +288,7 @@ p3 <- ggplot() +
   annotate("rect", xmin = 114.7, xmax = 114.95, ymin = -34.14, ymax = -34.01,
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   coord_sf(xlim = c(114.4, 115.1), ylim = c(-34.15, -33.65)) +
+  geom_segment(aes(x = 114.4, xend = 115.08, y = -34.127327939, yend = -34.127327939), linetype = 2, alpha = 0.3) +
   theme_minimal()
 p3
 
@@ -361,14 +358,12 @@ p6 <- ggplot() +
   theme_minimal() +
   annotate("text", x = c(114.40,114.467,114.72,114.945), y = -33.85, label = c("700m","200m","70m","30m"), size = 2)+
   coord_sf(xlim = c(114.4, 115.1), ylim = c(-34.15, -33.65))
+
+png(file="plots/spatial/overall_jmonk_natmap.png",
+    width=10, height=6, units = "in", res = 300)
 p6
 
-ggsave("plots/spatial/overall_jmonk_natmap.png",
-       width = 10, height = 6, dpi = 160)
-
-
-
-
+dev.off()
 
 # # saving for later
 # # assign commonwealth zone colours
