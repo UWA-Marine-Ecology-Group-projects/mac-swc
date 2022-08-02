@@ -15,6 +15,8 @@ library(raster)
 library(patchwork)
 library(sf)
 library(cowplot)
+library(dplyr)
+library(raster)
 
 #Theme
 Theme1 <-
@@ -88,6 +90,7 @@ p_richness <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
 p_richness <- rasterFromXYZ(p_richness, crs = sppcrs)
 #reproject
 p_richness <- projectRaster(p_richness,crs = wgscrs)
+writeRaster(p_richness, "data/spatial/rasters/predicted-species-richness", format = "GTiff")
 #mask
 p_richness <- raster::mask(p_richness,wanew, inverse = T)
 #convert to dataframe
