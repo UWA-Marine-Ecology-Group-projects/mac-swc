@@ -90,7 +90,7 @@ p_richness <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
 p_richness <- rasterFromXYZ(p_richness, crs = sppcrs)
 #reproject
 p_richness <- projectRaster(p_richness,crs = wgscrs)
-writeRaster(p_richness, "data/spatial/rasters/predicted-species-richness", format = "GTiff")
+# writeRaster(p_richness, "data/spatial/rasters/predicted-species-richness", format = "GTiff")
 #mask
 p_richness <- raster::mask(p_richness,wanew, inverse = T)
 #convert to dataframe
@@ -139,7 +139,7 @@ p11 <- ggplot() +
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Total Abundance")+
+  labs(x = NULL, y = NULL, fill = "Total Abundance", title = "Whole assemblage")+
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
   coord_sf(xlim = c(min(p_totabund$x), max(p_totabund$x)), ylim = c(min(p_totabund$y), max(p_totabund$y)))+
   Theme1
@@ -183,7 +183,7 @@ p31 <- ggplot() +
            colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
   theme_minimal() +
   scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
-  labs(x = NULL, y = NULL, fill = "Legal")+
+  labs(x = NULL, y = NULL, fill = "Legal", title = "Targeted assemblage")+
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
   coord_sf(xlim = c(min(p_legal$x), max(p_legal$x)), ylim = c(min(p_legal$y), max(p_legal$y)))+
   Theme1

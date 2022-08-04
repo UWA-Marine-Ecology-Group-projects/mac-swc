@@ -1,3 +1,5 @@
+rm(list = ls())
+
 library(raster)
 library(sf)
 # library(stars)
@@ -72,7 +74,7 @@ p1 <- ggplot() +
   theme_classic() +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(breaks = c(150, 0, -150, -300, -450, -600),expand = c(0,0), limits = c(-700, 240)) +
-  labs(x = "Distance from coast", y = "Elevation (m)") + 
+  labs(x = "Distance from coast (km)", y = "Elevation (m)") + 
   annotate("text", x = 3, y = 200, label = "Boranup")+
   geom_segment(aes(x = -5.556, xend = -5.556, y =-44.03002, yend = 0), color = "red")
 p1
@@ -84,7 +86,7 @@ p2 <- ggplot() +
   theme_classic() +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(breaks = c(100, 0, -100 , -200),expand = c(0,0), limits = c(-255, 240)) + # Set depth/topo limits
-  labs(x = "Distance from coast", y = "Elevation (m)") +
+  labs(x = "Distance from coast (km)", y = "Elevation (m)") +
   annotate("text", x = 3, y = 175, label = "Boranup") + # Boranup label
   geom_segment(aes(x = -23.431987, xend = -16, y = -118, yend = -118), linetype = 2, alpha = 0.5) + # 20-30 Ka BP - segment length 7.5
   geom_segment(aes(x = -21.111987, xend = -16, y = -94, yend = -94), linetype = 2, alpha = 0.5) + # 15-17 Ka BP
@@ -109,7 +111,7 @@ p3 <- ggplot() +
   theme_classic() +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(breaks = c(100, 0, -100 , -200),expand = c(0,0), limits = c(-255, 240)) +
-  labs(x = "Distance from coast", y = "Elevation (m)")+
+  labs(x = "Distance from coast (km)", y = "Elevation (m)")+
   annotate("text", x = 3, y = 175, label = "Boranup")+
   geom_segment(aes(x = -5.556, xend = -5.556, y =-44.03002, yend = 0), color = "red")
 p3

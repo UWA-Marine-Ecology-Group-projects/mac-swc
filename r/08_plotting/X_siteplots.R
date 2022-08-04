@@ -201,44 +201,44 @@ p2 + p1 + plot_layout(widths = c(0.8, 2.2))
 ggsave("plots/spatial/overview_map.png", dpi = 200, width = 10, height = 4.5) #6
 
 #Key Ecological Features map
+# Reorder KEFs so they plot in a sensible order
+kef$NAME <- factor(kef$NAME, levels = c("Western rock lobster","Diamantina Fracture Zone","Naturaliste Plateau", 
+                                        "Albany Canyons", "Recherche Archipelago", "Cape Mentelle",
+                                        "Geographe Bay", "Ancient coastline"))
+
+# Reorder aus national MPs so they plot in a sensible order
+nb_nmp$ZoneName <- factor(nb_nmp$ZoneName, levels = c("Multiple Use Zone", "Special Purpose Zone",
+                                                      "Habitat Protection Zone","Special Purpose Zone\n(Mining Exclusion)",
+                                                      "National Park Zone"))
+
 # build basic plot elements
 p7 <- ggplot() +
-  # geom_contour_filled(data = bath_newdf, aes(x = x, y = y, z = Depth,
-  #                                            fill = after_stat(level)),
-  #                     breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000)) +
-  # scale_fill_grey(start = 1, end = 0.5, guide = "none") +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
-  new_scale_fill() +
-  geom_sf(data = nb_mp, aes(fill = waname), alpha = 2/5, colour = NA, show.legend = F) +
-  geom_sf(data = wanew, aes(fill = waname), alpha = 2/5, colour = NA, show.legend = F) +
-  wampa_cols +
-  labs(fill = "State Marine Parks") +
-  new_scale_fill() +
+  # new_scale_fill() +
+  # geom_sf(data = nb_mp, aes(fill = waname), alpha = 2/5, colour = NA, show.legend = F) +
+  # geom_sf(data = wanew, aes(fill = waname), alpha = 2/5, colour = NA, show.legend = F) +
+  # wampa_cols +
+  # new_scale_fill() +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA, show.legend = F) +
   labs(fill = "Terrestrial Managed Areas") +
   waterr_cols +
   new_scale_fill() +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 4/5, size = 0.2) +
-  # geom_contour(data = bath_newdf, aes(x, y, z = Depth),
-  #              breaks = c(0, -30, -70, -200, -700, -2000, -4000, -10000), colour = "white",
-  #              alpha = 1, size = 0.1) +
-  geom_sf(data = nb_nmp, aes(fill = ZoneName), alpha = 2/5, color = NA, show.legend = F) +
-  nmpa_cols + 
-  labs(fill = "Australian Marine Parks")+
-  new_scale_fill()+
   geom_sf(data = kef, aes(fill = NAME), alpha = 0.7, color = NA) +
   kef_cols+
   labs(x = NULL, y = NULL,  fill = "Key Ecological Features") +
+  new_scale_fill()+
+  geom_sf(data = nb_nmp, aes(color = ZoneName), alpha = 1, fill = NA, show.legend = F, size = 0.4) +
+  nmpa_outs + 
   guides(fill = guide_legend(order = 1)) +
-  # annotate("rect", xmin = 114.38, xmax = 115.1, ymin = -34.17, ymax = -33.65,
-  #          colour = "grey15", fill = "white", alpha = 0.2, size = 0.1) +
   coord_sf(xlim = c(110, 122.1), ylim = c(-39, -33.3)) +
-  # coord_sf(xlim = c(114.3, 115.8), ylim = c(-34.5, -33.3)) +
   theme_minimal()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+png(filename = "plots/spatial/key-ecological-features.png", res = 200, width = 10, height = 4, units = "in")
 p7
+dev.off()
 
-ggsave("plots/spatial/key-ecological-features.png", dpi = 200, width = 10, height = 4)
+# ggsave("plots/spatial/key-ecological-features.png", dpi = 200, width = 10, height = 4)
 
 # site zoom plots
 # reduce zone levels for these plots

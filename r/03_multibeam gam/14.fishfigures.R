@@ -142,7 +142,7 @@ p11 <- ggplot() +
            size = 1.8, colour = "grey54")+
   theme_minimal() +
   scale_x_continuous(breaks = c(114.7,114.8,114.9))+
-  labs(x = NULL, y = NULL, fill = "Total Abundance")+
+  labs(x = NULL, y = NULL, fill = "Total Abundance", title = "Whole assemblage")+
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
   coord_sf(xlim = c(min(p_totabund$x), max(p_totabund$x)), ylim = c(min(p_totabund$y), max(p_totabund$y)))+
   Theme1
@@ -183,7 +183,7 @@ p31 <- ggplot() +
            size = 1.8, colour = "grey54")+
   theme_minimal() +
   scale_x_continuous(breaks = c(114.7,114.8,114.9))+
-  labs(x = NULL, y = NULL, fill = "Legal")+
+  labs(x = NULL, y = NULL, fill = "Legal", title = "Targeted assemblage")+
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
   coord_sf(xlim = c(min(p_legal$x), max(p_legal$x)), ylim = c(min(p_legal$y), max(p_legal$y)))+
   Theme1

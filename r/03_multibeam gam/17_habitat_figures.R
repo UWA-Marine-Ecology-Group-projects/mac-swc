@@ -84,16 +84,16 @@ dom.hab <- spreddf %>%
                                  "Rock" = 3)) %>%
   glimpse()
 
-dom.habr <- rasterFromXYZ(dom.hab)
-plot(dom.habr)
-
-writeRaster(dom.habr, "data/tidy/2020-2021_south-west_BOSS-BRUV_domhab-multibeam.tif")
+# dom.habr <- rasterFromXYZ(dom.hab)
+# plot(dom.habr)
+# 
+# writeRaster(dom.habr, "data/tidy/2020-2021_south-west_BOSS-BRUV_domhab-multibeam.tif")
 
 # As a shapefile
-dom.habs <- rasterToPolygons(dom.habr, dissolve = T)
-
-writeOGR(dom.habs, "data/tidy/2020-2021_south-west_BOSS-BRUV_domhab-multibeam.shp", 
-         layer = "dom_tag", driver = "ESRI Shapefile")
+# dom.habs <- rasterToPolygons(dom.habr, dissolve = T)
+# 
+# writeOGR(dom.habs, "data/tidy/2020-2021_south-west_BOSS-BRUV_domhab-multibeam.shp", 
+#          layer = "dom_tag", driver = "ESRI Shapefile")
 
 # fig 1: categorical habitat maps
 # assign mpa colours
@@ -109,11 +109,11 @@ p4 <- ggplot() +
   geom_sf(data = nb_npz, fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
   geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.6) +
-  geom_point(data = habi,
-             aes(longitude.1, latitude.1, colour = method),
-             shape = 10, size = 1, alpha = 2/5) +
-  scale_colour_manual(values = c("BRUV" = "indianred4",
-                                 "Drop Camera" = "navyblue")) +
+  # geom_point(data = habi,
+  #            aes(longitude.1, latitude.1, colour = method),
+  #            shape = 10, size = 1, alpha = 2/5) +
+  # scale_colour_manual(values = c("BRUV" = "indianred4",
+  #                                "Drop Camera" = "navyblue")) +
   geom_contour(data = bathdf, aes(x, y, z = Depth),
                breaks = c(0, -30, -70, -200), colour = "grey54",
                alpha = 1, size = 0.7) +
