@@ -1,0 +1,152 @@
+library(sf)
+library(ggplot2)
+library(stringr)
+library(patchwork)
+library(terra)
+library(ggnewscale)
+library(dplyr)
+library(tidyr)
+library(cartography)
+library(RColorBrewer)
+
+# lang <- st_read("data/spatial/shapefiles/language-groups-final.shp")
+lang <- read.csv("data/tidy/aus-language-groups.csv") %>%
+  dplyr::rename(x = "approximate_longitude_of_language_variety",
+                y = "approximate_latitude_of_language_variety") %>%
+  dplyr::filter(!language_name %in% "Nyoongar") %>%
+  glimpse()
+
+langspat <- st_read("data/spatial/shapefiles/language-groups-clipped.shp") %>%
+  dplyr::mutate(id = as.factor(id))
+
+aus    <- st_read("data/spatial/shapefiles/cstauscd_r.mif")                     # geodata 100k coastline available: https://data.gov.au/dataset/ds-ga-a05f7892-eae3-7506-e044-00144fdd4fa6/
+# dirkh  <- aus[aus$ISLAND_NAME == "DIRK HARTOG ISLAND", ]                      # just dirk hartog island
+aus    <- aus[aus$FEAT_CODE == "mainland", ]
+aumpa  <- st_read("data/spatial/shapefiles/AustraliaNetworkMarineParks.shp")    # all aus mpas
+aumpa <- st_crop(aumpa, xmin = 100, xmax = 170, ymin = -50, ymax = -5) %>%
+  dplyr::mutate(ZoneName = dplyr::recode(ZoneName,
+                                         "Special Purpose Zone (Norfolk)"  = "Special Purpose Zone",
+                                         "Special Purpose Zone (Trawl)" = "Special Purpose Zone",
+                                         "Habitat Protection Zone (Reefs)" = "Habitat Protection Zone",
+                                         "Marine National Park Zone" = "National Park Zone",
+                                         "Habitat Protection Zone (Lord Howe)" = "Habitat Protection Zone"))
+unique(aumpa$ZoneName)
+aumpa_c <- st_crop(aumpa, xmin = 114, xmax = 120, ymin = -40, ymax = -32)
+st_crs(aus) <- st_crs(aumpa)
+
+wampa <- st_read("data/spatial/shapefiles/WA_MPA_2020.shp")
+st_crs(wampa) <- "+proj=longlat +datum=WGS84"
+wa_sanc <- wampa %>%
+  dplyr::filter(ZONE_TYPE %in% "Sanctuary Zone (IUCN VI)")
+
+# read in and merge GA coarse bathy tiles from https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/67703
+cbaths <- list.files("data/spatial/rasters/tiles", "*tile", full.names = TRUE)
+cbathy <- lapply(cbaths, function(x){read.table(file = x, header = TRUE, sep = ",")})
+cbathy <- do.call("rbind", lapply(cbathy, as.data.frame)) 
+cbathy <- cbathy[cbathy$Z <= 0, ]
+bath_r <- rast(cbathy)
+plot(bath_r)
+e <- ext(113, 121, -37, -31)
+bath_c <- crop(bath_r, e)
+plot(bath_c)
+bathdf <- as.data.frame(bath_c, xy = T, na.rm = T)
+
+terrnp <- st_read(
+  "data/spatial/shapefiles/Legislated_Lands_and_Waters_DBCA_011.shp")           # terrestrial reserves
+terrnp <- terrnp[terrnp$leg_catego %in% c("Nature Reserve", "National Park"), ] # exclude state forests etc
+terrnp <- st_crop(terrnp, xmin = 110, xmax = 123, ymin = -39, ymax = -31)       # just swc
+
+austerr <- st_read("data/spatial/shapefiles/CAPAD2020_terrestrial.shp")
+austerr <- austerr[austerr$TYPE %in% c("Nature Reserve", "National Park"), ] # exclude state forests etc
+# Set colours
+# state terrestrial parks colours
+terr_fills <- scale_fill_manual(values = c("National Park" = "#c4cea6",
+                                            "Nature Reserve" = "#e4d0bb"), 
+                                name = "Terrestrial Managed Areas")
+
+# assign commonwealth zone colours
+nmpa_fills <- scale_fill_manual(values = c("National Park Zone" = "#7bbc63",
+                                          "Habitat Protection Zone" = "#fff8a3",
+                                          "Multiple Use Zone" = "#b9e6fb",
+                                          "Special Purpose Zone (Mining Exclusion)" = "#368ac1",
+                                          "Special Purpose Zone" = "#368ac1"),
+                                name = "Commonwealth Marine Parks")
+
+# assign commonwealth zone colours
+lang_fills <- scale_fill_manual(values = c("1" = "#bcdeae",
+                                           "2" = "#bcdeae",
+                                           "3" = "#e9b4cb",
+                                           "4" = "#c7efda",
+                                           "5" = "#e5b6a5",
+                                           "6" = "#8fd4e6",
+                                           "7" = "#d8d1a7",
+                                           "8" = "#dacedd",
+                                           "9" = "#96bfad",
+                                           "10" = "#d5d3bf", 
+                                           "11" = "#b5d6db"))
+
+carto.pal(pal1 = "pastel.pal", n1 = 12)
+brewer.pal(2, "Blues")
+
+p1 <- ggplot() +
+  geom_raster(data = bathdf, aes(x = x, y = y, fill = Z), show.legend = F) +
+  scale_fill_gradient(low = "#062f6b", high = "#9dc9e1") +
+  new_scale_fill() +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa_c, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  nmpa_fills +
+  new_scale_fill() +
+  geom_sf(data = wa_sanc, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = langspat, aes(fill = id), alpha = 0.3, colour = "gray50", 
+          size = 0.02, show.legend = F, linetype = "dotted") +
+  lang_fills +
+  new_scale_fill() +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  geom_sf(data = langspat,fill = NA, colour = "gray50", 
+          size = 0.02, show.legend = F, linetype = "dotted") +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  coord_sf(xlim = c(114, 119.9), ylim = c(-35.5, -32.1)) +
+  geom_text(data = lang, aes(x = x, y = y, label = language_name), fontface = "italic", size = 3) +
+  labs(x = "Longitude", y = "Latitude") +
+  theme_minimal() +
+  theme(axis.line=element_blank(),axis.text.x=element_blank(),
+        axis.text.y=element_blank(),axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),legend.position="none",
+        panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),plot.background=element_blank())
+png(filename = "plots/Indigenous-language-groups.png", units = "in", res = 300,
+    width = 10, height = 6)
+p1
+dev.off()
+
+p2 <- ggplot() +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  nmpa_fills +
+  new_scale_fill() +
+  geom_sf(data = wa_sanc, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = austerr, aes(fill = TYPE), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  geom_sf(data = langspat,fill = NA, colour = "gray50", 
+          size = 0.02, show.legend = F, linetype = "dotted") +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  coord_sf() +
+  theme_minimal() + 
+  theme(axis.line=element_blank(),axis.text.x=element_blank(),
+        axis.text.y=element_blank(),axis.ticks=element_blank(),
+        axis.title.x=element_blank(),
+        axis.title.y=element_blank(),legend.position="none",
+        panel.background=element_blank(),panel.border=element_blank(),panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),plot.background=element_blank())
+# png(filename = "plots/Indigenous-language-groups.png", units = "in", res = 300,
+#     width = 10, height = 6)
+p2
+dev.off()
+
+unique(aumpa$ZoneName)
