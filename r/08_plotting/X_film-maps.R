@@ -1,3 +1,5 @@
+rm(list = ls())
+
 library(sf)
 library(ggplot2)
 library(stringr)
@@ -8,6 +10,7 @@ library(dplyr)
 library(tidyr)
 library(cartography)
 library(RColorBrewer)
+library(scales)
 
 # lang <- st_read("data/spatial/shapefiles/language-groups-final.shp")
 lang <- read.csv("data/tidy/aus-language-groups.csv") %>%
@@ -86,41 +89,20 @@ nmpa_fills <- scale_fill_manual(values = c("National Park Zone" = "#7bbc63",
                                           "Special Purpose Zone" = "#368ac1"),
                                 name = "Commonwealth Marine Parks")
 
-# assign commonwealth zone colours
-lang_fills <- scale_fill_manual(values = c("1" = "#bcdeae",
-                                           "2" = "#bcdeae",
-                                           "3" = "#e9b4cb",
-                                           "4" = "#c7efda",
-                                           "5" = "#e5b6a5",
-                                           "6" = "#8fd4e6",
-                                           "7" = "#d8d1a7",
-                                           "8" = "#dacedd",
-                                           "9" = "#96bfad",
-                                           "10" = "#d5d3bf", 
-                                           "11" = "#b5d6db"))
-
-carto.pal(pal1 = "pastel.pal", n1 = 12)
-brewer.pal(2, "Blues")
-
 p1 <- ggplot() +
-  geom_raster(data = bathdf, aes(x = x, y = y, fill = Z), show.legend = F) +
-  scale_fill_gradient(low = "#062f6b", high = "#9dc9e1") +
+  geom_raster(data = bathdf, aes(x = x, y = y, fill = Z),show.legend = F) +
+  scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+                       values = rescale(c(-6221, -120, 0))) +
   new_scale_fill() +
   geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
   geom_sf(data = aumpa_c, aes(fill = ZoneName), alpha = 0.4, color = NA) +
   nmpa_fills +
   new_scale_fill() +
   geom_sf(data = wa_sanc, fill = "#bfd054", alpha = 0.4, color = NA) +
-  # geom_sf(data = langspat, aes(fill = id), alpha = 0.3, colour = "gray50", 
-  #         size = 0.02, show.legend = F, linetype = "dotted") +
-  # lang_fills +
-  # new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
   geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
   terr_fills +
   new_scale_fill() +
-  # geom_sf(data = langspat,fill = NA, colour = "gray50", 
-  #         size = 0.02, show.legend = F, linetype = "dotted") +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
   coord_sf(xlim = c(114, 119.9), ylim = c(-35.5, -32.1)) +
   geom_text(data = lang, aes(x = x, y = y, label = language_name), fontface = "italic", size = 3) +
@@ -162,6 +144,7 @@ p2 <- ggplot() +
         panel.background = element_rect(fill = "#9dc9e1"),
         panel.border = element_blank(),panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),plot.background = element_blank())
+
 png(filename = "plots/Aus-with-parks.png", units = "in", res = 2000,
     width = 10, height = 7.5)
 p2
