@@ -122,23 +122,22 @@ preddf$method <- "BRUV"
 # preddf <- na.omit(preddf)
 
 preddf <- cbind(preddf, 
-                "p_totabund" = predict(m_totabund, preddf, type = "response",exclude = "s(site)",newdata.guaranteed=TRUE),
-                "p_richness" = predict(m_richness, preddf, type = "response",exclude = "s(site)",newdata.guaranteed=TRUE),
-                "p_legal" = predict(m_legal, preddf, type = "response",exclude = "s(site)",newdata.guaranteed=TRUE),
-                "p_sublegal" = predict(m_sublegal, preddf, type = "response")) #,exclude = "s(site)",newdata.guaranteed=TRUE
+                "p_totabund" = predict(m_totabund, preddf, type = "response",
+                                       exclude = "s(site)",newdata.guaranteed=TRUE, se.fit = T),
+                "p_richness" = predict(m_richness, preddf, type = "response",
+                                       exclude = "s(site)",newdata.guaranteed=TRUE, se.fit = T),
+                "p_legal" = predict(m_legal, preddf, type = "response",
+                                    exclude = "s(site)",newdata.guaranteed=TRUE, se.fit = T),
+                "p_sublegal" = predict(m_sublegal, preddf, type = "response",
+                                       exclude = "s(site)",newdata.guaranteed=TRUE, se.fit = T)) #,exclude = "s(site)",newdata.guaranteed=TRUE
 
-prasts <- rasterFromXYZ(preddf[, c(1, 2, 26:29)], res = c(231, 277)) 
+prasts <- rasterFromXYZ(preddf[, c(1, 2, 26:33)]) 
 plot(prasts)
 
 ###
 # subset to 10km from sites only
 sprast <- mask(prasts, sbuff)
 plot(sprast)
-
-plot(sprast$p_totabund)
-plot(sprast$p_richness)
-plot(sprast$p_legal)
-plot(sprast$p_sublegal)
 
 # tidy and output data
 spreddf <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)

@@ -18,6 +18,8 @@ library(cowplot)
 library(dplyr)
 library(raster)
 
+sf_use_s2(F)
+
 #Theme
 Theme1 <-
   theme( # use theme_get() to see available options
@@ -73,7 +75,7 @@ wanew <- st_zm(wanew)
 
 #total abundance
 p_totabund <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
-  dplyr::select(x,y,p_totabund)
+  dplyr::select(x,y,p_totabund.fit)
 #rasterise
 p_totabund <- rasterFromXYZ(p_totabund, crs = sppcrs)
 #reproject
@@ -85,7 +87,7 @@ p_totabund <- as.data.frame(p_totabund, xy = T, na.rm = T)
 
 #species richness
 p_richness <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
-  dplyr::select(x,y,p_richness)
+  dplyr::select(x,y,p_richness.fit)
 #rasterise
 p_richness <- rasterFromXYZ(p_richness, crs = sppcrs)
 #reproject
@@ -96,10 +98,22 @@ p_richness <- raster::mask(p_richness,wanew, inverse = T)
 #convert to dataframe
 p_richness <- as.data.frame(p_richness, xy = T, na.rm = T)
 
+p_richness.se <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
+  dplyr::select(x,y,p_richness.se.fit)
+#rasterise
+p_richness.se <- rasterFromXYZ(p_richness.se, crs = sppcrs)
+#reproject
+p_richness.se <- projectRaster(p_richness.se,crs = wgscrs)
+writeRaster(p_richness.se, "data/spatial/rasters/predicted-species-richness-se", format = "GTiff")
+#mask
+p_richness.se <- raster::mask(p_richness.se,wanew, inverse = T)
+#convert to dataframe
+p_richness.se <- as.data.frame(p_richness.se, xy = T, na.rm = T)
+
 #legal
 p_legal <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
-  dplyr::filter(p_legal<5)%>%
-  dplyr::select(x,y,p_legal)
+  dplyr::filter(p_legal.fit<5)%>%
+  dplyr::select(x,y,p_legal.fit)
 #rasterise
 p_legal <- rasterFromXYZ(p_legal, crs = sppcrs)
 #reproject
@@ -111,8 +125,8 @@ p_legal <- as.data.frame(p_legal, xy = T, na.rm = T)
 
 #sublegal
 p_sublegal <- readRDS("output/fish gamms/site_fish_predictions.rds")%>%
-  dplyr::filter(p_sublegal<5)%>%
-  dplyr::select(x,y,p_sublegal)
+  dplyr::filter(p_sublegal.fit<5)%>%
+  dplyr::select(x,y,p_sublegal.fit)
 #rasterise
 p_sublegal <- rasterFromXYZ(p_sublegal, crs = sppcrs)
 #reproject
@@ -147,7 +161,7 @@ p11
 
 #species richness
 p21 <- ggplot() +
-  geom_tile(data = p_richness, aes(x, y, fill = p_richness)) +
+  geom_tile(data = p_richness, aes(x, y, fill = p_richness.fit)) +
   scale_fill_viridis(direction = -1) +
   geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
   geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
@@ -166,6 +180,27 @@ p21 <- ggplot() +
   coord_sf(xlim = c(min(p_richness$x), max(p_richness$x)), ylim = c(min(p_richness$y), max(p_richness$y)))+
   Theme1
 p21
+
+p22 <- ggplot() +
+  geom_tile(data = p_richness.se, aes(x, y, fill = p_richness.se.fit)) +
+  scale_fill_viridis(direction = -1,option = "C") +
+  geom_sf(data = swc_npz[swc_npz$parkid == 4, ], fill = NA, colour = "#7bbc63") +
+  geom_sf(data = wanew, fill = NA, colour = "#bfd054") +
+  geom_sf(data = cwatr, colour = "firebrick", alpha = 1, size = 0.3) +
+  geom_contour(data = bathdf, aes(x, y, z = Depth),
+               breaks = c(0, -30, -70, -200), colour = "grey54",
+               alpha = 1, size = 0.5) +
+  annotate("text", x = c(114.455,114.729,114.94), y = -33.97, label = c("200m","70m","30m"), 
+           size = 1.8, colour = "grey54")+
+  annotate("rect", xmin = 114.7079, xmax = 114.9563, ymin = -34.14032, ymax = -34.01068,
+           colour = "grey15", fill = "white", alpha = 0.1, size = 0.1) +
+  theme_minimal() +
+  scale_x_continuous(breaks = c(114.4,114.6,114.8,115.0))+
+  labs(x = NULL, y = NULL, fill = "Species richness")+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"))+
+  coord_sf(xlim = c(min(p_richness.se$x), max(p_richness.se$x)), ylim = c(min(p_richness.se$y), max(p_richness.se$y)))+
+  Theme1
+p22
 
 # greater than legal size
 p31 <- ggplot() +
