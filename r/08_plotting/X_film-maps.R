@@ -74,7 +74,7 @@ terrnp <- terrnp[terrnp$leg_catego %in% c("Nature Reserve", "National Park"), ] 
 terrnp <- st_crop(terrnp, xmin = 110, xmax = 123, ymin = -39, ymax = -31)       # just swc
 
 austerr <- st_read("data/spatial/shapefiles/CAPAD2020_terrestrial.shp")
-austerr <- austerr[austerr$TYPE %in% c("Nature Reserve", "National Park"), ] # exclude state forests etc
+austerr <- austerr[austerr$TYPE %in% c("Nature Reserve", "National Park"), ]    # exclude state forests etc
 # Set colours
 # state terrestrial parks colours
 terr_fills <- scale_fill_manual(values = c("National Park" = "#c4cea6",
@@ -105,7 +105,7 @@ p1 <- ggplot() +
   new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
   coord_sf(xlim = c(114, 119.9), ylim = c(-35.5, -32.1)) +
-  geom_text(data = lang, aes(x = x, y = y, label = language_name), fontface = "italic", size = 3) +
+  geom_text(data = lang, aes(x = x, y = y, label = language_name), fontface = "italic", size = 4) +
   labs(x = "Longitude", y = "Latitude") +
   theme_minimal() +
   theme(axis.line = element_blank(),axis.text.x = element_blank(),
@@ -123,7 +123,8 @@ dev.off()
 
 p2 <- ggplot() +
   geom_raster(data = bathldf, aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
-  scale_fill_gradient(low = "#062f6b", high = "#9dc9e1") +
+  scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+                       values = rescale(c(-6221, -120, 0))) +
   new_scale_fill() +
   geom_sf(data = world, fill = "seashell2", colour = "grey80", size = 0.1) +
   geom_sf(data = aumpa, aes(fill = ZoneName), alpha = 0.4, color = NA) +
