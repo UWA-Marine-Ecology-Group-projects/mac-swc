@@ -104,8 +104,10 @@ p1 <- ggplot() +
   terr_fills +
   new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = are, aes(fill = IAR_NAME21)) + 
   coord_sf(xlim = c(114, 119.9), ylim = c(-35.5, -32.1)) +
-  geom_text(data = lang, aes(x = x, y = y, label = language_name), fontface = "italic", size = 4) +
+  geom_text(data = lang, aes(x = x, y = y, label = language_name), 
+            fontface = "bold.italic", size = 5, alpha = 0.65, colour = "darkorange3") +
   labs(x = "Longitude", y = "Latitude") +
   theme_minimal() +
   theme(axis.line = element_blank(),axis.text.x = element_blank(),
@@ -120,6 +122,8 @@ png(filename = "plots/Indigenous-language-groups.png", units = "in", res = 300,
     width = 10, height = 6.7)
 p1
 dev.off()
+
+are <- st_read("data/spatial/shapefiles/IARE_2021_AUST_GDA2020.shp")
 
 p2 <- ggplot() +
   geom_raster(data = bathldf, aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
@@ -136,6 +140,9 @@ p2 <- ggplot() +
   terr_fills +
   new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = iloc, aes(fill = ILO_NAME21)) + 
+  geom_text(data = lang, aes(x = x, y = y, label = language_name), 
+            fontface = "bold.italic", size = 1, alpha = 0.65, colour = "darkorange3") +
   coord_sf(xlim = c(111, 160), ylim = c(-44, -11)) +
   theme_minimal() +
   theme(axis.line = element_blank(),axis.text.x = element_blank(),
@@ -146,8 +153,8 @@ p2 <- ggplot() +
         panel.border = element_blank(),panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),plot.background = element_blank())
 
-png(filename = "plots/Aus-with-parks.png", units = "in", res = 2000,
-    width = 10, height = 7.5)
+# png(filename = "plots/Aus-with-parks.png", units = "in", res = 2000,
+#     width = 10, height = 7.5)
 p2
 dev.off()
 
