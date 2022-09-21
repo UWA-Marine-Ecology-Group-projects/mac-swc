@@ -69,7 +69,7 @@ metadata <- read.csv("data/tidy/2020-2021_south-west_BOSS-BRUV.Metadata.csv") %>
   dplyr::glimpse()
 
 #work out which points are on the sea cube
-metadata%>%
+metadata %>%
   dplyr::filter(sample%in%c("S1","S2","S3","343","IO343"))%>%
   ggplot()+
   geom_point(aes(x=longitude,y=latitude))+theme_classic()
@@ -124,6 +124,23 @@ master <- googlesheets4::read_sheet(url) %>%
   dplyr::select(family,genus,species,fishing.type,australian.common.name,minlegal.wa)%>%
   dplyr::distinct()%>%
   dplyr::glimpse()
+
+# Get fish in seagrass drops for Bin
+sgspp <- habitat %>%
+  dplyr::select(id, broad.seagrasses) %>%
+  left_join(maxn) %>%
+  left_join(metadata) %>%
+  dplyr::filter(!is.na(broad.seagrasses) & broad.seagrasses > 0 & maxn > 0 & !is.na(depth) & depth > 30) %>%
+  glimpse()
+
+sgsppl <- data.frame(unique(sgspp$scientific)) %>%
+  rename(scientific = 1) %>%
+  separate(col = scientific, into = c("family", "genus", "species")) %>%
+  left_join(master) %>%
+  dplyr::select(-c(fishing.type, minlegal.wa)) %>%
+  glimpse()
+
+write.csv(sgsppl, file = "data/tidy/SwC-seagrass-fish-species.csv", row.names = F)
 
 ## Combine all the maxn data to be modeled into a single data frame
 combined.maxn <- ta.sr %>%                                                        #removed all other taxa
