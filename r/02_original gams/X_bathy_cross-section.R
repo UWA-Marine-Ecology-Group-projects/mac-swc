@@ -93,11 +93,11 @@ p2 <- ggplot() +
   geom_segment(aes(x = -19.255987, xend = -16, y = -63, yend = -63), linetype = 2, alpha = 0.5) + # 12-13 Ka BP
   geom_segment(aes(x = -10, xend = 1, y = -41, yend = -41), linetype = 2, alpha = 0.5) + # 9-10 Ka BP
   annotate("text", x = c(-13.5,-13.5, -13.5, 3.5), y = c(-118,-94,-63,-35.93282), # 3.5 from end segment to start text
-           label = c("20-30 Ka", "15-17 Ka", "12-13 Ka", "9-10 Ka"),  # Bold text
+           label = c("18-20 Ka", "15-17 Ka", "12-13 Ka", "9-10 Ka"),  # Bold text
            size = 3.5, fontface = "bold") +
   geom_segment(aes(x = -5.556, xend = -5.556, y =-44.03002, yend = 0), color = "red") +
-  annotate("text", x = c(-33, -6.5), y = c(-170, -77), label = c("Mid-shelf sand plains", "Submerged
-  wetlands"), size = 3) + # Standard text
+  annotate("text", x = c(-33, -6.5), y = c(-170, -77), label = c("Mid-shelf sand plains", "Coastal
+  lowlands"), size = 3) + # Standard text
   annotate("rect", xmin = -40, xmax = -25, ymin = -155, ymax = -110,  fill = "white", color = "gray33", alpha = 0.3) + # Sand plains highlight box
   annotate("rect", xmin = -8, xmax = -5, ymin = -50, ymax = -25, fill = "white", color = "gray33", alpha = 0.3) # Wetlands highlight box
 p2

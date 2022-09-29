@@ -183,7 +183,7 @@ p3 <- ggplot() +
   geom_text(data = lang, aes(x = x, y = y, label = language_name), 
             fontface = "bold.italic", size = 10, alpha = 0.65, colour = "darkorange3") +
   labs(x = "Longitude", y = "Latitude") +
-  annotate("rect", xmin = 114.708118647453, xmax = 114.956063687516, 
+  annotate("rect", xmin = 114.708118647453, xmax = 114.956063687516,
            ymin = -34.1400803710618, ymax = -34.0108992689951,
            colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 1.5) +
   theme_minimal() +
