@@ -17,6 +17,8 @@ library(colorspace)
 lang <- read.csv("data/tidy/aus-language-groups.csv") %>%
   dplyr::rename(x = "approximate_longitude_of_language_variety",
                 y = "approximate_latitude_of_language_variety") %>%
+  dplyr::mutate(language_name = ifelse(language_name %in% "Pibelmen", 
+                                       "Pibulmun", language_name)) %>%
   glimpse()
 
 langspat <- st_read("data/spatial/shapefiles/language-groups-clipped.shp") %>%
@@ -124,7 +126,7 @@ p1 <- ggplot() +
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),plot.background = element_blank(),
         plot.margin = grid::unit(c(0,0,0,0), "mm"))
-png(filename = "plots/Indigenous-language-groups.png", units = "in", res = 300,
+png(filename = "plots/film maps/Indigenous-language-groups.png", units = "in", res = 900,
     width = 10, height = 6.7)
 p1
 dev.off()
@@ -145,9 +147,9 @@ p2 <- ggplot() +
   terr_fills +
   new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
-  geom_point(data = lang, aes(x = x, y = y, colour = language_name),
-            size = 5, alpha = 0.15) + #, colour = "darkorange3"
-  scale_colour_discrete_sequential(palette = "YlOrBr") +
+  # geom_point(data = lang, aes(x = x, y = y, colour = language_name),
+  #           size = 5, alpha = 0.15) + #, colour = "darkorange3"
+  # scale_colour_discrete_sequential(palette = "YlOrBr") +
   coord_sf(xlim = c(111, 160), ylim = c(-44, -11)) +
   theme_minimal() +
   theme(axis.line = element_blank(),axis.text.x = element_blank(),
@@ -158,12 +160,49 @@ p2 <- ggplot() +
         panel.border = element_blank(),panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),plot.background = element_blank())
 
-png(filename = "plots/Aus-with-parks.png", units = "in", res = 200,
+png(filename = "plots/film maps/Aus-with-parks.png", units = "in", res = 2000,
     width = 10, height = 7.5)
 p2
 dev.off()
 
 p3 <- ggplot() +
+  geom_raster(data = bathdf, aes(x = x, y = y, fill = Z),show.legend = F) +
+  scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+                       values = rescale(c(-6221, -120, 0))) +
+  new_scale_fill() +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa_c, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  nmpa_fills +
+  new_scale_fill() +
+  geom_sf(data = wa_sanc, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = terrnp, aes(fill = leg_catego), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  # geom_sf(data = are, aes(fill = IAR_NAME21)) + 
+  coord_sf(xlim = c(114, 116.2), ylim = c(-34.6, -33.3)) +
+  geom_text(data = lang, aes(x = x, y = y, label = language_name), 
+            fontface = "bold.italic", size = 10, alpha = 0.65, colour = "darkorange3") +
+  labs(x = "Longitude", y = "Latitude") +
+  # annotate("rect", xmin = 114.708118647453, xmax = 114.956063687516,
+  #          ymin = -34.1400803710618, ymax = -34.0108992689951,
+  #          colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 1.5) +
+  theme_minimal() +
+  theme(axis.line = element_blank(),axis.text.x = element_blank(),
+        axis.text.y = element_blank(),axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),legend.position = "none",
+        panel.background = element_blank(),panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),plot.background = element_blank(),
+        plot.margin = grid::unit(c(0,0,0,0), "mm"))
+png(filename = "plots/film maps/Indigenous-language-groups-zoomed.png", units = "in", res = 500,
+    width = 10, height = 6.7)
+p3
+dev.off()
+
+p4 <- ggplot() +
   geom_raster(data = bathdf, aes(x = x, y = y, fill = Z),show.legend = F) +
   scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
                        values = rescale(c(-6221, -120, 0))) +
@@ -195,9 +234,9 @@ p3 <- ggplot() +
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),plot.background = element_blank(),
         plot.margin = grid::unit(c(0,0,0,0), "mm"))
-png(filename = "plots/Indigenous-language-groups-zoomed-multibeam.png", units = "in", res = 300,
+png(filename = "plots/film maps/Indigenous-language-groups-zoomed-multibeam.png", units = "in", res = 500,
     width = 10, height = 6.7)
-p3
+p4
 dev.off()
 
 
