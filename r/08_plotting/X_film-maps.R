@@ -187,7 +187,7 @@ p2 <- ggplot() +
   terr_fills +
   new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
-  coord_sf(xlim = c(108.2501, 170), ylim = c(-45, -10)) +
+  coord_sf(xlim = c(min(bathldf$x), max(bathldf$x)), ylim = c(min(bathldf$y), max(bathldf$y))) +
   theme_minimal() +
   theme(axis.line = element_blank(),axis.text.x = element_blank(),
         axis.text.y = element_blank(),axis.ticks = element_blank(),
@@ -217,10 +217,10 @@ p2.5 <- ggplot() +
   terr_fills +
   new_scale_fill() +
   geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
-  coord_sf(xlim = c(108.2501, 170), ylim = c(-45, -10)) +
-  annotate("rect", xmin = 114.5, xmax = 115.5,
-           ymin = -34.25, ymax = -33.2,
-           colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 0.5) +
+  coord_sf(xlim = c(min(bathldf$x), max(bathldf$x)), ylim = c(min(bathldf$y), max(bathldf$y))) +
+  annotate("rect", xmin = 114.2, xmax = 115.7,
+           ymin = -34.7, ymax = -33.0,
+           colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 1.5) +
   theme_minimal() +
   theme(axis.line = element_blank(),axis.text.x = element_blank(),
         axis.text.y = element_blank(),axis.ticks = element_blank(),
