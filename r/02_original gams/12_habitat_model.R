@@ -129,5 +129,17 @@ spreddf$dom_tag <- sub('p', '', spreddf$dom_tag)
 unique(spreddf$dom_tag)
 head(spreddf)
 
+test <- spreddf[,c(1:2,10)]
+test$dom_tag <- as.factor(test$dom_tag)
+test$ndom_tag <- as.numeric(test$dom_tag)
+head(test)
+testraster <- rasterFromXYZ(test[,c("x", "y", "ndom_tag")], 
+                            crs = "+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")
+plot(testraster)
+testraster[] = factor(levels(test$dom_tag)[testraster[]])
+plot(testraster)
+
+saveRDS(testraster, file = "output/habitat_fssgam/swc-dominant-habitat_UTM50.rds")
+
 saveRDS(preddf,  "output/habitat_fssgam/broad_habitat_predictions.rds")
 saveRDS(spreddf, "output/habitat_fssgam/site_habitat_predictions.rds")
