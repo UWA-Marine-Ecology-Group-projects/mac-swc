@@ -138,6 +138,9 @@ plot(prasts)
 # subset to 10km from sites only
 sprast <- mask(prasts, sbuff)
 plot(sprast)
+crs(sprast) <- "+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs"
+
+saveRDS(sprast, file = "output/fish gamms/swc-fish-spatial_UTM50.rds")
 
 # tidy and output data
 spreddf <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)

@@ -117,6 +117,10 @@ plot(prasts)
 sprast <- mask(prasts, sbuff)
 plot(sprast)
 
+crs(sprast) <- "+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs"
+plot(sprast)
+saveRDS(sprast, file = "output/habitat_fssgam/swc-habitat-spatial_UTM50.rds")
+
 # tidy, categorise by dominant tag and output data
 spreddf         <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
 spreddf$dom_tag <- apply(spreddf[c(3:5,7:9)], 1,
