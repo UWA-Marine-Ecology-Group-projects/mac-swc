@@ -78,6 +78,7 @@ p1 <- ggplot() +
   annotate("text", x = 3, y = 200, label = "Boranup")+
   geom_segment(aes(x = -5.556, xend = -5.556, y =-44.03002, yend = 0), color = "red")
 p1
+# ggsave("plots/original gamms/bathy-cross-section_panela-notext.png", p1, height = 10, width = 21, units = "cm")
 
 p2 <- ggplot() +
   geom_rect(aes(xmin = min(bath_255$distance.from.coast), xmax = 5, ymin =-Inf, ymax = 0), fill = "#12a5db", alpha = 0.5) + # Add ocean
@@ -93,14 +94,16 @@ p2 <- ggplot() +
   geom_segment(aes(x = -19.255987, xend = -16, y = -63, yend = -63), linetype = 2, alpha = 0.5) + # 12-13 Ka BP
   geom_segment(aes(x = -10, xend = 1, y = -41, yend = -41), linetype = 2, alpha = 0.5) + # 9-10 Ka BP
   annotate("text", x = c(-13.5,-13.5, -13.5, 3.5), y = c(-118,-94,-63,-35.93282), # 3.5 from end segment to start text
-           label = c("18-20 Ka", "15-17 Ka", "12-13 Ka", "9-10 Ka"),  # Bold text
-           size = 3.5, fontface = "bold") +
+  label = c("18-20 Ka", "15-17 Ka", "12-13 Ka", "9-10 Ka"),  # Bold text
+  size = 3.5, fontface = "bold") +
   geom_segment(aes(x = -5.556, xend = -5.556, y =-44.03002, yend = 0), color = "red") +
   annotate("text", x = c(-33, -6.5), y = c(-170, -77), label = c("Mid-shelf sand plains", "Coastal
   lowlands"), size = 3) + # Standard text
   annotate("rect", xmin = -40, xmax = -25, ymin = -155, ymax = -110,  fill = "white", color = "gray33", alpha = 0.3) + # Sand plains highlight box
   annotate("rect", xmin = -8, xmax = -5, ymin = -50, ymax = -25, fill = "white", color = "gray33", alpha = 0.3) # Wetlands highlight box
 p2
+
+# ggsave("plots/original gamms/bathy-cross-section_panelb-notext.png", p2, height = 10, width = 21, units = "cm")
 
 p3 <- ggplot() +
   geom_rect(aes(xmin = min(bath_255$distance.from.coast), xmax = 4, ymin =-Inf, ymax = 0), fill = "#12a5db", alpha = 0.5) +
@@ -111,7 +114,7 @@ p3 <- ggplot() +
   theme_classic() +
   scale_x_continuous(expand = c(0,0)) +
   scale_y_continuous(breaks = c(100, 0, -100 , -200),expand = c(0,0), limits = c(-255, 240)) +
-  labs(x = "Distance from coast (km)", y = "Elevation (m)")+
+  labs(x = "Distance from coast (km)", y = "Elevation (m)") +
   annotate("text", x = 3, y = 175, label = "Boranup")+
   geom_segment(aes(x = -5.556, xend = -5.556, y =-44.03002, yend = 0), color = "red")
 p3
@@ -120,3 +123,4 @@ plots <- p1 / p2 / p3 + plot_annotation(tag_levels = "a")
 plots
 
 ggsave("plots/original gamms/bathy-cross-section.png", plots, height = 29, width = 21, units = "cm")
+# ggsave("plots/original gamms/bathy-cross-section_no-text.png", plots, height = 29, width = 21, units = "cm")
