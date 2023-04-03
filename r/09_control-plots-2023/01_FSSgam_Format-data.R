@@ -85,6 +85,10 @@ length <- read.csv("data/staging/2020_south-west_stereo-BRUVs.complete.length.cs
   dplyr::mutate(scientific=paste(family,genus,species,sep=" ")) %>%
   dplyr::glimpse()
 
+test <- length %>%
+  group_by(sample) %>%
+  dplyr::summarise(n = n())
+
 metadata.bruv <- read.csv("data/staging/2020_south-west_stereo-BRUVs.checked.metadata.csv") %>%
   dplyr::filter(successful.length%in%"Yes")%>%
   dplyr::mutate(sample=str_replace_all(.$sample,c("FHC01"="FHCO1","FHC02"="FHCO2","FHC03"="FHCO3"))) %>%
@@ -115,6 +119,10 @@ fished.species <- length %>%
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Platycephalidae Leviprora spp"),300,minlegal.wa))%>%
   dplyr::mutate(minlegal.wa=ifelse(scientific%in%c("Berycidae Centroberyx sp1"),300,minlegal.wa)) %>%
   dplyr::mutate(minlegal.wa = ifelse(is.na(minlegal.wa), 0, minlegal.wa))
+
+test <- fished.species %>%
+  group_by(sample) %>%
+  dplyr::summarise(n = n())
 
 without.min.length <- fished.species %>%
   filter(is.na(minlegal.wa))%>%
@@ -149,8 +157,63 @@ immature <- fished.species %>%
   dplyr::mutate(scientific = "smaller than size of maturity") %>%
   dplyr::glimpse()
 
+# Just for the west coast indicator species
+# Include both shallow and deep demersal species - even though we don't have all in the data
+legal.ind <- fished.species %>%
+  dplyr::filter(scientific %in% c("Labridae Choerodon rubescens",               # Baldchin
+                                  "Glaucosomatidae Glaucosoma hebraicum",       # Dhufish
+                                  "Sparidae Chrysophrys auratus",               # Snapper
+                                  "Polyprionidae Polyprion oxygeneios",         # Hapuka
+                                  "Polyprionidae Polyprion americanus",         # Bass grouper
+                                  "Centrolophidae Hyperoglyphe antarctica")) %>%# Blue eye
+  dplyr::filter(length > minlegal.wa) %>%
+  dplyr::group_by(sample) %>%
+  dplyr::summarise(number = sum(number)) %>%
+  dplyr::mutate(scientific = "greater than legal size indicator") %>%
+  dplyr::glimpse()
+
+sublegal.ind <- fished.species %>%
+  dplyr::filter(scientific %in% c("Labridae Choerodon rubescens",               # Baldchin
+                                  "Glaucosomatidae Glaucosoma hebraicum",       # Dhufish
+                                  "Sparidae Chrysophrys auratus",               # Snapper
+                                  "Polyprionidae Polyprion oxygeneios",         # Hapuka
+                                  "Polyprionidae Polyprion americanus",         # Bass grouper
+                                  "Centrolophidae Hyperoglyphe antarctica")) %>%# Blue eye
+  dplyr::filter(length<minlegal.wa) %>%
+  dplyr::group_by(sample) %>%
+  dplyr::summarise(number = sum(number)) %>%
+  dplyr::mutate(scientific = "smaller than legal size indicator") %>%
+  dplyr::glimpse()
+
+mature.ind <- fished.species %>%
+  dplyr::filter(scientific %in% c("Labridae Choerodon rubescens",               # Baldchin
+                                  "Glaucosomatidae Glaucosoma hebraicum",       # Dhufish
+                                  "Sparidae Chrysophrys auratus",               # Snapper
+                                  "Polyprionidae Polyprion oxygeneios",         # Hapuka
+                                  "Polyprionidae Polyprion americanus",         # Bass grouper
+                                  "Centrolophidae Hyperoglyphe antarctica")) %>%# Blue eye
+  dplyr::filter(length > fb.length.at.maturity) %>%
+  dplyr::group_by(sample) %>%
+  dplyr::summarise(number = sum(number)) %>%
+  dplyr::mutate(scientific = "greater than size of maturity indicator") %>%
+  dplyr::glimpse()
+
+immature.ind <- fished.species %>%
+  dplyr::filter(scientific %in% c("Labridae Choerodon rubescens",               # Baldchin
+                                  "Glaucosomatidae Glaucosoma hebraicum",       # Dhufish
+                                  "Sparidae Chrysophrys auratus",               # Snapper
+                                  "Polyprionidae Polyprion oxygeneios",         # Hapuka
+                                  "Polyprionidae Polyprion americanus",         # Bass grouper
+                                  "Centrolophidae Hyperoglyphe antarctica")) %>%# Blue eye
+  dplyr::filter(length < fb.length.at.maturity) %>%
+  dplyr::group_by(sample) %>%
+  dplyr::summarise(number = sum(number)) %>%
+  dplyr::mutate(scientific = "smaller than size of maturity indicator") %>%
+  dplyr::glimpse()
+
 ## Combine all the maxn data to be modeled into a single data frame
-combined.length <- bind_rows(legal, sublegal, mature, immature) # removed all other taxa
+combined.length <- bind_rows(legal, sublegal, mature, immature,
+                             legal.ind, sublegal.ind, mature.ind, immature.ind) # removed all other taxa
 
 unique(combined.length$scientific)
 
@@ -158,12 +221,13 @@ unique(combined.length$scientific)
 #   dplyr::select(sample)
 
 complete.length <- combined.length %>%
+  dplyr::right_join(.,metadata.bruv) %>% # Add in all samples
   dplyr::select(sample,scientific,number) %>%
   tidyr::complete(nesting(sample), scientific) %>%
   replace_na(list(number = 0)) %>% #we add in zeros - in case we want to calculate abundance of species based on a length rule (e.g. greater than legal size)
   dplyr::ungroup()%>%
-  dplyr::filter(!is.na(scientific)) %>% # this should not do anything
-  dplyr::left_join(.,metadata.bruv) %>%
+  dplyr::filter(!is.na(scientific)) %>% # Remove NAs added in by complete
+  dplyr::right_join(.,metadata.bruv) %>%
   dplyr::left_join(.,bathy) %>%
   dplyr::left_join(.,ramps) %>%
   dplyr::left_join(.,habitat) %>%
@@ -195,6 +259,13 @@ ggplot()+
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())
+
+test <- dat.length %>%
+  dplyr::group_by(sample) %>%
+  dplyr::summarise(n = n())
+
+test <- metadata.bruv %>%
+  dplyr::filter(successful.length %in% "Yes")
 
 saveRDS(dat.length, "data/tidy/2023-03_dat.length-maturity.rds")
 

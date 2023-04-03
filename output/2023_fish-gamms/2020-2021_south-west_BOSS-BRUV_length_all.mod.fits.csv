@@ -1,7 +1,6 @@
 "","modname","AICc","BIC","r2.vals","r2.vals.unique","edf","edf.less.1","delta.AICc","delta.BIC","wi.AICc","wi.BIC","mean.relief","detrended","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth","status","cumsum.wi"
-"greater than legal size","mean.relief+roughness+tpi",462.885437961608,588.437733209027,0.43289,NA,42.26,0,0,0,1,1,1,0,0,0,0,1,1,0,0,1
-"greater than size of maturity.depth+roughness+tpi","depth+roughness+tpi",794.551412127597,945.588039280526,0.38951,NA,62.3,0,0,1.727,0.362,0.202,0,0,0,0,0,1,1,1,0,0.362
-"greater than size of maturity.depth+roughness+status","depth+roughness+status",794.743696834109,943.860716867451,0.39269,NA,60.75,0,0.192,0,0.329,0.478,0,0,0,0,0,0,1,1,1,0.691
-"greater than size of maturity.depth+roughness","depth+roughness",795.459489135735,944.817728095844,0.39706,NA,61.01,0,0.908,0.957,0.23,0.296,0,0,0,0,0,0,1,1,0,0.921
-"smaller than legal size","broad.reef+roughness",614.410693488833,726.369464860614,0.22956,NA,36.62,0,0,0,0.455,0.675,0,0,0,1,0,0,1,0,0,0.455
-"smaller than size of maturity","broad.reef+detrended+tpi",157.131072411278,219.326992423325,0.16703,NA,12.59,0,0,0,1,1,0,1,0,1,0,1,0,0,0,1
+"greater than legal size","mean.relief+roughness",645.382243112851,812.78428161537,0.38993,NA,52.02,0,0,0,1,1,1,0,0,0,0,0,1,0,0,1
+"greater than legal size indicator","distance.to.ramp+roughness",272.335066150399,399.776500832888,0.17574,NA,36.46,0,0,0,0.872,0.979,0,0,0,0,1,0,1,0,0,0.872
+"greater than size of maturity","depth+roughness+tpi",635.936308486272,817.355130454584,0.35463,NA,58.31,0,0,0,0.781,0.686,0,0,0,0,0,1,1,1,0,0.781
+"greater than size of maturity indicator","mean.relief+roughness",397.325037375268,553.51217016628,0.38976,NA,45.38,0,0,0,0.908,0.887,1,0,0,0,0,0,1,0,0,0.908
+"smaller than legal size","broad.reef+roughness",667.711695902353,801.173074541627,0.20369,NA,38.09,0,0,0,0.514,0.766,0,0,0,1,0,0,1,0,0,0.514

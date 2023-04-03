@@ -39,6 +39,12 @@ dat$year <- as.numeric(dat$year)
 dat.cp <- dat %>%
   left_join(raw.dat)%>%
   dplyr::filter(!depth.zone %in% "shallow") %>%
+  dplyr::mutate(immature.mean    = as.numeric(NA),
+                immature.se      = as.numeric(NA),
+                sublegalind.mean = as.numeric(NA),
+                sublegalind.se   = as.numeric(NA),
+                immatureind.mean = as.numeric(NA),
+                immatureind.se   = as.numeric(NA)) %>%
   glimpse()
 
 # Greater than size of first maturity
@@ -77,7 +83,7 @@ gg.imm <- ggplot(data = dat.cp, aes(x = year, y = immature.mean,
              shape = 21, size = 2, stroke = 1, color = "black")+  #
   theme_classic() +
   # scale_y_continuous(limits = c(5,15))+
-  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  # geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
   ylab("Smaller than size of maturity")+
   xlab("Year")+
   labs(title = "a)")+
@@ -86,9 +92,10 @@ gg.imm <- ggplot(data = dat.cp, aes(x = year, y = immature.mean,
   facet_wrap(~depth.zone,
              labeller = labeller(depth.zone = c("mesophotic" = "Mesophotic",
                                                 "rariphotic" = "Rariphotic")))
-gg.imm
+  
+gg.imm + annotate(geom = "text", x = 2020, y = 1, label = "Not enough data")
 
-ggsave(filename = "plots/control-plots/immature-control.plots.png",gg.imm, units = "in", dpi = 300,
+ggsave(filename = "plots/control-plots/immature-control.plots.png", units = "in", dpi = 300,
        height = 4, width = 8)
 
 # Greater than legal size (updated size limits)
@@ -141,3 +148,104 @@ gg.sub
 ggsave(filename = "plots/control-plots/sublegal-control.plots.png",gg.sub, units = "in", dpi = 300,
        height = 4, width = 8)
 
+# Just for West coast demersal indicator species
+# Greater than size of first maturity
+gg.matind <- ggplot(data = dat.cp, aes(x = year, y = matureind.mean, 
+                                    ymin = matureind.mean - matureind.se,
+                                    ymax = matureind.mean + matureind.se, 
+                                    fill = status)) +
+  geom_errorbar(data = dat.cp, position = position_dodge(width = 0.5))+ 
+  geom_point(data = dat.cp,
+             position = position_dodge(width = 0.5),
+             shape = 21, size = 2, stroke = 1, color = "black")+  #
+  theme_classic() +
+  # scale_y_continuous(limits = c(5,15))+
+  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  ylab("Indicator species greater than size of maturity")+
+  xlab("Year")+
+  labs(title = "a)")+
+  scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
+  guides(fill=guide_legend(title = "Marine Park Zone"))+
+  facet_wrap(~depth.zone,
+             labeller = labeller(depth.zone = c("mesophotic" = "Mesophotic",
+                                                "rariphotic" = "Rariphotic")))
+gg.matind
+
+ggsave(filename = "plots/control-plots/mature-indicators-control.plots.png",gg.matind, units = "in", dpi = 300,
+       height = 4, width = 8)
+
+# Smaller than size of first maturity
+gg.immind <- ggplot(data = dat.cp, aes(x = year, y = immatureind.mean, 
+                                    ymin = immatureind.mean - immatureind.se,
+                                    ymax = immatureind.mean + immatureind.se, 
+                                    fill = status)) +
+  geom_errorbar(data = dat.cp, position = position_dodge(width = 0.5))+ 
+  geom_point(data = dat.cp,
+             position = position_dodge(width = 0.5),
+             shape = 21, size = 2, stroke = 1, color = "black")+  #
+  theme_classic() +
+  # scale_y_continuous(limits = c(5,15))+
+  # geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  ylab("Indicator species smaller than size of maturity")+
+  xlab("Year")+
+  labs(title = "a)")+
+  scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
+  guides(fill=guide_legend(title = "Marine Park Zone"))+
+  facet_wrap(~depth.zone,
+             labeller = labeller(depth.zone = c("mesophotic" = "Mesophotic",
+                                                "rariphotic" = "Rariphotic")))
+
+gg.immind + annotate(geom = "text", x = 2020, y = 1, label = "Not enough data")
+
+ggsave(filename = "plots/control-plots/immatureindicators-control.plots.png",units = "in", dpi = 300,
+       height = 4, width = 8)
+
+# Greater than legal size (updated size limits)
+gg.legind <- ggplot(data = dat.cp, aes(x = year, y = legalind.mean, 
+                                    ymin = legalind.mean - legalind.se,
+                                    ymax = legalind.mean + legalind.se, 
+                                    fill = status)) +
+  geom_errorbar(data = dat.cp, position = position_dodge(width = 0.5))+ 
+  geom_point(data = dat.cp,
+             position = position_dodge(width = 0.5),
+             shape = 21, size = 2, stroke = 1, color = "black")+  #
+  theme_classic() +
+  # scale_y_continuous(limits = c(5,15))+
+  geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  ylab("Indicator species greater than legal size")+
+  xlab("Year")+
+  labs(title = "a)")+
+  scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
+  guides(fill=guide_legend(title = "Marine Park Zone"))+
+  facet_wrap(~depth.zone,
+             labeller = labeller(depth.zone = c("mesophotic" = "Mesophotic",
+                                                "rariphotic" = "Rariphotic")))
+gg.legind
+
+ggsave(filename = "plots/control-plots/legalindicators-control.plots.png",gg.legind, units = "in", dpi = 300,
+       height = 4, width = 8)
+
+# Smaller than legal size (updated size limits)
+gg.subind <- ggplot(data = dat.cp, aes(x = year, y = sublegalind.mean, 
+                                    ymin = sublegalind.mean - sublegalind.se,
+                                    ymax = sublegalind.mean + sublegalind.se, 
+                                    fill = status)) +
+  geom_errorbar(data = dat.cp, position = position_dodge(width = 0.5))+ 
+  geom_point(data = dat.cp,
+             position = position_dodge(width = 0.5),
+             shape = 21, size = 2, stroke = 1, color = "black")+  #
+  theme_classic() +
+  # scale_y_continuous(limits = c(5,15))+
+  # geom_vline(xintercept = 2018.5, linetype="dashed",color = "black", size=0.5,alpha = 0.5)+
+  ylab("Indicator species smaller than legal size")+
+  xlab("Year")+
+  labs(title = "a)")+
+  scale_fill_manual(labels = c("Special Purpose Zone", "National Park Zone"),values=c("#6daff4", "#7bbc63"))+
+  guides(fill=guide_legend(title = "Marine Park Zone"))+
+  facet_wrap(~depth.zone,
+             labeller = labeller(depth.zone = c("mesophotic" = "Mesophotic",
+                                                "rariphotic" = "Rariphotic")))
+gg.subind + annotate(geom = "text", x = 2020, y = 1, label = "Not enough data")
+
+ggsave(filename = "plots/control-plots/sublegalindicators-control.plots.png",units = "in", dpi = 300,
+       height = 4, width = 8)

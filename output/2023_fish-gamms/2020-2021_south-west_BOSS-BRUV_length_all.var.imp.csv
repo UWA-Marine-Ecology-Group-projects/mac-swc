@@ -1,5 +1,6 @@
 "","mean.relief","detrended","broad.macroalgae","broad.reef","distance.to.ramp","tpi","roughness","depth","status"
-"greater than legal size",1,0,0,0,0,1,1,0,0
-"greater than size of maturity",0.079,0,0,0,0.001,0.364,1.001,0.921,0.363
-"smaller than legal size",0.24,0,0,0.746,0.002,0.185,0.992,0.01,0.196
-"smaller than size of maturity",0,1,0,1,0,1,0,0,0
+"greater than legal size",1,0,0,0,0,0,1,0,0
+"greater than legal size indicator",0,0.001,0,0,0.999,0.126,0.998,0,0
+"greater than size of maturity",0,0,0,0.001,0.007,0.789,1,0.992,0.14
+"greater than size of maturity indicator",0.908,0.026,0,0,0,0,0.974,0.026,0
+"smaller than legal size",0.256,0,0,0.712,0.002,0.014,0.986,0.027,0.259
