@@ -68,5 +68,15 @@ names(habi_df)
 
 saveRDS(habi_df, "data/spatial/full-extent_spatial_covariates.rds")
 write.csv(habi_df, "data/tidy/2020-2021_south-west_BOSS-BRUV.bathy.derivatives.csv")
+
+cbaths <- list.files("data/spatial/rasters/tiles/", "*tile", full.names = TRUE)
+cbathy <- lapply(cbaths, function(x){read.table(file = x, header = TRUE, sep = ",")})
+cbathy <- do.call("rbind", lapply(cbathy, as.data.frame)) 
+bath_r <- rasterFromXYZ(cbathy)
+crs(bath_r) <- wgscrs
+
+writeRaster(bath_r, "data/spatial/rasters/wadandi-cultural-guidance_bathymetry.tif",
+            overwrite = T)
+
 # clear workspace of large rasters etc
 rm(list=ls())
