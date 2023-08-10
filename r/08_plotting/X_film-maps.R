@@ -235,6 +235,121 @@ png(filename = "plots/film maps/Aus-with-parks-wadandi.png", units = "in", res =
 p2.5
 dev.off()
 
+# For the Two Rocks highlights clip
+# With SW Network box
+test <- aumpa %>% 
+  dplyr::filter(NetName %in% "South-west")
+ext(test)
+
+aus <- st_crop(aus, c(xmin = min(bathldf$x), ymin = min(bathldf$y), xmax = max(bathldf$x), ymax = max(bathldf$y)))
+
+p5 <- ggplot() +
+  geom_raster(data = bathldf, aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
+  scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+                       values = rescale(c(-8692.08, -120, 0))) +
+  new_scale_fill() +
+  geom_sf(data = world, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  nmpa_fills +
+  new_scale_fill() +
+  geom_sf(data = stateres, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = austerr, aes(fill = TYPE), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  annotate("rect", xmin = 109, xmax = 138,
+           ymin = -40.5, ymax = -24,
+           colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 1.5, lineend = "square") +
+  coord_sf(xlim = c(min(bathldf$x), max(bathldf$x)), ylim = c(min(bathldf$y), max(bathldf$y))) +
+  theme_minimal() +
+  theme(axis.line = element_blank(),axis.text.x = element_blank(),
+        axis.text.y = element_blank(),axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),legend.position = "none",
+        panel.background = element_rect(fill = "#9dc9e1", colour = NA),
+        panel.border = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),plot.background = element_blank())
+
+png(filename = "plots/film maps/Aus-with-parks-sw-network.png", units = "in", res = 200,
+    width = 16, height = 9)
+p5
+dev.off()
+
+# With Two Rocks MP
+p6 <- ggplot() +
+  geom_raster(data = bathldf %>% dplyr::filter(between(x, 110, 122),
+                                               between(y, -36, -27)), 
+              aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
+  scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+                       values = rescale(c(-8692.08, -120, 0))) +
+  new_scale_fill() +
+  # geom_sf(data = world, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  nmpa_fills +
+  new_scale_fill() +
+  geom_sf(data = stateres, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = austerr, aes(fill = TYPE), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  # geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  annotate("rect", xmin = 115, xmax = 115.7,
+           ymin = -31.4, ymax = -31.85,
+           colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 1.5,
+           lineend = "square") +
+  coord_sf(xlim = c(111, 121), ylim = c(-34, -29)) +
+  theme_minimal() +
+  theme(axis.line = element_blank(),axis.text.x = element_blank(),
+        axis.text.y = element_blank(),axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),legend.position = "none",
+        panel.background = element_rect(fill = "#9dc9e1"),
+        panel.border = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),plot.background = element_blank())
+
+png(filename = "plots/film maps/Aus-with-parks-two-rocks-mp.png", units = "in", res = 300,
+    width = 16, height = 9)
+p6
+dev.off()
+
+# With Two Rocks MP - zoomed in
+p7 <- ggplot() +
+  # geom_raster(data = bathldf %>% dplyr::filter(between(x, 114, 116),
+  #                                              between(y, -32, -30)), 
+  #             aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
+  # scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+  #                      values = rescale(c(-8692.08, -120, 0))) +
+  # new_scale_fill() +
+  # geom_sf(data = world, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = aumpa, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  nmpa_fills +
+  new_scale_fill() +
+  geom_sf(data = stateres, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = aus, fill = "seashell2", colour = "grey80", size = 0.1) +
+  geom_sf(data = austerr, aes(fill = TYPE), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  # geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  # annotate("rect", xmin = 115, xmax = 115.7,
+  #          ymin = -31.4, ymax = -31.85,
+  #          colour = "darkgoldenrod1", fill = "white", alpha = 0.2, size = 1.5,
+  #          lineend = "square") +
+  coord_sf(xlim = c(115, 115.7), ylim = c(-31.4, -31.85)) +
+  theme_minimal() +
+  theme(axis.line = element_blank(),axis.text.x = element_blank(),
+        axis.text.y = element_blank(),axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),legend.position = "none",
+        panel.background = element_rect(fill = "#9dc9e1"),
+        panel.border = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),plot.background = element_blank())
+
+png(filename = "plots/film maps/Aus-with-parks-two-rocks-mp-zoom.png", units = "in", res = 300,
+    width = 16, height = 9)
+p7
+dev.off()
+
 # p3 <- ggplot() +
 #   geom_raster(data = bathdf, aes(x = x, y = y, fill = Z),show.legend = F) +
 #   scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
