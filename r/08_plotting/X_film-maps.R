@@ -201,6 +201,36 @@ png(filename = "plots/film maps/Aus-with-parks.png", units = "in", res = 300,
 p2
 dev.off()
 
+# Map of AU No marine parks
+p2.4 <- ggplot() +
+  geom_raster(data = bathldf, aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
+  scale_fill_gradientn(colours = c("#062f6b", "#2b63b5","#9dc9e1"),
+                       values = rescale(c(-8692.08, -120, 0))) +
+  new_scale_fill() +
+  geom_sf(data = world, fill = "seashell2", colour = "grey80", size = 0.1) +
+  # geom_sf(data = aumpa, aes(fill = ZoneName), alpha = 0.4, color = NA) +
+  # nmpa_fills +
+  # new_scale_fill() +
+  # geom_sf(data = stateres, fill = "#bfd054", alpha = 0.4, color = NA) +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  geom_sf(data = austerr, aes(fill = TYPE), alpha = 4/5, colour = NA) +
+  terr_fills +
+  new_scale_fill() +
+  geom_sf(data = aus, fill = NA, colour = "grey80", size = 0.1) +
+  coord_sf(xlim = c(min(bathldf$x), max(bathldf$x)), ylim = c(min(bathldf$y), max(bathldf$y))) +
+  theme_minimal() +
+  theme(axis.line = element_blank(),axis.text.x = element_blank(),
+        axis.text.y = element_blank(),axis.ticks = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),legend.position = "none",
+        panel.background = element_rect(fill = "#9dc9e1"),
+        panel.border = element_blank(),panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),plot.background = element_blank())
+png(filename = "plots/film maps/Aus-without-parks.png", units = "in", res = 900,
+    width = 16, height = 9)
+p2.4
+dev.off()
+
 # Map of AU + AMP’s + orange box around wadandi
 p2.5 <- ggplot() +
   geom_raster(data = bathldf, aes(x = x, y = y, fill = bath_250_good), show.legend = F) +
