@@ -10,7 +10,7 @@
 rm(list=ls())
 
 library(sf)
-library(rgeos)
+# library(rgeos)
 library(rnaturalearth)
 library(ggplot2)
 library(metR)
