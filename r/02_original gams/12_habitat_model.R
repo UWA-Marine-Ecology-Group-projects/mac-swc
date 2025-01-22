@@ -105,12 +105,12 @@ preddf <- cbind(preddf,
                 "pmacroalgae" = predict(m_macro, preddf, type = "response"),
                 "psand" = predict(m_sand, preddf, type = "response"),
                 "pbiogenic" = predict(m_biogenic,preddf, type = "response"),
-                "preef" = predict(m_reef, preddf, type = "response"),
+                "preef" = predict(m_reef, preddf, type = "response", se.fit = T),
                 "prock" = predict(m_rock, preddf, type = "response"),
                 "pseagrass" = predict(m_grass, preddf, type = "response"),
                 "psponge" = predict(m_sponge, preddf, type = "response"))
 
-prasts <- rasterFromXYZ(preddf[,c(1,2,8:14)])
+prasts <- rasterFromXYZ(preddf[,c(1,2,8:15)])
 plot(prasts)
 
 # subset to 10km from sites only
@@ -123,23 +123,23 @@ saveRDS(sprast, file = "output/habitat_fssgam/swc-habitat-spatial_UTM50.rds")
 
 # tidy, categorise by dominant tag and output data
 spreddf         <- as.data.frame(sprast, xy = TRUE, na.rm = TRUE)
-spreddf$dom_tag <- apply(spreddf[c(3:5,7:9)], 1,
+spreddf$dom_tag <- apply(spreddf[c(3:5,8:10)], 1,
                         FUN = function(x){names(which.max(x))})
 spreddf$dom_tag <- sub('p', '', spreddf$dom_tag)
 unique(spreddf$dom_tag)
 head(spreddf)
 
-test <- spreddf[,c(1:2,10)]
-test$dom_tag <- as.factor(test$dom_tag)
-test$ndom_tag <- as.numeric(test$dom_tag)
-head(test)
-testraster <- rasterFromXYZ(test[,c("x", "y", "ndom_tag")], 
-                            crs = "+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")
-plot(testraster)
-testraster[] = factor(levels(test$dom_tag)[testraster[]])
-plot(testraster)
+# test <- spreddf[,c(1:2,10)]
+# test$dom_tag <- as.factor(test$dom_tag)
+# test$ndom_tag <- as.numeric(test$dom_tag)
+# head(test)
+# testraster <- rasterFromXYZ(test[,c("x", "y", "ndom_tag")], 
+#                             crs = "+proj=utm +zone=50 +south +datum=WGS84 +units=m +no_defs")
+# plot(testraster)
+# testraster[] = factor(levels(test$dom_tag)[testraster[]])
+# plot(testraster)
 
-saveRDS(testraster, file = "output/habitat_fssgam/swc-dominant-habitat_UTM50.rds")
+# saveRDS(testraster, file = "output/habitat_fssgam/swc-dominant-habitat_UTM50.rds")
 
 saveRDS(preddf,  "output/habitat_fssgam/broad_habitat_predictions.rds")
 saveRDS(spreddf, "output/habitat_fssgam/site_habitat_predictions.rds")
